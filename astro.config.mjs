@@ -10,7 +10,7 @@ export default defineConfig({
 		starlight({
 			title: 'CPSC-1520-DG',
 			social: {
-				github: 'https://github.com/withastro/starlight',
+				github: 'https://github.com/dgilleland/CPSC-1520',
 			},
 			sidebar: [
 				{
