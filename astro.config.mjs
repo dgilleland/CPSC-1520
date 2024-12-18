@@ -5,7 +5,7 @@ import starlight from '@astrojs/starlight';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://dgilleland.github.io',
-	base: 'CPSC-1520',
+	base: '/CPSC-1520',
 	integrations: [
 		starlight({
 			title: 'CPSC-1520-DG',
