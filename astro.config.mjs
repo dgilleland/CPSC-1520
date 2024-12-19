@@ -14,7 +14,11 @@ export default defineConfig({
 			},
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Tutorials',
+					autogenerate: { directory: 'reference' },
+				},
+				{
+					label: 'How-To Guides',
 					items: [
 						// Each item here is one entry in the navigation menu.
 						{ label: 'Example Guide', slug: 'guides/example' },
