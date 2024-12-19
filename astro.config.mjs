@@ -15,7 +15,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Tutorials',
-					autogenerate: { directory: 'reference' },
+					autogenerate: { directory: 'tutorials' },
 				},
 				{
 					label: 'How-To Guides',
