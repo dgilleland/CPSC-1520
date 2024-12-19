@@ -1,4 +1,14 @@
-# Starlight Starter Kit: Basics
+# CPSC-1520 (A *Temporary* Website)
+
+> To update, run the following or see [the Astro upgrade guide](https://docs.astro.build/en/guides/upgrade-to/v5/)
+>
+> ```ps
+> pnpm dlx @astrojs/upgrade
+> ```
+
+Built on **Astro v5**.
+
+## Starlight Starter Kit: Basics
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
 
