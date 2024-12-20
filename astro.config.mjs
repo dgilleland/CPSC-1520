@@ -2,13 +2,19 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+import tailwind from '@astrojs/tailwind';
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://dgilleland.github.io',
-	base: '/CPSC-1520',
-	integrations: [
+    site: 'https://dgilleland.github.io',
+    base: '/CPSC-1520',
+    integrations: [
 		starlight({
 			title: 'CPSC-1520-DG',
+			customCss: [
+			// Path to your Tailwind base styles:
+			'./src/tailwind.css',
+			],
 			social: {
 				github: 'https://github.com/dgilleland/CPSC-1520',
 			},
@@ -30,5 +36,9 @@ export default defineConfig({
 				},
 			],
 		}),
+		tailwind({
+			// Disable the default base styles:
+			applyBaseStyles: false,
+		})
 	],
 });
