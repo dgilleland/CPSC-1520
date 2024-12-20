@@ -1,0 +1,32 @@
+---
+title: Lab Submission
+description: How to submit labs and assignments using the git command-line tools.
+sidebar:
+  label: Labs/Assignments
+draft: false
+---
+import { Steps } from '@astrojs/starlight/components';
+
+The *TLDR* for using `git` from the command line is to follow these steps.
+
+<Steps>
+
+1. Make sure you are in the terminal at the *root* of your repository. *(See [terminal commands] for navigating folders in the terminal.)*
+1. Stage whatever files you want to commit. The simplest way is to add all of the changes you have done. Use this command (and don't forget the period).
+
+   ```ps
+   git add .
+   ```
+
+1. Commit your changes with a *meaningful* message.
+
+   ```ps
+   git commit -m "Short description"
+   ```
+
+1. Push to GitHub.
+
+   ```ps
+   git push
+   ```
+</Steps>
