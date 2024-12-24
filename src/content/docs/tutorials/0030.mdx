@@ -1,0 +1,151 @@
+---
+title: Querying the DOM
+description: An example of querying the DOM and accessing properties to change the text of certain DOM elements.
+sidebar:
+  label: Querying the DOM
+draft: false
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+<Aside title="Work-In-Progress (WIP)">
+*See [issue 13](https://github.com/dgilleland/CPSC-1520/issues/13).*
+</Aside>
+
+In this tutorial, we will build a very simple web page so that we can explore using JavaScript to query DOM elements and then change the content (text) of those elements.
+
+## Building the Web Page
+
+<Aside type="tip" title="Your Student Workbook">
+Your instructor may direct you to put the code for this tutorial in your student workbook. Create the subfolder to hold the file(s) mentioned below. It's a good idea to also take some notes on what you've learned/discovered in this tutorial. When you're done, commit and push your final solution.
+</Aside>
+
+
+<Steps>
+
+1. First, we need to set up a web page. Create a file called `index.html` and enter the following text:
+
+   ```html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <title>HTML vs. The DOM</title>
+   </head>
+   <body>
+       <h1>HTML vs. The DOM</h1>
+       <p>When we write HTML, we create tags (like &lt;p&gt;), add text, and reference images, stylesheets, etc. For example</p>
+       <figure>
+           <pre><code>&lt;h1&gt;Hello World-Wide Web&lt;/h1&gt;</code></pre>
+       </figure>
+   </body>
+   </html>
+   ```
+
+1. View the web page in your browser by launching it with LiveServer. You should see something like this (it might vary a bit, depending on your browser).
+
+   > 📋🖼️ Image Here
+
+1. Let's use a third-party CSS called PicoCSS. Add the following to the `<head>`, just under the `<title>`.
+
+   ```html
+   <link rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+   ```
+
+1. Modify the `<body>` tag by adding the CSS class *`container`*.
+
+   ```html
+   <body class='container'>
+   ```
+
+1. When you view it in the browser, it now looks like this.
+
+   > 📋🖼️ Image Here
+
+
+</Steps>
+
+
+We've created a simple web page, and if you've done something like this before, then it should feel pretty self-explanatory.
+
+## Exploring the DOM
+
+In this part, we will begin exploring our web page using JavaScript.
+
+<Steps>
+
+1. Return to the browser and view web page you created above. Open the browser's dev tools (press <kbd>F12</kbd>) and select the console.
+1. Type the following JavaScript in the console and press <kbd>Enter</kbd>.
+
+   ```js
+   document.querySelector('h1')
+   ```
+
+1. You should see the following in the terminal. If you hover your mouse over this result, you should see that the browser highlights the corresponding element in the browser.
+
+   ```html
+   <h1>HTML vs. The DOM</h1>
+   ```
+
+   <Aside>
+   You might think that the JavaScript is simply giving us our HTML, but *it's not*. It's actually referencing the DOM element. But because we *stopped* typing code by pressing <kbd>Enter</kbd>, it simply presented that DOM element as a *string* (the HTML you just saw.)
+   </Aside>
+
+1. Type another line in the console, but **don't press enter**. The code looks just like the previous one, ***but*** notice the dot (`.`) at the end.
+
+   ```js
+   document.querySelector('h1').
+   ```
+
+   You should be seeing a *dropdown* of all sorts of items. These are the *members* of that `<h1>` DOM element.
+
+   > 📋🖼️ Image Here
+
+1. Finish typing out the line with the text `nodeName`, then press <kbd>Enter</kbd>.
+
+   ```js
+   document.querySelector('h1').tagName
+   ```
+
+   You should see the the output `'H1'`.
+
+1. Try it again, but with a different member of the `<h1>` DOM element. Enter the following code in the console.
+
+   ```js
+   document.querySelector('h1').innerText
+   ```
+
+   This time, the output should be `HTML vs. The DOM`
+
+1. Let's look for another element. Enter the following in the console. It should display the HTML for the `<figure>` tag.
+
+   ```js
+   document.querySelector('figure')
+   ```
+
+1. Lastly, we'll see what the HTML looks like *inside* the `<figure>` element. Enter the following in the console.
+
+   ```js
+   document.querySelector('figure').innerHTML
+   ```
+
+   You should see the following displayed in the console.
+
+   ```html
+   <pre><code>&lt;h1&gt;Hello World-Wide Web&lt;/h1&gt;</code></pre>
+   ```
+
+</Steps>
+
+
+## Editing the DOM
+
+> TODO:
+>
+> - Change the .innerText to read `HTML vs. The Document Object Model`
+> - Change the `<figure>` to have a `<figcaption>`
+
+## Challenge: What's Next?
+
+How might you build on this tutorial?
+
