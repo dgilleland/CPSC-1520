@@ -70,7 +70,7 @@ We've created a simple web page, and if you've done something like this before, 
 
 ## Exploring the DOM
 
-In this part, we will begin exploring our web page using JavaScript.
+In this part, we will begin exploring our web page using JavaScript. Specifically, we'll be exploring the `document.querySelector()` function.
 
 <Steps>
 
@@ -88,7 +88,7 @@ In this part, we will begin exploring our web page using JavaScript.
    ```
 
    <Aside>
-   You might think that the JavaScript is simply giving us our HTML, but *it's not*. It's actually referencing the DOM element. But because we *stopped* typing code by pressing <kbd>Enter</kbd>, it simply presented that DOM element as a *string* (the HTML you just saw.)
+   You might think that the JavaScript is simply giving us our HTML, but *it's not*. It's actually referencing the **DOM element**. But because we *stopped* typing code by pressing <kbd>Enter</kbd>, it simply presented that DOM element as a *string* (the HTML you just observed).
    </Aside>
 
 1. Type another line in the console, but **don't press enter**. The code looks just like the previous one, ***but*** notice the dot (`.`) at the end.
@@ -100,6 +100,10 @@ In this part, we will begin exploring our web page using JavaScript.
    You should be seeing a *dropdown* of all sorts of items. These are the *members* of that `<h1>` DOM element.
 
    > 📋🖼️ Image Here
+
+   <Aside type="tip">
+   If the dropdown disappears, simply press <kbd>Backspace</kbd> and re-type the dot (`.`) *or* press <kbd>Ctrl</kbd> + <kbd>spacebar</kbd>.
+   </Aside>
 
 1. Finish typing out the line with the text `nodeName`, then press <kbd>Enter</kbd>.
 
@@ -137,6 +141,11 @@ In this part, we will begin exploring our web page using JavaScript.
 
 </Steps>
 
+In our browser, we can use the `document.querySelector()` function in JavaScript to find *HTML Elements* in the web page. Notice how I've used the term "HTML *Elements*" rather than referring to "*tags*". That's because our HTML *source code* (what we typed in the `index.html` file) is something different than what the browser *renders* or produces when it shows us that web page. It might be helpful to think of our `index.html` as a *recipe* whereas the thing we see in the web browser is the *result* of following that recipe. You can find more information in the document [HTML vs. The DOM].
+
+> TODO:
+>
+> - Link the above to the page yet-to-be-written for [issue 12](https://github.com/dgilleland/CPSC-1520/issues/12).
 
 ## Editing the DOM
 
