@@ -12,7 +12,7 @@ export default defineConfig({
 		starlight({
 			title: 'CPSC-1520-DG',
 			editLink: {
-			  baseUrl: 'https://github.com/dgilleland/CPSC-1520/edit/main/docs/',
+			  baseUrl: 'https://github.com/dgilleland/CPSC-1520/edit/main/',
 			},
 			customCss: [
 			// Path to your Tailwind base styles:
