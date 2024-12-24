@@ -11,6 +11,9 @@ export default defineConfig({
     integrations: [
 		starlight({
 			title: 'CPSC-1520-DG',
+			editLink: {
+			  baseUrl: 'https://github.com/dgilleland/CPSC-1520/edit/main/docs/',
+			},
 			customCss: [
 			// Path to your Tailwind base styles:
 			'./src/tailwind.css',
