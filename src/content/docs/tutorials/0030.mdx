@@ -149,13 +149,56 @@ In our browser, we can use the `document.querySelector()` function in JavaScript
 
 ## Editing the DOM
 
-> TODO:
->
-> - Change the `.innerText` to read `HTML vs. The Document Object Model`
-> - Change the `<figure>` to have a `<figcaption>`
-> - After observing the effects of running our JavaScript code, **refresh the page**. Notice how those changes have disappeared? That's because we used JavaScript to change what was in *the browser*, not what was in our `index.html` file! Refreshing the page tells the browser to reload the `index.html`.
+We observed that we can use the `.innerText` and `.innerHTML` properties allow us to retrieve the text and HTML inside a DOM element. We can also use these properties to *change* the content of DOM elements. It's time to discover how we can edit our document object model.
+
+<Steps>
+1. Let's change the text in our `<h1>` element. Type the following inside the browser's console and then press <kbd>Enter</kbd>.
+
+   ```js
+   document.querySelector('h1').innerText = 'HTML vs. The Document Object Model'
+   ```
+
+   You should see the text change inside the browser. We have *replaced* the original text of the element with something different. In the code we just wrote, the `=` symbol is called the **assignment operator**.
+1. This next line of JavaScript will *append* text to what we currently have in the `<h1>` element.
+
+   ```js
+   document.querySelector('h1').innerHTML += ' (DOM)'
+   ```
+
+   Notice that this time we used the `+=` operator. This is a slightly different assignment operator that allows us to add text to the end of what is currently in the DOM element.
+1. Now, let's add a caption to our sample code. Enter the following in the console.
+
+   ```js
+   document.querySelector('figure').innerHTML += '<figcaption>Sample HTML Tag</figcaption>'
+   ```
+
+   This time, we didn't just append plain text to our element. Instead, we changed the HTML of that element. Type the following to see what our `<figure>` looks like as HTML.
+
+   ```js
+   document.querySelector('figure')
+   ```
+
+1. Let's see what happens if we try putting in HTML tags using the `.innerText`. Once again, we'll change the `<h1>` element.
+
+   ```js
+   document.querySelector('h1').innerText = 'I can write <u>JavaScript</u>'
+   ```
+
+   What did you see in the browser? Was the word JavaScript underlined?
+1. This time, let's use the `.innerHTML` property.
+
+   ```js
+   document.querySelector('h1').innerHTML = 'I can write <u>JavaScript</u>'
+   ```
+
+1. After observing the effects of running our JavaScript code, **refresh the page** (you can do this by pressing the <kbd>F5</kbd> function key).
+
+   Did you notice how all our changes disappeared? That's because we used JavaScript to change what was in *the browser*, not what was in our `index.html` file! Refreshing the page tells the browser to reload the `index.html`.
+</Steps>
+
+You have just discovered how to **programmatically** edit the contents of a web page. This ability to iteract with our web page using JavaScript opens up endless possibilities for all sorts of end-user experiences!
 
 ## Challenge: What's Next?
 
-How might you build on this tutorial?
+How might you build on this tutorial? Continue exploring the use of the `.querySelector()` function in the HTML page you built. Then go and explore how you can use it in the dev console for *any* web page - even those built by other people! Lastly, take a look at the [official documentation for the `.querySelector()` method on MDN](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector).
 
