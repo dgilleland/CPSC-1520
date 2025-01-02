@@ -23,6 +23,20 @@ export default defineConfig({
 			},
 			sidebar: [
 				{
+					label: 'About',
+					items: [
+						// Each item here is one entry in the navigation menu.
+						{ label: 'Start Here', slug: 'about/start-here' },
+						// An external link to the NASA website opening in a new tab.
+						{
+							label: 'JavaScript Reference',
+							link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+							attrs: { target: '_blank', style: 'font-style: italic' },
+							badge: { text: 'MDN', variant: 'note' }
+						  },
+					],
+				},
+				{
 					label: 'Tutorials',
 					autogenerate: { directory: 'tutorials' },
 				},
@@ -37,10 +51,12 @@ export default defineConfig({
 				{
 					label: 'Explanations',
 					autogenerate: { directory: 'explanations' },
+					collapsed: true,
 				},
 				{
 					label: 'Reference',
 					autogenerate: { directory: 'reference' },
+					collapsed: true,
 				},
 			],
 		}),

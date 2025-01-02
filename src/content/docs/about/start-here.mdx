@@ -7,15 +7,21 @@ sidebar:
 draft: false
 ---
 
-import { Aside, Steps, FileTree } from '@astrojs/starlight/components';
+import { Aside, Badge, Steps, FileTree } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import dg from '../../../assets/DanGillelandNait.png';
 
-<Image src={dg} alt="Dan Gilleland (NAIT)" class="float-end" width="75" /> My name is Dan Gilleland. I've created this site as a place to put my ad-hoc resources that support my CPSC-1520 classes in January 2025. Why this site instead of the official <abbr title="Learning Management System">LMS</abbr>? Because this is **way easier to maintain**, and the effort involved in authoring doesn't need to be hindered by the clunkyness of most <abbr title="Learning Management System">LMS</abbr>es available today.
+<Image src={dg} alt="Dan Gilleland (NAIT)" class="float-end" width="75" /> My name is Dan Gilleland. I've created this site as a place to put my ad-hoc resources that support [my CPSC-1520 classes](#audience--content-advisory) in January 2025. Why this site instead of the official <abbr title="Learning Management System">LMS</abbr>? Because this is **way easier to maintain**, and the effort involved in authoring doesn't need to be hindered by the clunkyness of most <abbr title="Learning Management System">LMS</abbr>es available today.
 
 <Aside type="tip" title="Contributions">
 If you have a suggestion or content request, please add them as comments on [this discussion](https://github.com/dgilleland/CPSC-1520/issues/4).
 </Aside>
+
+## Using this site
+
+Use the side-bar site navigation if you know where you want to go. Some of the links in the navigation jump to the official documentation on the Mozilla Developer Network; these will have the <Badge text="MDN" size="small" variant="note" /> badge next to the link and will open in a new browser tab.
+
+If you are unsure of where to find what you're looking for, then use the built-in search (<kbd>Ctrl</kbd> + <kbd>k</kbd>). It's pretty good, and is a built-in feature of this [Astro Starlight](https://starlight.astro.build) framework.
 
 ## Audience & Content Advisory
 
@@ -24,10 +30,6 @@ If you have a suggestion or content request, please add them as comments on [thi
 <Aside type="caution">
 This site is *temporary*, so don't expect any bookmarks to work after June 2024. I am, however, planning on taking the work done here and publishing it into a longer-lived site on **Programming Fundamentals for JavaScript/TypeScript**.
 </Aside>
-
-## Using this site
-
-Use the side-bar site navigation if you know where you want to go. If you are unsure of where to find what you're looking for, then use the built-in search (<kbd>Ctrl k</kbd>). It's pretty good, and is a built-in feature of this [Astro Starlight](https://starlight.astro.build) framework. 
 
 ## Student Workbook and Integrations 💯
 
