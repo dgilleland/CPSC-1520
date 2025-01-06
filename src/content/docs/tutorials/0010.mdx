@@ -6,5 +6,126 @@ sidebar:
 draft: false
 ---
 
-> *See [issue 2](https://github.com/dgilleland/CPSC-1520/issues/2).*
+import { Aside, Badge, Code, Icon, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import Mascot from './0010/octocat-1736163533730.png';
+import VSCode from '@vscode/codicons/src/icons/extensions.svg';
 
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 2](https://github.com/dgilleland/CPSC-1520/issues/2).*
+</Aside>
+
+In this tutorial, we will set up our development environment for JavaScript development. This involves [getting a GitHub account](#-sign-up-for-github) and [installing certain tools](#installing-the-tools) (*i.e.: computer programs*).
+
+Along the way, we will configuring our primary tool - Visual Studio Code - with the recommended extensions for this course. Most of these tools are *command-line* tools, meaning that you typically run them from the terminal environment (see [*To-Be-Written*] for details). In this tutorial, I'll be using the terms 'tool' and 'program' interchagably, as they mean basically the same thing in this context.
+
+<Aside title="One-Time Setup">
+Getting the tools on your computer is a one-time setup, and you might already have them installed. You can check if something is installed by opening a terminal and typing the program's name followed by `--version` to get the current version number. If you get the tool's version number, then it's alreay installed and you can skip this tutorial.
+
+Here's my set of tools and their version numbers (*as of Jan 2025*).
+
+```ps
+git --version
+# git version 2.42.0.windows.2
+code --version
+# 1.96.2
+node --version
+# v22.12.0
+npm --version
+# 10.1.0
+pnpm --version
+# 9.10.0
+gh --version
+# gh version 2.31.0 (2023-06-20)
+```
+
+If you get a result saying that the program is not available (e.g.: `'npm' is not recognized as an internal or external command, operable program or batch file`), then you need to follow the steps identified below for that specific tool.
+</Aside>
+
+## <Icon name="github" class="starlight-aside__icon" /> Sign Up for GitHub
+
+You can <a target="_blank" href="https://github.com/signup">get a GitHub account</a> for free. GitHub is a hosting platform for the **git** version control system. I've been using GitHub since 2012, and my life has been happier, simpler and more productive ever since!
+
+<Image src={Mascot} alt="The Octocat is the primary GitHub Mascot" />
+
+## Installing the tools
+
+The two key tools are <a target="_blank" href="https://code.visualstudio.com">**Visual Studio Code**</a> (*VS Code*) and <a target="_blank" href="https://git-scm.com/downloads">**git**</a>. All the other tools are important, but
+
+### Git for Windows/Mac
+
+`git` is the **version control software** that the vast majority of programmers use every day. While there are several <abbr title="Graphical User Interface">GUI</abbr> tools built around it, `git` itself is a tool that you run from the terminal.
+
+<Steps>
+1. Go to the <a target="_blank" href="https://git-scm.com/downloads">git download page</a> and click the link for your operating system (e.g.:  <a target="_blank" href="https://git-scm.com/downloads/win">*Windows*</a>).
+1. Follow the instructions for your operating system.
+1. (**Windows**) Run the installation file and follow the prompts. You can accept all the default settings.
+</Steps>
+
+### Visual Studio Code
+
+We use VS Code primarily as an *editor* to write our source code, but it's much more than just a **code editor**. It's an *extensible IDE* (Integrated Development Environment), with several common support features built in. Here's how to get it installed.
+
+<Steps>
+1. Go to the <a target="_blank" href="https://code.visualstudio.com">Visual Studio Code Website</a> and click the *Download* button for your operating system.
+1. Run the installation file and follow the prompts. You can accept all the default settings.
+</Steps>
+
+### Node
+
+Node is a **run-time environment** that allows you to run JavaScript *outside* of the browser. As JavaScript developers, we'll use Node primarily as the way we set up our [JavaScript Projects][*TODO: Link to future article*].
+
+When you install Node, you actually get two command-line programs on your computer: `node` and `npm`. You can learn more about that in [*TODO: Link to future article*].
+
+<Steps>
+1. Go to the <a target="_blank" href="https://nodejs.org">NodeJS Website</a> and click the download button for the <abbr title="Long-Term Support">LTS</abbr> version
+1. Run the installation file and follow the prompts. You can accept all the default settings.
+</Steps>
+
+### PNPM
+
+PNPM is a modern alternative to using the `npm` tool. I strongly prefer using `pnpm` over `npm` because it's very fast and efficient!
+
+<Steps>
+1. Go to the <a target="_blank" href="https://pnpm.io/installation">pnpm installation page</a> and follow the instructions for your operating system.
+</Steps>
+
+### GitHub CLI
+
+The GitHub CLI is a tool that brings some GitHub-specific goodness to working with git. I find it helps me immensely with administrative tasks (creating issues, viewing workflows, etc.), but probably the most frequent way I use it is to quickly open up my GitHub site for my local repository - `gh browse`.
+
+<Steps>
+1. Go to the <a target="_blank" href="https://cli.github.com/">GitHub CLI site</a> and click the download button.
+1. Run the installation file and follow the prompts. You can accept all the default settings.
+</Steps>
+
+### VS Code and GitHub Authorization
+
+> *Author TODO: Complete this section*
+
+### VS Code Extensions
+
+<Image src={VSCode} alt="Extensions Icon" />
+
+
+Extensions are a great way to improve your productivity and simplify your coding experience. Here are the recommended extensions for this course:
+
+- <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">**Live Server**</a> (by Ritwick Dey)
+- <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one">**Markdown All in One**</a> (by Yu Zhang)
+- <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=yzane.markdown-pdf">**Markdown PDF**</a> (by yzane)
+- <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid">**Markdown Preview Mermaid Support**</a> (by Matt Bierner)
+
+<Aside type="caution">
+
+Installing extensions is super easy, but be careful not to go overboard. Some extensions can interfere with each other.
+</Aside>
+
+<Steps>
+1. Launch VS Code and click the Extensions icon.
+1. Enter the name of the extension you want in the search bar.
+1. Click the *Install* button for the extension.
+</Steps>
+
+## Updating Your Tools
+
+The programs you install to help you write code will often be updated over time. Some tools get updated frequently (VS Code is a good example, as new versions are published on a monthly basis). VS Code will open a pop-up when a new version is available. All of the other programs typically have their own update process, so you are encouraged to re-visit those sites to see the prescribed process for updating.
