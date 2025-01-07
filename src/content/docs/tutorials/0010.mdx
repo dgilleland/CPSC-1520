@@ -10,6 +10,11 @@ import { Aside, Badge, Code, Icon, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import Mascot from './0010/octocat-1736163533730.png';
 import VSCode from '@vscode/codicons/src/icons/extensions.svg';
+import SourceCode from '@vscode/codicons/src/icons/source-control.svg'
+import CodeUserInstall from './0010/vs-code-user-installer.png';
+import CodeAddOpen from './0010/vs-code-add-open-with-code.png';
+import GitEditor from './0010/git-default-editor.png';
+import PnpmDefender from './0010/pnpm-defender-warning.png';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 2](https://github.com/dgilleland/CPSC-1520/issues/2).*
@@ -25,10 +30,10 @@ Getting the tools on your computer is a one-time setup, and you might already ha
 Here's my set of tools and their version numbers (*as of Jan 2025*).
 
 ```ps
-git --version
-# git version 2.42.0.windows.2
 code --version
 # 1.96.2
+git --version
+# git version 2.43.0.windows.1
 node --version
 # v22.12.0
 npm --version
@@ -36,7 +41,7 @@ npm --version
 pnpm --version
 # 9.10.0
 gh --version
-# gh version 2.31.0 (2023-06-20)
+# gh version 2.41.0 (2024-01-08)
 ```
 
 If you get a result saying that the program is not available (e.g.: `'npm' is not recognized as an internal or external command, operable program or batch file`), then you need to follow the steps identified below for that specific tool.
@@ -44,13 +49,37 @@ If you get a result saying that the program is not available (e.g.: `'npm' is no
 
 ## <Icon name="github" class="starlight-aside__icon" /> Sign Up for GitHub
 
+<Image src={Mascot} alt="The Octocat is the primary GitHub Mascot" width="200" class="float-right" />
+
 You can <a target="_blank" href="https://github.com/signup">get a GitHub account</a> for free. GitHub is a hosting platform for the **git** version control system. I've been using GitHub since 2012, and my life has been happier, simpler and more productive ever since!
 
-<Image src={Mascot} alt="The Octocat is the primary GitHub Mascot" />
+<Aside type="danger">
+There's another (more important) reason to sign up for GitHub. I (Dan) require you to submit your assignments through GitHub, so if you don't have an account, you won't pass the course! *(It's probably the same if you have a different instructor, or they wouldn't have pointed you here.)*
+</Aside>
 
 ## Installing the tools
 
-The two key tools are <a target="_blank" href="https://code.visualstudio.com">**Visual Studio Code**</a> (*VS Code*) and <a target="_blank" href="https://git-scm.com/downloads">**git**</a>. All the other tools are important, but
+The two key tools are <a target="_blank" href="https://code.visualstudio.com">**Visual Studio Code**</a> (*VS Code*) and <a target="_blank" href="https://git-scm.com/downloads">**git**</a>. All the other tools are important, but you will using these two the most.
+
+Also note that the following instructions are geared mostly for Windows 11. They will generally work on Windows 10 and Mac, but you should be prepared to adjust some steps accordingly.
+
+### Visual Studio Code
+
+We use VS Code primarily as an *editor* to write our source code, but it's much more than just a **code editor**. It's an *extensible IDE* (Integrated Development Environment), with several common support features built in. Here's how to get it installed.
+
+<Steps>
+1. Go to the <a target="_blank" href="https://code.visualstudio.com">Visual Studio Code Website</a> and click the *Download* button for your operating system.
+1. Run the installation file. You will be presented with a number of prompts with default settings and options.
+1. If you get an alert warning about the "User Installer", simply click the OK button.
+
+   <Image src={CodeUserInstall} alt="Alert" />
+
+1. You can accept all the default settings. There is, however, one setting I often prefer to turn on. I often like to turn on both of the `Add "Open with Code"` actions.
+
+   <Image src={CodeAddOpen} alt="Alert" />
+
+1. Once installation is complete, you are given an option to open VS Code for the first time. Feel free to check it out and look around. :)
+</Steps>
 
 ### Git for Windows/Mac
 
@@ -59,16 +88,21 @@ The two key tools are <a target="_blank" href="https://code.visualstudio.com">**
 <Steps>
 1. Go to the <a target="_blank" href="https://git-scm.com/downloads">git download page</a> and click the link for your operating system (e.g.:  <a target="_blank" href="https://git-scm.com/downloads/win">*Windows*</a>).
 1. Follow the instructions for your operating system.
-1. (**Windows**) Run the installation file and follow the prompts. You can accept all the default settings.
-</Steps>
+1. (**Windows**) Run the installation file and follow the prompts. You can accept all the default settings. For advanced usage, however, you may want to have git use Visual Studio Code as the default editor. You can turn that on, if you wish, or leave it with the default setting.
 
-### Visual Studio Code
+   <Image src={GitEditor} alt="Alert" />
 
-We use VS Code primarily as an *editor* to write our source code, but it's much more than just a **code editor**. It's an *extensible IDE* (Integrated Development Environment), with several common support features built in. Here's how to get it installed.
+1. Our next step is to tell git what user name and email to use when performing commits. Start by opening a terminal window (press the Windows key and type `terminal`).
 
-<Steps>
-1. Go to the <a target="_blank" href="https://code.visualstudio.com">Visual Studio Code Website</a> and click the *Download* button for your operating system.
-1. Run the installation file and follow the prompts. You can accept all the default settings.
+   <Aside type="tip">
+   If you already have a terminal window open, you should close it and re-open it. The reason is that we just installed git, and the terminal window only know what programs are available to it at the time we open the terminal window. Closing and re-starting the terminal helps it to get the most recent information.
+   </Aside>
+
+1. Type `git --version` to ensure that git is installed and available. If it's not, take a look at the tip in the previous step.
+1. Type `git config --global user.name "Your Name"` to set your name for git (e.g.: `"Stewart Dent"`).
+1. Type `git config --global user.email "Your Email"` to set your email for git (e.g.: `"stewdent@gmail.com"`)
+1. Type `git config user.name` to view the name that you set.
+1. Type `git config user.email` to view the email that you set.
 </Steps>
 
 ### Node
@@ -87,7 +121,16 @@ When you install Node, you actually get two command-line programs on your comput
 PNPM is a modern alternative to using the `npm` tool. I strongly prefer using `pnpm` over `npm` because it's very fast and efficient!
 
 <Steps>
-1. Go to the <a target="_blank" href="https://pnpm.io/installation">pnpm installation page</a> and follow the instructions for your operating system.
+1. Go to the <a target="_blank" href="https://pnpm.io/installation">pnpm installation page</a>.
+1. Follow the instructions for your operating system. I've used the Powershell installation script for my Windows computer, but you should note the caution on their site about potential conflicts with Windows Defender.
+
+   <Image src={PnpmDefender} alt="Alert" />
+
+   Following their recommendation, and since you should already have [Node](#node) installed, you can run the following from a terminal window.
+
+   ```ps
+   npm install -g pnpm
+   ```
 </Steps>
 
 ### GitHub CLI
@@ -97,11 +140,35 @@ The GitHub CLI is a tool that brings some GitHub-specific goodness to working wi
 <Steps>
 1. Go to the <a target="_blank" href="https://cli.github.com/">GitHub CLI site</a> and click the download button.
 1. Run the installation file and follow the prompts. You can accept all the default settings.
+1. Once again, we need to so a bit of authorization setup, but this time we need to use the terminal that's built into Visual Studio Code.
+1. If Visual Studio Code is open, close it and restart (for pretty much the same reasons mentioned for the Windows terminal when we installed git).
+1. Press <kbd>Ctrl</kbd> + <kbd>`</kbd> (the backtic key near the top left of your keyboard). This key combination is used to open and close (*toggle*) the terminal window in VS Code.
+1. Type `gh --version` to ensure that the GitHub CLI is installed and available.
+1. Ensure that you are logged into GitHub.com in your default browser. Then, in the terminal, type `gh auth login` to authenticate the GitHub CLI.
+   1. Follow the prompts to authenticate.
+   1. You can use the `gh auth status` command to view your authentication status when you are done following the prompts.
 </Steps>
 
 ### VS Code and GitHub Authorization
 
-> *Author TODO: Complete this section*
+Visual Studio Code integrates with git and GitHub, but you need to sign into GitHub from within Visual Studio Code. The steps below
+
+<Steps>
+1. Make sure you are signed into GitHub in your web browser. Visual Studio Code will be using the browser to help complete the authentication between it and GitHub.
+1. Launch Visual Studio Code.
+1. Click on the source code tab from the sidebar (or press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>g</kbd>).
+
+   <Image src={SourceCode} alt="Extensions Icon" />
+
+1. Click the `Clone Repository` button. A dialog will appear at the top of VS Code.
+1. Click `Clone from GitHub`, and that will start the process of Visual Studio's interaction with your browser to complete the authentication process.
+1. Be sure to follow the remaining prompts as VS Code and your browser interact. *Don't rush* the process, or you might miss one of the confirmation dialogs that pops up.
+1. Once you're authenticated and control is given back to VS Code, the cloning window will be waiting for you to choose which repository to clone. Simply press <kbd>Esc</kbd>.
+</Steps>
+
+<Aside type="tip">
+Using git and GitHub with Visual Studio Code is something you do several times a day. Numerous resources exist to help you get started. One recent resource I ran across comes from It's FOSS titled <a target="_blank" href="https://itsfoss.com/vs-code-github/">How to Connect GitHub to VS Code [Step by Step]</a>. Check it out, as it goes a bit beyond the setup detailed here.
+</Aside>
 
 ### VS Code Extensions
 
