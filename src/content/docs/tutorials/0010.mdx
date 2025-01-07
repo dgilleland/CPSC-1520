@@ -18,12 +18,12 @@ import PnpmDefender from './0010/pnpm-defender-warning.png';
 
 In this tutorial, we will set up our computer environment for JavaScript development. This involves [getting a GitHub account](#-sign-up-for-github) and [installing certain tools](#installing-the-tools) (*i.e.: computer programs*).
 
-Along the way, we will configuring our primary tool - Visual Studio Code - with the recommended extensions for this course. Most of these tools are *command-line* tools, meaning that you typically run them from the terminal environment (see [*To-Be-Written*] for details). In this tutorial, I'll be using the terms 'tool' and 'program' interchagably, as they mean basically the same thing in this context.
+Along the way, we will configure our primary tool - Visual Studio Code - with the recommended extensions for this course. Most of these tools are *command-line* tools, meaning that you typically run them from the terminal environment (see [*To-Be-Written*] for details). In this tutorial, I'll be using the terms 'tool' and 'program' interchagably, as they mean basically the same thing in this context.
 
 <Aside title="One-Time Setup">
 Getting the tools on your computer is a one-time setup, and you might already have them installed. You can check if something is installed by opening a terminal and typing the program's name followed by `--version` to get the current version number. If you get the tool's version number, then it's alreay installed and you can skip this tutorial.
 
-Here's my set of tools and their version numbers (*as of Jan 2025*).
+Here's my set of tools and their version numbers (*as of Jan 2025*). Your version numbers don't have to match mine exactly, but if they are earlier versions, they shouldn't be *too* early.
 
 ```ps
 code --version
@@ -50,12 +50,14 @@ If you get a result saying that the program is not available (e.g.: `'npm' is no
 You can <a target="_blank" href="https://github.com/signup">get a GitHub account</a> for free. GitHub is a hosting platform for the **git** version control system. I've been using GitHub since 2012, and my life has been happier, simpler and more productive ever since!
 
 <Aside type="danger">
-There's another (more important) reason to sign up for GitHub. I (Dan) require you to submit your assignments through GitHub, so if you don't have an account, you won't pass the course! *(It's probably the same if you have a different instructor, or they wouldn't have pointed you here.)*
+There's another (more important) reason to sign up for GitHub.
+
+I (Dan) require you to submit your assignments through GitHub, so if you don't have an account, you won't pass the course! *(It's probably the same if you have a different instructor, or they wouldn't have pointed you here.)*
 </Aside>
 
 ## Installing the tools
 
-The two key tools are <a target="_blank" href="https://code.visualstudio.com">**Visual Studio Code**</a> (*VS Code*) and <a target="_blank" href="https://git-scm.com/downloads">**git**</a>. All the other tools are important, but you will using these two the most.
+The two key tools are <a target="_blank" href="https://code.visualstudio.com">**Visual Studio Code**</a> (*VS Code*) and <a target="_blank" href="https://git-scm.com/downloads">**git**</a>. All the other tools are important, but you will using these two the most. I've put these installation instructions in order of what tools should probably be installed first. Don't panic if you've installed them in a slightly different order; it should work out in the end.
 
 Also note that the following instructions are geared mostly for Windows 11. They will generally work on Windows 10 and Mac, but you should be prepared to adjust some steps accordingly.
 
@@ -117,6 +119,7 @@ When you install Node, you actually get two command-line programs on your comput
 PNPM is a modern alternative to using the `npm` tool. I strongly prefer using `pnpm` over `npm` because it's very fast and efficient!
 
 <Steps>
+1. Remember how I said it didn't matter too much about the order of installing these tools? Well, this is an exception. If you haven't installed Node yet, go back to [those steps](#node) and complete the process before you continue installing pnpm.
 1. Go to the <a target="_blank" href="https://pnpm.io/installation">pnpm installation page</a>.
 1. Follow the instructions for your operating system. I've used the Powershell installation script for my Windows computer, but you should note the caution on their site about potential conflicts with Windows Defender.
 
@@ -131,14 +134,14 @@ PNPM is a modern alternative to using the `npm` tool. I strongly prefer using `p
 
 ### GitHub CLI
 
-The GitHub CLI is a tool that brings some GitHub-specific goodness to working with git. I find it helps me immensely with administrative tasks (creating issues, viewing workflows, etc.), but probably the most frequent way I use it is to quickly open up my GitHub site for my local repository - `gh browse`.
+The GitHub CLI is a tool that brings some GitHub-specific goodness to working with git. I find it helps me immensely with administrative tasks (creating issues, viewing workflows, etc.), but probably the most frequent way I use it is to quickly open up my GitHub site for my local repository by typing `gh browse` in the terminal.
 
 <Steps>
 1. Go to the <a target="_blank" href="https://cli.github.com/">GitHub CLI site</a> and click the download button.
 1. Run the installation file and follow the prompts. You can accept all the default settings.
-1. Once again, we need to so a bit of authorization setup, but this time we need to use the terminal that's built into Visual Studio Code.
+1. Once again, we need to do a bit of authorization setup, but this time we need to use the terminal that's built into Visual Studio Code.
 1. If Visual Studio Code is open, close it and restart (for pretty much the same reasons mentioned for the Windows terminal when we installed git).
-1. Press <kbd>Ctrl</kbd> + <kbd>`</kbd> (the backtic key near the top left of your keyboard). This key combination is used to open and close (*toggle*) the terminal window in VS Code.
+1. Press <kbd>Ctrl</kbd> + <kbd>`</kbd> (the backtick key near the top left of your keyboard). This key combination is used to open and close (*toggle*) the terminal window in VS Code.
 1. Type `gh --version` to ensure that the GitHub CLI is installed and available.
 1. Ensure that you are logged into GitHub.com in your default browser. Then, in the terminal, type `gh auth login` to authenticate the GitHub CLI.
    1. Follow the prompts to authenticate.
@@ -147,7 +150,7 @@ The GitHub CLI is a tool that brings some GitHub-specific goodness to working wi
 
 ### VS Code and GitHub Authorization
 
-Visual Studio Code integrates with git and GitHub, but you need to sign into GitHub from within Visual Studio Code. The steps below
+Visual Studio Code integrates with git and GitHub, but you need to sign into GitHub from within Visual Studio Code. There are various ways to do this, but the steps below work fairly well.
 
 <Steps>
 1. Make sure you are signed into GitHub in your web browser. Visual Studio Code will be using the browser to help complete the authentication between it and GitHub.
