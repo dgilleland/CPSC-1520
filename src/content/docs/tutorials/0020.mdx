@@ -9,10 +9,8 @@ draft: false
 import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import professor from '../../../assets/undraw/undraw_professor_d7zn.svg';
+import commits from './0020/2024-commits.png';
 
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 3](https://github.com/dgilleland/CPSC-1520/issues/3).*
-</Aside>
 
 If you are writing **source code** (HTML, CSS, JavaScript, C#, etc.), then you should be using a version control system.
 
@@ -161,6 +159,12 @@ When you are done, your local repository will be cloned onto GitHub. To open the
      - ReadMe.md
    </FileTree>
 
+   <Aside type="tip" title="Preview your site">
+   I'm going to assume that you know how to preview your HTML pages in the browser.
+   
+   If you've never worked with HTML/CSS before this, I recommend that you check out <a target="_blank" href="https://developer.mozilla.org/en-US/curriculum/core/semantic-html/">this course on HTML</a> <Badge text="MDN" size="small" variant="note" />.
+   </Aside>
+
 1. Create the `index.html` file and use the following code.
    ```html
    <!DOCTYPE html>
@@ -169,6 +173,8 @@ When you are done, your local repository will be cloned onto GitHub. To open the
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <title>My Simple Website</title>
+       <link rel="stylesheet"
+         href="./css/styles.css">
    </head>
    <body>
        <h1>Welcome</h1>
@@ -200,9 +206,68 @@ When you are done, your local repository will be cloned onto GitHub. To open the
    Notice how I've added the `git push` command. This will make sure to push your local git history to GitHub.
 </Steps>
 
+### More Source Code
 
+Let's throw in just a bit more to improve the look of our site. Specifically, we want to add a 3rd-party CSS file and a touch of JavaScript.
 
+<Steps>
+1. Modify your `index.html` file to include the following highlighted changes.
 
+   ```html {7-8, 10}
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>My Simple Website</title>
+       <link rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+   </head>
+   <body class="container">
+       <h1>Welcome</h1>
+       <img src="./img/professor.svg" alt="My Instructor">
+       <p>I am practicing the use of Version Control as I learn JavaScript. Join me on the journey!</p>
+   </body>
+   </html>
+   ```
+
+1. This has applied the third-party library <a target="_blank" href="https://picocss.com/">PicoCSS</a>. Let's commit our work.
+
+   ```ps
+   git add .
+   git commit -m "Added PicoCSS stylesheet"
+   ```
+
+1. Now, let's throw in a touch of JavaScript. Create the `main.js` file with the following content.
+
+   ```js
+   let today = new Date();
+   let copyrightMessage = `<footer>&copy; ${today.getFullYear()}</footer>`;
+   document.body.innerHTML += copyrightMessage;
+   ```
+
+1. To get our JavaScript to run in our website, we need to link to it with a `<script>` tag. Modify the `<head>` of the page to match the following.
+
+   ```html {7}
+   <head>
+       <meta charset="UTF-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <title>My Simple Website</title>
+       <link rel="stylesheet"
+         href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+       <script src="./js/main.js" type="module"></script>
+   </head>
+   ```
+
+1. Now when we view our page, a footer is added dynamically with a copyright for the current year. Let's commit our work.
+
+   ```ps
+   git add .
+   git commit -m "Add copyright year via JavaScript"
+   git push
+   ```
+
+</Steps>
 
 
 
@@ -210,5 +275,14 @@ When you are done, your local repository will be cloned onto GitHub. To open the
 
 ## Conclusion
 
+In this tutorial, we created a local repository using Visual Studio Code and git. We added files, committed changes, and pushed/synchronized our work with GitHub. This whole cycle of a) write code, b) commit changes, and c) repeat is what makes up the bulk of our creative work as software developers.
+
+As you continue to expand your knowledge and develop your skills, you have the opportunity to get better and better with version control. I find myself using `git` several times a day. From the public repositories of my work and personal GitHub accounts, I've done well over 4,000 commits in 2024 alone. Just remember the *secret sauce:* **Small and Frequent commits**.
+
+<Image src={commits} alt="Dan's 2024 Commit Tally" />
+
 <Aside title="Warning for Students" type="danger">
+One of the things you learned in this tutorial is how to use the GitHub CLI to publish your local repository onto your GitHub account.
+
+But **do not** publish the *assignments* and *labs* your instructors have given you for your courses. Making a *copy* like that could be considered ***academic dishonesty***! Those assignments are already in *private* GitHub repositories, so the only thing you need to do is the `git pull` and `git push` to synchronise your local work with what's on GitHub.
 </Aside>
