@@ -125,6 +125,13 @@ When you install Node, you actually get two command-line programs on your comput
    ```ps
    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
    ```
+
+   This command will tell your computer to trust remotely-signed applications (like `npm`) for the current user. For more information, see <a target="_blank" href="https://lazyadmin.nl/powershell/running-scripts-is-disabled-on-this-system/">this article</a>.
+1. Double-check that you can now access/use `npm` by checking the installed version.
+
+   ```ps
+   npm --version`
+   ```
 </Steps>
 
 ### PNPM
