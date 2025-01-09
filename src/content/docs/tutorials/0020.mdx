@@ -169,6 +169,7 @@ When you are done, your local repository will be cloned onto GitHub. To open the
 
 1. Create the `index.html` file and use the following code.
    ```html
+   // index.html
    <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -187,6 +188,7 @@ When you are done, your local repository will be cloned onto GitHub. To open the
    ```
 1. Create a simple `styles.css` with the following code.
    ```css
+   // styles.css
    img {
     float: right;
     width: 250px;
@@ -216,6 +218,7 @@ Let's throw in just a bit more to improve the look of our site. Specifically, we
 1. Modify your `index.html` file to include the following highlighted changes.
 
    ```html {7-8, 10}
+   // index.html
    <!DOCTYPE html>
    <html lang="en">
    <head>
@@ -240,17 +243,20 @@ Let's throw in just a bit more to improve the look of our site. Specifically, we
    git commit -m "Added PicoCSS stylesheet"
    ```
 
-1. Now, let's throw in a touch of JavaScript. Create the `main.js` file with the following content.
+1. Now, let's throw in a touch of ***JavaScript***. Create the `main.js` file with the following content.
 
    ```js
+   // main.js
    let today = new Date();
    let copyrightMessage = `<footer>&copy; ${today.getFullYear()}</footer>`;
    document.body.innerHTML += copyrightMessage;
    ```
 
+   Don't worry if you are unsure of what the code does - we'll look at understanding JavaScript in later tutorials. This sample is just to complete our sample of typical file types used in websites: `*.html`, `*.css`, `*.js`, and images.
 1. To get our JavaScript to run in our website, we need to link to it with a `<script>` tag. Modify the `<head>` of the page to match the following.
 
    ```html {7}
+   // index.html
    <head>
        <meta charset="UTF-8">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
