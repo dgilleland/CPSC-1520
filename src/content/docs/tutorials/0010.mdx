@@ -132,6 +132,8 @@ When you install Node, you actually get two command-line programs on your comput
    ```ps
    npm --version`
    ```
+
+   You should see information on the installed version of `npm`.
 </Steps>
 
 ### PNPM
@@ -210,6 +212,31 @@ Installing extensions is super easy, but be careful not to go overboard. Some ex
 1. Launch VS Code and click the Extensions icon.
 1. Enter the name of the extension you want in the search bar.
 1. Click the *Install* button for the extension.
+</Steps>
+
+## Troubleshooting
+
+Depending on the security setup on your computer, you might right into a problem when you check the version of the command-line tool(s) you've just installed. For example, when running `npm --version`, you *might* see the following.
+
+> <code class="text-red-600">File ... cannot be loaded because running scripts is disabled on this system....</code>
+
+You might have this problem for other command-line tools as well, so these steps should work for all of the tools installed in this tutorial. If this is happening for you, here's how you fix it (and if you don't have this problem, then skip this section).
+
+<Steps>
+1. Entering the following in the terminal window.
+
+   ```ps
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
+
+   This command will tell your computer to trust remotely-signed applications (like `npm`) for the current user. For more information, see <a target="_blank" href="https://lazyadmin.nl/powershell/running-scripts-is-disabled-on-this-system/">this article</a>.
+1. Double-check that you can now access/use your command-line tool by checking the installed version. For example, to check `npm`, type:
+
+   ```ps
+   npm --version`
+   ```
+
+   You should see information on the installed version of `npm`.
 </Steps>
 
 ## Updating Your Tools
