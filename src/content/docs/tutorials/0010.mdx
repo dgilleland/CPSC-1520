@@ -112,6 +112,19 @@ When you install Node, you actually get two command-line programs on your comput
 <Steps>
 1. Go to the <a target="_blank" href="https://nodejs.org">NodeJS Website</a> and click the download button for the <abbr title="Long-Term Support">LTS</abbr> version.
 1. Run the installation file and follow the prompts. You can accept all the default settings.
+1. Check that the `node` and `npm` programs are accessible. Close any terminal windows you have open, and then open a new termial window (this refreshes the terminal's memory of what programs have been installed).
+1. In the terminal window, type the following
+
+   ```ps
+   node --version
+   npm --version
+   ```
+
+1. If you get an error about the `npm` not being an "executable script", it's likely a security/policy issue. You can resolve that by entering the following:
+
+   ```ps
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+   ```
 </Steps>
 
 ### PNPM
