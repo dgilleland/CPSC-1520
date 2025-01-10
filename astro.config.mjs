@@ -26,6 +26,7 @@ export default defineConfig({
 					label: 'About',
 					items: [
 						// Each item here is one entry in the navigation menu.
+						{ label: 'Author Guide', slug: 'about/author-guide'},
 						{ label: 'Start Here', slug: 'about/start-here' },
 						// An external link to the NASA website opening in a new tab.
 						{
@@ -33,7 +34,7 @@ export default defineConfig({
 							link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
 							attrs: { target: '_blank', style: 'font-style: italic' },
 							badge: { text: 'MDN', variant: 'note' }
-						  },
+						},
 					],
 				},
 				{
@@ -42,11 +43,7 @@ export default defineConfig({
 				},
 				{
 					label: 'How-To Guides',
-					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
-						{ label: 'Lab Submission', slug: 'guides/lab-submission' },
-					],
+					autogenerate: { directory: 'guides' },
 				},
 				{
 					label: 'Explanations',

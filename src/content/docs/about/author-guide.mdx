@@ -1,0 +1,40 @@
+---
+title: Author Guide
+description: A guide for authors in terms of writing tutorials, how-to-guides, explanations, and references.
+sidebar:
+  label: Author Guide
+  badge: 
+    text: Hidden
+    variant: success
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 26](https://github.com/dgilleland/CPSC-1520/issues/26).*
+</Aside>
+
+<CardGrid>
+  <Card title="Tutorials" icon="pen">
+    *A tutorial is a lesson, that takes a student by the hand through a learning experience.*
+
+    <LinkButton variant="primary" icon="pen" iconPlacement="start" href="./writing-tutorials">Writing Tutorials</LinkButton>
+  </Card>
+  <Card title="How-To Guides" icon="open-book">
+    *A how-to guide addresses a real-world goal or problem, by providing practical directions to help the user who is in that situation.*
+    
+    <LinkButton variant="secondary" icon="open-book" iconPlacement="start" href="./writing-how-to-guides">How-To-4-How-Tos</LinkButton>
+  </Card>
+  <Card title="Explanations" icon="comment">
+    *Explanatory guides provide context and background.*
+
+    <LinkButton variant="secondary" icon="comment" iconPlacement="start" href="./writing-explanations">"Let me sum up..."</LinkButton>
+  </Card>
+  <Card title="References" icon="document">
+    *Reference guides contain the technical description - facts - that a user needs in order to do things correctly.*
+
+    <LinkButton variant="secondary" icon="document" iconPlacement="start" href="./writing-reference-docs">For more info...</LinkButton>
+  </Card>
+</CardGrid>
