@@ -45,6 +45,21 @@ The primary focus for this site is as a support for students learning **JavaScri
 
 ## General Guides
 
+- When first creating a document, ensure the frontmatter `draft: true` is included. That way, readers won't loose confidence in the site by visiting pages that are mostly empty.
+- Don't wait for it to be 100% complete before publishing. 75% is good enough.
+  - You can publish it by removing the `draft` frontmatter or set its value to `false`.
+- Be sure to add a reference to the GitHub issue that the document is addressing.
+
+  ```mdx
+  <Aside title="Work-In-Progress (WIP)" type="caution">
+  *See [issue 26](https://github.com/dgilleland/CPSC-1520/issues/26).*
+  </Aside>
+  ```
+
+  - Keep the <abbr title="Work In Progress">WIP</abbr> at the top of the document.
+  - Remember to remove that WIP/issue notice when the issue is closed and the document is complete.
+- After closing the document's issue, you can reference issue #23 in your commit message for any typos, grammatical edits, etc. It's a catch-all issue for minor edits, so that the primary issue for the doc isn't littered with meaningless commit references on GitHub.
+
 ### Using images
 
 https://docs.astro.build/en/guides/images/
