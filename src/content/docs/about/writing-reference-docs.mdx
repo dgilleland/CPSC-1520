@@ -1,16 +1,35 @@
 ---
-title: TBD
-description: SUMMARY
-sidebar:
-  label: REFERENCE
+title: Writing Reference Documents
+description: An author's guide to writing reference documents.
 draft: true
 ---
 
 import { Aside, Badge, Code, FileTree, Icon, LinkCard, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import princessBride from './images/let-me-sum-up.png';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 26](https://github.com/dgilleland/CPSC-1520/issues/26).*
+</Aside>
+
+
+<Image src={princessBride} alt="Let me sum up..." class="float-end rounded-xl" width="270" />
+
+- Offer simplified information rather than exhaustive/comprehensive information
+    - Keep it "dry"
+- Add links to MDN docs
+    - Ensure `target="_blank"`
+- Link to diataxis for further information
+
+<Aside title="Don't Re-invent!" type="danger">
+A real temptation is to think that you have to make this site "complete" by creating reference material when you know darn well that there is better reference material out there that you should just link to.
+
+Instead, just **create a link** to the reference material. You can do that with a `<LinkCard>` or a simple `<a target="_blank" href="https://developer.mozilla.org">MDN Page</a>`. Here's some best practices:
+
+- Always use a `target="_blank"` attribute for `<a>` and `<LinkCard>`
+- Link to official documentation only
+  - The permalinks there are likely to be more long-lived and the content is more reliable
+  - *Don't* regard W3Schools as authoritative! They're just ripping off content, and it's not always correct.
 </Aside>
 
 <LinkCard title="Back to Author Guide" href="/CPSC-1520/about/author-guide/" />
