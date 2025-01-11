@@ -35,6 +35,7 @@ export default defineConfig({
 							attrs: { target: '_blank', style: 'font-style: italic' },
 							badge: { text: 'MDN', variant: 'note' }
 						},
+						{ label: 'Bonus Resources', slug: 'about/bonus' },
 					],
 				},
 				{
