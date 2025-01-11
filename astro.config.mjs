@@ -26,7 +26,6 @@ export default defineConfig({
 					label: 'About',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Author Guide', slug: 'about/author-guide'},
 						{ label: 'Start Here', slug: 'about/start-here' },
 						// An external link to the NASA website opening in a new tab.
 						{
