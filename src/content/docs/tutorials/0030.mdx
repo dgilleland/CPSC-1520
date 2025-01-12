@@ -7,10 +7,10 @@ draft: false
 ---
 
 import { Aside, Badge, Steps } from '@astrojs/starlight/components';
-
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 13](https://github.com/dgilleland/CPSC-1520/issues/13).*
-</Aside>
+import { Image } from 'astro:assets';
+import htmlPlain from './0030/html-no-styling.png';
+import htmlPico from './0030/html-picocss.png';
+import intellisense from './0030/intellisense.png';
 
 In this tutorial, we will build a very simple web page so that we can explore using JavaScript to query DOM elements and then change the content (text) of those elements.
 
@@ -43,7 +43,7 @@ Your instructor may direct you to put the code for this tutorial in your student
 
 1. View the web page in your browser by launching it with LiveServer. You should see something like this (it might vary a bit, depending on your browser).
 
-   > 📋🖼️ Image Here
+   <Image src={htmlPlain} alt="Simple web page, no styling" />
 
 1. Let's use a third-party stylesheet called [PicoCSS](https://picocss.com/). Add the following to the `<head>`, just below the `<title>` element.
 
@@ -60,9 +60,9 @@ Your instructor may direct you to put the code for this tutorial in your student
 
 1. When you view it in the browser, it now looks like this.
 
-   > 📋🖼️ Image Here
+   <Image src={htmlPico} alt="Web page with PicoCSS" />
 
-
+   Not terribly different from the plain HTML, but this lesson is about *JavaScript*, not HTML and CSS.
 </Steps>
 
 
@@ -99,7 +99,7 @@ In this part, we will begin exploring our web page using JavaScript. Specificall
 
    You should be seeing a *dropdown* of all sorts of items. These are the *members* of that `<h1>` DOM element.
 
-   > 📋🖼️ Image Here
+   <Image src={intellisense} alt="Intellisense" />
 
    <Aside type="tip">
    If the dropdown disappears, simply press <kbd>Backspace</kbd> and re-type the dot (`.`) *or* press <kbd>Ctrl</kbd> + <kbd>spacebar</kbd>.
