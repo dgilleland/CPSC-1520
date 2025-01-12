@@ -10,7 +10,7 @@ next:
 draft: false
 ---
 
-import { Aside, Badge, Steps, FileTree, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { Aside, Badge, Card, CardButton, CardGrid, FileTree, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import dg from '../../../assets/DanGillelandNait.png';
 
@@ -19,6 +19,28 @@ import dg from '../../../assets/DanGillelandNait.png';
 <Aside type="tip" title="Contributions">
 If you have a suggestion or content request, please add them as comments on [this discussion](https://github.com/dgilleland/CPSC-1520/issues/4).
 </Aside>
+
+For my students this semester, you can find my <a target="_blank" href="https://dgilleland.github.io/schedule">teaching schedule</a> online (blank parts of my schedule are taken up with prep, meetings, etc.). I also use an **Instructor Workbook** for each section to track what we've covered and what's upcoming. Choose the workbook for your section and **review the agenda**.
+
+<Tabs>
+  <TabItem label="Section A01">
+  Your classes are on **Tuesday**, **Wednesday** (online), and **Friday**. As students in the *Computer Software Development* career path, you have already taken *Programming Fundamentals*.
+
+  <LinkButton href="https://github.com/CPSC-1520/DanG-A01-CPSC-1520-Instructor-Workbook-2025-Jan" icon="external" target="_blank">Instructor Workbook - A01</LinkButton>
+  </TabItem>
+
+  <TabItem label="Section A02">
+  Your classes are on **Monday** (online), **Thursday**, and **Friday**. As students in the *Computer Software Development* career path, you have already taken *Programming Fundamentals*.
+
+  <LinkButton href="https://github.com/CPSC-1520/DanG-A02-CPSC-1520-Instructor-Workbook-2025-Jan" icon="external" target="_blank">Instructor Workbook - A02</LinkButton>
+  </TabItem>
+
+  <TabItem label="Section A05">
+  Your classes are on **Monday**, **Wednesday** (online), and **Thursday**. As students in the *Web Design and Development* career path, your participation in CPSC-1520 is your opportunity to learn Programming Fundamentals in JavaScript.
+
+  <LinkButton href="https://github.com/CPSC-1520/DanG-A05-CPSC-1520-Instructor-Workbook-2025-Jan" icon="external" target="_blank">Instructor Workbook - A05</LinkButton>
+  </TabItem>
+</Tabs>
 
 ## Using this site
 
