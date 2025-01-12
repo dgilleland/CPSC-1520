@@ -1,0 +1,96 @@
+---
+title: Why We Use JavaScript
+description: SUMMARY
+sidebar:
+  label: Why JavaScript?
+draft: true
+---
+
+import { Aside, Badge, Code, FileTree, Icon, LinkButton, LinkCard, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import htmlOnly from './0010/html-page.png';
+import htmlCss from './0010/html-css.png';
+import goodDesign from './0010/GoodDesign.png';
+
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+
+
+JavaScript was built specifically as a programming language for the World Wide Web. It's sole purpose was to provide a way to build interactivity into web pages. As such, it joined HTML and CSS as being a regular and indispensible staple of modern web development.
+
+In its early days, JavaScript was used for building simple scripts to do things like dynamically change the content of the web page, validate web forms, handle animations, and interact with the user. Since then, it has grown into a very robust framework for build complex applications for the browser, desktop, mobile, and server environments.
+
+On this site, we will explore JavaScript for people just starting out with web development. It's assumed you have a basic understanding of HTML and CSS, since our focus will be on the browser environment and web pages.
+
+## Where JavaScript Fits In
+
+For the web, the **HTML** language provided a way to describe ***content***. By wrapping text in tags, you could indicate the meaning and purpose of the text.
+
+If you were writing a paragraph of content, you would use a `<p>` tag. If you need a heading for your page, you could use an `<h1>` tag. There are tags you can use when you wanted to include a short quote (`<q>`), make some text stand out (`<b>` or `<strong>`), or to emphasize something (`<i>` or `<em>`). Did you need to include a lengthy quote? Then you could use a `<blockquote>`. And, of course, if you want some picture on your page, you could use the `<img>` tag to tell the browser where to find the image. (You might even put the image tag alongside a `<figcaption>` inside a `<figure>` tag.)
+
+```html
+// default.htm
+<h1>Introducing JavaScript</h1>
+
+<p>JavaScript was created by <strong>Brendan Eich</strong> in May, 1995. He created it in <em>10 days</em>!</p>
+
+<figure>
+    <figcaption>Brendan Eich</figcaption>
+    <img src='' alt='Creator of JavaScript'>
+</figcaption>
+```
+
+Content is king. It drives everything about a web page. But no one wants their content to look bland. That's where CSS comes in. **CSS** was created to compliment HTML by adding ***presentation***! CSS allowed web developers to control and customize the *look and feel* of their websites. With CSS, you could make your content (HTML) pleasing to look, thereby driving up interest in what you have to say.
+
+<Aside title="Web Pages in 1995">
+It may not look like much now, but in the 1990s, this touch of CSS was terrific!
+
+| Without CSS | With CSS |
+|:-----------:|:--------:|
+| <Image src={htmlOnly} alt="Screenshot without CSS" height="200" /> | <Image src={htmlCss} alt="Screenshot with CSS" height="200" /> |
+</Aside>
+
+
+JavaScript is to HTML what batteries are to a toy: it makes our websites *work*. If HTML is for *content* and CSS is for *presentation*, then **JavaScript** is for ***functionality***. By including JavaScript on our web pages, we change our *static* content into something that the use can really interact with.
+
+## Fast-Forward to Today
+
+<Image src={goodDesign} alt="HTML-CSS-JS" class="float-end ml-3" width="400" />
+
+It's hard to imagine where we would be without JavaScript. It is used for everything from subtle changes in viewing a page to advanced animations and building full-fledged applications.
+
+Where JavaScript was once only used in the browser, now it can be used on the server and even as part of desktop applications.
+
+As a web developer, you are (probably) using **Visual Studio Code** on your computer. Did you know that the core of VS Code is "just" a web application? VS Code is built on <a target="_blank" href="https://www.electronjs.org/">**Electron**</a> - a framework that allows you to "build cross-platform desktop apps with JavaScript, HTML, and CSS". Think of all the functionality built into VS Code, and you might start to grasp how far you can go when you learn how to code in JavaScript.
+
+## Learn JavaScript
+
+As you might imagine, it can take *years* to get really good at JavaScript. But you might be surprised at how much you can accomplish in just a short amount of time.
+
+On this site, we have a number of different tutorials to help you learn the fundamentals of JavaScript. We also have [links to articles](/CPSC-1520/about/bonus/) and sites to go deeper into web development. Use this site should be a launching point in your JavaScript journey and see where it takes you!
+
+### Foundations
+
+- <LinkButton variant="minimal" href="/CPSC-1520/tutorials/0030/">Querying the DOM</LinkButton>
+- Variables, Values and DataTypes
+- Functions
+- Event Handlers
+- Flow-Control Statements
+- Arrays
+- Objects
+- *More to come soon*
+
+### DOM API and AJAX
+
+- *More to come soon*
+
+### Simple Node Projects
+
+- *More to come soon*
+
+
+
+
+
