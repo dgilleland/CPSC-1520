@@ -5,7 +5,28 @@ sidebar:
   label: Labs/Assignments
 draft: false
 ---
-import { Steps } from '@astrojs/starlight/components';
+import { Aside, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import versionControl from '../../../assets/undraw/undraw_version-control_eiam.svg';
+import SourceCode from '@vscode/codicons/src/icons/source-control.svg'
+
+
+When your lab or assignment is a GitHub repository, submitting your work is simply a matter of **commit** and **push**.
+
+You have a couple of ways to accomplish this. You can use the `git` commands directly from the terminal (*I strongly recommend this approach*) or you can use some <abbr title="Graphical User Interface">GUI</abbr> that "wraps around" git.
+
+<Aside>
+
+<Image src={versionControl} alt="Frequent and Small Commits" class="float-end pl-3" width="200" />
+
+The secret to using git is to do ***frequent*** commits. This ensures that you have more "fall-back" points if you have to switch to an earlier version of your work, and it also makes your commit history easier to read and reason about.
+
+{/* <Image src="https://imgs.xkcd.com/comics/git_commit.png" alt="XKCD Comic" class="float-start pr-3" width="439" height="250" />
+
+You should also work to use *meaningful commit messages*. */}
+</Aside>
+
+## From The Command-Line (Recommended)
 
 The *TLDR* for using `git` from the command line is to follow these steps.
 
@@ -29,4 +50,19 @@ The *TLDR* for using `git` from the command line is to follow these steps.
    ```ps
    git push
    ```
+</Steps>
+
+## From VS Code's Built-In GUI
+
+Visual Studio Code has a built-in GUI that offers another way to commit and submit your work. To learn more about version control with VS Code's GUI tools, see <a href="https://code.visualstudio.com/docs/sourcecontrol/overview" target="_blank">their official documentation</a>.
+
+<Steps>
+1. Click on the source code tab from the sidebar (or press <kbd>Ctrl</kbd> + <kbd>shift</kbd> + <kbd>g</kbd>).
+
+   <Image src={SourceCode} alt="Extensions Icon" />
+
+1. Enter a message in the text box with the *Message* placeholder.
+1. Click the **Commit** button.
+1. If you haven't staged the files for committing, a dialog will open asking if you want to stage and commit directly. Click **Yes**.
+1. **Sync Changes** and if a dialog pops up asking you if you want to push and pull, click **Ok**.
 </Steps>
