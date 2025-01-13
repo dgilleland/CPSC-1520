@@ -1,0 +1,207 @@
+---
+title: Adding <script> Tags to HTML
+description: Exploring how to add <script> tags to HTML pages.
+sidebar:
+  label: Using <script> Tags
+draft: false
+---
+
+import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import goodDesign from './0040/GoodDesign.png';
+import htmlAddHeadScript from './0040/html-add-head-script.diff-html?raw';
+import htmlAddBodyScript from './0040/html-add-body-script.diff-html?raw';
+
+
+In the previous tutorial, we had our first look at writing JavaScript. In that exploration, we discovered that we can write *ad-hoc* JavaScript in the browser dev tools. We also made our first practical use of JavaScript: getting a reference to DOM elements.
+
+In this tutorial, we will incorporate JavaScript directly into our web pages. You'll discover two ways to achieve that: *Embedding* and *Linking*.
+
+## Tutorial Setup
+
+Before we can explore JavaScript in this tutorial, we need an HTML page. We also need to get some feedback in our JavaScript code, so we will explore the `console.log()` function that is built into the browser.
+
+<Steps>
+1. Let's create a bare-bones HTML page. Create an `index.html` file and paste in the following content.
+
+   ```html
+   // index.html
+   <!DOCTYPE html>
+   <html lang="en">
+   <head>
+       <title>HTML and JavaScript</title>
+   </head>
+   <body>
+       <h1>HTML and JavaScript</h1>
+       <p>We use the HTML <code>&lt;script&gt;</code> tag to include JavaScript in our web pages.
+          There are two ways this tag can be used:</p>
+       <ul>
+           <li>
+               Including JavaScript directly between the open and close &lt;script&gt; tag.
+           </li>
+           <li>
+               Referencing an external JavaScript file using the <code>src</code> attribute.
+           </li>
+       </ul>
+       <p>View the source of this page in the browser dev tools and observe the output to the console.</p>
+   </body>
+   </html>
+   ```
+
+1. View the page in the browser using the *Live Server* plugin.
+    - *Author TODO: Add link to Reference page on using Live Server*
+1. In the developer tools console, type the following code:
+
+    ```js
+    document.querySelector('h1')
+    ```
+
+    Notice how the element is displayed in the console (just like the previous tutorial). While helpful, the downside is that *we* have to type the code to display the result - which is something that can't be expected of the average visitor to our website.
+1. Let's try something else. We'll use the `console.log()` function (which is part of the browser environment) to display information to the dev tools console window.
+
+    ```js
+    console.log(document.querySelector('h1'))
+    ```
+
+   Notice that we get the same result. The big benefit, however, is that we can use this JavaScript code inside our web page.
+1. Before we finish the setup phase, let's try another way to use `console.log`.
+
+    ```js
+    console.log('The heading element is:', document.querySelector('h1'))
+    ```
+
+    This time, we have a bit of descriptive text displayed just before our `<h1>` element. We'll remember that for the next sections in this tutorial.
+</Steps>
+
+In addition to setting up our lesson, we explored the basics of using `console.log()` to output information to the browser's console window. The next part of this tutorial explores adding JavaScript directly into our web page by means of the `<script>` tag.
+
+<Aside title="Future Expectations">
+    As these tutorials progress, you will be expected to do some of the preliminary setup on your own. For example, in this tutorial I expect you already know how to use Visual Studio Code and that you can troublshoot basic HTML/CSS files.
+
+    In addition, these tutorials will presume to use the following folder structure for the web pages.
+
+    <FileTree>
+    - ~ Root of your website
+        - **index.html** The "home" page of the site
+        - css/
+        - img/
+        - js/
+   </FileTree>
+
+    In this tutorial, I walked you through creating the `index.html` file. But in the future, I'll provide the setup files in a more compact way, without detailed steps on how to create them in VS Code. This will reduce the "noise" in the tutorial and help us keep our focus on the lesson at hand.
+</Aside>
+
+## Embeding JavaScript in HTML Files
+
+When the browser renders an HTML file, it will automatically execute any JavaScript code it encounters that sits inside a `<script>` tag. For example, the following code would cause the text `JavaScript is wonderful!` to appear in the dev tools console.
+
+```html
+<script>
+    console.log('JavaScript is wonderful!');
+</script>
+```
+
+This is an example of using *embedded JavaScript* in our web page. We refer to it as *embedded* because that actual JavaScript code is written directly inside the HTML file. Typically, we will use *external* scripts, which we'll see in the final part of this tutorial. For now, let's see what happens when we embed JavaScript directly inside our `index.html`.
+
+<Steps>
+1. Modify the `<head>` to add in the following embedded JavaScript. Then view the page in the browser and open the dev tool's console.
+
+    <Code code={htmlAddHeadScript} lang="html" useDiffSyntax="true">
+    </Code>
+
+1. Make some observations. What did you expect to see? What did you actually see?
+
+    Here's what you should see.
+
+    ```bash "null" "<h1>​HTML and JavaScript​</h1>​"
+    Inside the head tag
+    Here is the h1 element: null
+    ```
+1. Let's try something different. Keep the script in the head tag, but modify the body by inserting a second script tag.
+
+    <Code code={htmlAddBodyScript} lang="html" useDiffSyntax="true">
+    </Code>
+
+1. Make some more observations. Are we able to see the `<h1>` element from the script in the body? Here's the output that should be generated in the console.
+
+    ```bash "null" "<h1>​HTML and JavaScript​</h1>​"
+    Inside the head tag
+    Here is the h1 element: null
+    Inside the body tag
+    Now I can see the h1 element: <h1>​HTML and JavaScript​</h1>​
+    Can I see the first list item? null    
+    ```
+
+1. It turns out that when the browser renders the HTML, it *executes* the embedded JavaScript at the point the script tag is encountered. If our JavaScript is trying to reference some DOM element that appears *after* that script element, then the `document.querySelector()` returns a `null` response. This is because that DOM element hasn't been created yet!
+</Steps>
+
+As you can see, we are not constrained to having just one line of JavaScript inside the `<script>` tag. We can write as much as we want. In fact, we even included multiple `<script>` tags, each with their own code! For practical purposes, however, we typically want to keep our HTML and JavaScript somewhat separate, as we will explore in this next part.
+
+
+## Linking External JavaScript files
+
+Just like `<style>` tags can include CSS inside an HTML file, the `<script>` tag can be used to embed JavaScript right inside our HTML markup. But, just like you have learned about CSS, it's better to keep our JavaScript code in separate files. JavaScript files have the file extension `.js`. Like HTML and CSS, they are simply text files that can be edited through any text editor.
+
+We still use the `<script>` tag to link external JavaScript files, but we do so by adding in a `src` attribute. Let's see what happens!
+
+<Steps>
+1. Reset your `index.html` by removing the scripts created in the last part. If you want to keep that previous version, you can save it as a copy (e.g.: `index-old.html`).
+1. Create a new file to hold the JavaScript code.
+
+    ```js
+    // js/main.js
+    console.log('JavaScript in a separate file (main.js)');
+    console.log('Looking for the h1 element:', document.querySelector('h1'));
+    console.log('Can I see the first list item?', document.querySelector('li'));
+    ```
+
+1. Now, link to the JavaScript file by adding a script tag with the `src` element, as follows.
+
+    ```diff lang="html"
+    <head>
+        <title>HTML and JavaScript</title>
+    +   <script src="./js/main.js"></script>
+    </head>
+    ```
+
+1. What happens when you look inside the browser's console? Do you see the following?
+
+    ```bash "null" "<h1>​HTML and JavaScript​</h1>​"
+    JavaScript in a separate file (main.js)
+    Looking for the h1 element: null
+    Can I see the first list item? null    
+    ```
+
+1. Just like embedded scripts, the browser will immediately execute the JavaScript in an external file. Is there a way to fix this? YES! Alter the script tag by adding a `defer` attribute.
+
+    ```diff lang="html" "defer"
+    <head>
+        <title>HTML and JavaScript</title>
+    +   <script src="./js/main.js" defer></script>
+    </head>
+    ```
+
+1. Now you should see the desired results. Our JavaScript can find the DOM elements!
+
+    ```bash "null" "<h1>​HTML and JavaScript​</h1>​"
+    JavaScript in a separate file (main.js)
+    Looking for the h1 element:     <h1>​HTML and JavaScript​</h1>​
+    Can I see the first list item?  <li>
+                                        ::marker
+                                        " Including JavaScript directly between the open and close <script> tag. "
+                                    </li>
+    
+    ```
+</Steps>
+
+## Conclusion
+
+You have incorporated JavaScript into your first HTML page. Along the way, you've probably picked up a few ideas about how browsers build the Document Object Model when it load the HTML file. Among the things to note is the importance of keeping HTML, CSS, and JavaScript code in separate files! There are several benefits to doing this, but one of the biggest is that using separate files **reduces the maintenance cost** of your code.
+
+At this point, I would recommend a couple other **Best Practices** for using `<script>` tags.
+
+<Image src={goodDesign} alt="HTML-CSS-JS" class="float-end ml-3" width="400" />
+
+1. It's common practice to **put the `<script>` tag in the `<head>`** portion of our markup.
+1. **Use the `defer` attribute** to ensure that the entire `<body>` is loaded into the DOM before executing any of the JavaScript code.
+1. You can link to only *one* external file in a script tag using its `src` attribute. If you need to bring in more than one JavaScript file, use separate script tags with their `src` attributes linking to the desired files. Just **be careful** about the *order* in which you place those script tags.

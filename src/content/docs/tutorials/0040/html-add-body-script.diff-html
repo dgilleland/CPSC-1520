@@ -1,0 +1,7 @@
+      <h1>HTML and JavaScript</h1>
++     <script>
++         console.log('Inside the body tag');
++         console.log('Now I can see the h1 element:', document.querySelector('h1'));
++         console.log('Can I see the first list item?', document.querySelector('li'));
++     </script>
+

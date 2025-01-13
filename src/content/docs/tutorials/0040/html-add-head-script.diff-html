@@ -1,0 +1,8 @@
+  <head>
+      <title>HTML and JavaScript</title>
++     <script>
++         console.log('Inside the head tag');
++         console.log('Here is the h1 element:', document.querySelector('h1'));
++     </script>
+  </head>
+
