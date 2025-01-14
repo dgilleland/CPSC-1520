@@ -1,0 +1,45 @@
+---
+title: Lab Updates - Pull Requests
+description: How to accept updates to your lab from your instructor.
+sidebar:
+  label: Update Labs/Assignments
+draft: false
+---
+import { Aside, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import ghPRTab from './lab-updates/gh-classroom-pull-request-tab.png';
+import ghPR from './lab-updates/gh-classroom-pull-request.png';
+import ghPRMergeButton from './lab-updates/gh-classroom-pull-request-merge-button.png';
+import ghPRConfirm from './lab-updates/gh-classroom-pull-request-confirm-merge.png';
+
+
+When your lab or assignment is updated by your instructor, you will receive a pull request on GitHub. Follow these steps to accept the pull request.
+
+<Aside type="danger" title="Pay Attention!">
+You may have a PR on GitHub labeled **Feedback** - do ***not*** merge this pull request, as it is used by your instructor to grade your lag/assignment. Only merge the ones labeled "Sync Assignment".
+</Aside>
+
+<Steps>
+1. Go to your repository on GitHub.
+1. Click the "Pull Requests" tab.
+
+    <Image src={ghPRTab} alt="pull request" />
+
+1. Open the pull request titled "GitHub Classroom: Sync Assignment".
+
+    <Image src={ghPR} alt="pull request" />
+
+1. Check that there are no merge conflicts: If you have the green "Merge" button, then there should be no conflicts.
+
+    <Image src={ghPRMergeButton} alt="pull request" />
+
+    <Aside type="danger" title="Check with your instructor">
+    If you have any merge conflicts, notify your instructor.
+    </Aside>
+
+1. Confirm the merge by clicking the "Confirm" button.
+
+    <Image src={ghPRConfirm} alt="pull request" />
+
+1. On your **local repository** (the copy on your computer) perform a `git pull`.
+</Steps>
