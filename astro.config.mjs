@@ -27,6 +27,7 @@ export default defineConfig({
 					items: [
 						// Each item here is one entry in the navigation menu.
 						{ label: 'Start Here', slug: 'about/start-here' },
+						{ label: 'The Roadmap', slug: 'about/roadmap' },
 						// An external link to the NASA website opening in a new tab.
 						{
 							label: 'JavaScript Reference',

@@ -4,21 +4,29 @@ description: Site Guide.
 sidebar:
   label: Start Here
   hidden: true
-next:
-  link: /CPSC-1520/tutorials/0010/
-  label: System Setup
 draft: false
 ---
 
 import { Aside, Badge, Card, CardButton, CardGrid, FileTree, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import dg from '../../../assets/DanGillelandNait.png';
+import adventureMap from '../../../assets/undraw/undraw_adventure-map_8hg8.svg';
 
 <Image src={dg} alt="Dan Gilleland (NAIT)" class="float-end" width="75" /> My name is Dan Gilleland. I've created this site as a place to put my ad-hoc resources that support [my CPSC-1520 classes](#audience--content-advisory) in January 2025. Why this site instead of the official <abbr title="Learning Management System">LMS</abbr>? Because this is **way easier to maintain**, and the effort involved in authoring doesn't need to be hindered by the clunkyness of most <abbr title="Learning Management System">LMS</abbr>es available today.
 
 <Aside type="tip" title="Contributions">
 If you have a suggestion or content request, please add them as comments on [this discussion](https://github.com/dgilleland/CPSC-1520/issues/4).
 </Aside>
+
+My goal is to take you on a journey. It is one that will take you (an aspiring web developer) on a guided tour of the fundamentals of JavaScript. It's not an end-goal in itself. Rather, it's a starting point. Learning how to program is a lifelong journey, and it can take to to places unexpected. I want to give you a good start.
+
+<Card title="Read the Roadmap" icon="storybook">
+  <Image src={adventureMap} alt="Roadmap" width="250" class="float-start mr-4" />
+
+  Discover what you will be learning and where I'm going to take you as you start your journey into JavaScript.
+
+  <LinkButton href="./roadmap">Read the Roadmap</LinkButton>
+</Card>
 
 ## Using this site
 
