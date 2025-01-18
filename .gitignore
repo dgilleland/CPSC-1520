@@ -7,6 +7,10 @@ lab-solutions.mdx
 **/tutorials/lab-solutions/gh-classroom*.png
 [Aa]nswer[Kk]eys
 
+adhoc.html
+adhoc.css
+adhoc/
+
 # build output
 dist/
 # generated types
