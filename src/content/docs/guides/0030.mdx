@@ -1,0 +1,232 @@
+---
+title: Finding DOM Elements
+description: A general guide on how to find elements in the DOM.
+sidebar:
+  label: Find DOM Elements
+---
+
+import { Aside, Badge, Code, FileTree, Icon, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import webSearch from '../../../assets/undraw/undraw_web-search_9qqc.svg';
+import acme from './0030/AcmeCorp.png';
+import html from './0030/index.html?raw';
+import css from './0030/index.css?raw';
+import js from './0030/index.js?raw';
+
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 43](https://github.com/dgilleland/CPSC-1520/issues/43).*
+</Aside>
+
+In JavaScript, we are often interested in manipulating some part of our web page. But how do you find elements?
+
+Searching the DOM for one or more elements can be achieved by several methods. As you practice using these methods, you will discover that getting a reference to a particular DOM element can be done in more than one way. Use whichever one that seems best for your situation.
+
+<Aside title="Sample Web Page">
+  <Image src={webSearch} alt="Finding DOM Elements" width="100" class="float-end ml-3" />
+  
+  To illustrate the different ways we can find elements on a web page, I will be using the following HTML. It's a little long, but take a moment to look it over. Doing so will give you a reference point for each of the approaches listed below.
+  <Tabs>
+    <TabItem label="About">
+      <Image src={acme} alt="ACME Corp Logo" class="float-start mr-3" />
+      Content for this sample web page is based on a fictional company - Acme Corp - from the old *RoadRunner* cartoon series.
+    </TabItem>
+    <TabItem label="HTML/CSS/JS Code">
+      <details>
+        <summary>View HTML</summary>
+        <Code code={html} lang="html" title="index.html" />
+      </details>
+      <details>
+        <summary>View CSS</summary>
+        <Code code={css} lang="css" title="styles/style.css" />
+      </details>
+      <details>
+        <summary>View JavaScript</summary>
+        <Code code={js} lang="js" title="js/main.js" />
+      </details>
+    </TabItem>
+    <TabItem label="DOM Tree">
+      <FileTree>
+        - `<html>` The Document Root
+          - head
+            - ...
+          - body
+            - ...
+      </FileTree>
+    </TabItem>
+    <TabItem label="Other Assets">
+      > *Author TODO: Add Images*
+    </TabItem>
+  </Tabs>
+</Aside>
+
+## Starting Points
+
+The DOM is a tree-like structure of <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement">HTML elements</a>. At the very root of that structure is an object called `document`. It represents the entire HTML page that has been loaded and rendered by the browser. The DOM search methods identified below are part of that `document` object. Here's an example of its use:
+
+```js
+let myTag = document.querySelector('h2');
+console.log(myTag); // <h2>ACME - <i>A Company Making Everything</i></h2>
+```
+
+When we use the `document` object with the `.querySelector()` method, we are starting our search from the very beginning (or *root*) of our document.
+
+
+We don't always have to start from the root `document` to find the element(s) we want. If we have a reference to some other HTMLElement object, then we can search from there.
+
+```js
+let main = document.querySelector('main');
+let myTag = main.querySelector('h2');
+console.log(myTag); // <h2>On This Page</h2>
+```
+
+<Aside title="Starting Points">
+  Starting from `document`
+
+  <FileTree>
+    - `<html>` The Document Root
+      - head
+        - ...
+      - body
+        - header
+          - nav
+            - ...
+          - **h2/** The result of `document.querySelector('h2')`
+  </FileTree>
+
+    Starting from the `<main>` element
+
+  <FileTree>
+    - `<html>` The Document Root
+      - head
+        - ...
+      - body
+        - header
+          - ...
+        - main
+          - div
+            - section
+              - ...
+            - section
+              - **h2/** The result of `main.querySelector('h2')`
+            - section
+              - ...
+  </FileTree>
+</Aside>
+
+
+## DOM Query
+
+By far the most versatile way to find DOM elements is to use `.querySelector()` or `.querySelectorAll()`. Both of these methods take a single parameter - a *selector* - which identifies the *path* to the DOM elements. The object on the left of the dot can be either the root `document` or some other HTMLElement on the page. Central to using these methods is a clear understanding of selector strings.
+
+### Selector Strings
+
+If you've written CSS, you are probably familiar with *selectors*. They are the combination of tag names, id names and/or class names which identify what parts of the DOM should be rendered with the CSS Styles. In the following sample, `html body` is the selector.
+
+```css
+html body {
+    display: grid
+;
+    grid-template-rows: auto 1fr auto;
+    align-items: start;
+    min-height: 100vh;
+}
+```
+
+We use a selector string in JavaScript when calling `.querySelector()` and `.querySelectorAll()`. Selector strings build on three basic kinds of names.
+
+- ***Type* selectors** identify a DOM element by its *tag name*, such as `<h2>`. These selectors use the name of the tag (without the `<` and `>` symbols).
+- ***Class* selectors** identify a DOM element by the name used in the `class` or `classname` attribute of the tag. Class selectors are prefixed with a period (`.`) before the name, such as `.active`.
+- ***ID* selectors** identify a DOM element by the name used in the `id` attribute of the tag. ID Selectors are prefixed with a hashtag symbol (`#`) before the name, such as `#intro`.
+
+We can expand on these type names with certain patterns to identify complex paths through the DOM. Here are some examples.
+
+- `details > summary` - Look for `<summary>` tag directly under a `<details>` tag.
+- `header #tag-line` - Look for an `id='tag-line'` attribute on any element within the `<header>` tag.
+- `nav li:nth-last-child` - Look for last `<li>` tag within a `<nav>` tag.
+- `header > nav li.active` - Look for an `<li>` tag with the class `.active` anywhere under the `<nav>` tag; the `<nav>` tag must be an immediate child (`>`) of the `<header>` tag.
+
+
+
+### `.querySelector()`
+
+The `.querySelector()` method is used to find a *single* DOM element based on the supplied selector. It always returns the first item that matches the selector pattern. Here are some samples.
+
+- **`document.querySelector('main h1')`** - Finds the `<h1>Acme Corp</h1>` element.
+- **`document.querySelector('.active')`** - Finds the `<li class="active"><a href="#">About</a></li>` element.
+- **`document.querySelector('main .active')`** - Finds the `<a href="#" class="active">About</a>` element.
+- **`document.querySelector('#tag-name')`** - Finds the `<h2 id="tag-line">ACME - <i>A Company Making Everything</i></h2>` element.
+
+### `.querySelectorAll()`
+
+The `.querySelectorAll()` method is used to find *all* the DOM elements that match the supplied selector. Here's an example.
+
+```js
+let items = document.querySelectorAll('main aside nav li');
+```
+
+This returns all the sidebar navigation links for the page. The result of this method is a `NodeCollection` of DOM elements. Node collections are similar to arrays in that you can use an index position to identify a specific item in the collection. Here's the result of running the JavaScript code above.
+
+- `<li><a href="#">Our Company</a></li>`
+- `<li><a href="#">Our People</a></li>`
+- `<li><a href="#">Our Values</a></li>`
+
+If you wanted to get the second item in the collection, you could reference it with an array indexer.
+
+```js
+console.log(items[1]);
+```
+
+## Other DOM Search Methods
+
+
+
+### `.getElementById()`
+
+The `.getElementById()` method is used to find a *single* DOM element with a specific `id` attribute value. This method takes one parameter: the name of the id value as a string (without the hashtag symbol). This method is only available on the `document` object. For example.
+
+```js
+document.getElementById('tag-line')
+```
+
+This returns the following element in our DOM.
+
+```html
+<h2 id="tag-line">ACME - <i>A Company Making Everything</i></h2>
+```
+
+### `.getElementsByClassName()`
+
+
+```js
+document.getElementsByClassName('active')
+```
+
+This returns a collection of two elements in our sample DOM.
+
+- `<li class="active"><a href="#">About</a></li>`
+- `<a href="#" class="active">About</a>`
+
+### `.getElementsByName()`
+
+
+### `.getElementsByTagName()`
+
+
+### `.getElementsByTagNameNS()`
+
+
+
+
+
+
+----
+
+
+> #### Author TODO:
+>
+> MDN Resource Links:
+>
+> - [Basic CSS selectors](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Basic_selectors) gives an introduction to selectors in CSS, beginning with identifying the basic kinds of selectors.
+> - [CSS selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors) is a reference page for all the selector patterns; it contains links to specific parts of the selector syntax
+> - [CSS selectors and combinators](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors/Selectors_and_combinators) gives a short set of simple samples of CSS selectors
+> - [CSS selector structure](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_selectors/Selector_structure) gives an overview of the patterns used in assembling CSS selectors
