@@ -8,12 +8,60 @@ draft: false
 
 import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import toy from '../../../assets/undraw/undraw_toy-car_ugyu.svg';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 32](https://github.com/dgilleland/CPSC-1520/issues/32).*
 </Aside>
 
-## A Guide to REPLs
+The term REPL is an acronym for *Read-Eval-Print-Loop*. It refers to an environment where you can write code that gets executed immediately upon pressing <kbd>Enter</kbd>. REPLs are not considered *production environments*. Rather, they are *"sandbox" environments* where developers can explore and play with the language.
+
+<Image src={toy} alt="REPLs Are Sandboxes for Playing with JavaScript" />
+
+
+As such, REPLs are great for learning small, targetted aspects of a programming languge, particularly when you are new to the language. In the world of JavaScript, the *Console* tab in the browser's Developer Tools is the most common REPL. Besides being able to write JavaScript, you can explore its use with regard to any web page content (which is why we typically need/want JavaScript code).
+
+Another REPL environment is the Node CLI. Node is a JavaScript run-time environment (suitable for production use), but when you type `node` by itself in a terminal window, you enter a REPL session where you can explore JavaScript free from any browser. The advantage with a Node REPL is a distraction-free JavaScript playground where you can focus on the language itself.
+
+<Aside type="tip">
+Both Node and the browser Dev Tools offer a large suite of functions and objects that we regularly use in JavaScript, such as `Date`, `Array`, `JSON`, `Crypto`, etc. These are part of the "global" object that these JS environments provide. In the browser dev tools, the `window` is the global object while in Node it's the `global` object.
+</Aside>
+
+Which do you choose? Either one works well. If you need to play with the DOM, then the browser's Dev Tools is the way to go. If you want to just have a JavaScript-only experience, Node is a good choice.
+
+
+## Using the Dev Tools Console
+
+
+## Using Node
+
+
+
+{/* 
+## Further Readings
+
+Here are some further readings if you want to explore how to get the most out of REPLs.
+
+- <a target="_blank" href="https://medium.com/@mohitgupta_48195/node-js-the-repl-terminal-8d9509a5fc13">Node.js - The REPL Terminal</a>
+- <a target="_blank" href="https://www.mitchellopitz.net/node-js-repl-101-a-beginners-guide-to-interactive-javascript/">Node.js REPL 101: A Beginner's Guide to Interactive JavaScript</a>
+- <a target="_blank" href="https://www.geeksforgeeks.org/what-is-repl-in-nodejs/">What is RePL in NodeJS</a>
+- <a target="_blank" href="https://www.geeksforgeeks.org/import-and-export-in-node-js/">Import and Export in Node.js</a>
+- <a target="_blank" href=""></a>
+- <a target="_blank" href=""></a>
+- <a target="_blank" href=""></a>
+- <a target="_blank" href=""></a>
+- <a target="_blank" href=""></a>
+- <a target="_blank" href=""></a>
+- <a target="_blank" href=""></a>
+- <a target="_blank" href=""></a>
+*/}
+
+----
+
+
+## Issue Details
+
+### A Guide to REPLs
 
 > A how-to guide to using the Dev Tools Console and `node` as REPLs to explore JavaScript
 > 
