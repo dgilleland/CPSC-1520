@@ -9,6 +9,7 @@ draft: false
 import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import toy from '../../../assets/undraw/undraw_toy-car_ugyu.svg';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 32](https://github.com/dgilleland/CPSC-1520/issues/32).*
@@ -19,7 +20,9 @@ The term REPL is an acronym for *Read-Eval-Print-Loop*. It refers to an environm
 <Image src={toy} alt="REPLs Are Sandboxes for Playing with JavaScript" />
 
 
-As such, REPLs are great for learning small, targetted aspects of a programming languge, particularly when you are new to the language. In the world of JavaScript, the *Console* tab in the browser's Developer Tools is the most common REPL. Besides being able to write JavaScript, you can explore its use with regard to any web page content (which is why we typically need/want JavaScript code).
+As such, REPLs are great for learning small, targetted aspects of a programming languge. This is particularly helpful when you are new to the language.
+
+In the world of JavaScript, the *Console* tab in the browser's Developer Tools is the most common REPL. Besides being able to write JavaScript, you can explore its use with regard to any web page content (which is why we typically need/want JavaScript code).
 
 Another REPL environment is the Node CLI. Node is a JavaScript run-time environment (suitable for production use), but when you type `node` by itself in a terminal window, you enter a REPL session where you can explore JavaScript free from any browser. The advantage with a Node REPL is a distraction-free JavaScript playground where you can focus on the language itself.
 
@@ -32,9 +35,18 @@ Which do you choose? Either one works well. If you need to play with the DOM, th
 
 ## Using the Dev Tools Console
 
+> - [ ] Using *Dev Tools*
+>   - [ ] How to open
+>   - [ ] How to dock
+>   - [ ] Console vs. Source tabs
+>   - [ ] Use the Console while viewing Source
 
 ## Using Node
 
+> - [ ] Using *Node*
+>   - [ ] How to launch `node` in the terminal
+>   - [ ] Saving your REPL
+>   - [ ] Loading `.js` in your REPL
 
 
 {/* 
@@ -59,15 +71,17 @@ Here are some further readings if you want to explore how to get the most out of
 ----
 
 
+<Image src={todo} alt="Author TODO Items" class="float-start mr-3" width="200" />
+
 ## Issue Details
 
 ### A Guide to REPLs
 
 > A how-to guide to using the Dev Tools Console and `node` as REPLs to explore JavaScript
 > 
-> - [ ] What is a REPL?
->   - [ ] Preliminary on REPLs - Node vs. Browser Dev Tools
-> - [ ] Types of exploring: DOM vs. JavaScript
+> - [x] What is a REPL?
+>   - [x] Preliminary on REPLs - Node vs. Browser Dev Tools
+> - [x] Types of exploring: DOM vs. JavaScript
 > - [ ] Using *Dev Tools*
 >   - [ ] How to open
 >   - [ ] How to dock
