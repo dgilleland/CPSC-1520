@@ -49,12 +49,12 @@ export default defineConfig({
 				{
 					label: 'Explanations',
 					autogenerate: { directory: 'explanations' },
-					collapsed: true,
+					collapsed: false,
 				},
 				{
 					label: 'Reference',
 					autogenerate: { directory: 'reference' },
-					collapsed: true,
+					collapsed: false,
 				},
 			],
 		}),
