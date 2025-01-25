@@ -11,6 +11,9 @@ adhoc.html
 adhoc.css
 adhoc/
 
+# other files/folders
+debug.log
+
 # build output
 dist/
 # generated types
