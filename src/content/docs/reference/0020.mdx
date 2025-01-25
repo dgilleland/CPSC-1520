@@ -6,7 +6,7 @@ sidebar:
 draft: true
 ---
 
-import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
+import { Aside, Badge, Code, FileTree, Icon, LinkButton, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
@@ -45,7 +45,36 @@ Individual instructions are known as **Program Statements**. The instructions ca
 
 Besides individual instructions, we can group individual statements into **Statement Blocks**. A statement block is a set of zero or more program statements that are enclosed in a set of curly braces (`{ }`). Statement blocks are frequently used with **Flow Control Statements** (such as the `if` and `for` statements).
 
----
+----
+
+### Literal Values
+
+A literal value is a piece of "raw" information or data that is embedded into our code. JavaScript offers several types of literals. The more commonly used ones are as follows.
+
+- **String literals** - Any text enclosed in single or double quotes. `'Hello'` and `"Stewart's home!"` are examples of string literals.
+- **Numeric literals** - One or more digits combined to make a number. `42` and `3.14159` are examples of numeric literals, where the first one is an integer literal (whole number) and the second is a floating-point literal (the value includes a decimal point).
+- **Boolean literals** - JavaScript has two keywords which represent literal boolean values: `true` and `false`.
+- **Array literals** - Any set of values enclosed withint square brackets (`[]`). It can be empty - `[]` - or include values - `['Ace', 'King', 'Queen'].`
+- **Object literals** - Any set of zero or more pairs of property names and values enclosed within curly braces (`{}`). This should not be confused with the use of curly braces that represents a *statement block*.
+
+There are additional types of literals in JavaScript that are used for specific purposes. These include the following.
+
+- **Template literals** - A variation of the string literal, but where the text is enclosed with backticks (`` ` ``).
+- **RegExp literals** - A pattern for matching string values, enslosed between a pair of slashes (`/`).
+
+For links to more detailed descriptions, see the MDN article on <LinkButton href="https://developer.mozilla.org/en-US/docs/Glossary/Literal" target="_blank" icon='external' variant='minimal'>**Literals**.</LinkButton>
+
+#### Template Strings
+
+The difference between template and string literals is that all of the text inside a string is considered a literal value whereas template literals can include *variables* through the use of placeholders. For example, in the following code, everything between the backticks are the literal parts of the string while the `${firstName}` is not.
+
+```js
+`Welcome to ${firstName}'s world!`
+```
+
+If the value of `firstName` is `"Wayne"`, then the resulting text would be `Welcome to Wayne's world!`.
+
+----
 
 ### Variable Declarations
 
