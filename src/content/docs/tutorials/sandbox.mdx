@@ -1,0 +1,57 @@
+---
+title: Stand-Alone Sandbox
+description: Starter Kit for a simple website to use as a JavaScript sandbox.
+sidebar:
+  hidden: true
+---
+
+import { Aside, Badge, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import sandboxPreview from './0050/sandbox-preview.png';
+import html from './0050/index.html?raw';
+import css from './0050/styles.css?raw';
+import js from './0050/main.js?raw';
+import favicon from './0050/sandbox-color.png';
+
+We'll use a simple HTML/CSS setup for our sandbox. The whole purpose of this page is to act as a place where we can see the effect of our code (without relying on the Developer Tool's Console).
+
+When our page loads, it will look like this. BTW, I'm basing it on <a target="_blank" href="https://picocss.com">PicoCSS</a> for the base styles and light/dark themes along with <a target="_blank" href="https://tailwindcss.com/docs/installation/play-cdn">Tailwind CSS</a> for custom styles.
+
+<Image src={sandboxPreview} alt="Light/Dark Themed Sandbox"/>
+
+Notice that we have a big "box" area with the text *"Nothing has been written here yet"*. We'll be using this as the target for our JavaScript output.
+
+### Sandbox Starter Code/Assets
+
+<Tabs>
+  <TabItem label='Sandbox'>
+    Use the tabs above to get the code and other assets for the **Sandbox Starter Kit**. Arrange them in this file/folder structure.
+
+    <FileTree>
+      - css
+        - styles.css
+      - img
+        - sandbox-color.png
+      - js
+        - main.js
+      - index.html
+    </FileTree>
+  </TabItem>
+  <TabItem label='index.html'>
+    Copy this code and save as `index.html`.
+    <Code code={html} lang="html" />
+  </TabItem>
+  <TabItem label='styles.css'>
+    Copy this code and save as `css/styles.css`.
+    <Code code={css} lang="css" />
+  </TabItem>
+  <TabItem label='main.js'>
+    Copy this code and save as `js/main.js`.
+    <Code code={js} lang="js" />
+  </TabItem>
+  <TabItem label='FavIcon'>
+    Right-click this image and choose "Save Image As...", making sure to name it `sandbox-color.png`. We're using it as a *favicon* - the icon that appears in the browser's tab beside the title of the page.
+    <Image src={favicon} alt="favicon"/>
+  </TabItem>
+</Tabs>
+
