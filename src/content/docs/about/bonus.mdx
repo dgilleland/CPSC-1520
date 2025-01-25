@@ -11,11 +11,57 @@ prev:
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-
-There really is no end to all of the extra resources you can find on JavaScript. Here are some choice ones from me.
+import progit from './bonus/progit2.png';
+import screenshotThumb from './bonus/screenshot-long.webp';
 
 {/*
 - <LinkButton href="" target="_blank"></LinkButton>
 */}
 
-- <LinkButton href="https://swimburger.net/blog/web/hidden-gem-take-screenshots-using-built-in-commands-in-chrome-edge" target="_blank" variant='minimal'>Take screenshots using built-in commands in Chrome/Edge</LinkButton>
+## JavaScript Resources
+
+There really is no end to all of the extra resources you can find on JavaScript. Here are some choice ones from me.
+
+<LinkButton href="https://swimburger.net/blog/web/hidden-gem-take-screenshots-using-built-in-commands-in-chrome-edge" target="_blank" variant='secondary'>
+  <Image src={screenshotThumb} alt="Take Screenshots" height="36"/>
+  Take screenshots using built-in commands in Chrome/Edge
+</LinkButton>
+
+{/* 
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+<LinkButton href="#" target="_blank">TBD</LinkButton>
+ */}
+
+## HTML/CSS Resources
+
+- <a target="_blank" href="https://www.toptal.com/designers/htmlarrows/">HTML Character Codes</a>
+
+<CardGrid>
+  <Card>
+    ## Tailwind CSS
+
+    - <a target="_blank" href="https://tailwindcss.com/">Tailwind CSS</a>
+    - <a target="_blank" href="https://www.tailwind-variants.org/docs/introduction">Tailwind Variants</a>
+
+    “Tailwind variants allows you to reduce repeated code in your project and make it more readable. They fixed the headache of building a design system with TailwindCSS.”
+
+Zoey Lang
+Full-stack developer, NextUI
+  </Card>
+</CardGrid>
+
+## Other Resources
+
+<CardGrid>
+  <Card>
+    ## Pro Git
+    <a href="https://git-scm.com/book/en/v2" target="_blank"><Image src={progit} alt="Pro Git"/></a>
+    <LinkButton href="https://git-scm.com/book/en/v2" target="_blank">Get the Free eBook</LinkButton>
+  </Card>
+</CardGrid>
