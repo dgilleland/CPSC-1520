@@ -1,0 +1,95 @@
+---
+title: How JavaScript Works
+description: SUMMARY
+sidebar:
+  label: How JavaScript Works
+draft: false
+---
+
+import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import question from '../../../assets/undraw/undraw_questions_g2px.svg';
+
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+<Aside type="tip" title="For those with programming background">
+  If you already have some experience with programming in other languages such as C#, Java, Basic, Python, etc., then you can probably skip this explanation.
+</Aside>
+
+<Image src={question} alt="You have questions about how JavaScript works" class="float-end ml-3" width="300"/>
+
+Are you totally new to JavaScript and the only "programming" background you have is HTML and/or CSS? Odds are that JavaScript will feel pretty different to you.
+
+This explanation might help you get the basics of how JavaScript works, which will be fundamental as you move forward. Consider this your "A-B-C"s look at JavaScript.
+
+## <u>A</u> Sequence of Steps
+
+The first thing to know about JavaScript is that its job is to tell the computer ***how*** to do something **step-by-step**. Think of it as a "tutor" for the browser, telling it to "Do this. Now do that."
+
+We use the word **statement** to describe the idea of a complete instruction (whether simple or complex). In other words, it's a *single step* that we want our computer to perform.
+
+It's not just about instructions, though. It's also about **information**. The instructions are there in order to do something *with* or *to* some piece of information. We hold or represent information in something called *variables*.
+
+<Aside>
+    A good companion to this explanation is my article "What is a Computer Program?" That article complements this by providing another perspective on understanding how JavaScript works.
+</Aside>
+
+The following code illustrates a step-by-step approach to calculate the perimeter of a rectangle. Here, we're making our steps ultra-small, to illustrate the sequence.
+
+```js
+// We want variables to hold information
+let leftSide;   // The rectangle's left side
+let topSide;    // The rectangle's top side
+let perimeter;  // For the final result
+
+// Now we need our initial information
+leftSide = 3;
+rightSide = 4;
+
+// Time to do some math
+perimeter = leftSide + leftSide + topSide + topSide;
+
+// Display the result
+console.log('The perimeter is:', perimeter);
+```
+
+
+## <u>B</u>undles of Instructions
+
+- DRY principle
+- Functions
+  - `return` vs. *default* return value
+
+
+```js
+// redundant-code.js
+```
+
+```js
+// modularized-code.js
+```
+
+
+## <u>C</u>ontrol Flow
+
+- If/Else
+- Loop
+
+```js
+```
+
+
+## <u>D</u>isplaying Results
+
+We don't use JavaScript in a vacuum. JavaScript - in its most common use - is a support for our HTML content. We want to display the results of our work to the user.
+
+
+```js
+```
+
+## <u>E</u>vent Handling
+
+Another way JavaSCript supports our HTML is allowing users to *interact* with our web page.
+
