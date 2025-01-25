@@ -1,0 +1,304 @@
+---
+title: Learn JavaScript Basics in a Sandbox
+description: SUMMARY
+sidebar:
+  label: Build a Sandbox
+draft: true
+---
+
+import { Aside, Badge, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import gotThis from '../../../assets/undraw/undraw_join_6quk.svg';
+import basics from '../../../assets/undraw/undraw_pair-programming_up7w.svg';
+import Sandbox from './sandbox.mdx';
+
+
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 31](https://github.com/dgilleland/CPSC-1520/issues/31).*
+</Aside>
+
+In this tutorial, we'll set up an ultra-simple website to use as a "sandbox" for us to learn the basics of JavaScript. And by the "basics", I mean the *very basic* basics. If you're completely new to JavaScript, this should help you learn some of the things most experienced developers take for granted.
+
+<Aside>
+  There will be a number of tips, notes and links to other resources to expand your understanding. I'm also assuming you've tried the previous tutorials: [*Querying the DOM*](/CPSC-1520/tutorials/0030/) and [*Using `<script>` Tags*](/CPSC-1520/tutorials/0040/).
+</Aside>
+
+## Learning Outcome Guide
+
+Here's a short list of what we will cover in this tutorial.
+
+<Aside title="But, I think I already know this..." type="tip">
+    <Image src={gotThis} alt="I know this stuff..." width="100" class="float-start mr-3"/>
+
+    As you look over the list of items here, you might find that you know all or most of these aspects of JavaScript or programming in general. If that's you, then please skip ahead to the next tutorial.
+</Aside>
+
+- [ ] Simple Sequence
+- [ ] Variable Declaration vs. Variable Initialization
+- [ ] Statements vs. Expressions
+- [ ] `console.log`???
+
+## The Sandbox Page
+
+<Sandbox />
+
+
+## Play and Learn
+
+With our sandbox starter code in place, we can begin experimenting and discovering how JavaScript works. As you walk through this tutorial, remember to **save your changes** for each step where you write JavaScript code.
+
+To get the backstory on what we will be coding, you should read the following article.
+
+<LinkButton href="#">What is a Computer Program?</LinkButton>
+*Author TODO: Complete the article + link*
+
+### Statements in JavaScript
+
+A **Statement** in JavaScript is a *complete instruction*. We use a semicolon (`;`) at the end to indicate the end of the statement. It works in the same way as a period indicates the end of a sentence (or complete thought) in English.
+
+There are many kinds of instructions we can create in JavaScript. In this part of the tutorial, we'll write statements that create variables, perform math and change the text on our web page.
+
+import run from './0050/side-by-side.png';
+
+<Steps>
+1. Launch VS Code and open `main.js` for editing. Then launch the website and view it side-by-side with VS Code. 
+
+    <Image src={run} alt="Our code and sandbox"/>
+
+1. Notice in the `main.js` that we have a variable called `sandbox`. This is a reference to the `<output>` element from our HTML. Right now, the page shows the hard-coded text inside the `<output>` element in `index.html`.
+
+    > *`Nothing has been written here yet`*
+
+    In the next steps, we will be writing code that uses this element to display content on the web page.
+
+
+1. Add your first line of code below the `// TODO` comment (don't remove the existing code). As you save your changes, you should see the text appear on the web page.
+
+    ```js
+    // main.js
+    sandbox.innerText = 'My sandbox is ready to play in.';
+    ```
+
+    We've just written an **assignment statement**. Assignment statements use the `=` operator. It works by taking the value on the right-hand side of the operator and *storing* it in the item on the left-hand side.
+
+    Your code has now *replaced* the old value inside `sandbox.innerText`. That's the purpose of the `=` operator.
+
+1. Add another line of JavaScript code. This time, we will use a different operator: `+=`
+
+    ```js
+    // main.js
+    sandbox.innerText = 'My sandbox is ready to play in.';
+    sandbox.innerHTML += '<br>A) There are many assignment operators';
+    ```
+
+    Notice two things here.
+    
+    - This time, by using `+=` as the operator, we've *appended* more text to the `<output>` element.
+    - We also used `.innerHTML` on the `<output>` element so that we can include the `<br>` tag to force the remaining text () to appear below our first message. The `<br>` tag is the *line break*.
+
+    <Aside type="tip" title="Assignment Operators">
+      There are many other assignment operators, but we will only concern ourselves with `=` and `+=` for displaying information on the web page.
+    </Aside>
+
+1. Let's do some calculations in JavaScript. We'll start by calculating the area of a rectangle. Add the following code.
+
+    ```js
+    // main.js
+    // ... remember to keep the previous code
+    let leftSide = 3;
+    let topSide = 4;
+    let area;
+    area = leftSide * topSide;
+    ```
+
+    - The lines that create and assign values to the `leftSide` and `topSide` variables are called **initialilzation statements** because they both create the variable and give it a value in the same instruction.
+    - The line that creates the `area` variable is called a **declaration statement** because it creates the variable *without* assigning it a starting value.
+    - The last line where we calculate the area is called an **assignment statement**. We use these to store new information in existing variables.
+
+1. Right now, our web page does *not* show the results of our calculation. That's because we haven't written the code to display it.
+
+    Let's show our results by adding the following code.
+
+    ```js
+    // main.js
+    sandbox.innerHTML += '<br>';
+    sandbox.innerHTML += `B) The area of my rectangle is ${area}`;
+    ```
+
+    You should see the area's value of `12` displayed on the page.
+
+    <Aside type="tip" title="Template Strings">
+      Did you catch how we constructed the text in the last line of the code? We wrapped the text in backticks (`` ` ``) instead of the single-quote characters. This is known as a [**Template String**](/CPSC-1520/reference/0020/#template-strings)
+
+      The process is called <a target="_blank" href="https://en.wikipedia.org/wiki/String_interpolation">***String Interpolation***</a>, and it allows us to build strings and insert values through the use of *placeholders*. The `${}` is our placeholder and we can put variables inside the curly braces. JavaScript will take the *value* from the variable and *place* it in our string at that location.
+
+      Here's another example.
+
+      ```js
+      let name = 'Stewart';
+      let greeting = `Hello ${name}. Welcome to JavaScript!`;
+      // greeting will have the value of
+      //   'Hello Stewart. Welcome to JavaScript!'
+      ```
+
+      This will prove extremely useful moving forward!
+    </Aside>
+</Steps>
+
+We've created several lines of code in our sandbox. We've explored some simple math and discovered the useful *string interpolation* syntax.
+
+
+> So far, we've only explored a single keyword in the JavaScript language: `let`. We're going to discover a couple more JavaScript keywords in the next part of this tutorial: `const` and `typeof`.
+>
+> *All* of the other words we've written are **identifiers**. An *identifier* is simply a name that we or the browser has given for some variable or object.
+>
+> To learn more about this aspect of JavaScript, check out the following articles.
+>
+> <CardGrid>
+>   <LinkCard title="JavaScript As A Language" href="/CPSC-1520/explanations/0020/" />
+>   <LinkCard title="JavaScript Keywords" href="/CPSC-1520/reference/0010/" />
+> </CardGrid>
+
+### Data Types, More Math
+
+A lot of times, the information we need to work with is either *textual* or *numeric*. JavaScript supports these with the `'string'` and `'number'` data types. There are other built-in data types, but these two will be foundational for almost all of the code you write.
+
+> *?Add note about the dangers of **Primitive Obsession**?*
+
+Let's explore how we can manipulate textual and numeric data in our programs.
+
+
+<Steps>
+1. It's not unusual to see code that has "raw" values in it. In fact, we've been using these raw or [**literal**](/CPSC-1520/reference/0020/#literal-values) values in earlier parts of this tutorial. A common place to see these are with initialization or assignment statements.
+
+    Let's add a few variables to our code using literal values.
+
+    ```js
+    // main.js
+    let unitCost = 12.95;
+    let gstRate = 0.05;
+    let currency = '(CAD)';
+    ```
+
+    <Aside type="tip">
+      Generally speaking, when we write JavaScript we should restrict the amount of literal values in our code as much as possible. The values of literals are - simply put - *fixed*. We can't change them. That's why we use [**variables**](/CPSC-1520/reference/0020/#variable-declarations) so often - they give us *flexibility*.
+    </Aside>
+    
+    {/* For example, we created *string literals* such as `'My sandbox is ready to play in.'`. Another literal string was `'<br>'`. A string literal can be recognized as text that is surrounded by either single quotes, double quotes, or a pair of backticks.
+
+    *Numeric literals* are the digits we type. An example includes the numbers `3` and `4` that we used for the sides of the rectangle. */}
+1. It's time to do something with these variables. Let's calculate the price of something. We'll display the output with a template string
+
+    ```js
+    // main.js
+    let subTotal = unitCost * 10;
+    // Output the result on another "line"
+    sandbox.innerHTML += '<br>C) ';
+    sandbox.innerHTML += `The subtotal is ${subTotal}. `;
+    sandbox.innerHTML += `The total is ${subTotal + subTotal * gst}.`;
+    ```
+
+    You should see the following additional text displayed on the page.
+
+    ```
+    C) The subtotal is 129.5. The total is 135.975.
+    ```
+
+1. The math is good for the code we wrote. But the presentation could use some fixing. Make the following changes.
+
+    ```diff lang="js"
+      let subTotal = unitCost * 10;
+    + let total = subTotal + subTotal * gst;
+      // Output the result on another "line"
+      sandbox.innerHTML += '<br>C) ';
+    - sandbox.innerHTML += `The subtotal is ${subTotal}. `;
+    + sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed}. `;
+    - sandbox.innerHTML += `The total is ${subTotal + subTotal * gst}.`;
+    + sandbox.innerHTML += `The total is $ ${total.toFixed(2)}.`;
+    ```
+
+    We added another variable (`total`) to simplify the placeholder's expression that calcluated the total amount. In the placeholders, we used the `.toFixed()` function that comes will all number types. `.toFixed()` converts the *number* to a *string* with a fixed number of digits precision after the decimal point. Lastly, we also threw in a literal `$` in the text to make it clear that we are talking about monetary values.
+    
+    Now the output should look like the following.
+
+    `C) The subtotal is $ 129.50. The total is $ 135.97.`
+
+1. Let's try some more math, but this time, we'll use a mixture of strings and numbers.
+
+    ```js
+    // main.js
+    // Can JavaScript do math with strings and numbers?
+    let numberFive = 5;
+    let stringFive = '5';
+    let answer;
+
+    answer = numberFive + stringFive;
+    sandbox.innerHTML += '<br>D) ';
+    sandbox.innerHTML += `5 + '5' produces ${answer}`;
+    ```
+
+    Did you expect that result? It turns out that JavaScript turned the number into a string and then *concatenated* the two strings, producing this text.
+    
+    `D) 5 + '5' produces 55`
+
+1. Let's do another calculation. Add the following code.
+
+    ```js
+    // main.js
+    answer = numberFive * stringFive;
+    sandbox.innerHTML += '<br>E) ';
+    sandbox.innerHTML += `5 * '5' produces ${answer}`;
+    ```
+
+    This time, JavaScript turned the string into a number and performed arithmetic. That's because the multiplcation operator (`*`) is intended for use with numbers, not text.
+    
+    `E) 5 * '5' produces 25`
+
+1. We can re-try that addition operation. This time let's use a function that converts strings to numbers: `parseInt()`
+
+    ```js
+    // main.js
+    answer = numberFive + parseInt(stringFive);
+    sandbox.innerHTML += '<br>F) ';
+    sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
+    ```
+
+    The `parseInt()` will take a string and attempt to convert it to a whole number. There is a similar function if we want to convert to floating-point numbers: `parseFloat()`. Here's the result.
+    
+    `F) 5 + parseInt('5') produces 25`
+
+1. JavaScript has a keyword that tells us the data type of a variable: `typeof`. Add the following to your growing list of experimental code.
+
+    ```js
+    // main.js
+    sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
+    sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
+    ```
+
+    If you are ever curious about the datatype of your variable, just try using the `typeof` operator.
+
+1. One last example to try out. We've seen the usefulness of literal values (though we should be judicious in their use). Hopefully you're seeing how variables are even more useful, because we can re-use them to hold newly calculated values (like we did with `answer`).
+
+    But, what if we wanted a variable that we could re-use in calculations without having its value change? A good example of this is the value for `pi` (3.14150, approximately).
+
+    ```js
+    // main.js
+    const pi = 3.14159; // pi's value is now fixed - it can't change
+    let radius = 10;
+
+    sandbox.innerHTML += `<br>I) A circle with radius of ${radius} `;
+    sandbox.innerHTML += `has an area of ${pi * radius * radius} `;
+    sandbox.innerHTML += `and a circumference of ${2 * pi * radius}.`;
+    ```
+
+    One of the benefits for using a *constant variable* (yes, a contradiction in terms) is that it makes our code easier to read and saves us from using lots of hard-coded literals in our scripts.
+</Steps>
+
+## Conclusion
+
+Assignment statements, variable declarations and initializations, constants, string concatenation, math, converting from numbers to strings and strings to numbers &mdash; these are the types of things you should get comfortable writing as a JavaScript programmer.
+
+The concepts we explored in this tutorial form the groundwork on which will will build our JavaScript coding skills. For more information, consult the following article.
+
+<LinkCard title="How JavaScript Works" href="/CPSC-1520/explanations/0025/" />
+
