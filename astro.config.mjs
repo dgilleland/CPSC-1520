@@ -24,6 +24,7 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'About',
+					collapsed: true,
 					items: [
 						// Each item here is one entry in the navigation menu.
 						{ label: 'Start Here', slug: 'about/start-here' },
