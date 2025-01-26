@@ -6,14 +6,9 @@ sidebar:
 draft: false
 ---
 
-import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps } from '@astrojs/starlight/components';
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import toy from '../../../assets/undraw/undraw_toy-car_ugyu.svg';
-import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
-
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 32](https://github.com/dgilleland/CPSC-1520/issues/32).*
-</Aside>
 
 There are several ways to begin exploring JavaScript. You can create simple "sandbox" websites to hold your JavaScript code. You can also use REPLs such as the browser's Developer Tools or the Node REPL within a terminal window.
 
@@ -25,6 +20,13 @@ The term REPL is an acronym for *Read-Eval-Print-Loop*. It refers to an environm
 
 
 As such, REPLs are great for learning small, targeted aspects of a programming languge. This is particularly helpful when you are new to the language.
+
+<Aside type="caution">
+  Be aware that a REPL environment - by definition - is ***not*** the same as creating JavaScript files to run in your website. REPLs will
+  
+  - Give immediate feedback as you are typing code and when you press <kbd>Enter</kbd>. 
+  - Process *expressions* as well as complete *statements*.
+</Aside>
 
 In the world of JavaScript, the *Console* tab in the browser's Developer Tools is the most common REPL. Besides being able to write JavaScript, you can explore its use with regard to any web page content (which is why we typically need/want JavaScript code).
 
@@ -39,18 +41,62 @@ Which do you choose? Either one works well. If you need to play with the DOM, th
 
 ### Using the Dev Tools Console
 
-> - [ ] Using *Dev Tools*
->   - [ ] How to open
->   - [ ] How to dock
->   - [ ] Console vs. Source tabs
->   - [ ] Use the Console while viewing Source
+import console from './0010/dev-tools-console.png';
+import dock from './0010/dev-tools-dock-location.png';
+import sources from './0010/dev-tools-sources.png';
+
+Here's how you can access your browser's Developer Tools.
+
+<Steps>
+1. In the Edge, Chrome and Firefox browsers, you can toggle the developer tools by pressing the <kbd>F12</kbd> key.
+1. You can choose where to dock the dev tools by clicking on the elipsis (&ellip;) on the toolbar.
+
+    <Image src={dock} alt="Dock the Developer Tools"/>
+
+1. Click on the *"Console"* tab. This will give you a dedicated REPL with which to perform live edits of your page using JavaScript.
+
+    <Image src={console} alt="Console tab"/>
+
+1. To view the actual script file(s) the browser has loaded, click on the *"Sources"* tab. Find and click on your JavaScript file from the navigator portion to see the source code for that file.
+
+    <Image src={sources} alt="Sources tab"/>
+
+    Within the Sources tab, you can set breakpoints to control execution of your code and then step through each line as part of your debugging efforts.
+
+    Pressing the <kbd>Esc</kbd> key while in the Sources tab will toggle a Console REPL just below the source code.
+</Steps>
+
+Many of the major browsers share the same underlying engine (*Chromium*), so your experience with the developer tools in each will be mostly identical.
+
+<Tabs>
+  <TabItem label="MS Edge">
+    Microsoft has extensive documentation on the DevTools in **Edge** (my own preferred browser these days - circa 2023).
+    
+    <LinkButton target="_blank" href="https://learn.microsoft.com/en-us/microsoft-edge/devtools-guide-chromium/landing/">Edge DevTools</LinkButton>
+  </TabItem>
+  <TabItem label="Chrome">
+    I quickly switched to Google Chrome back in 2008 largely because of the **comic book**. It's definitely worth the read, *especially* once you get into "real world" software development.
+
+    <LinkButton target="_blank" href="https://developer.chrome.com/docs/devtools">Chrome DevTools</LinkButton>
+    <LinkButton target="_blank" href="https://contrachrome.com/chapters" variant='secondary'>Comic book</LinkButton>
+  </TabItem>
+  <TabItem label="Firefox">
+    Not too long after Chrome's first release, Microsoft and **Firefox** both switched to using the same underlying engine: *Chromium*.
+
+    <LinkButton target="_blank" href="https://firefox-source-docs.mozilla.org/devtools-user/">Firefox DevTools</LinkButton>
+  </TabItem>
+</Tabs>
 
 ### Using Node
 
-> - [ ] Using *Node*
->   - [ ] How to launch `node` in the terminal
->   - [ ] Saving your REPL
->   - [ ] Loading `.js` in your REPL
+Entering the Node REPL is fairly straight forward.
+
+<Steps>
+1. Open a terminal window on your computer.
+1. Type `node` to enter the Node REPL.
+1. Type `.help` for a list of the REPL commands, such as saving and loading external script files.
+1. Type `.exit` in the REPL when you want to return to your terminal context.
+</Steps>
 
 <Card title="Further Reading">
   For more on using the Node REPL, take a look at these articles from *TechVidvan* and *CodeDamn*.
@@ -65,30 +111,8 @@ Which do you choose? Either one works well. If you need to play with the DOM, th
 
 import Sandbox from '../tutorials/sandbox.mdx';
 
+One of the distinguishing aspects of writing actual JavaScript files for a web page is that your code needs to contain complete statements. This is different from a REPL environment because the REPL will process *partial* as well as complete statements. The REPL also automatically gives you feedback on the result of what you are typing. This is different from the "real world" of JavaScript where *you* have to decide what (if anything) is worth displaying on the web page.
+
 Here's some resources you can use for a stand-along web page to act as a "sandbox" for exploring JavaScript. You can also find this sandbox as part of the [related tutorial](/CPSC-1520/tutorials/0050/) that introduces some basic JavaScript concepts.
 
 <Sandbox />
-
-----
-
-
-<Image src={todo} alt="Author TODO Items" class="float-start mr-3" width="200" />
-
-## Issue Details
-
-### A Guide to REPLs
-
-> A how-to guide to using the Dev Tools Console and `node` as REPLs to explore JavaScript
-> 
-> - [x] What is a REPL?
->   - [x] Preliminary on REPLs - Node vs. Browser Dev Tools
-> - [x] Types of exploring: DOM vs. JavaScript
-> - [ ] Using *Dev Tools*
->   - [ ] How to open
->   - [ ] How to dock
->   - [ ] Console vs. Source tabs
->   - [ ] Use the Console while viewing Source
-> - [ ] Using *Node*
->   - [ ] How to launch `node` in the terminal
->   - [ ] Saving your REPL
->   - [ ] Loading `.js` in your REPL
