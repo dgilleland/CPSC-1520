@@ -11,6 +11,7 @@ draft: true
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import idea from '../../../assets/undraw/undraw_lightbulb-moment_c8jn.svg';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 26](https://github.com/dgilleland/CPSC-1520/issues/26).*
@@ -88,3 +89,20 @@ In the future, the content on this site will be migrated to other authoring proj
   <LinkCard title="See the Roadmap" href="https://github.com/dgilleland/CPSC-1520/issues/1" target="_blank" />
   <LinkCard title="Open Live Site" href="https://dgilleland.github.io/CPSC-1520/about/start-here/" target="_blank" />
 </CardGrid>
+
+## Note-to-Self
+
+<Aside type="tip" title="Seminar">
+  <Image src={idea} alt="Lightbulb moment" class="float-right ml-3" width="150"/>
+
+  Offer a seminar titled "**Creating Educational Content - A Guide for Aspiring Authors**". It would be a workshop to illustrate the principles I am learning and developing in this site.
+
+  Interested parties can sign up for additional training sessions where I help them learn/practice
+
+  - Markdown + GitHub + VS Code (until I build an Authoring extension for MdxIWYG *(MDX Is What You Get)*
+  - Setting up your Documentation site (Astro Starlight)
+  - Curating Assets (e.g.: [undraw](https://undraw.co))
+  - Exploring the [Diátaxis framework](https://diataxis.fr/start-here/#the-four-kinds-of-documentation)
+  - Beyond the Diátaxis framework: *practice exercises* vs. *tutorials*
+  - Monetizing your efforts
+</Aside>
