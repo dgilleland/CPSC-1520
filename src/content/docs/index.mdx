@@ -14,6 +14,7 @@ hero:
       link: https://starlight.astro.build
       icon: external
       variant: minimal
+      target: _blank
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
@@ -23,22 +24,25 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 I'm starting this as a place to create ad-hoc notes that support my CPSC-1520 classes in January 2025. It's raw, it's not done, but it will be ***accurate***. Here's the <a target="_blank" href="https://github.com/dgilleland/CPSC-1520/issues/1">roadmap</a> of what I'm creating.
 
 <CardGrid stagger>
-	<Card title="Sporatically Updated" icon="add-document">
-		This is <b>NOT</b> a substitute for your student workbook or attending Dan's classes. Rather, it's a supplement that Dan will add random things to.
-	</Card>
-	<Card title="Work In Progress" icon="pencil">
-		This site is a <i>Work in Progress</i> (<abbr>WIP</abbr>).
-	</Card>
-	<Card title="Have a Suggestion?" icon="setting">
-		You know Dan. You have an idea. [Tell him!](https://github.com/dgilleland/CPSC-1520/issues/4)
-	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
-	</Card>
-	<Card title="Contributions" icon="comment-alt">
-		Want to earn "Good Will" credits. Check out the [**contributions**](/CPSC-1520/about/contributions/) page.
-	</Card>
-	<Card title="Dev-Mode" icon="backstage">
-		For **contributors**: See the [Author Guide](http://localhost:4321/CPSC-1520/about/author-guide/) *when running in dev mode only* (`pnpm dev`).
-	</Card>
+    <Card title="Sporatically Updated" icon="add-document">
+        This is <b>NOT</b> a substitute for your student workbook or attending Dan's classes. Rather, it's a supplement that Dan will add random things to.
+    </Card>
+    <Card title="Work In Progress" icon="pencil">
+        This site is a <i>Work in Progress</i> (<abbr>WIP</abbr>).
+    </Card>
+    <Card title="Have a Suggestion?" icon="setting">
+        You know Dan. You have an idea. <a target="_blank" href="https://github.com/dgilleland/CPSC-1520/issues/4">Tell him!</a>
+    </Card>
+    <Card title="Dana Marsh's Notes" icon="approve-check-circle">
+        My colleague **Dana Marsh** has an ***excellent*** <a target="_blank" href="https://dmarshnait.github.io/cpsc1520/QuickReference">summary of the current CPSC-1520 content</a> which is definitely worth a read as a quick reference!
+    </Card>
+    <Card title="Read the docs" icon="open-book">
+        Learn more in <a target="_blank" href="https://starlight.astro.build/">the Starlight Docs</a>.
+    </Card>
+    <Card title="Contributions" icon="comment-alt">
+        Want to earn "Good Will" credits. Check out the [**contributions**](/CPSC-1520/about/contributions/) page.
+    </Card>
+    <Card title="Dev-Mode" icon="backstage">
+        For **contributors**: See the [Author Guide](http://localhost:4321/CPSC-1520/about/author-guide/) *when running in dev mode only* (`pnpm dev`).
+    </Card>
 </CardGrid>
