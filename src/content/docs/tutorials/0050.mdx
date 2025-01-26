@@ -29,10 +29,13 @@ Here's a short list of what we will cover in this tutorial.
     As you look over the list of items here, you might find that you know all or most of these aspects of JavaScript or programming in general. If that's you, then please skip ahead to the next tutorial.
 </Aside>
 
-- [ ] Simple Sequence
-- [ ] Variable Declaration vs. Variable Initialization
-- [ ] Statements vs. Expressions
-- [ ] `console.log`???
+- [ ] Assignment statements
+- [ ] Variable declarations and initializations
+- [ ] Constants
+- [ ] String concatenation
+- [ ] Math
+- [ ] Converting from numbers to strings
+- [ ] Converting from strings to numbers
 
 ## The Sandbox Page
 
@@ -298,3 +301,62 @@ The concepts we explored in this tutorial form the groundwork on which will will
 
 <LinkCard title="How JavaScript Works" href="/CPSC-1520/explanations/0025/" />
 
+<details>
+    <summary>Expand for complete code for this tutorial</summary>
+
+    ```js
+    // main.js
+    console.log('main.js has been loaded');
+    const sandbox = document.querySelector('output#sandbox');
+
+    // TODO: Use the space below for playing with JavaScript.
+    sandbox.innerText = 'My sandbox is ready to play in.';
+    sandbox.innerHTML += '<br>A) There are many assignment operators';
+
+    // ... remember to keep the previous code
+    let leftSide = 3;
+    let topSide = 4;
+    let area;
+    area = leftSide * topSide;
+
+    sandbox.innerHTML += '<br>';
+    sandbox.innerHTML += `B) The area of my rectangle is ${area}`;
+
+    let unitCost = 12.95;
+    let gstRate = 0.05;
+    let currency = '(CAD)';
+    let subTotal = unitCost * 10;
+    let total = subTotal + subTotal * gst;
+    // Output the result on another "line"
+    sandbox.innerHTML += '<br>C) ';
+    sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed}. `;
+    sandbox.innerHTML += `The total is $ ${total.toFixed(2)}.`;
+
+    // Can JavaScript do math with strings and numbers?
+    let numberFive = 5;
+    let stringFive = '5';
+    let answer;
+
+    answer = numberFive + stringFive;
+    sandbox.innerHTML += '<br>D) ';
+    sandbox.innerHTML += `5 + '5' produces ${answer}`;
+
+    answer = numberFive * stringFive;
+    sandbox.innerHTML += '<br>E) ';
+    sandbox.innerHTML += `5 * '5' produces ${answer}`;
+
+    answer = numberFive + parseInt(stringFive);
+    sandbox.innerHTML += '<br>F) ';
+    sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
+
+    sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
+    sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
+
+    const pi = 3.14159; // pi's value is now fixed - it can't change
+    let radius = 10;
+
+    sandbox.innerHTML += `<br>I) A circle with radius of ${radius} `;
+    sandbox.innerHTML += `has an area of ${pi * radius * radius} `;
+    sandbox.innerHTML += `and a circumference of ${2 * pi * radius}.`;
+    ```
+</details>
