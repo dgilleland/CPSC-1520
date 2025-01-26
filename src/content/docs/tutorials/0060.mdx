@@ -1,0 +1,260 @@
+---
+title: TBD
+description: SUMMARY
+sidebar:
+  label: Re-usable Functions
+draft: false
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 49](https://github.com/dgilleland/CPSC-1520/issues/49).*
+</Aside>
+
+In this tutorial, we will explore the benefits of functions in terms of code re-use and in terms of "modularizing" our code to make it more "readable".
+
+## Setup
+
+If you've completed the prior Sandbox tutorial, you can jump to the [re-use](#code-re-use) portion to continue evolving that project.
+
+If you want to start a new project from scratch, grab the [Sandbox code](/CPSC-1520/tutorials/sandbox) and then replace the content of the `main.js` file with the code below.
+
+<details>
+    <summary>Expand to view `main.js`</summary>
+
+    ```js
+    // main.js
+    console.log('main.js has been loaded');
+    const sandbox = document.querySelector('output#sandbox');
+
+    // TODO: Use the space below for playing with JavaScript.
+    sandbox.innerText = 'My sandbox is ready to play in.';
+    sandbox.innerHTML += '<br>A) There are many assignment operators';
+
+    // ... remember to keep the previous code
+    let leftSide = 3;
+    let topSide = 4;
+    let area;
+    area = leftSide * topSide;
+
+    sandbox.innerHTML += '<br>';
+    sandbox.innerHTML += `B) The area of my rectangle is ${area}`;
+
+    let unitCost = 12.95;
+    let gstRate = 0.05;
+    let currency = '(CAD)';
+    let subTotal = unitCost * 10;
+    let total = subTotal + subTotal * gst;
+    // Output the result on another "line"
+    sandbox.innerHTML += '<br>C) ';
+    sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed(2)}. `;
+    sandbox.innerHTML += `The total is $ ${total.toFixed(2)}.`;
+
+    // Can JavaScript do math with strings and numbers?
+    let numberFive = 5;
+    let stringFive = '5';
+    let answer;
+
+    answer = numberFive + stringFive;
+    sandbox.innerHTML += '<br>D) ';
+    sandbox.innerHTML += `5 + '5' produces ${answer}`;
+
+    answer = numberFive * stringFive;
+    sandbox.innerHTML += '<br>E) ';
+    sandbox.innerHTML += `5 * '5' produces ${answer}`;
+
+    answer = numberFive + parseInt(stringFive);
+    sandbox.innerHTML += '<br>F) ';
+    sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
+
+    sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
+    sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
+
+    const pi = 3.14159; // pi's value is now fixed - it can't change
+    let radius = 10;
+
+    sandbox.innerHTML += `<br>I) A circle with radius of ${radius} `;
+    sandbox.innerHTML += `has an area of ${pi * radius * radius} `;
+    sandbox.innerHTML += `and a circumference of ${2 * pi * radius}.`;
+    ```
+</details>
+
+
+## Code Re-Use
+
+One of the aspects of the current `main.js` to note is that we appear to be repeating a lot of code. Specifically, when we want to display content on the web page, we're always doing something like this.
+
+```js
+sandbox.innerHTML += '<br>';
+sandbox.innerHTML += someOtherText;
+```
+
+Granted, the details of the `someOtherText` content varies in our script, but the essense of the idea remains: We want to a) append to the existing content, and b) ensure that each block of text appears on a separate "line" on the screen.
+
+> Author TODO: Add link on *Functions* to the grammar
+
+[Functions](#) are an excellent tool for creating re-usable blocks of code. If you have two or more instructions that you want to perform repeatedly, you can simply put them in a well-named function and then *call it* whenever you need to perform those tasks.
+
+There are two aspects to functions:
+
+- **Declaring** - The function's behaviour has to be *declared*. This is just a fancy way of saying we have to *create* the function.
+- **Calling** - This is where we *use* the function by **invoking** it. In other words, we tell the computer, "Hey, take this information and go to this function to run the code in that function."
+
+By creating and using functions for multiple instructions, we are practicing the **DRY** *(**D**on't **R**epeat **Y**ourself)* principle in software development.
+
+### Append Line
+
+Let's improve our code by making the following changes to `main.js`.
+
+<Steps>
+1. At the top of the file, replace the line that declares the `sandbox` variable with the following code.
+
+    ```diff lang="js" title="Function Declaration"
+    - const sandbox = document.querySelector('output#sandbox');
+    + const appendLine = function(someText) {
+    +     const sandbox = document.querySelector('output#sandbox');
+    +     sandbox.innerHTML += '<br>';
+    +     sandbox.innerHTML += someText;
+    }
+    ```
+
+    One of the effects of this change is that it breaks our code. Don't worry, we'll fix that in the next steps.
+
+    <Aside type="tip" title="Refactoring">
+        At this point, we're beginning an exercise of **refactoring** our code. *Refactoring* is when we try to make changes to working code in order to improve the *code quality* (maintainability, readability) by re-organizing it while at the same time *preserving the current behavour* of our code.
+    </Aside>
+1. We'll still want to "reset" the contents of the `<output>` element, so we'll change the first message we display.
+
+    ```diff lang="js" title="Reset the Display" ins="document.querySelector('output#sandbox')." del="sandbox."
+      // TODO: Use the space below for playing with JavaScript.
+    - sandbox.innerText = 'My sandbox is ready to play in.';
+    + document.querySelector('output#sandbox').innerText = 'My sandbox is ready to play in.';
+    ```
+
+1. Now we'll do our first call to our `appendLine` function. Change the sample `A)` output as follows.
+
+    ```diff lang="js"
+    - sandbox.innerHTML += '<br>A) There are many assignment operators';
+    + appendLine('A) There are many assignment operators');
+    ```
+
+    Notice two things about this change. We're writing less code (hooray!) and we don't need to be explicit on the line break.
+1. Update the display of sample `B)`.
+
+    ```diff lang="js"
+    - sandbox.innerHTML += '<br>';
+    - sandbox.innerHTML += `B) The area of my rectangle is ${area}`;
+    + appendLine(`B) The area of my rectangle is ${area}`);
+    ```
+
+1. Our next sample display (`C`) outputs the subtotal and total values. I had us write those on separate lines just because I wanted to keep the lines short. I still want the lines short, so I'll throw in a variable for the message I want to display.
+
+    ```diff lang="js"
+    - sandbox.innerHTML += '<br>C) ';
+    - sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed(2)}. `;
+    - sandbox.innerHTML += `The total is $ ${total.toFixed(2)}.`;
+    + let message;
+    + message = `C) The subtotal is $ ${subTotal.toFixed(2)}. `;
+    + message += `The total is $ ${total.toFixed(2)}.`;
+    + appendLine(message);
+    ```
+
+    Granted, it's an extra line of code, but what we have done is slightly improve the *readability* of our code.
+1. Let's jump through a bunch of other changes where we are playing with strings and numbers.
+
+    ```diff lang="js"
+      // Can JavaScript do math with strings and numbers?
+      let numberFive = 5;
+      let stringFive = '5';
+      let answer;
+
+      answer = numberFive + stringFive;
+    - sandbox.innerHTML += '<br>D) ';
+    - sandbox.innerHTML += `5 + '5' produces ${answer}`;
+    + appendLine(`D) 5 + '5' produces ${answer}`);
+
+      answer = numberFive * stringFive;
+    - sandbox.innerHTML += '<br>E) ';
+    - sandbox.innerHTML += `5 * '5' produces ${answer}`;
+    + appendLine(E) `5 * '5' produces ${answer}`);
+
+      answer = numberFive + parseInt(stringFive);
+     - sandbox.innerHTML += '<br>F) ';
+     - sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
+    + appendLine(`F) 5 * parseInt('5') produces ${answer}`);
+
+    - sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
+    - sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
+    + appendLine(`G) numberFive is a ${typeof numberFive}`);
+    + appendLine(`H) stringFive is a ${typeof stringFive}`);
+    ```
+
+1. We'll finish off with improvements to displaying our circle calculations.
+
+    ```diff lang="js"
+    - sandbox.innerHTML += `<br>I) A circle with radius of ${radius} `;
+    - sandbox.innerHTML += `has an area of ${pi * radius * radius} `;
+    - sandbox.innerHTML += `and a circumference of ${2 * pi * radius}.`;
+    + message = `I) A circle with radius of ${radius} `;
+    + message += `has an area of ${pi * radius * radius} `;
+    + message += `and a circumference of ${2 * pi * radius}.`;
+    + appendLine(message);
+    ```
+</Steps>
+
+The final result of all these changes does *not* alter what our code does; it still displays the same information. But our efforts in refactoring makes a huge improvement in terms of how readable our code is. We'll discover another benefit in the next part of this tutorial.
+
+### Auto-Numbering
+
+<Steps>
+1. Create another function near the top of `main.js` and place it just beneath the function declaration for `appendLine()`.
+
+    ```js title="New Function"
+    const offsetStepA = function(offset) {
+        let step = 'A';
+        let characterCode = step.charCodeAt(0);
+        characterCode += offset; // same as characterCode = characterCode + offset;
+        let text = String.fromCharCode(characterCode);
+        return text;
+    }
+    ```
+
+1. Now, let's modify our `appendLine()` function.
+
+    ```diff lang="js" title="Append Line" ins="letter + "
+    + let step = 0; // A global variable to track our current step
+      const appendLine = function(someText) {
+    +   let letter = `${offsetStepA(step++)}) `;
+        const sandbox = document.querySelector('output#sandbox');
+        sandbox.innerHTML += '<br>';
+    -   sandbox.innerHTML += someText;
+    +   sandbox.innerHTML += letter + someText;
+      }
+    ```
+
+    When our code runs, you will notice that the letters for the output are duplicated. That's because we are now calculating the next letter inside of our function.
+1. To fix the duplicate step letters, remove the hard-coded step values from each call to `appendLine()`. Here's the modification of the first call.
+
+    ```diff lang="js" del="A) "
+    - appendLine('A) There are many assignment operators');
+    + appendLine('There are many assignment operators');
+    ```
+
+    See if you can complete the remaining corrections.
+</Steps>
+
+Our auto-numbering function has further simplified our code by removing the need for us to hard-code each sample output we generate. If you feel uncertain about some parts of the code we just wrote, don't worry. I'll make some brief comments and point you to further explanations of how it works.
+
+## Conclusion
+
+The final version of our sandbox experiments is complete. Along the way, we've practiced the discipline of **refactoring** and we've learned a couple of things about **functions** in JavaScript. As a bonus, I've thrown in a few nuggets of JavaScript syntax and operators through our use of the `offsetStepA()` function. They include the following:
+
+- **`++` operator** - Author TODO: Links
+- **`function` + `return` keywords** - Author TODO: Links
+- **declaring and calling functions** - Author TODO: Links
+- **Use of global variable `step`** - Author TODO: Links
+- **Character codes: `.charCodeAt(0)` + `String.fromCharCode()`** - Author TODO: Links
