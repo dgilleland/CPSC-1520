@@ -65,7 +65,7 @@ If you want to start a new project from scratch, grab the [Sandbox code](/CPSC-1
 
     answer = numberFive + parseInt(stringFive);
     sandbox.innerHTML += '<br>F) ';
-    sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
+    sandbox.innerHTML += `5 + parseInt('5') produces ${answer}`;
 
     sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
     sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
@@ -180,8 +180,8 @@ Let's improve our code by making the following changes to `main.js`.
 
       answer = numberFive + parseInt(stringFive);
      - sandbox.innerHTML += '<br>F) ';
-     - sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
-    + appendLine(`F) 5 * parseInt('5') produces ${answer}`);
+     - sandbox.innerHTML += `5 + parseInt('5') produces ${answer}`;
+    + appendLine(`F) 5 + parseInt('5') produces ${answer}`);
 
     - sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
     - sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
