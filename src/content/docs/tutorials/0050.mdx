@@ -194,7 +194,7 @@ Let's explore how we can manipulate textual and numeric data in our programs.
     // Output the result on another "line"
     sandbox.innerHTML += '<br>C) ';
     sandbox.innerHTML += `The subtotal is ${subTotal}. `;
-    sandbox.innerHTML += `The total is ${subTotal + subTotal * gst}.`;
+    sandbox.innerHTML += `The total is ${subTotal + subTotal * gstRate}.`;
     ```
 
     You should see the following additional text displayed on the page.
@@ -207,12 +207,12 @@ Let's explore how we can manipulate textual and numeric data in our programs.
 
     ```diff lang="js"
       let subTotal = unitCost * 10;
-    + let total = subTotal + subTotal * gst;
+    + let total = subTotal + subTotal * gstRate;
       // Output the result on another "line"
       sandbox.innerHTML += '<br>C) ';
     - sandbox.innerHTML += `The subtotal is ${subTotal}. `;
     + sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed(2)}. `;
-    - sandbox.innerHTML += `The total is ${subTotal + subTotal * gst}.`;
+    - sandbox.innerHTML += `The total is ${subTotal + subTotal * gstRate}.`;
     + sandbox.innerHTML += `The total is $ ${total.toFixed(2)}.`;
     ```
 
@@ -326,7 +326,7 @@ The concepts we explored in this tutorial form the groundwork on which will will
     let gstRate = 0.05;
     let currency = '(CAD)';
     let subTotal = unitCost * 10;
-    let total = subTotal + subTotal * gst;
+    let total = subTotal + subTotal * gstRate;
     // Output the result on another "line"
     sandbox.innerHTML += '<br>C) ';
     sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed(2)}. `;

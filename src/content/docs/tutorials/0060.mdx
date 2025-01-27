@@ -44,7 +44,7 @@ If you want to start a new project from scratch, grab the [Sandbox code](/CPSC-1
     let gstRate = 0.05;
     let currency = '(CAD)';
     let subTotal = unitCost * 10;
-    let total = subTotal + subTotal * gst;
+    let total = subTotal + subTotal * gstRate;
     // Output the result on another "line"
     sandbox.innerHTML += '<br>C) ';
     sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed(2)}. `;
