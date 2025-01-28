@@ -1,25 +1,23 @@
 ---
-title: Event Listeners
+title: Intro to Event Listeners
 description: A tutorial on creating event listeners.
 sidebar:
   label: Event Listeners
-draft: true
+draft: false
 ---
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
-<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
-</Aside>
+In this tutorial, we'll explore listening to **events** on our web pages. Events can come from several places. For example, events can come from the user in terms of mouse and keyboard events. We'll look specifically at mouse click events that happen on specific parts of our web page.
 
-In this tutorial, we'll explore listening to **events** on our web pages. Events can come from several places. For example, events can come from the user in terms of mouse and keyboard events. We'll look specifically at click events that happen on specific parts of our web page.
+### Setup
 
-## Simple Event Listeners
+Let's begin with a starter kit to explore creating event handlers. Take a moment to set up all the files and folders. When the page is set up, it should look like this.
 
-### A Soft Intro to Event Handling
+import preview from './0070/web-page.png';
+
+<Image src={preview} alt="Web Preview"/>
 
 import softHtml from './0070/index.html?raw';
 import softMain from './0070/main.js?raw';
@@ -27,7 +25,7 @@ import softFavIcon from './0070/click-here_3368822.png';
 
 <Tabs>
   <TabItem label="Starter Code">
-    Here's some starting code to explore creating event handlers.
+    Use this file/folder structure when applying the starter code.
 
     <FileTree>
       - js
@@ -48,24 +46,124 @@ import softFavIcon from './0070/click-here_3368822.png';
   </TabItem>
 </Tabs>
 
+### A Primer on Events
 
+This starter kit already contains working code that responds to user events. The `<h1>` element has been wired up to a method that will output a message on the page in response to mouse clicks on that element. Take special note that inside the `<h1>`, I have placed a button and a hyperlink.
 
-- [ ] Listening for 'click' and 'dblclick' events
-- [ ] Event handler - function name vs. anonymous inline function
-- [ ] Event bubbling and `.stopPropagation()`
+```html wrap
+<h1>
+    Click Me
+    <button id="register" type="button">or dbl-click me</button>
+    <small>
+        <a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Events">Events on MDN</a>
+    </small>
+</h1>
+```
 
-    ```js
-    document.body.addEventListener('click', function() {
-        let output = document.querySelector('#feedback');
-        output.innerHTML += '<br />I heard that!';
+Give it a try. What happens when you click on the text "Click me"? You should see a message that says `Clicked from H1`. If you click on the button, the message changes slightly. If you click on the hyperlink .... the browser navigates to a page on the Mozilla Developer Network.
+
+How does this work?
+
+User actions are **processed by the *browser*** as "events" that take place with respect to some part of the web page (DOM). The browser tracks *what* happens, *where* it happens on the page, and a whole host of other aspects surrounding the event. We can write code to *respond* to those events. But *we* have to tell the browser:
+
+1. Which DOM element and event we want to listen to, and
+1. What we want to do in reponse.
+
+The basic structure of our JavaScript code will look like the following.
+
+```js ".addEventListener"
+// Generic event listening pattern
+someElement.addEventListener(eventName, handlerFunction);
+```
+
+Every DOM element has an `.addEventListener()` function that accepts two parameters: A string to identify the name of the event (`eventName`) and a function for the browser to call when the event has occurred (`handlerFunction`).
+
+<Aside title="Registering Events">
+  There are no special JavaScript keywords that we have to use when telling the browser we want to listen to events. The only semi-special part is the `.addEventListener()` function, which is more of a *specification* than anything else. It's a convention shared by all browser vendors in support of the recommendations outlined by the <a target="_blank" href="https://www.w3.org/TR/DOM-Level-2-Events/events.html">W3C Group</a>.
+</Aside>
+
+## Writing Event Handlers
+
+Our starting point includes an **event handler** function and the code that registers our handler.
+
+```js
+// main.js
+const handleClick = function(event) {
+    // TODO: Use for exploration purposes
+    const target = event.target;
+    feedback.innerText = `Clicked from ${target.tagName}`;
+}
+
+let heading = document.querySelector('h1');
+heading.addEventListener('click', handleClick);
+```
+
+The `handleClick()` function will find out what DOM element received the event (`event.target`) and will then display a message using the `.tagName` of that element.
+
+Let's dive into the `main.js` file to begin telling the browser what to do when the user clicks on things.
+
+<Steps>
+1. As you've discovered, clicking on the hyperlink causes a page navigation. That's the default behaviour for `<a>` elements. Modify `handleClick` to prevent the default action.
+
+    ```diff lang="js"
+      // main.js
+      const handleClick = function(event) {
+          // TODO: Use for exploration purposes
+    +     event.preventDefault();
+          const target = event.target;
+          feedback.innerText = `Clicked from ${target.tagName}`;
+      }
+    ```
+  
+    Now when you click on the hyperlink, the browser no longer loads the linked page and the message `Clicked from A` appears on the page.
+1. Let's create another event listener. This time, we'll do something special when the user **double-clicks** on the `<button>`. But we'll write the code in a slightly different way.
+
+    ```js wrap
+    // main.js
+    // Put this below the last TODO comment
+    let button = document.getElementById('register');
+    button.addEventListener('dblclick', function(evt) {
+        let name = prompt('What is your name?');
+        let email = prompt('What is your email address?');
+        feedback.innerText = `Glad to meet you ${name}! I've sent an invitation to join our JavaScript club. It was sent to you at ${email}.`;
     });
     ```
 
-- [ ] `.preventDefault()` vs. `.stopPropagation`
+    Notice that the second argument for the `.addEventListener()` is a *function declaration*. In fact, it's what we would call an **inline function declaration**. It also happens to be an *anonymous* function because it doesn't have a name associated with it.
+
+    You can read more about this in [Author TODO][link-to-article]. For now, just note that the complete function declaration is being passed into `.addEventListener()` as the second argument.
+1. View the results in the web page. When you double-click the button, you should be presented with two prompts. Then the message should appear on the page.
+1. Let's add another event listener to our `heading` element. Once again, we'll use the `dblclick` event, and we'll simply show the user an `alert()` dialog.
+
+    ```js
+    // main.js
+    heading.addEventListener('dblclick', function() {
+        alert('Try double-clicking on the button instead of this heading.');
+    });
+    ```
+
+    Double-click on the `Click Me` text. The browser should present you with an alert dialog.
+1. Now try double-clicking on the button. Once again, you will be presented with the two prompts. But something else happens: The `alert()` from our heading appears!
+
+    The reason that *both* event handlers get called is because the double-click event **propagated** up the DOM tree. Remember how the `<button>` is a child of the `<h1>`? The event was captured by the button's listener, but then the event "message" was sent to the parent element. In fact, it "bubbled" up the entire DOM tree until it reached the root `<html>` element, looking for event handlers all along the way!
+1. To stop the event from bubbling up the DOM tree, make the following changes to our earlier button event.
+
+    ```diff lang="js" wrap ".stopPropagation()"
+      // main.js
+      // Put this below the last TODO comment
+      let button = document.getElementById('register');
+      button.addEventListener('dblclick', function(evt) {
+    +     evt.stopPropagation();
+          let name = prompt('What is your name?');
+          let email = prompt('What is your email address?');
+          feedback.innerText = `Glad to meet you ${name}! I've sent an invitation to join our JavaScript club. It was sent to you at ${email}.`;
+      });
+    ```
+
+1. Test the button again by double-clicking on it. Does it solve the problem of event bubbling? It should!
+</Steps>
 
 
-### Sandbox 
+## Conclusion
 
-- click on H1, toggle 'hidden'
-- 
-
+*Author TODO: finish this with some useful summary....*
