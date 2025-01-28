@@ -1,0 +1,71 @@
+---
+title: Event Listeners
+description: A tutorial on creating event listeners.
+sidebar:
+  label: Event Listeners
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+In this tutorial, we'll explore listening to **events** on our web pages. Events can come from several places. For example, events can come from the user in terms of mouse and keyboard events. We'll look specifically at click events that happen on specific parts of our web page.
+
+## Simple Event Listeners
+
+### A Soft Intro to Event Handling
+
+import softHtml from './0070/index.html?raw';
+import softMain from './0070/main.js?raw';
+import softFavIcon from './0070/click-here_3368822.png';
+
+<Tabs>
+  <TabItem label="Starter Code">
+    Here's some starting code to explore creating event handlers.
+
+    <FileTree>
+      - js
+        - main.js
+      - favicon.webp
+      - index.html
+    </FileTree>
+  </TabItem>
+  <TabItem label="index.html">
+    <Code code={softHtml} lang="html" title="index.html" />
+  </TabItem>
+  <TabItem label="main.js">
+    <Code code={softMain} lang="js" title="main.js" />
+  </TabItem>
+  <TabItem label="favicon.webp">
+    Right-click this image and save it as `favicon.webp`.
+    <Image src={softFavIcon} alt="favicon.webp"/>
+  </TabItem>
+</Tabs>
+
+
+
+- [ ] Listening for 'click' and 'dblclick' events
+- [ ] Event handler - function name vs. anonymous inline function
+- [ ] Event bubbling and `.stopPropagation()`
+
+    ```js
+    document.body.addEventListener('click', function() {
+        let output = document.querySelector('#feedback');
+        output.innerHTML += '<br />I heard that!';
+    });
+    ```
+
+- [ ] `.preventDefault()` vs. `.stopPropagation`
+
+
+### Sandbox 
+
+- click on H1, toggle 'hidden'
+- 
+

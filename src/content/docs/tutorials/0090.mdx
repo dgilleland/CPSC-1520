@@ -1,0 +1,43 @@
+---
+title: Forms and Event Listeners
+description: A tutorial exploring handling form submissions client-side in JavaScript.
+sidebar:
+  label: Client-Side Forms
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+
+<Aside type="danger" title="Remove Me!">
+  This is a ***template*** file, so remove this `<Aside>` early. Also make sure to
+  
+  - Use the correct issue number in the WIP above.
+  - Remove the Badge in the frontmatter.
+</Aside>
+
+
+## A Generic Form
+
+Remember that [Sandbox website](/CPSC-1520/tutorials/sandbox/) that we used to explore JavaScript in an ad-hoc way? Grab a fresh copy of that starter code, because we're going to use it as the foundation to learn about **Event Listeners** in JavaScript.
+
+Oh, and also grab the code related to the `appendLine()` function we created in the [Re-usable Functions](/CPSC-1520/tutorials/0060/) tutorial.
+
+### A Simple Calculator
+
+- Edit the HTML to throw in some generic text inputs and buttons
+- Programmatically change the labels, etc. of the inputs and the `#instructions` text.
+    - Alter input types to `number`
+    - have labels of `'Not used'` on unused inputs and set the `disabled` property to true
+- Process form input, preventing the default behaviour and doing simple calculations
+
+### Background Color Pickers (and Radio Buttons?)
+
+- Process a color input to change the background of the `output#feedback` element.
