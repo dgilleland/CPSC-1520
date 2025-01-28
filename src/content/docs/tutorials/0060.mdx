@@ -123,7 +123,7 @@ Let's improve our code by making the following changes to `main.js`.
 
         Sometimes, as we begin refactoring, the changes might initially break our code. Don't worry, as the end-goal of refactoring it to get the code back in working order, but a lot "cleaner".
     </Aside>
-1. We'll still want to "reset" the contents of the `<output>` element, so we'll change the first message we display.
+1. We'll still want to "reset" the contents of the `<output>` element, so we'll change the first message on the page.
 
     ```diff lang="js" title="Reset the Display" ins="document.querySelector('output#sandbox')." del="sandbox."
       // TODO: Use the space below for playing with JavaScript.
@@ -160,7 +160,7 @@ Let's improve our code by making the following changes to `main.js`.
     ```
 
     Granted, it's an extra line of code, but what we have done is slightly improve the *readability* of our code.
-1. Let's jump through a bunch of other changes where we are playing with strings and numbers.
+1. Let's jump through a bunch of other changes where we played with strings and numbers.
 
     ```diff lang="js"
       // Can JavaScript do math with strings and numbers?
@@ -189,7 +189,7 @@ Let's improve our code by making the following changes to `main.js`.
     + appendLine(`H) stringFive is a ${typeof stringFive}`);
     ```
 
-1. We'll finish off with improvements to displaying our circle calculations.
+1. We'll finish off with improvements to our circle calculation output.
 
     ```diff lang="js"
     - sandbox.innerHTML += `<br>I) A circle with radius of ${radius} `;
@@ -202,9 +202,13 @@ Let's improve our code by making the following changes to `main.js`.
     ```
 </Steps>
 
-The final result of all these changes does *not* alter what our code does; it still displays the same information. But our efforts in refactoring makes a huge improvement in terms of how readable our code is. We'll discover another benefit in the next part of this tutorial.
+We've built our first re-usable block of code, and we've also encountered an important JavaScript keyword: `function`.
+
+The final result of all these changes does *not* alter what our code does; it still displays the same information. But our efforts in refactoring make a huge improvement in how readable our code is. We'll discover another benefit in the next part of this tutorial.
 
 ### Auto-Numbering
+
+Wouldn't it be nice if our code could just auto-increment the step indicators (`A`, `B`, etc.) each time we called `appendLine()`? We can do that by introducing another function. This also gives me a chance to show you another JavaScript keyword: `return`.
 
 <Steps>
 1. Create another function near the top of `main.js` and place it just beneath the function declaration for `appendLine()`.
