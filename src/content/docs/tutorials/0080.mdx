@@ -43,8 +43,19 @@ Our starting point will be a customized version of the Sandbox, one that has sev
     // TODO: Use the space below for playing with JavaScript.
     ```
 
-1. Modify the `styles.css` file to add the following customizations.
 1. Add the following markup to the `index.html`, just between the `<p>...</p>` and `<output>...</output>`. We will use these buttons and the color input control to dynamically apply stylistic changes to the page.
+
+    ```html
+    <div class="grid">
+        <button id="btnCenter" type="button">Center Heading</button>
+        <button id="btnReset" type="button">Reset Heading</button>
+        <button id="btnColor" type="button">Color Heading</button>
+        <input id="pickedColor" type="color" value="#dd2c2c" />
+        <button id="btnRemove" type="button">Remove Color</button>
+        <button id="btnShowHide" type="button">Toggle Footer</button>
+    </div>
+   
+    ```
 </Steps>
 
 ## Styling Through JavaScript
