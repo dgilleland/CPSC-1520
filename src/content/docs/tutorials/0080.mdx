@@ -1,0 +1,126 @@
+---
+title: Interactive DOM Elements
+description: SUMMARY
+sidebar:
+  label: DOM Interactions
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import preview from './0080/preview-solution.gif';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+In this tutorial, we'll apply stylistic changes to our web page in response to the user's interaction with the site. The following animated image illustrates what we aim to achieve.
+
+<Image src={preview} alt="What we are creating"/>
+
+## Customizing the Sandbox
+
+Our starting point will be a customized version of the Sandbox, one that has several buttons for triggering each of the DOM stylings.
+
+<Steps>
+1. Grab a copy of the [Sandbox](/CPSC-1520/tutorials/sandbox/) starter kit files.
+1. Replace the `main.js` code with the following. This includes the `appendLine()` and supporting functions from a previous tutorial.
+
+    ```js
+    console.log('main.js has been loaded');
+    let step = 0; // A global variable to track our current step
+    const appendLine = function(someText) {
+    let letter = `${offsetStepA(step++)}) `;
+    const sandbox = document.querySelector('output#sandbox');
+    sandbox.innerHTML += '<br>';
+    sandbox.innerHTML += letter + someText;
+    }
+    const offsetStepA = function(offset) {
+        let step = 'A';
+        let characterCode = step.charCodeAt(0);
+        characterCode += offset;
+        let text = String.fromCharCode(characterCode);
+        return text;
+    }
+
+    // TODO: Use the space below for playing with JavaScript.
+    ```
+
+1. Modify the `styles.css` file to add the following customizations.
+1. Add the following markup to the `index.html`, just between the `<p>...</p>` and `<output>...</output>`. We will use these buttons and the color input control to dynamically apply stylistic changes to the page.
+</Steps>
+
+## Styling Through JavaScript
+
+We'll use each of the buttons on the page to perform slightly different style changes to the page. Note that the changes to our DOM elements will only take one or two lines of code to achieve. Our event handlers will also include a call to `appendLine()` to document the change that has been applied.
+
+<Steps>
+1. Here we will add event listeners to apply style changes to our page. Most of the buttons are affecting the `<h1>` element, so our first line of code will be to create a global (shared) variable to reference that element.
+
+    ```js
+    const pageHeading = document.querySelector('h1');
+    ```
+
+1. Let's add the event for the button to center the `<h1>` text on the page. We'll achieve the centering by adding a CSS class to that element. This classname comes from the TailwindCSS styles.
+
+    ```js
+    document.getElementById('btnCenter')
+            .addEventListener('click', function() {
+                pageHeading.classList.add('text-center');
+                appendLine('Added the Tailwind "text-center" class to the &lt;h1&gt; element.');
+            });
+    ```
+
+1. Now let's remove the `text-center` CSS class from the `<h1>` element.
+
+    ```js
+    document.getElementById('btnReset')
+            .addEventListener('click', function() {
+                pageHeading.classList.remove('text-center');
+                appendLine('Removed "text-center" from the &lt;h1&gt; element.');
+            });
+    ```
+
+1. Other than applying CSS classes, we can change the appearance of DOM elements through the `style` attribute. Programmatically, we do this through the `.style` property of the DOM element. The following code will use the value from the `<input type="color">` control and apply it to the `.style.color` of the `<h1>` element.
+
+    ```js
+    document.getElementById('btnColor')
+            .addEventListener('click', function() {
+                let input = document.querySelector('input[type=color]');
+                pageHeading.style.color = input.value;
+                appendLine(`Set the text color to '${input.value}' on the &lt;h1&gt; element.`);
+            });
+    ```
+
+1. Just as we can remove CSS classes, we can remove individually applied styles on our DOM elements. The difference, however, is that we do so by setting the style value to an empty string, as shown in this next button.
+
+    ```js
+    document.getElementById('btnRemove')
+        .addEventListener('click', function() {
+            pageHeading.style.color = '';
+            appendLine('Removed the color style for the &lt;h1&gt; element.')
+
+        });
+    ```
+
+1. Lastly, let's *toggle* the `<footer>` on the page through Tailwind's `hidden` class. The `.classList.toggle()` method will alternate through adding or removing the supplied class name based on whether it's currently in the list of CSS classes on the element.
+
+    ```js
+    document.getElementById('btnShowHide')
+            .addEventListener('click', function() {
+                let foot = document.querySelector('footer');
+                foot.classList.toggle('hidden');
+                appendLine('Toggle the &lt;footer&gt; element using the Tailwind "hidden" class.')
+
+            });
+    ```
+
+</Steps>
+
+## Conclusion
+
+We've only touched the surface of the ways we can manipulate the appearance of our DOM elements. The three methods of the `.classList` property allow us to add, remove, or toggle CSS classnames on our elements. Any of the hundreds of the possible style attributes can be individually set through the members of the DOM element's `.style` property.
+
+All of our interactions were triggered through button clicks. We could have used any type of event to initiate those DOM changes: mouse movements, keyboard activity, page scrolling, etc. Take some time to imagine what effects you might want to programmatically achieve when the user interacts with the page.
