@@ -44,7 +44,7 @@ If you want to start a new project from scratch, grab the [Sandbox code](/CPSC-1
     let gstRate = 0.05;
     let currency = '(CAD)';
     let subTotal = unitCost * 10;
-    let total = subTotal + subTotal * gst;
+    let total = subTotal + subTotal * gstRate;
     // Output the result on another "line"
     sandbox.innerHTML += '<br>C) ';
     sandbox.innerHTML += `The subtotal is $ ${subTotal.toFixed(2)}. `;
@@ -65,7 +65,7 @@ If you want to start a new project from scratch, grab the [Sandbox code](/CPSC-1
 
     answer = numberFive + parseInt(stringFive);
     sandbox.innerHTML += '<br>F) ';
-    sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
+    sandbox.innerHTML += `5 + parseInt('5') produces ${answer}`;
 
     sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
     sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
@@ -115,13 +115,13 @@ Let's improve our code by making the following changes to `main.js`.
     +     const sandbox = document.querySelector('output#sandbox');
     +     sandbox.innerHTML += '<br>';
     +     sandbox.innerHTML += someText;
-    }
+    + }
     ```
-
-    One of the effects of this change is that it breaks our code. Don't worry, we'll fix that in the next steps.
 
     <Aside type="tip" title="Refactoring">
         At this point, we're beginning an exercise of **refactoring** our code. *Refactoring* is when we try to make changes to working code in order to improve the *code quality* (maintainability, readability) by re-organizing it while at the same time *preserving the current behavour* of our code.
+
+        Sometimes, as we begin refactoring, the changes might initially break our code. Don't worry, as the end-goal of refactoring it to get the code back in working order, but a lot "cleaner".
     </Aside>
 1. We'll still want to "reset" the contents of the `<output>` element, so we'll change the first message we display.
 
@@ -176,12 +176,12 @@ Let's improve our code by making the following changes to `main.js`.
       answer = numberFive * stringFive;
     - sandbox.innerHTML += '<br>E) ';
     - sandbox.innerHTML += `5 * '5' produces ${answer}`;
-    + appendLine(E) `5 * '5' produces ${answer}`);
+    + appendLine(`E) 5 * '5' produces ${answer}`);
 
       answer = numberFive + parseInt(stringFive);
      - sandbox.innerHTML += '<br>F) ';
-     - sandbox.innerHTML += `5 * parseInt('5') produces ${answer}`;
-    + appendLine(`F) 5 * parseInt('5') produces ${answer}`);
+     - sandbox.innerHTML += `5 + parseInt('5') produces ${answer}`;
+    + appendLine(`F) 5 + parseInt('5') produces ${answer}`);
 
     - sandbox.innerHTML += `<br>G) numberFive is a ${typeof numberFive}`;
     - sandbox.innerHTML += `<br>H) stringFive is a ${typeof stringFive}`;
