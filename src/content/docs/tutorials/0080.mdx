@@ -27,10 +27,10 @@ Our starting point will be a customized version of the Sandbox, one that has sev
     console.log('main.js has been loaded');
     let step = 0; // A global variable to track our current step
     const appendLine = function(someText) {
-    let letter = `${offsetStepA(step++)}) `;
-    const sandbox = document.querySelector('output#sandbox');
-    sandbox.innerHTML += '<br>';
-    sandbox.innerHTML += letter + someText;
+        let letter = `${offsetStepA(step++)}) `;
+        const sandbox = document.querySelector('output#sandbox');
+        sandbox.innerHTML += '<br>';
+        sandbox.innerHTML += letter + someText;
     }
     const offsetStepA = function(offset) {
         let step = 'A';
