@@ -1,0 +1,32 @@
+---
+title: Processing Client-Side Forms
+description: SUMMARY
+sidebar:
+  label: Client-Side Forms
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import flask from './0090/android-chrome-192x192.png';
+
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 57](https://github.com/dgilleland/CPSC-1520/issues/57).*
+</Aside>
+
+<Image src={flask} alt="Retort flask" width="150" class="float-end ml-3" />
+
+**HTML forms** are the traditional way to capture user input and perform the types of tasks that make a website *useful* or *interactive* &mdash; it's how we build web *applications*. The caveat that we have to acknowledge with HTML forms is that we almost always do our most meaningful processing through a ***server response*** to the form's request.
+
+<Aside type="caution">
+In this course, we're dealing exclusively with ***client-side*** JavaScript, so our usage of HTML forms is somewhat artificial. This is especially true in how we will regularly be using the `.preventDefault()` method on the `'submit'` event object to prevent the form from posting a request to the web server. With that being said, let's explore form processing in the browser using JavaScript.
+</Aside>
+
+### Basic Form Structures
+
+HTML can accommodate multiple forms on a single page, but it's important that those forms are not *nested* one within another. The `<form>` element is typically accompanied with a `method` attribute (whose value can be `POST` or `GET`) and an `action` attribute (which identifies the server resource or URL that the *request* is directed towards). These attributes have been omitted because we will only be performing client-side processing.
+
+> ***Note:** With modern HTML/CSS, there are many aspects of form processing that no longer needs to be handled by JavaScript exclusively. Specifically, **simple form validation** is something that CSS and HTML can work together to perform quite cleanly. However, complex client-side validation is still quite firmly in the camp of requiring JavaScript.*
