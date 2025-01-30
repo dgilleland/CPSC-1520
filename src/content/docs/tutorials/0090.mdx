@@ -2,42 +2,98 @@
 title: Forms and Event Listeners
 description: A tutorial exploring handling form submissions client-side in JavaScript.
 sidebar:
-  label: Client-Side Forms
+  label: Forms and Submit Events
 draft: true
 ---
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import flask from './0090/android-chrome-192x192.png';
+import subscribe from './0090/SubscribeForm.png';
+import assorted from './0090/AssortedForm.png';
+
 import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
 <Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
 <Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+*See [issue 59](https://github.com/dgilleland/CPSC-1520/issues/59).*
 </Aside>
 
+<Image src={flask} alt="Retort flask" width="150" class="float-end ml-3" />
 
-<Aside type="danger" title="Remove Me!">
-  This is a ***template*** file, so remove this `<Aside>` early. Also make sure to
-  
-  - Use the correct issue number in the WIP above.
-  - Remove the Badge in the frontmatter.
-</Aside>
+In this tutorial, we will listener to the `'submit'` event on HTML `<form>` elements.
+
+This sample uses a couple of forms as small "islands" of sample form processing. The first form has the id `'#subscribe'` and the second has the id `'#assorted'`. 
+
+In this tutorial, we will create separate event handlers for each form's `'submit'` event. 
 
 
-## A Generic Form
+----
 
-Remember that [Sandbox website](/CPSC-1520/tutorials/sandbox/) that we used to explore JavaScript in an ad-hoc way? Grab a fresh copy of that starter code, because we're going to use it as the foundation to learn about **Event Listeners** in JavaScript.
+### Starter Kit
 
-Oh, and also grab the code related to the `appendLine()` function we created in the [Re-usable Functions](/CPSC-1520/tutorials/0060/) tutorial.
+import starterHtml from './0090/index.html?raw';
+import starterMain from './0090/main.js?raw';
+import starterCss from './0090/styles.css?raw'
+import starterFavIcon from './0090/android-chrome-192x192.png';
 
-### A Simple Calculator
+<Tabs>
+  <TabItem label="Starter Code">
+    Use this file/folder structure when applying the starter code.
 
-- Edit the HTML to throw in some generic text inputs and buttons
-- Programmatically change the labels, etc. of the inputs and the `#instructions` text.
-    - Alter input types to `number`
-    - have labels of `'Not used'` on unused inputs and set the `disabled` property to true
-- Process form input, preventing the default behaviour and doing simple calculations
+    <FileTree>
+      - css
+        - styles.css
+      - js
+        - main.js
+      - favicon.webp
+      - index.html
+    </FileTree>
+  </TabItem>
+  <TabItem label="index.html">
+    <Code code={starterHtml} lang="html" title="index.html" wrap="true" />
+  </TabItem>
+  <TabItem label="styles.css">
+    <Code code={starterCss} lang="css" title="styles.js" />
+  </TabItem>
+  <TabItem label="main.js">
+    <Code code={starterMain} lang="js" title="main.js" />
+  </TabItem>
+  <TabItem label="favicon.webp">
+    Right-click this image and save it as `favicon.webp`.
+    <Image src={starterFavIcon} alt="favicon.webp" width="32"/>
+  </TabItem>
+</Tabs>
 
-### Background Color Pickers (and Radio Buttons?)
 
-- Process a color input to change the background of the `output#feedback` element.
+## Subscribe Form
+
+The `'subscribe'` form contains three controls - `firstname`, `email` and `terms` - which are a textbox, email input and checkbox respectively. Part of what makes this form different from the second is that the `firstname` and `email` inputs use a *`required`* attribute, meaning that the form's submit button will not generate the `'submit'` event unless there is text inside (even if it's just empty spaces).
+
+[RE-WRITE] For more information on the ways we will be using forms in this and later tutorials, see the [Client-Side Forms](/CPSC-1520/guides/0090/) guide.
+
+<Image src={subscribe} alt="Subscribe form preview"/>
+
+
+## Assorted Form
+
+The `'assorted'` form contains several sets of controls.
+
+- A `date`, `time` and `color` input (whose `name` values are the same as the input type).
+- Three checkboxes, all with the name `feature` but with different values: `border`, `background` and `button enabled`.
+- Three radio buttons, all with the name `bg-color` but with different values: `#ff0000`, `#00ff00` and `#0000ff`.
+- Three distinct checkboxes with the names `indoorCamera`, `outdoorCamera` and `garageCamera`. No explicit `value` is assigned to these checkboxes.
+
+<Image src={assorted} alt="Assorted form preview"/>
+
+
+
+### Form Processing
+
+Create a separate event handler for each of these forms that will respond to the `'submit'` event. Output the values of the various input controls in the `<pre id='feedback'>` element.
+
+----
+
+
+https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement
+
