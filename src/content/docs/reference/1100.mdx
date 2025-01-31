@@ -1,0 +1,71 @@
+---
+title: Version Control Routine
+description: Every professional software developer should practice the discipline of version control. Build a routine that you can follow every day of your career.
+sidebar:
+  label: Version Control Routine
+draft: false
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image, Picture } from 'astro:assets';
+
+import workingProgress from './1100/working-progress-orange.png';
+import stickman from './1100/stick-man-walking-orange.png';
+import workingDesktop from './1100/working-on-a-pc-orange.png';
+import workingLaptop from './1100/working-on-laptop-orange.png';
+
+{/* *See [issue 61](https://github.com/dgilleland/CPSC-1520/issues/61).* */}
+
+<Image src={stickman} alt="Stickman" width="75" class="float-start mr-3" />
+
+Make version control part of your daily routine.
+
+
+Whether you are working with dedicated focus in a single repository or switching between several repositories while jumping from task-to-task, a **personal discipline** of ***frequent* and *small* commits** will bring 
+
+## Rinse and Repeat 🕗
+
+<Steps>
+1. #### Prep for Work
+    <Image src={workingLaptop} alt="Work On Laptop" width="75" class="float-start mr-3" />
+
+    As you sit down to start your work, make sure your repository is **up-to-date** with any changes since you've last seen it. This is vital if you are working as part of a team. It also helps you if you are a solo-developer.
+    
+    - `git status` (and cleanup, if any)
+    - `git pull` for latest changes
+    
+    The goal is to make sure any recent work from the remote repository is downloaded to your local computer.
+
+    ----
+
+1. #### Work
+    <Image src={workingProgress} alt="Work In Progress" width="75" class="float-start mr-3" />
+
+    You write **code**. You create **documentation** (preferably in *markdown*). If you love yourself, you even write **automated tests**!
+
+    Whatever it is you are doing, you will hit points where you have completed some task, however small. That's a *milestone*. It's also a good time to commit your work.
+
+    - `git status` to see what's been happening in your working directory
+    - `git add .` to stage changes
+    - `git commit -m "Your Comment"`
+
+    ----
+
+1. #### Wrap Up
+    <Image src={workingDesktop} alt="Work On Desktop" width="75" class="float-start mr-3" />
+
+    You don't have to do a `git push` every time you commit. You can build up several commits before you send them up to the remote repository. As a rule of thumb, however, you should never end the day without having pushed at least *once*.
+
+    - `git pull` because you should see if any of your team have contributed to the code base
+    - `git push` to share the work you've done for the day
+
+    The combination of *push* and *pull* is how you *synchronize* your work.
+
+    ----
+
+</Steps>
+
+
+<Image src={stickman} alt="Stickman" width="75" class="float-start mr-3" />
+
+Are you done for the day? Then enjoy a good night's sleep, and remember to start the routine again the next day!
