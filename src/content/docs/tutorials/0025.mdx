@@ -1,0 +1,68 @@
+---
+title: Discover Emmet in VS Code
+description: Emmet is a productivity tool included in Visual Studio Code. With emmet, you can use code snippets to quickly generate HTML and CSS.
+sidebar:
+  label: Discover Emmet
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import emmet from './0025/emmet.png';
+import liveServer from './0025/live-server.png';
+
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 16](https://github.com/dgilleland/CPSC-1520/issues/16).*
+</Aside>
+
+
+Are you looking to increase your productivity in HTML and CSS? Then spend some time learning Emmet!
+
+In this tutorial, we'll explore how to use Emmet in VS Code to quickly generate both HTML and CSS.
+
+<Steps>
+1. Create an `Index.html` file in this folder. Add a basic html document using [Emmet](https://code.visualstudio.com/docs/editor/emmet) by typing `html:5` and selecting the Emmet-generated expansion.
+
+   <Image src={emmet} alt="Emmet"/>
+
+1.  When you press <kbd>tab</kbd>, it will create the following HTML:
+
+    ```html "device-width" "1.0" "Document" wrap
+    // index.html
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        
+    </body>
+    </html>
+    ```
+
+1. Add some basic content to the page using Emmet:
+
+    ```
+    h1{Emmet for HTML/JS/CSS}+ul>li{Item $}*3^p*3>lorem
+    ```
+
+1. In the `<head>` element of the page, add the following markup.
+
+    ```html
+    <script src="first.js"></script>
+    <script src="second.js" type="module" defer></script>
+    ```
+
+1. View the page in the browser by launching it using Live Server. Right-click on the file and choose "Open with Live Server".
+
+    <Image src={liveServer} alt="Live Server"/>
+
+    <Aside type="tip">
+      It's usually a good idea to use relative paths when linking your HTML to JavaScript files. This makes it easier to move sets of files around without having to change the internal code.
+    </Aside>
+</Steps>
