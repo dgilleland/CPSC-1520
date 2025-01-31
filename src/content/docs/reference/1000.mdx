@@ -8,7 +8,7 @@ draft: true
 
 import { Aside, Badge, Code, FileTree, Icon, LinkButton, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-import flipped from './1000/working-on-laptop-orange-flip.png';
+import flipped from './1000/working-on-laptop.png';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 10](https://github.com/dgilleland/CPSC-1520/issues/10).*
@@ -39,14 +39,6 @@ Here are some command-line tools for PowerShell/Command Prompt to help you navig
 
 Here are primary tools that you will typically need/use in your development. (See [System Setup](/CPSC-1520/tutorials/0010/) for information on installing these tools.)
 
-### VS Code
-
-Visual Studio Code comes with a CLI named `code`. Here are some commonly used commands.
-
-- `code [path]` - If `[path]` is a file, it will open the file in the current/active VS Code instance. If `[path]` is a folder, it will open the folder in a new VS Code instance.
-- `code -n [path]` - Open the file or folder identified by `[path]` in a *new* instance of VS Code.
-- `code -r [path]` - Reload the active instance of VS Code for the file/folder specified by `[path]`. Typically, you will want to run this within the terminal of VS Code to reload that instance.
-
 ### `git`
 
 We can use the git version control application directly from the command line. Here are some useful commands to get started.
@@ -62,7 +54,7 @@ We can use the git version control application directly from the command line. H
 There are a lot of things to learn when it comes to working with git, but these commands are the day-to-day ones that you will do as you work with version control.
 
 <Aside type="tip" title="Professional Discipline">
-  <Image src={flipped} alt="Practice Git" />
+  <Image src={flipped} alt="Practice Git" class="float-end ml-3" width="180" />
 
   You should make frequent, small commits when working on your projects. Work with these commands every day, and they will become a part of you (like the force Luke).
 
@@ -86,3 +78,19 @@ gh repo create my-first-repository
 ```
 
 The command above is interactive, so just follow the prompts.
+
+### `pnpm` and `npm`
+
+
+### `node`
+
+
+
+### VS Code
+
+Visual Studio Code comes with a CLI named `code`. Here are some commonly used commands.
+
+- `code [path]` - If `[path]` is a file, it will open the file in the current/active VS Code instance. If `[path]` is a folder, it will open the folder in a new VS Code instance.
+- `code -n [path]` - Open the file or folder identified by `[path]` in a *new* instance of VS Code.
+- `code -r [path]` - Reload the active instance of VS Code for the file/folder specified by `[path]`. Typically, you will want to run this within the terminal of VS Code to reload that instance.
+
