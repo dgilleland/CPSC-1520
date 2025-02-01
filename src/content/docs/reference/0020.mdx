@@ -205,58 +205,7 @@ An assignment operation is made into an **assignment statement** by adding a sem
 total = price * quantity;
 ```
 
----
-
-### Namespace Declaration and Using Statements ⁉️
-
-```csharp
-namespace Name
-{
-    // Classes, enumerations, or other programmer-defined data types
-}
-```
-
-A **Namespace Declaration** groups ***programmer-defined*** data types where
-: The `Name` of the namespace can be one or more dot-separated names. For example, the following are all valid names for namespaces.
-  `System`
-  `System.Collections`
-  `MyGame`
-  `MyGame.GameRules`
-
-**Namespaces** are used to group classes and other programmer-defined data types into a single named group. The reason for grouping programmer-defined data types into namespaces is to prevent what are called "naming collisions". A naming collision is where two or more classes or other programmer-defined data types are given the same name. In other words, you cannot have two classes named `Circle` in the same namespace. However, if you place those two classes in different namespaces, then that is acceptable because the compiler will then be able to distinguish between the two classes based on the namespace they belong to.
-
-Whenever a class or other data type is placed in a namespace, that namespace becomes part of the ***fully-qualified*** name of the data type. For example, if a class named `Circle` is placed in a namespace called `Geometry.Shapes`, then the fully qualified name of the class is `Geometry.Shapes.Circle`.
-
-Namespaces allow us to isolate our classes and other data types into groups. All of the classes/data types in a given namespace can automatically reference each other. To reference or use data types in other namespaces, we must either use their fully-qualified names or *include* them through the **Using Statement**.
-
-```csharp
-using NamespaceName;
-```
-
-The using statement allows access to all the data types in referenced namespace. Using statements are typically placed at the beginning of a file. The `NamespaceName` is simply the complete name of the namespace that contains the classes or data types that we want to access.
-
-There are additional forms of the using statement, giving us different means of including/using the members of a namespace.
-
-```csharp
-using Alias = NamespaceName.DataTypeName;
-```
-
-- Create an alternate name for a data type (A class name, enumeration, interface, etc.)
-
-```csharp
-using static NamespaceName.ClassName;
-```
-
-- Allows us to use the name of static members without the class name, as in
-
-```csharp
-using static System.Console;
-
-   // Inside a method...
-   WriteLine("Hello World");
-```
-
----
+----
 
 ## Flow-Control Statements
 
