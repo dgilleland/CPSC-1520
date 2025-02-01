@@ -129,7 +129,7 @@ For links to more detailed descriptions, see the MDN article on <LinkButton href
 
 #### Template Strings
 
-The difference between template and string literals is that all of the text inside a string is considered a literal value whereas template literals can include *variables* through the use of placeholders. For example, in the following code, everything between the backticks are the literal parts of the string while the `${firstName}` is not.
+The difference between template and string literals is that all of the text inside a string is considered a literal value whereas template literals can include *variables* or *expressions* through the use of placeholders. For example, in the following code, everything between the backticks are the literal parts of the string while the `${firstName}` is not.
 
 ```js
 `Welcome to ${firstName}'s world!`
@@ -138,6 +138,12 @@ The difference between template and string literals is that all of the text insi
 If the value of `firstName` is `"Wayne"`, then the resulting text would be `Welcome to Wayne's world!`.
 
 ----
+
+### Expressions
+
+An **Expression** is any combination of *literal values*, *identifiers*, *operators* (such as the arithmetic operators), and/or *method calls* (where the method returns a value). When an expression is processed, a single value is produced. This value can then be used in whatever operation the expressions occurs. For example, the value might be passed into a method as part of a method call, or it might be placed in a variable as part of an assignment statement.
+
+---
 
 ### Variable Declarations
 
@@ -175,30 +181,29 @@ Again, `variablename` is a programmer-defined **identifier** (name) while `expre
 
 ---
 
-### Assignment Operation ⁉️
+### Assignment Operation
 
-```csharp
+```js "variableName" "assignmentOperator" "expression" title="Varible Assignment"
 variableName assignmentOperator expression
 ```
 
-**Assignment Operations** are operations where a value is assigned or stored in a variable.
-: `variableName` is the name of the variable that will receive/store the value.
-: `assignmentOperator` is one of the following:
-  **`=`** Equals
-  **`+=`** Plus-Equals
-  **`-=`** Minus-Equals
-  **`*=`** Multiply-Equals
-  **`/=`** Divide-Equals
-  **`%=`** Modulus-Equals
-: `expression` is any valid JavaScript expression whose final data type matches the variable's data type.
-: An assignment operation is made into an **assignment statement** by adding a semicolon to the end of the operation. For example,
-  `total = price * quantity;`
+**Assignment Operations** are operations where a value is assigned or stored in a variable. The parts of the grammar are the
 
----
+- `variableName` - the name of the variable that will receive/store the value.
+- `assignmentOperator` - one of the following:
+  - **`=`** Equals
+  - **`+=`** Plus-Equals
+  - **`-=`** Minus-Equals
+  - **`*=`** Multiply-Equals
+  - **`/=`** Divide-Equals
+  - **`%=`** Modulus-Equals
+- `expression` - any valid JavaScript expression
 
-### Expressions ⁉️
+An assignment operation is made into an **assignment statement** by adding a semicolon to the end of the operation. For example,
 
-An **Expression** is any combination of *literal values*, *variable names*, *operators* (such as the arithmetic operators), and/or *method calls* (where the method returns a value). When an expression is processed by the computer, a single value is produced. This value can then be used in whatever operation the expressions occurs. For example, the value might be passed into a method as part of a method call, or it might be placed in a variable as part of an assignment statement.
+```js title="Assignment Statement"
+total = price * quantity;
+```
 
 ---
 
