@@ -25,8 +25,8 @@ There are several **terminal shells**, some of which will be installed by defaul
 Here are some command-line tools for PowerShell/Command Prompt to help you navigate the file/folder structure.
 
 - `cd` - Change Directory
-- `dir` - List the contents of the current directory
-- `mkdir`
+- `dir` - List the contents of the current directory/folder
+- `mkdir` - Create (or *make*) a new folder
 - `clear` or `cls` - Clear the terminal screen
 - `exit` - Exit the terminal
 
@@ -69,22 +69,23 @@ Here's some other helpful commands with regard to the remote repository connecti
 
 ### GitHub CLI
 
-You can use the GitHub CLI (`gh`) to interact with the remote GitHub.com repository associated with the current repository.
+You can use the GitHub CLI (`gh`) to interact with the remote GitHub.com repository associated with the current repository. Here are some common ones I use.
 
-#### Create a New Repository on GitHub.com
+- `gh browse` - Open the repository on GitHub in your browser
+- `gh issue list` - List the open issues
+- `gh issue create` - Create a new GitHub issue
+- `gh issue view [num]` - View the details of the issue indicated by `[num]` (e.g.: `gh issue view 7`)
+- `gh issue edit [num]` - Similar to the `view` subcommand, but allowing you to edit some aspect of an existing issue
 
-```shell
-gh repo create my-first-repository
-```
-
-The command above is interactive, so just follow the prompts.
 
 ### `pnpm` and `npm`
 
+The subcommands are mostly the same for `pnpm` and `npm`. Here are some of the most commonly used.
 
-### `node`
-
-
+- `pnpm init` - Create a new Node-based project
+- `pnpm add [package]` or `pnpm install [package]` - Add a third-party package to the project (e.g.: `pnpm add @picocss/pico`)
+- `pnpm add -D [package]` - Add a package as a Developer resource (not to be included in the final project output) (e.g.: `pnpm add -D vite`)
+- `pnpm [script]` - Run a script identified in the `package.json` (e.g.: `pnpm test` or `pnpm dev`)
 
 ### VS Code
 
