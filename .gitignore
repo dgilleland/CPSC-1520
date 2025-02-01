@@ -10,6 +10,13 @@ lab-solutions.mdx
 adhoc.html
 adhoc.css
 adhoc/
+adhoc.mdx
+adhoc.md
+adhoc.astro
+adhoc.svelte
+adhoc.js
+adhoc.ts
+
 
 # other files/folders
 debug.log
