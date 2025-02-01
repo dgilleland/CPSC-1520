@@ -56,8 +56,8 @@ For our purposes, we will present a much more *simplified* grammar. The followin
 
 Most of the grammar rules in JavaScript are quite short, defining the order of **keywords**, **identifiers** and **symbols**/**operators**. In the following grammars, highlighted portions indicate a part of the grammar where you would need to *substitute* some appropriate code. For example, the `for` statement has four items that you would replace with code specific to your application. The required portions of the grammar are the keywords (`for`) and symbols (parenthesis and semicolons).
 
-```js "[initializations]" "conditionalExpression" "[incrementations]" "statementOrStatementBlock"
-for([initializations]; conditionalExpression; [incrementations])
+```js "[initialization]" "conditionalExpression" "[incrementation]" "statementOrStatementBlock"
+for([initialization]; conditionalExpression; [incrementation])
    statementOrStatementBlock
 ```
 
@@ -209,40 +209,90 @@ total = price * quantity;
 
 ## Flow-Control Statements
 
-Flow-Control Statements provide the procedural characteristics of the JavaScript language. They are what provide the capabilities of ***alternative paths of logic*** (*If-Else* and *Case*) and ***repetition*** (*For*, *While* and their variants). They also provide the ability to "jump into" methods through *method calls*.
+Flow-Control Statements are a crucial part of the procedural characteristics within the JavaScript language. They provide the capabilities of ***alternative paths of logic*** (`if-else` and `switch`) and ***repetition*** (`for`, `while` and their variants). They also provide the ability to "jump into" functions through ***function calls***.
 
-### Method Calls ⁉️
+All flow-control statement grammars include a reference to **`statementOrStatementBlock`**. When using a **Statement Block**, the opening curly brace must be on the same line as the initial statement (as per [accepted JavaScript style guides](/CPSC-1520/reference/1200/)). The provided samples are shown with the use of *statement blocks*.
 
-While the [Method Declaration](#method-declarations) *defines a set of instructions*, those instructions only run when the method is *called* from somewhere. The operating system is responsible to call the `Main()` method, but after that, all method calls are the responsibility of our program. The grammar of a method call is as follows.
+- `statementOrStatementBlock` is either a **single** statement or a **single** statement *block* (zero or more statements inside curly braces - `{ }`).
+  - A single statement can be on its own line.
+  - A statement block should have the opening curly brace at then end of the same line as the initial statement and the closing curly brace on its own line.
 
-```csharp
-[[ClassName | ObjectName].]MethodName(argumentList)
+The following is an example of a statement block with properly positioned curly braces.
+
+```js title="Sample Code"
+if(quantity === 0) {
+  // zero or more lines of code
+}
 ```
 
-A **Method Call** is an [expression](#expressions) where
-: `MethodName` is the programmer-defined name of the method,
-: `argumentList` is a comma-separated list of values that correspond to the parameters of the [method declaration](#method-declarations),
-: The method is preceded by either a `ClassName` (for `static` methods) or an `ObjectName` (aka: a *variable name*) that identifies *where* the method can be "found"; the **Member Access Operator** (aka: "dot" operator `.`) comes right after the `ClassName` or `ObjectName`. If the method declaration is in the same class as the method call, then the `ClassName`/`ObjectName` can be omitted.
+----
 
-When a method is an *instance* method (non-static) and is called without an `ObjectName`, the `this` keyword is implied. In other words, if the method call looks like
+### Conditional Expressions
 
-```csharp
-Display("Some Text")
+Conditional expressions are ones that are ultimately evaluated as being equivalent to **`true`** or **`false`**. In flow-control statements, they often include the use of [relational operators](#relational-operators) and/or [boolean operators](#boolean-operators).
+
+#### "Truthy" and "Falsy" Values
+
+While JavaScript has a built-in Boolean data type, the evaluation of ***conditional expressions*** is not strictly confined to `true` or `false` values. A conditional expression, in JavaScript, can also be something that is *truthy* or *falsy*.
+
+JavaScript regards all of the following as being equivalent to a `false` value (and refers to these as **falsy** values).
+
+- `undefined` - No value has been assigned
+- `null` - The absense of any value
+- `NaN` - Not-a-Number
+- `0` - The numeric value zero
+- `""` - An empty string
+- `{}` - An empty object
+
+Anything that is not false (or *falsy*) is regarded as equivalent to `true`. Besides the `true` keywords, some samples of *truthy* values include the following: `42`, `'bob'`, `'\n'`, `{ key: 'value' }`.
+
+
+<Aside type="tip">
+  The `undefined` an `null` values are both consider *nullish*. The keywords themselves are regarded as both *values* and *types*. While the difference between the two might seem confusing, you should be aware that they are *not* the same thing.
+
+  For a discussion of differences, see <LinkButton target="_blank" icon='external' href="https://medium.com/@stephenthecurt/a-brief-history-of-null-and-undefined-in-javascript-c283caab662e">A brief history of Null and Undefined in JavaScript</LinkButton>.
+</Aside>
+
+
+#### Relational Operators
+
+JavaScript has the following relational operators. These are all **binary operators**, meaning that there must be some identifier or expression on both sides of the operator
+
+- `==` - "Is equal to"
+- `===` - Strict equality
+- `!=` - "Not equal to"
+- `!===` - Strict inequality
+- `>` - Greater Than
+- `>=` - Greater Than or Equal To
+- `<` - Less Than
+- `<=` - Less Than or Equal To
+
+#### Boolean Operators
+
+JavaScript has the following boolean operators. 
+
+- `&&` - Logical "And"
+- `||` - Logical "Or"
+- `!` - Logical "Not"
+
+The logical "And" (`&&`) and "Or" (`||`) operators are **binary operators**, meaning that some identifier or expression is required on both sides of the operator. The logical "Not" (`!`) operator is a **unary operator** where an identifier or expression is expected to be on the right-hand side of the operator.
+
+Two "Not" operators can be used to *coerce* or force an identifier into a strict `true` or `false` value. For example, in the following code the value of `!!myObject` will be forced to `true` if `myObject` is *truthy* or `false` otherwise.
+
+```js "!!" title="Boolean Coercion"
+let myObject;
+// some intervening code that sets the value
+let success = !!myObject;
+if(success) {
+  // do something
+}
 ```
-
-it is interpreted as
-
-```csharp
-this.Display("Some Text")
-```
-
-The **`this`** keyword simply means that the method declaration is in the same class as the method call and that it should be applied to the same instance (**`this` instance**) of the class.
 
 ----
 
 ### If-Else ⁉️
 
-```csharp
+```js
 if(conditionalExpression)
    statementOrStatementBlock // true side
 else
@@ -250,10 +300,14 @@ else
 ```
 
 The **if-else** provides **alternate paths of logic**, where
-: `conditionalExpression` is an expression whose ultimate data type is a `bool`.
-: `statementOrStatementBlock` is either a **single** statement or a **single** statement *block* (zero or more statements inside curly braces - `{ }`).
-  - The statement/block after the `if` portion will run if the `conditionalStatement` results in a **`true`** value.
-  - The statement/block after the `else` portion will run if the `conditionalStatement` results in a **`false`** value. The `else statementOrStatementBlock` portion is optional.
+
+- `conditionalExpression` is an expression whose ultimate data type is a `bool`.
+- the `else` portion is optional.
+
+For example:
+
+```js title="Sample Code"
+```
 
 ----
 
@@ -281,32 +335,72 @@ The **switch** provides **alternate paths of logic**, where
 : `statementOrStatementBlock` is either a **single** statement or a **single** statement *block* (zero or more statements inside curly braces - `{ }`).
 : The `default` block will execute if `cardinalExpression` did not match any of the listed matching expressions.
 
+For example:
+
+```js title="Sample Code"
+```
+
 ----
 
-### For and For-Each ⁉️
+### For ⁉️
 
-```csharp
-for([initializations]; conditionalExpression; [incrementations])
+The `for` keyword is a flow control structure to provide *looping* capabilities. It comes in four variations:
+
+- **`for`** - The traditional variation of the `while` statement, where factors affecting the repetition are contained in the parenthesis.
+- **`for...in`** - 
+- **`for...of`** -
+- **`for await...of`** - 
+
+#### `for` Statement
+
+```js "[initialization]" "conditionalExpression" "[incrementation]" "statementOrStatementBlock" title="for Statement"
+for([initialization]; conditionalExpression; [incrementation])
    statementOrStatementBlock
 ```
 
 The **for** provides **repetitive execution of code**, where
-: `initializations` is a comma-separated set of variable initializations or assignments; the variables identified here should be ones used in the `conditionalExpression`. This portion is optional
-: `conditionalExpression` is an expression whose ultimate data type is a `bool`. The `conditionalExpression` is evaluated at the beginning of the loop.
-: `incrementations` is a comma-separated set of modifications to the variable(s) controlling the loop; the variables identified here should be ones used in the `conditionalExpression`. This portion is optional.
-: `statementOrStatementBlock` is either a **single** statement or a **single** statement *block* (zero or more statements inside curly braces - `{ }`).
-  - The `statementOrStatementBlock` will only execute as long as the `contitionalExpression` results in a **`true`** value.
-  - The loop exits when the `conditionalStatement` results in a **`false`** value.
 
-```csharp
-foreach([dataType] variable in enumerableCollection)
+- `initialization` is a variable declaration typically including an assignment; the variables identified here should be ones used in the `conditionalExpression`. This portion is optional, but when declaring the variable you should use the `let` or `var` keywords.
+- `conditionalExpression` is an expression whose ultimate data type is a `bool`. The `conditionalExpression` is evaluated at the beginning of the loop and may be any "truthy" expression.
+- `incrementation` is a modifications to the variable controlling the loop; the variables identified here should be ones used in the `conditionalExpression`. This portion is optional.
+
+For example:
+
+```js title="Sample Code"
+for(let count = 0; count < options.length; count++) {
+  // code that you want to repeat
+}
+```
+
+<LinkButton target="_blank" icon='external' variant='secondary' iconPlacement='start' href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for">`for` Keyword on <Badge text="MDN" size="small" variant="note" /></LinkButton>
+
+#### `for...of` Statement
+
+```js "variable" "iterable" "statementOrStatementBlock" title="for...of Statement"
+for(variable of iterable)
    statementOrStatementBlock
 ```
 
-The **for** provides **repetitive execution of code**, where the repetition occurs for each item in the `enumerableCollection`.
-: `enumerableCollection` is any object that represents a collection of values (i.e.: supports `IEnumerable`).
-: `variable` is an identifier to represent each item in the collection as it loops through the collection's items/elements.
-: `dataType` declares the data type of the variable. This is optional, and when omitted the data type of `variable` is inferred from the `enumerableCollection`.
+The **`for...of`** provides *repetitive execution of code*, where the repetition occurs for each item in the `iterable`.
+
+- `iterable` is any object that represents a collection of values, such as *Arrays*, *strings*, *`NodeList`* and similar collections.
+- `variable` is an identifier to represent each item in the collection as it loops through the collection's items/elements; the variable should be declared with a `let`, `const` or `var`.
+
+For example:
+
+```js title="Sample Code"
+for(let )
+```
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...of
+
+
+#### `for...in` Statement
+
+
+#### `for await...of` Statement
+
+
 
 ----
 
@@ -336,6 +430,36 @@ The **do-while** provides **repetitive execution of code**, where
   - The loop exits when the `conditionalStatement` results in a **`false`** value.
 
 ----
+
+### Function Calls ⁉️
+
+While the [Method Declaration](#method-declarations) *defines a set of instructions*, those instructions only run when the method is *called* from somewhere. The operating system is responsible to call the `Main()` method, but after that, all method calls are the responsibility of our program. The grammar of a method call is as follows.
+
+```csharp
+[[ClassName | ObjectName].]MethodName(argumentList)
+```
+
+A **Method Call** is an [expression](#expressions) where
+: `MethodName` is the programmer-defined name of the method,
+: `argumentList` is a comma-separated list of values that correspond to the parameters of the [method declaration](#method-declarations),
+: The method is preceded by either a `ClassName` (for `static` methods) or an `ObjectName` (aka: a *variable name*) that identifies *where* the method can be "found"; the **Member Access Operator** (aka: "dot" operator `.`) comes right after the `ClassName` or `ObjectName`. If the method declaration is in the same class as the method call, then the `ClassName`/`ObjectName` can be omitted.
+
+When a method is an *instance* method (non-static) and is called without an `ObjectName`, the `this` keyword is implied. In other words, if the method call looks like
+
+```csharp
+Display("Some Text")
+```
+
+it is interpreted as
+
+```csharp
+this.Display("Some Text")
+```
+
+The **`this`** keyword simply means that the method declaration is in the same class as the method call and that it should be applied to the same instance (**`this` instance**) of the class.
+
+----
+
 
 ## Classes and Class Members ⁉️
 
