@@ -2,7 +2,7 @@
 title: Simplified JavaScript Grammar
 description: A simplified grammar for JavaScript.
 sidebar:
-  label: Simplified Grammar
+  label: Simplified JavaSript Grammar
 draft: false
 ---
 
@@ -17,37 +17,93 @@ import { Image } from 'astro:assets';
 
 <Aside type="danger" title="Mostly C# Grammar">
   I'm still in the process of converting my C# grammar doc to JavaScript. So, don't fully trust this until this warning is removed.
+
+  In the meantime, sub-headings with a ⁉️ indicate that content is still focused on C#.
 </Aside>
 
-> A language **grammar** is a set of small rules that can be combined to produce a **syntax**.
+{/* How JavaScript Works (explanations/0025/) - Potential content for that page
 
-The many small rules in the JavaScript programming language is its ***grammar***. These rules specify the accepted way to write JavaScript code. Individually, each rule in itself is not enough to produce complete working code. Instead, the rules are like building blocks, offering various ways to assemble or construct your code.
+  - This should come right after 
 
+----
 Take, for example, some of the grammar around **variable declarations** and **program statements**. A simplified grammar for declaring a variable in JavaScript would look like this:
 
 ```csharp
   [var | let | const] variableName
 ```
 
+Central to the grammar of JavaScript is the notion of **program statements**. 
+
 By itself, this variable declaration is not enough to produce a complete instruction in JavaScript. We have to combine the *variable declaration* grammar with the grammar for a *program statement* in order to make a single instruction telling the computer to create the variable. In general, a program statement must be a statement that ends with a semicolon (`;`). In other words, the *program statement* grammar requires the semicolon as "punctuation", much in the same way that English sentences must end in a period. Thus, our completed syntax for creating a variable would be
 
 `int count;`
 
+
+*/}
+
+The many small rules in the JavaScript programming language is its ***grammar***. These rules specify the accepted way to write JavaScript code. Individually, each rule in itself is not enough to produce complete working code. Instead, the rules are like building blocks, offering various ways to assemble or construct your code.
+
+> A language **grammar** is a set of small rules that can be combined to produce the **syntax** of your code.
+
+### Using This Grammar
+
 The formal grammar for JavaScript is actually quite large and complex. In fact, the grammars for most programming languages are so complex that they require another "language" to describe the grammar. An early and fairly standard language or means to express grammars is the **Bakus-Naur Form**, or *BNF*.
 
-For our purposes, we will present a much more *simplified* grammar. The following sections express the bulk of the JavaScript grammar used in this introduction to programming fundamentals in JavaScript.
+For our purposes, we will present a much more *simplified* grammar. The following sections express the bulk of the JavaScript grammar used in this introductory JavaScript course.
+
+Most of the grammar rules in JavaScript are quite short, defining the order of **keywords**, **identifiers** and **symbols**/**operators**. In the following grammars, highlighted portions indicate a part of the grammar where you would need to *substitute* some appropriate code. For example, the `for` statement has four items that you would replace with code specific to your application. The required portions of the grammar are the keywords (`for`) and symbols (parenthesis and semicolons).
+
+```js "[initializations]" "conditionalExpression" "[incrementations]" "statementOrStatementBlock"
+for([initializations]; conditionalExpression; [incrementations])
+   statementOrStatementBlock
+```
+
+<Aside>
+  Much of this simpified grammar involves individual program statements. These individual instructions run sequentially, one after the other, so the order of individual instructions is important. For more on this, see [How JavaScript Works](/CPSC-1520/explanations/0025).
+</Aside>
+
+----
 
 ## Common Grammar Elements
 
-Most of the grammar rules in JavaScript are quite short, defining the order of **keywords**, **identifiers** and **symbols**/**operators**. In the following grammars, the use of square brackets (**`[]`**) indicate an optional part of the syntax for the grammar rule; those square brackets are *not* actual symbols in the final syntax of the grammar. With each of the rules is a very brief explanation. Later chapters will go into more depth and provide examples of how to use these grammars.
-
----
-
 ### Program Statements and Statement blocks
 
-Individual instructions are known as **Program Statements**. The instructions can be short and simple, or they can be long an complex. In either case, the program statement must end in a semicolon (`;`). These individual instructions run sequentially, one after the other, so the order of individual instructions is important.
+Individual instructions are known as **Program Statements**. The instructions can be short and simple, or they can be long and complex. In either case, the program statement *should* end in a semicolon (`;`), though the grammar allows them to be omitted.
 
 Besides individual instructions, we can group individual statements into **Statement Blocks**. A statement block is a set of zero or more program statements that are enclosed in a set of curly braces (`{ }`). Statement blocks are frequently used with **Flow Control Statements** (such as the `if` and `for` statements).
+
+<Aside type="tip">
+  Follow the common [style guide](/CPSC-1520/reference/1200/) when writing JavaScript. For **statement blocks**, the opening curly brace should always be at the end of the same line as the statement it applies to.
+</Aside>
+
+
+<Aside title="Always Use Semicolons in JavaScript" type="caution">
+  If you are missing semicolons in your code, most JavaScript engines (like the ones in your browser) will attempt to *interpret* where it thinks the semicolons should go as it is processing your code. This is referred to a **Automatic Semicolon Insertion** (ASI), and it can lead to problems in your code.
+
+  The danger of *not* putting in the semicolons yourself is that **it's too easy to make a mistake**. If the JavaScript engine *mis*-interprets your code by putting semicolons where you don't expect them, then your code might not do what you're hoping it will.
+
+  Consider this (bad) example of code. The programmer's attempt is to return an object, but the value `undefined` will be returned instead.
+
+  ```js
+  return
+  {
+    key: 'value'
+  }
+  ```
+
+  JavaScript ASI will "re-write" the code as follows.
+
+  ```js ";"
+  return;
+  {
+    key: 'value'
+  }
+  ```
+
+  <LinkButton href="https://www.amazon.ca/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742" target="_blank" icon='external'>
+    Read "JavaScript: The Good Parts", by Doug Crockford
+  </LinkButton>
+</Aside>
 
 ----
 
@@ -80,7 +136,7 @@ If the value of `firstName` is `"Wayne"`, then the resulting text would be `Welc
 
 ----
 
-### Variable Declarations
+### Variable Declarations ⁉️
 
 Before a variable can be used, it must be *declared*. Declaring a variable tells the compiler to
 
@@ -102,7 +158,7 @@ A **Variable Declaration** defines a new variable where
 
 ---
 
-### Assignment Operation
+### Assignment Operation ⁉️
 
 ```csharp
 variableName assignmentOperator expression
@@ -123,13 +179,13 @@ variableName assignmentOperator expression
 
 ---
 
-### Expressions
+### Expressions ⁉️
 
 An **Expression** is any combination of *literal values*, *variable names*, *operators* (such as the arithmetic operators), and/or *method calls* (where the method returns a value). When an expression is processed by the computer, a single value is produced. This value can then be used in whatever operation the expressions occurs. For example, the value might be passed into a method as part of a method call, or it might be placed in a variable as part of an assignment statement.
 
 ---
 
-### Namespace Declaration and Using Statements
+### Namespace Declaration and Using Statements ⁉️
 
 ```csharp
 namespace Name
@@ -180,13 +236,13 @@ using static System.Console;
 
 ---
 
-## Classes and Class Members
+## Classes and Class Members ⁉️
 
 As an object-oriented language, classes play a very prominent part of the code we write in JavaScript. It is within classes, for example, that we place variables (also called *fields*) and methods (which are "*named* sets of instructions"). One of the first things that classes give us developers is a *context* or ***scope*** for the code that we write. Classes are also building blocks, acting as blueprints for new and complex data types that we as programmers can create as we develop richer and more complex computer programs. Classes permeate all the code that we write in JavaScript and are so fundamental that you can't even write a "Hello World" program without them.
 
 ---
 
-### Class Definition
+### Class Definition ⁉️
 
 ```csharp
 [accessModifier] class ClassName
@@ -206,7 +262,7 @@ A **Class Definition** describes a new data type where
 
 ---
 
-### Field Declarations
+### Field Declarations ⁉️
 
 ```csharp
 [accessModifier] [static] dataType _FieldName [= constantExpression];
@@ -221,7 +277,7 @@ A **Field Declaration** identifies a *static* or *instance* member variable of t
 
 ---
 
-### Property Declarations
+### Property Declarations ⁉️
 
 Properties are a kind of cross between methods and fields. On one hand, they are used in the same way that fields are. When you want to assign (or **set**) a value to a property, you place the property on the left side of the assignment operator. When you want to use (or **get**) the properties value, you simply reference the property name just as you would a field name.
 
@@ -229,7 +285,7 @@ Internally, however, the **get** and **set** operations are like the bodies of a
 
 [^1]: See the Microsoft docs for [Restricting Accessor Accessibility](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/restricting-accessor-accessibility)
 
-#### Explicitly Implemented Property
+#### Explicitly Implemented Property ⁉️
 
 Explicitly implemented properties are properties where the programmer supplies the getter and setter implementations. The bodies of the getter and setter may reference a field (known as a **backing store**) that holds the actual information. In these cases, the property is working to provide a **controlled access** to the underlying field's data.
 
@@ -257,7 +313,7 @@ A **Property Declaration** identifies a *static* or *instance* member of the cla
 : `Body of getter` is a set of instructions that must ultimately return a value of the same data type as the property.
 : `Body of the setter` is a set of instructions that can process incoming data that is in the `value` keyword. A typical implementation will store that data into the property's backing store.
 
-### Auto-Implemented Property
+### Auto-Implemented Property ⁉️
 
 Auto-Implemented properties are properties where the compiler takes care of the getter and setter implementations and also supplies a hidden field as the **backing store** for the property. The default get implementation is to retrieve the value from the backing store while the default set implementation is to place a value into the backing store.
 
@@ -273,7 +329,7 @@ A **Property Declaration** identifies a *static* or *instance* member of the cla
 
 ---
 
-### Method Declarations
+### Method Declarations ⁉️
 
 ```csharp
 [accessModifier] [static] returnType MethodName(ParameterList)
@@ -291,7 +347,7 @@ A **Method Declaration** defines a *named* set of instructions.
 
 ---
 
-### Constructors
+### Constructors ⁉️
 
 ```csharp
 [accessModifier] ClassName(ParameterList)
@@ -310,7 +366,7 @@ A **Constructor** is a set of instructions used when **instantiating** (creating
 
 Flow-Control Statements provide the procedural characteristics of the JavaScript language. They are what provide the capabilities of ***alternative paths of logic*** (*If-Else* and *Case*) and ***repetition*** (*For*, *While* and their variants). They also provide the ability to "jump into" methods through *method calls*.
 
-### Method Calls
+### Method Calls ⁉️
 
 While the [Method Declaration](#method-declarations) *defines a set of instructions*, those instructions only run when the method is *called* from somewhere. The operating system is responsible to call the `Main()` method, but after that, all method calls are the responsibility of our program. The grammar of a method call is as follows.
 
@@ -339,7 +395,7 @@ The **`this`** keyword simply means that the method declaration is in the same c
 
 ----
 
-### If-Else
+### If-Else ⁉️
 
 ```csharp
 if(conditionalExpression)
@@ -356,7 +412,7 @@ The **if-else** provides **alternate paths of logic**, where
 
 ----
 
-### Switch-Case
+### Switch-Case ⁉️
 
 ```csharp
 switch(cardinalExpression)
@@ -382,7 +438,7 @@ The **switch** provides **alternate paths of logic**, where
 
 ----
 
-### For and For-Each
+### For and For-Each ⁉️
 
 ```csharp
 for([initializations]; conditionalExpression; [incrementations])
@@ -409,7 +465,7 @@ The **for** provides **repetitive execution of code**, where the repetition occu
 
 ----
 
-### While and Do-While
+### While and Do-While ⁉️
 
 ```csharp
 while(conditionalExpression)
@@ -439,13 +495,13 @@ The **do-while** provides **repetitive execution of code**, where
 ## Objects, Classes and More
 
 
-### Object Instantiation
+### Object Instantiation ⁉️
 
 ```csharp
 new ClassName(argList)
 ```
 
-### Initializer Lists
+### Initializer Lists ⁉️
 
 ```csharp
 new ClassName
@@ -454,7 +510,7 @@ new ClassName
 }
 ```
 
-### Classes and Inheritance
+### Classes and Inheritance ⁉️
 
 ```csharp
 [accessModifier] class ClassName : BaseClassOrInterface[, InterfaceList]
@@ -466,52 +522,3 @@ new ClassName
 This grammar offers additional details over the earlier [**Class Definition**](#class-definition), where
 : `BaseClassOrInterface` is the name of either another class or an [interface](#interface-declaration)
 : `InterfaceList` is a comma-separated list of interface names
-
-### Enum Declaration
-
-**Enumerations** are programmer-defined *primitive* data types. They essentially represent a set of **named constants** that can be distinguished between each other.
-
-```csharp
-[accessModifier] enum EnumerationName
-{
-  EnumeratedNames
-}
-```
-
-An **Enum Definition** describes a new data type where
-: `[accessModifier]` is either `public` or `internal`. If no access modifier is provided, then the default modifier is `internal`.
-: `EnumerationName` is the programmer-supplied name for the enum (in TitleCase format)
-: `EnumeratedNames` is a comma-separated list of "named values" (with or without an assigned underlying value)
-
-Each of the named values in the list of **`EnumeratedNames`** follows this grammar,
-
-```csharp
-NamedValue [= wholeNumber]
-```
-
-Named values are essentially similar to [variable declarations](#variable-declarations) where
-: The `NamedValue` is an identifier (in either title case or all upper-case)
-: An optional `wholeNumber` value is assigned to the named value
-
-### Interface Declaration
-
-```csharp
-[accessModifier] interface InterfaceName [: Interface]
-{
-  // PropertySignatures
-  // MethodSignatures
-}
-```
-
-### Delegate
-
-```csharp
-
-```
-
-### Event
-
-```csharp
-
-```
-
