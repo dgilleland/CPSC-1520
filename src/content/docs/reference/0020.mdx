@@ -14,6 +14,10 @@ import { Image } from 'astro:assets';
 </Aside>
 
 
+{/* 
+<LinkButton target="_blank" icon='external' variant='secondary' iconPlacement='start' href=""> on <Badge text="MDN" size="small" variant="note" /></LinkButton>
+*/}
+
 <Aside type="danger" title="Mostly C# Grammar">
   I'm still in the process of converting my C# grammar doc to JavaScript. So, don't fully trust this until this warning is removed.
 
@@ -135,25 +139,39 @@ If the value of `firstName` is `"Wayne"`, then the resulting text would be `Welc
 
 ----
 
-### Variable Declarations ⁉️
+### Variable Declarations
 
-Before a variable can be used, it must be *declared*. Declaring a variable tells the compiler to
+Before a variable can be used, it must be *declared*. How you declare a variable will affect its *scope* and whether its value can be changed. There are three keywords in JavaScript for declaring variables:  `var`, `let` and `const`.
 
-* set aside room in memory to store information,
-* treat that data as a specific data type, and
-* refer to that information by the variable name
+<LinkButton target="_blank" icon='external' variant='secondary' iconPlacement='start' href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let">`let` keyword <Badge text="MDN" size="small" variant="note" /></LinkButton>
+<LinkButton target="_blank" icon='external' variant='secondary' iconPlacement='start' href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/var">`var` keyword <Badge text="MDN" size="small" variant="note" /></LinkButton>
+<LinkButton target="_blank" icon='external' href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/const" variant='secondary' iconPlacement='start'>`const` keyword <Badge text="MDN" size="small" variant="note" /></LinkButton>
 
-The grammar for declaring variables is as follows.
+#### `let` and `var`
 
-```csharp
-dataType variableName [= expression] [, ...]
+The `let` statement declares a variable with block-level scope. The `var` statement declares a variable with function-scope or global scope.
+
+```js "variableName" "[= expression]" title="let Statement"
+let variableName [= expression];
 ```
 
-A **Variable Declaration** defines a new variable where
-: `dataType` is any built-in or programmer-defined data type.
-: `variableName` is an **identifier** (name) to represent a value
-: an optional initial value may be assigned, as denoted by `[= expression]`, where `expression` is any valid JavaScript expression whose final data type matches the variable's data type. When a variable is declared and initialized at the same time, it is called a **Variable Initialization**.
-: additional variable names (with or without initial values) can be declared using a comma-separated list. All variables are of the same data type as the first variable in the list.
+```js "variableName" "[= expression]" title="var Statement"
+var variableName [= expression];
+```
+
+In both cases, `variablename` is a programmer-defined **identifier** (name) to represent a value. An optional initial value may be assigned, as denoted by `[= expression]`, where `expression` is any valid JavaScript expression. If no value is assigned to the variable, it's initial value is `undefined`. The datatype of the variable is always determined by the value stored in that variable.
+
+
+#### `const`
+
+The `const` statement declares a variable whose value cannot be changed. The value must be assigned when the variable is declared.
+
+```js "variableName" "expression" title="const Statement"
+const variableName = expression;
+```
+
+Again, `variablename` is a programmer-defined **identifier** (name) while `expression` is any valid JavaScript expression.
+
 
 ---
 
