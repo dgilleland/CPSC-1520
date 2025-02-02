@@ -1,0 +1,85 @@
+---
+title: Running Web Projects | Vite vs. Live-Server
+description: A guide on how to use Vite in Node projects vs. VS Code's Live-Server extension as a way to run your web project
+sidebar:
+  label: Running Web Projects
+draft: false
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import closeLiveServer from './0040/close-live-server.png';
+import openLiveServer from './0040/open-with-live-server.png';
+import longUrl from './0040/long-url.png';
+
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+{/* *See [issue 34](https://github.com/dgilleland/CPSC-1520/issues/34).* */}
+
+
+Websites are meant to be run in web browsers, and that means you need some kind of **web server** to deliver the pages to the browser. There are several out there, but the two I prefer are creating a Node project running with **Vite** or (as a quick-n-dirty approach) using the **Live-Server** extension for Visual Studio Code.
+
+<LinkButton target="_blank" icon='external' href="https://vite.dev/">Vite 🎉</LinkButton>
+<LinkButton target="_blank" icon='external' href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">Live Server extension</LinkButton>
+
+<Aside type="caution">
+    Vite and Live-Server are **alternate** ways to run your website. Use one or the other on a project, not both at the same time.
+</Aside>
+
+## Use a Vite Server 🎉
+
+Setting up an existing or new website to use <a href="">**Vite**</a> is a quick process that can be done in less than a minute. Follow these steps, and you'll have a slim web server for your development use without adding anything to your project's final production build.
+
+<Steps>
+1. In the terminal, navigate to the folder holding your website's `index.html` file.
+1. Create a  project by typing `pnpm init` in the terminal. This will create a `package.json` file. Take a few moments to look over that file and see what it contains.
+1. Add a development dependency to Vite https://vitejs.dev/ by typing `pnpm i -D vite` in the terminal. This will modify the package.json  file to reference Vite as a third-party solution. It will also set up a `node_modules` folder where all your third-party packages will reside.
+    <Aside type="tip">
+      Remember to check that you have a `.gitignore` file somewhere in your git repository that includes an entry for `node_modules`. The contents of this folder should **not** be part of your version control history!
+    </Aside>
+1. Modify your `package.json` by adding a script entry to run the Vite server. It's only one line that you are adding to your `package.json`.
+
+    ```json title="package.json" {2}
+    "scripts": {
+        "dev": "vite",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    ```
+
+1. In the terminal, enter `pnpm run dev` (or just `pnpm dev`). This will launch Vite as your web server. While in the terminal, press `o` and hit <kbd>Enter</kbd>. This will open the page in the browser.
+</Steps>
+
+Among the many benefits of taking this approach is Vite's excellent and responsive **Hot-Module-Reload** (HMR). With HMR you can make changes in your editor and see the effects of those changes immediatly in your browser, without stopping and re-starting your web server.
+
+## Use Live-Server in VS-Code
+
+<Aside type="caution">
+    When you run Live Server to view a web page in VS Code, the extension treats the root of your repository as the root of the web server. You might sometimes see a long URL in your browser's address bar if your HTML page is farther down in your folder structure.
+
+    <Image src={longUrl} alt="Long Urls with Live Server"/>
+</Aside>
+
+{/* Every website needs a web server in order for people to view the pages. When we used the Live Server extension in VS Code, that acted as our web server. The problem, however, is that Live Server treats the root of the repository as the root of the website. We can do something better than that by creating our example as its own Web Project using Vite https://vitejs.dev/. */}
+
+Launching an HTML page with Live-Server is quite easy.
+
+<Steps>
+1. Make sure you have the <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">Live Server extension</a> installed in VS Code.
+1. Right-Click the HTML file and select "Open with Live Server".
+
+    <Image src={openLiveServer} alt="Open with Live Server" />
+
+1. The browser should open with the selected HTML file running from the server.
+</Steps>
+
+Live-Server also has HMR, though it is not as robust as that of Vite.
+
+### Switching From Live-Server to Vite
+
+Switching from Live-Server to Vite is very easy to do.
+
+<Steps>
+1. Check if Live-Server is running in VS Code by looking on the status bar for an indicator of which port it's running on. If you see a message like "Port: 5000", then click on that item to stop Live Server.
+    <Image src={closeLiveServer} alt="Close Live Server"/>
+2. Follow the [steps above](#use-a-vite-server) to set up a Node + Vite project for your site.
+</Steps>
