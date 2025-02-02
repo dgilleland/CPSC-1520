@@ -288,6 +288,15 @@ if(success) {
 }
 ```
 
+To understand the effects of boolean operations, consider the following **truth table**. It illustrates the resulting value from performing "And" and "Or" operations.
+
+| `a` | `b` | Logical AND<br />`a && b` | Logical OR<br />`a \|\| b` | Logical NOT<br />`!a` |
+|:---:|:---:|:--------:|:----------:|:---:|
+| `true` | `true` | `true` | `true` | `false` |
+| `true` | `false` | `false` | `true` | `false` |
+| `false` | `true` | `false` | `true` | `true` |
+| `false` | `false` | `false` | `false` | `true` |
+
 ----
 
 ### If-Else ⁉️

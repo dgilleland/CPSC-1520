@@ -16,6 +16,7 @@ adhoc.astro
 adhoc.svelte
 adhoc.js
 adhoc.ts
+adhoc-*.mdx
 
 
 # other files/folders

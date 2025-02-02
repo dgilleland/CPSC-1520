@@ -3,6 +3,8 @@ title: Stand-Alone Sandbox
 description: Starter Kit for a simple website to use as a JavaScript sandbox.
 sidebar:
   hidden: true
+enhancedMain: false
+mainJs: false
 ---
 
 import { Aside, Badge, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
@@ -12,6 +14,20 @@ import html from './sandbox/index.html?raw';
 import css from './sandbox/styles.css?raw';
 import js from './sandbox/main.js?raw';
 import favicon from './sandbox/sandbox-color.png';
+
+{props.enhancedMain ? (
+  <h3>True</h3>
+) : (
+  <h3>False</h3>
+)}
+
+{props.mainJs ? (
+  <Code code={props.mainJs} lang="js" />
+) : (
+  <small>no code</small>
+)}
+
+----
 
 We'll use a simple HTML/CSS setup for our sandbox. The whole purpose of this web page is to act as a place where we can see the effect of our code (without relying on logging information to the Developer Tool's Console).
 
