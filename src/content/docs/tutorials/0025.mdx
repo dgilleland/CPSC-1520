@@ -3,32 +3,40 @@ title: Discover Emmet in VS Code
 description: Emmet is a productivity tool included in Visual Studio Code. With emmet, you can use code snippets to quickly generate HTML and CSS.
 sidebar:
   label: Discover Emmet
-draft: true
+draft: false
 ---
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import emmet from './0025/emmet.png';
 import liveServer from './0025/live-server.png';
+import linkCss from './0025/link-css.png';
+import preview from './0025/preview.png';
+import stoneTrek from './0025/stone-trek-bones.png';
 
-import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+{/* *See [issue 16](https://github.com/dgilleland/CPSC-1520/issues/16).* */}
 
-<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 16](https://github.com/dgilleland/CPSC-1520/issues/16).*
+
+Are you looking to increase your productivity in HTML and CSS? Then spend some time learning Emmet! In this tutorial, we'll explore how to use Emmet in VS Code to quickly generate both HTML and CSS.
+
+<Aside type="caution" title="Don't know HTML/CSS?">
+    This tutorial is for those who already know some HTML and CSS. If you're completely new to that, then I recommend taking a look at <a target="_blank" href="https://developer.mozilla.org/en-US/curriculum/core/semantic-html/">this course on HTML</a> before attempting to use Emmet.
 </Aside>
 
+## Quickly Scaffold Your HTML
 
-Are you looking to increase your productivity in HTML and CSS? Then spend some time learning Emmet!
-
-In this tutorial, we'll explore how to use Emmet in VS Code to quickly generate both HTML and CSS.
+Scaffolding is something used in construction to aid in the build process of physical structures. When creating web files, Emmet offers great shortcuts. As you follow these steps, work slowly so that you can appreciate how to properly interact with Emmet Abbreviations.
 
 <Steps>
-1. Create an `index.html` file in this folder. Add a basic html document using [Emmet](https://code.visualstudio.com/docs/editor/emmet) by typing `html:5` and selecting the Emmet-generated expansion.
+1. Create an `index.html` file in a new folder. Add a basic html document using [Emmet](https://code.visualstudio.com/docs/editor/emmet) by typing `html:5` and selecting the Emmet-generated expansion.
 
-   <Image src={emmet} alt="Emmet"/>
+    <Image src={emmet} alt="Emmet"/>
 
-1.  When you press <kbd>tab</kbd>, it will create the following HTML. The highlighted parts are the "tab stops" for editing the expanded snippet.
+    <Aside type="tip" title="Help! Emmet Disappeared!">
+        If the "Emmet Abbreviation" indicator disappears, simply press <kbd>Ctrl</kbd> + <kbd>Spacebar</kbd> to re-activate it.
+    </Aside>
+
+1.  When you press <kbd>Tab</kbd>, it will create the following HTML. The highlighted parts are the "tab stops" for editing the expanded snippet. 
 
     ```html "device-width" "1.0" "Document" wrap
     // index.html
@@ -45,24 +53,135 @@ In this tutorial, we'll explore how to use Emmet in VS Code to quickly generate 
     </html>
     ```
 
+1. Press <kbd>Tab</kbd> two times to set the focus to the `<title>` tag, and type `Home Page`. Your `<title>` tag should now look like this.
+
+    ```html wrap title="index.html" {4}
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    ```
+
+    Press <kbd>Tab</kbd> once more to move to the last Emmet tab stop for this snippet, inside the `<body>` tag.
 1. Add some basic content to the page using Emmet:
 
     ```
-    h1{Emmet for HTML/JS/CSS}+ul>li{Item $}*3^p*3>lorem
+    h1{Emmet for HTML/CSS}+ul>li{Item $}*3^p*3>lorem
     ```
 
-1. In the `<head>` element of the page, add the following markup.
+    This should produce the following markup.
 
-    ```html
-    <script src="first.js"></script>
-    <script src="second.js" type="module" defer></script>
+    ```html wrap title="index.html" {2-10}
+    <body>
+        <h1>Emmet for HTML/CSS</h1>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo maiores facere eaque praesentium exercitationem obcaecati alias rerum architecto, omnis possimus dolorem amet sint laborum dolore minima fugiat quaerat placeat nostrum.</p>
+        <p>Sit est excepturi assumenda ab non pariatur rem at eum facilis, eos ad dolore odio. Quasi minima harum debitis magni quas error blanditiis quo corrupti neque a est, atque sed.</p>
+        <p>Reiciendis molestiae, esse iure voluptatum maxime rerum distinctio dolorem soluta ducimus molestias ex exercitationem doloribus aliquid? Qui aliquid sit minus natus debitis assumenda quae voluptate architecto, facere vero ducimus sint!</p>
+    </body>
+    ```
+
+1. Return to the `<head>` element of the page, and add a new line beneith the `<title>` tag. Then type `link:css`. As you are typing, you should see the Emmet suggestions appear.
+
+    <Image src={linkCss} alt="Typing 'link'"/>
+
+    Pressing <kbd>Tab</kbd> produces the following `<link>` tag.
+
+    ```html title="index.html" "style."
+    <link rel="stylesheet" href="style.css">
     ```
 
 1. View the page in the browser by launching it using Live Server. Right-click on the file and choose "Open with Live Server".
 
     <Image src={liveServer} alt="Live Server"/>
 
+    If you don't have Live Server installed, you can get it from the <a target="_blank" href="https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer">Extensions Marketplace</a>.
+
     <Aside type="tip">
       It's usually a good idea to use relative paths when linking your HTML to JavaScript files. This makes it easier to move sets of files around without having to change the internal code.
     </Aside>
 </Steps>
+
+You've created a single HTML page with some quick content using Emmet. There's lots more to discover about Emmet for HTML, but let's move on to exploring Emmet for CSS.
+
+## Add in Some CSS
+
+In the last part of this tutorial, you created a `<link>` to a stylesheet file. Here, we'll create that file and use Emmet to scaffold a quick design.
+
+<Steps>
+1. Create a file named `style.css`.
+1. Create a style to apply to all elements.
+
+    ```css title="style.css"
+    * {
+
+    }
+    ```
+
+    Inside the curly braces, type `bxz` for the box-sizing style. You should have the following.
+
+    ```css title="style.css"
+    * {
+        box-sizing: border-box;
+    }
+    ```
+
+1. Add another style for the `<h1>` tag.
+
+    ```css title="style.css"
+    h1 {
+
+    }
+    ```
+
+    Type `c` to trigger an Emmet snippet for color; use `rebeccapurple`. Then on the next line, type `td:u` for creating an underline.
+
+    ```css title="style.css"
+    h1 {
+        color: rebeccapurple;
+        text-decoration: underline;
+    }
+    ```
+
+1. Lastly, let's make the first letter of the first paragraph stand out. Create a style for `p:first-child:first-letter`.
+
+    ```css title="style.css"
+    p:first-of-type:first-letter {
+
+    }
+    ```
+
+    Again, we'll use `c` for triggering the color; use `#903` for the value. Then use `ff` to trigger the font-family styling and type "Georgia" to bring up that font and its fallbacks. Use `pr` for padding-right, with a value of `0.2em`. Lastly, add the `initial-letter: 2;` style for <a target="_blank" href="https://css-tricks.com/snippets/css/drop-caps/">drop-caps</a> (there's no Emmet for this one).
+
+    ```css title="style.css"
+    p:first-of-type:first-letter {
+        color: #903;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        padding-right: 0.2em;
+        initial-letter: 2;
+    }
+    ```
+
+1. The preview of the web page should look something like this.
+    <Image src={preview} alt="Simple Styles"/>
+</Steps>
+
+## Conclusion
+
+<Aside title="Damn it, Jim!">
+    <Image src={stoneTrek} alt="I'm a programmer, not a web designer!" class="float-end ml-3" width="100"/>
+
+    Ok, I'll admit it. I'm not a real web designer. If you want to see the real power of Emmet for HTML/CSS, check out these resources.
+
+    <LinkButton target="_blank" icon='external' href="https://docs.emmet.io/">Emmet Docs</LinkButton>
+    <LinkButton target="_blank" icon='external' href="https://www.freecodecamp.org/news/write-html-css-faster-with-emmet-cheat-codes/">How to Write HTML/CSS Faster with Emmet Cheat-Codes</LinkButton>
+</Aside>
+
+Emmet can speed up your HTML/CSS development (provided you already know how those languages work). Once you've got your code created, [launch it with a **Web Server**](/CPSC-1520/guides/0040/) to see the results.
+
+<LinkButton target="_blank" icon='external' href="https://docs.emmet.io/cheat-sheet/">Emmet Cheat Sheet</LinkButton>
