@@ -3,28 +3,103 @@ title: Comments in JavaScript
 description: Describes the three kinds of comments - single-line, multi-line, and JS Docs.
 sidebar:
   label: Comments in JavaScript
-draft: true
+draft: false
 ---
 
-import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
+import { Aside, Badge, Code, FileTree, Icon, LinkButton, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import vscode from './0030/vscode-comment.gif';
+import jsdocs from './0030/jsDocs.png';
 
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
-</Aside>
+{/* *See [issue 52](https://github.com/dgilleland/CPSC-1520/issues/52).* */}
 
-Intro....
+As developers, we write **source code** that focuses on how the program runs. But source code is also something that we often *read*, and the ability to have non-executable notes as part of our source code is invaluable. We're able to do this because the JavaScript language offers syntax that allows us to write various kinds of comments as part of our code base.
+
+New developers will especially enjoy this capability, because they are the ones striving to understand the executable portions. The ability to inject comments can help in the process of explaining to themselves how the code works.
 
 ## Single-Line Comments
 
-- Syntax
-- When to use
-- Where to use (before one or more lines vs. end of line)
+Single-line comments are ideal for short descriptions. A double-slash (`//`) is used to indicate the start of a comment that continues until the end of the current line.
+
+As a guideline, single-line comments are best placed either at the end of a line or on the line prior to the code being described. Here are some samples.
+
+```js "//"
+let step = 0; // A global variable to track our current step
+
+// TODO: Add parameter to suppress step indicator
+const appendLine = function(someText) {
+  // Increment the step value after getting the current step's letter
+  let letter = `${offsetStepA(step++)}) `;
+  const sandbox = document.querySelector('output#sandbox');
+  sandbox.innerHTML += '<br>';
+  sandbox.innerHTML += letter + someText;
+}
+
+const offsetStepA = function(offset) {
+    let step = 'A';
+    let characterCode = step.charCodeAt(0);
+    characterCode += offset; // same as characterCode = characterCode + offset;
+    let text = String.fromCharCode(characterCode);
+    return text;
+}
+```
+
+As you can see above, single-line comments are great during the development process for pointing out unfinished tasks (`// TODO:`).
+
+Visual Studio Code includes keyboard shortcuts to quickly add or remove single-line comments, as shown in the following animation.
+
+- **Comment** - <kbd>Ctrl</kbd>+<kbd>k</kbd>, <kbd>Ctrl</kbd>+<kbd>c</kbd>
+- **Un-Comment** - <kbd>Ctrl</kbd>+<kbd>k</kbd>, <kbd>Ctrl</kbd>+<kbd>c</kbd>
+
+<Image src={vscode} alt="Using CTRL+K and CTRL+C"/>
 
 ## Multi-Line Comments
 
-- Syntax
-- When to use
-- Where to use
+Multi-line comments are ideal for longer descriptions of blocks of code. The start of a multi-line comment is indicated by a slash followed by an asterisk (`/*`). The end of the comment is indicated by the reversal of the opening: an asterisk followed by a slash (`*/`).
 
-## JS Docs
+Multi-line comments are best used at the top of a script file to denote things such as authorship, copyright, etc. They can be used anywhere in your code, but should only be *used sparingly*.
+
+The following is an example of a multi-line comment.
+
+```js "/*" "*/"
+/* 
+  File:   gradebookParser.js
+  Author: Stewart Dent
+  Notes:  Relies on Papaparse for core CSV parsing.
+          See https://www.papaparse.com/
+*/
+
+const cellDelimeter = '|';
+// ... more code ...
+```
+
+## JSDoc
+
+JSDoc is a documentation generator built on top of JavaScript's native multi-line comment syntax. It provides developers with **intellisense** while writing code. This is possible through the support of modern code editors such as Visual Studio Code.
+
+JSDoc comments begin with a slash and *two* asterisks (`/**`) and end the same way as multi-line comments (`*/`).
+
+```js "/**" "*/"
+/**
+ * Displays HTML in the `<code id="output">` element.
+ * @param {string} htmlMarkup A string value that can include HTML markup
+ * @param {boolean} append True if you wish to append the HTML, false if you wish to replace it
+ */
+const outputLine = function(htmlMarkup, append) {
+    const out = document.getElementById('output');
+    htmlMarkup += '<br />';
+    if(!!append) {
+        out.innerHTML += htmlMarkup;
+    } else {
+        out.innerHTML = htmlMarkup;
+    }
+}
+```
+
+JSDoc is also a command-line tool that can be leveraged to generate HTML documentation of our code. For example, when the command `jsdoc something.js` is run on the command line for the above sample, it produces the following HTML file in a folder named `out/`.
+
+<Image src={jsdocs} alt="Sample JSDoc CLI Output"/>
+
+For more information on how the JS Docs specifications, visit the following link.
+
+<LinkButton target="_blank" icon='external' href="https://jsdoc.app/">JSDoc</LinkButton>
