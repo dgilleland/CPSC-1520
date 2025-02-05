@@ -6,7 +6,7 @@ sidebar:
 draft: false
 ---
 
-import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
+import { Aside, Badge, Code, FileTree, Icon, LinkButton, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import goodDesign from './0040/GoodDesign.png';
 import htmlAddHeadScript from './0040/html-add-head-script.diff-html?raw';
@@ -20,6 +20,12 @@ In this tutorial, we will incorporate JavaScript directly into our web pages. Yo
 ## Tutorial Setup
 
 Before we can explore JavaScript in this tutorial, we need an HTML page. We also need to get some feedback in our JavaScript code, so we will explore the `console.log()` function that is built into the browser.
+
+<Aside title="About the Console">
+    The JavaScript `console` object is something we use as developers to check what our code is doing on an ad-hoc basis. To learn all about what's possible with the JavaScript console, see the following article.
+
+    <LinkButton target="_blank" icon='external' href="https://developer.mozilla.org/en-US/blog/learn-javascript-console-methods/">Developer essentials: JavaScript console methods</LinkButton>
+</Aside>
 
 <Steps>
 1. Let's create a bare-bones HTML page. Create an `index.html` file and paste in the following content.
