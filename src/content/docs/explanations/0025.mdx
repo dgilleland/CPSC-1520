@@ -9,6 +9,7 @@ draft: false
 import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import question from '../../../assets/undraw/undraw_questions_g2px.svg';
+import answer from './0025/Answer_to_Life_42.svg';
 
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 51](https://github.com/dgilleland/CPSC-1520/issues/51).*
@@ -34,11 +35,14 @@ It's not just about instructions, though. It's also about **information**. The i
 
 <Aside>
     A good companion to this explanation is my article "What is a Computer Program?" That article complements this by providing another perspective on understanding how JavaScript works.
+
+    AUTHOR TODO: Add link in paragraph above....
 </Aside>
 
 The following code illustrates a step-by-step approach to calculate the perimeter of a rectangle. Here, we're making our steps ultra-small, to illustrate the sequence.
 
 ```js
+// simple-sequence.js
 // We want variables to hold information
 let leftSide;   // The rectangle's left side
 let topSide;    // The rectangle's top side
@@ -58,23 +62,116 @@ console.log('The perimeter is:', perimeter);
 
 ## <u>B</u>undles of Instructions
 
-- DRY principle
-- Functions
-  - `return` vs. *default* return value
+The second thing to know about JavaScript is that it allows us to create ***functions***. Think of functions as small sets of instructions dedicated to accomplish some specific task. The benefit of functions are two-fold:
 
+- They give us the benefit of **re-use**, because we can *call* our functions as often and wherever we want.
+- They allow us to focus around individual tasks or goals.
+
+To give you an idea of how essential functions are, all JavaScript environments come with hundreds of built-in functions. They include functions that
+
+- Manipulate text and numbers,
+- Perform complex math operations,
+- Work with dates, and
+- Manipulate arrays.
+
+That's a short list of categories, and each one can contain dozens of functions we can call to get jobs done.
+
+<Image src={answer} alt="The answer for life, the universe and everything" class="float-end ml-3" width="300" />
+
+For a concrete example, consider the fact that all user input/output comes in textual form. That's true even when we are asking the user to give us a number. That means we need some *function* that can convert from a string to a number. Consider this code snippet based on the "Hitchhiker's Guide to the Galaxy"[^a]. It uses the `parseInt()` function.
+
+[^a]: "Hitchhiker's Guide to the Galaxy" is a book by Douglas Adams. The "42" image is from <a target="_blank" href="https://commons.wikimedia.org/wiki/File:Answer_to_Life_42.svg">WikiMedia</a>.
+
+{/* Whether it is through an input control on a form (`<input name="height" />`) or through a user prompt (`prompt("Enter a height in inches"`), the raw values are textual in nature. */}
+
+```js "parseInt(input)"
+// sampleInput.js
+// According to the "Hitchhiker's Guide to the Galaxy" the expected input is '42'
+let input = prompt("What's the answer for life, the universe and everything?");
+let answer = parseInt(input); // Changes '42' into 42
+```
+
+We're not limited to the functions that come with JavaScript. We can create our own!
+
+### Declaring vs. Calling
+
+A **function declaration** is where we state exactly what our function will *do*. Here's a sample.
+
+```js title="Calculate perimeter" "promptPerimeter"
+const promptPerimeter = function(openingName) {
+  let textInput = prompt(`Enter the height for ${openingName} (in inches).`);
+  let height = parseInt(textInput);
+  textInput = prompt(`Enter the width for ${openingName} (in inches).`);
+  let width = parseInt(textInput);
+  return height * 2 + width * 2;
+}
+```
+
+It's not enough to declare our function. We would need to also **call** our function. Imagine that we wanted to get the amount of wood to frame a set of three windows for a room.
+
+```js title="Calculate total length" "promptPerimeter"
+let totalLength = promptPerimeter('the North window');
+totalLength = totalLength + promptPerimeter('the East window');
+totalLength = totalLength + promptPerimeter('the West window');
+console.log('The total length (in inches):', totalLength);
+```
+
+Without functions, our code could potentially grow to an unreasonable (and un-maintainable) size. Here's what we would need to code if we couldn't make our own functions.
 
 ```js
 // redundant-code.js
+// We want variables to hold information
+let textInput;    // All input comes in as strings
+let height;
+let width;
+let totalLength;  // For the final result
+
+// Get the first window details
+textInput = prompt("Enter the height for North window (in inches).");
+height = parseInt(textInput); // e.g.: changes '22' into 22
+textInput = prompt("Enter the height for North window (in inches).");
+width = parseInt(textInput);
+
+totalLength = height * 2 + width * 2;
+
+// Get the second window details
+textInput = prompt("Enter the height for East window (in inches).");
+height = parseInt(textInput); // e.g.: changes '22' into 22
+textInput = prompt("Enter the height for East window (in inches).");
+width = parseInt(textInput);
+
+totalLength = totalLength + height * 2 + width * 2;
+
+// Get the third window details
+textInput = prompt("Enter the height for West window (in inches).");
+height = parseInt(textInput); // e.g.: changes '22' into 22
+textInput = prompt("Enter the height for West window (in inches).");
+width = parseInt(textInput);
+
+totalLength = totalLength + height * 2 + width * 2;
+
+// Output the result;
+console.log("The total length (in inches):", totalLength);
 ```
 
-```js
-// modularized-code.js
-```
-
+<Aside title="DRY Principle">
+  Functions allow us to avoid code duplication. This is known as following the **DRY principle**. *DRY* stands for "Don't Repeat Yourself".
+</Aside>
 
 ## <u>C</u>ontrol Flow
 
+It's not all simple-sequence and method calls when it comes to the execution of our code. Often times we want our program to *choose* different paths of logic or to do things repeatedly. We can write those kinds of instructions with "If/Else" and looping structures.
+
+This third aspect of JavaScript programming is all about **Flow Control** - deciding which instructions to execute.
+
+### Altenate Paths of Logic
+
+Imagine we needed to calculate a shape's area given two dimensions: width and height. We might need to use different formulas depending on whether the shape is a triangle or a rectangle.
+
 - If/Else
+
+### Repetition
+
 - Loop
 
 ```js
@@ -83,7 +180,13 @@ console.log('The perimeter is:', perimeter);
 
 ## <u>D</u>isplaying Results
 
-We don't use JavaScript in a vacuum. JavaScript - in its most common use - is a support for our HTML content. We want to display the results of our work to the user.
+We don't use JavaScript in a vacuum. JavaScript - in its most common use - is in support of our HTML content. We want to display the results of our work to the user.
+
+- [ ] Note about DOM & link to issues
+  - [ ] \#12 (HMTL vs. DOM | explanation)
+  - [ ] \#13 (Exploring the DOM | tutorial)
+  - [ ] \#14 (Common DOM Functions | reference)
+  - [ ] \#47 (Styling DOM Elements |tutorial)
 
 
 ```js
@@ -93,3 +196,4 @@ We don't use JavaScript in a vacuum. JavaScript - in its most common use - is a 
 
 Another way JavaSCript supports our HTML is allowing users to *interact* with our web page.
 
+- [ ] Link to [Intro to Event Listeners](/CPSC-1520/tutorials/0070/)
