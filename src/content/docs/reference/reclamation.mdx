@@ -49,6 +49,17 @@ git config --global mergetool.vscode.cmd 'code --wait --resume "$LOCAL" "$REMOTE
 
 ## Programmatically List GitIgnore Templates
 
+A couple of noteworthy endpoints:
+
+- `https://gitignore.io/api/list?format=lines`
+- `https://www.gitignore.io/api/macos,windows,visualstudio`
+
+```
+# Created by https://www.gitignore.io/api/macos,windows,visualstudio
+# Edit at https://www.gitignore.io/?templates=macos,windows,visualstudio
+```
+
+
 ```cs
 using System;
 using System.Collections.Generic;
