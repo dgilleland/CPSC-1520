@@ -39,7 +39,9 @@ It's not just about instructions, though. It's also about **information**. The i
     AUTHOR TODO: Add link in paragraph above....
 </Aside>
 
-The following code illustrates a step-by-step approach to calculate the perimeter of a rectangle. Here, we're making our steps ultra-small, to illustrate the sequence.
+### Code Samples
+
+The following code illustrates Simple Sequence. It's a step-by-step approach to calculate the perimeter of a rectangle. Here, we're making our steps ultra-small, to illustrate the sequence.
 
 ```js
 // simple-sequence.js
@@ -57,6 +59,42 @@ perimeter = leftSide + leftSide + topSide + topSide;
 
 // Display the result
 console.log('The perimeter is:', perimeter);
+// output:   The perimeter is: 12
+```
+
+One of the big consequences of simple sequence is that certain steps *must* happen before others. For example, you must have values assigned to `leftSide` and `topSide` **before** you to try to calculate the `perimeter`.
+
+Another aspect is that later changes to a variable's value won't affect prior calculations. Consider this example.
+
+```js
+// simple-sequence-2.js
+let total;
+let quantity = 10;
+let price = 5.95;
+
+total = quantity * price;
+console.log('The total is:', total);
+// output:   The total is: 59.5
+
+quantity = 20;
+console.log('The total is:', total);
+// still:    The total is: 59.5
+```
+
+Contrast that with CSS which uses entirely different rules when applying styles. In the following stylesheet, the last border style overrides (replaces) the previous one.
+
+```css
+h1 {
+  font-size: 3rem;
+  border-left: 1px;
+}
+
+/* ... more styles ... */
+
+h1 {
+  border-left: 5px;
+  padding-left: 3px;
+}
 ```
 
 
@@ -74,7 +112,7 @@ To give you an idea of how essential functions are, all JavaScript environments 
 - Work with dates, and
 - Manipulate arrays.
 
-That's a short list of categories, and each one can contain dozens of functions we can call to get jobs done.
+That's a short list of categories, and each one can contain dozens of functions we can call upon to get jobs done.
 
 <Image src={answer} alt="The answer for life, the universe and everything" class="float-end ml-3" width="300" />
 
@@ -95,7 +133,7 @@ We're not limited to the functions that come with JavaScript. We can create our 
 
 ### Declaring vs. Calling
 
-A **function declaration** is where we state exactly what our function will *do*. Here's a sample.
+A **function declaration** is where we state exactly what our function will do. Here's a sample.
 
 ```js title="Calculate perimeter" "promptPerimeter"
 const promptPerimeter = function(openingName) {
@@ -154,8 +192,10 @@ totalLength = totalLength + height * 2 + width * 2;
 console.log("The total length (in inches):", totalLength);
 ```
 
+That's a **lot** more code! Without the ability to make our own functions, our code would grow exponentially if we wanted our program to accomplish more than it currently does.
+
 <Aside title="DRY Principle">
-  Functions allow us to avoid code duplication. This is known as following the **DRY principle**. *DRY* stands for "Don't Repeat Yourself".
+  Functions allow us to avoid *code duplication*. This is known as following the **DRY principle**. *DRY* stands for "Don't Repeat Yourself".
 </Aside>
 
 ## <u>C</u>ontrol Flow
@@ -164,13 +204,39 @@ It's not all simple-sequence and method calls when it comes to the execution of 
 
 This third aspect of JavaScript programming is all about **Flow Control** - deciding which instructions to execute.
 
-### Altenate Paths of Logic
+### Conditionals
 
-Imagine we needed to calculate a shape's area given two dimensions: width and height. We might need to use different formulas depending on whether the shape is a triangle or a rectangle.
+The idea of a **conditional** is to provide our code with ***Alternate Paths of Logic*** during execution. Essentially, we can introduce a "condition" as some decision that can be made as the computer is executing our code. Based on whether the condition is `true` or `false`, certain code will run while other code will not.
 
-- If/Else
+The `if...else` statement in JavaScript allows us to set up a *test* (or *condition*) to determine if we want to run certain code. For example, consider the fact that Math does not allow division by zero. We might have code like this.
 
-### Repetition
+```js title="if Statement"
+// imagine some code above has obtained input from the user
+if (count > 0) {
+  average = total / count;
+}
+```
+
+This tells the computer to only compute the average when the count is greater than zero. If the value of count is zero (`0`), then the average will *not* be computed, thus avoiding the division by zero error. (Additionally, we're avoiding negative `count` values because a negative average typically doesn't make sense).
+
+Notice how the code inside the curly braces will only run if the *condition* (`count > 0`) is `true`. The `if` statement also offers an optional `else` side to allow us to do something when the conditional expression produces a `false` result.
+
+```js title="if...else Statement"
+// imagine some code above has obtained input from the user
+if (count > 0) {
+  average = total / count;
+} else {
+  console.log('That is an invalid count:', count);
+}
+```
+
+<Aside type="tip" title="Check the Grammar">
+  JavaScript is different from other type-safe languages when it comes to conditionals. JavaScript allows the conditional expression to be *truthy* or *falsy*. See the [Simplified JavaScript Grammar](/CPSC-1520/reference/0020/#conditional-expressions) on conditional expressions for more details.
+</Aside>
+
+### Loops
+
+Repetition
 
 - Loop
 
