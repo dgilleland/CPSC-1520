@@ -139,6 +139,17 @@ The difference between template and string literals is that all of the text insi
 
 If the value of `firstName` is `"Wayne"`, then the resulting text would be `Welcome to Wayne's world!`.
 
+Template strings work across multiple lines as well. Consider this example.
+
+```js
+welcome = `<h1>
+  Welcome ${firstName}!
+  <span class="badge">${rating}</span>
+</h1>`;
+```
+
+Regular strings have to be entirely on the same physical line in JavaScript. If you want to built your string literal using line breaks, use template strings instead.
+
 ----
 
 ### Expressions
