@@ -1,0 +1,35 @@
+---
+title: Reclamation Project
+description: SUMMARY
+sidebar:
+  label: Reclamation Project
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Reclamation Project" type="caution">
+    Archives from Old Repos
+</Aside>
+
+This page holds various notes/items from old repos I am cleaning up/removing from my GitHub account. I'm just recording these here in case I think they are worth keeping for future refactoring.
+
+----
+
+## Setting up VS Code as your Git diff tool
+
+You can set up VS code as your tool to perform merge conflicts. To do this, you set it as your **difftool** and your **mergetool** in your .gitconfig file. This can be done manually (by finding your .gitconfig file on your computer), or by running some commands in the command window/powershell.
+
+```shell
+git config --global diff.tool vscode
+git config --global difftool.vscode.cmd 'code --wait --diff "$LOCAL" "$REMOTE"'
+git config --global difftool.prompt false
+
+git config --global merge.tool vscode
+git config --global mergetool.vscode.cmd 'code --wait --resume "$LOCAL" "$REMOTE"'
+```
+
+----
