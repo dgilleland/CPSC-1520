@@ -11,9 +11,7 @@ import { Image } from 'astro:assets';
 import question from '../../../assets/undraw/undraw_questions_g2px.svg';
 import answer from './0025/Answer_to_Life_42.svg';
 
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 51](https://github.com/dgilleland/CPSC-1520/issues/51).*
-</Aside>
+{/* *See [issue 51](https://github.com/dgilleland/CPSC-1520/issues/51).* */}
 
 <Aside type="tip" title="For those with programming background">
   If you already have some experience with programming in other languages such as C#, Java, Basic, Python, etc., then you can probably skip this explanation.
@@ -24,6 +22,8 @@ import answer from './0025/Answer_to_Life_42.svg';
 Are you totally new to JavaScript and the only "programming" background you have is HTML and/or CSS? Odds are that JavaScript will feel pretty different to you.
 
 This explanation might help you get the basics of how JavaScript works, which will be fundamental as you move forward. Consider this your "A-B-C"s look at JavaScript.
+
+----
 
 ## <u>A</u> Sequence of Steps
 
@@ -97,6 +97,8 @@ h1 {
 }
 ```
 
+
+----
 
 ## <u>B</u>undles of Instructions
 
@@ -198,6 +200,8 @@ That's a **lot** more code! Without the ability to make our own functions, our c
   Functions allow us to avoid *code duplication*. This is known as following the **DRY principle**. *DRY* stands for "Don't Repeat Yourself".
 </Aside>
 
+----
+
 ## <u>C</u>ontrol Flow
 
 It's not all simple-sequence and method calls when it comes to the execution of our code. Often times we want our program to *choose* different paths of logic or to do things repeatedly. We can write those kinds of instructions with "If/Else" and looping structures.
@@ -219,7 +223,7 @@ if (count > 0) {
 
 This tells the computer to only compute the average when the count is greater than zero. If the value of count is zero (`0`), then the average will *not* be computed, thus avoiding the division by zero error. (Additionally, we're avoiding negative `count` values because a negative average typically doesn't make sense).
 
-Notice how the code inside the curly braces will only run if the *condition* (`count > 0`) is `true`. The `if` statement also offers an optional `else` side to allow us to do something when the conditional expression produces a `false` result.
+Notice how the code inside the curly braces will only run if the *condition* - `(count > 0)` - is `true`. The `if` statement also offers an optional `else` side to allow us to do something when the conditional expression produces a `false` result.
 
 ```js title="if...else Statement"
 // imagine some code above has obtained input from the user
@@ -236,30 +240,94 @@ if (count > 0) {
 
 ### Loops
 
-Repetition
+The idea of a **loop** is to execute one or more lines of code more than once. Whereas a *conditional* statement allows for *alternate paths of logic*, loops allows for ***Repetition*** of logic. Like the `if...else` examples above, the thing that controls the repetition is some *conditional expression* or *decision*.
 
-- Loop
+#### While Statements
 
-```js
+There are many looping statements in JavaScript. The oldest, and most general-purpose, is the `while` statement. As a simplistic example, consider the following code. It outputs the numbers 1 through 10 to the console.
+
+```js title="while Statement"
+let count = 1;
+while (count <= 10) {
+  console.log(`Item ${count}`);
+  count = count + 1;
+}
 ```
 
+The conditional expression - `(count <= 10)` - controls the repetition of the code inside the curly braces. As long as that expression results in a true or *truthy* value, the code will repeat. Also note that the value of `count` is modified inside the curly braces. Each time through the loop, its value increases by one, until it ultimately holds the value `11`. At that point, the conditional expression results in a `false`, causing the loop to exit.
+
+#### For Statements
+
+Another popular looping statement is the `for` statement. Look again at the code for the `while` statement. Notice how there are three instructions that control the repetition:
+
+- `let count = 1` - Creates the variable and gives it an *initial value*
+- `count <= 10` - The conditional expression controlling entry to the code in the curly braces
+- `count = count + 1` - Changes the value of the variable tested in the conditional expression
+
+```js title="while Statement" "let count = 1" "count <= 10" "count = count + 1"
+let count = 1;
+while (count <= 10) {
+  console.log(`Item ${count}`);
+  count = count + 1;
+}
+```
+
+The `for` statement brings all three of these instructions into one place, making it easier to see what affects execution of the code in the curly braces.
+
+```js title="for Statement" "let count = 1" "count <= 10" "count = count + 1"
+// An alternative to our while statement
+for (let count = 1; count <= 10; count = count + 1) {
+  console.log(`Item ${count}`);
+}
+```
+
+Looping structures are a powerful way to control the *flow of execution* of our code. These, along with conditional statements, are great candidates for use inside of functions.
+
+<Aside>
+  For more on the various looping statements in JavaScript, see the [Simplified JavaScript Grammar](/CPSC-1520/reference/0020/).
+</Aside>
+
+----
 
 ## <u>D</u>isplaying Results
 
-We don't use JavaScript in a vacuum. JavaScript - in its most common use - is in support of our HTML content. We want to display the results of our work to the user.
+We don't use JavaScript in a vacuum. JavaScript - in its most common use - is in support of our HTML content. We often want to display the results of our work to the user. It might be in an overt way (e.g.: modifying content on the page) or it might be in subtle ways (e.g.: changing styles or applying CSS classes).
+
+This is the part where JavaScript interacts with something outside of itself. Remember that JavaScript, as an interpreted language, is being executed by the **web browser**. The browser makes the web page available to our JavaScript code through a "global" variable - the `document` object.
+
+The `document` object is a very complex representation of everything on the page. It's referred to as the **Document Object Model**, or *DOM*. Through that `document` object we have access to functions that allow us to find individual parts of our page. Once we can access those, we are then free to modify them. We can even add or remove parts of our page entirely through the *DOM API* functions!
+
+Here's a simple example. This code creates a variable that will *reference* or point to the first `<h1>` element on our page. Using that variable, it applies a CSS style to change the appearance of the element.
+
+```js title="Add some sparkle"
+let h1Tag = document.querySelector('h1'); // Find the first <h1>
+h1Tag.classList.add('hover-sparkle');     // Give it a CSS class
+```
+
+{/* 
+AUTHOR TODO:
 
 - [ ] Note about DOM & link to issues
   - [ ] \#12 (HMTL vs. DOM | explanation)
   - [ ] \#13 (Exploring the DOM | tutorial)
   - [ ] \#14 (Common DOM Functions | reference)
   - [ ] \#47 (Styling DOM Elements |tutorial)
+*/}
 
 
-```js
-```
+----
 
 ## <u>E</u>vent Handling
 
-Another way JavaSCript supports our HTML is allowing users to *interact* with our web page.
+The last significant way JavaScript supports our HTML is by allowing users to *interact* with our web page. This is accomplished by **listening to events**.
 
-- [ ] Link to [Intro to Event Listeners](/CPSC-1520/tutorials/0070/)
+We can write code that instructs the browser to run certain functions when various events occur. For example, a user might **click** on some part of our page, like a heading or a button. Or they might **submit** a form. Another example is that they might want to select and **drag** one part of the page onto another part of the page.
+
+```js title="Drag example" ".addEventListener"
+let myList = document.querySelector('ul#priority-list');
+myList.addEventListener('drag', moveItem);
+```
+
+The tutorial [*Intro to Event Listeners*](/CPSC-1520/tutorials/0070/) is a great introduction to creating interative user experiences.
+
+----
