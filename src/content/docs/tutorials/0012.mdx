@@ -15,20 +15,20 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
 <Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
 <Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+*See [issue 63](https://github.com/dgilleland/CPSC-1520/issues/63).*
 </Aside>
 
 <Aside type="tip" title="QuickStart Series">
     This is the first of three tutorials in the [**QuickStart Series**](/CPSC-1520/tutorials/0001/) introducing JavaScript to new developers.
 </Aside>
 
-In this multi-part tutorial, we'll build a simple script these concepts:
+In this multi-part tutorial, we'll build a short JavaScript file to highlight the following key aspects which undergird how JavaScript works.
 
 - Variables, values and data types
 - Simple math instructions
 - Declaring and calling functions
 
-While this is a short journey, it will highlight key aspects that undergird how JavaScript works. As you go through this tutorial, you may want to pause at points to consider the explanatory articles elsewhere on this site. I'll drop a few links in this tutorial, but for a big picture of why we have and need JavaScript, check out the following and then come back here.
+As you go through this tutorial, you may want to pause at points to read the related articles I link to on this site. I'll drop a few links in this tutorial, but for a big picture of why we have and need JavaScript, check out the following and then come back here.
 
 <LinkButton href="/CPSC-1520/explanations/0010/" icon='open-book'>Why JavaScript - The Big Picture</LinkButton>
 
@@ -207,9 +207,127 @@ In this part, we'll include some data in our program and make the computer re-sh
 
 </Steps>
 
-We've taken big steps in our quickstart on learning how JavaScript works. Review the article below before continuing on to the next part of this QuickStart series.
+We've taken big steps in learning how JavaScript works. Review the article below before moving on with the next section.
 
 <LinkButton href="/CPSC-1520/explanations/0025/" icon='open-book'>How JavaScript Works</LinkButton>
+
+## Coping With Errors
+
+If you've tried the code above, you might have occasionally hit an error or two by making a mistake in what you've typed. Hopefully you solved it by comparing what you typed with what was in the tutorial steps. That's not unusual as you are learning a new computer language. It's helpful to discover what kinds of errors you might run into. The final part of this tutorial explores a couple of things to watch out for.
+
+<Aside type="tip" title="Understanding Diff Blocks">
+    Along the way, I'll be showing you snippets of code which highlight the *changes* you should make to existing code.
+    
+    In those code blocks, the parts that you should remove will be highlighted in red, while the parts that you should add will be highlighted in green. Here's an example from the final step in this tutorial.
+
+    ```diff lang="js" title="app.js" ins="${" del="{"
+    - message = `The discount is $ {discount} and the new total is $ {total}`;
+    + message = `The discount is $ ${discount} and the new total is $ ${total}`;
+    ```
+
+</Aside>
+
+<Steps>
+1. The last tutorial ended with a comment on **simple sequence**. This presents us with an important consideration: In order to *use* a variable in some calculation, we would need to *declare* the variable beforehand.
+
+    To demonstrate this, try adding the following (broken) code to the end of your existing `app.js` file.
+
+    ```js title="app.js"
+    // More Simple Sequence
+    total = total - discount;
+    let discount = 2.15;
+    ```
+
+    In the terminal, we'll see the following error message:
+
+    ```ps
+    total = total - discount;
+                ^
+
+    ReferenceError: Cannot access 'discount' before initialization
+    ```
+
+    To fix this, we would need to *declare* `discount` and give it a *value* before we attempt to use it in our calculation. Re-order the lines of code to match the following.
+
+    ```js title="app.js"
+    // More Simple Sequence
+    let discount = 2.15;
+    total = total - discount;
+    ```
+
+1. Another important consideration is that we can't *re-declare* an existing variable. Change your code to add in the extra line highlighted in green.
+
+    ```diff lang="js" title="app.js"
+      // More Simple Sequence
+      let discount = 2.15;
+      total = total - discount;
+    + let message = `A discount was applied to your total.`;
+    ```
+
+    Now we get a different error - one that tells us that the `message` variable has already been declared earlier in our code.
+
+    ```ps
+    let message = `A discount was applied to your total.`;
+        ^
+
+    SyntaxError: Identifier 'message' has already been declared
+    ```
+
+1. Other errors might not seem so obvious. Consider this line that reports on the discount we applied above.
+
+    ```diff lang="js" title="app.js"
+      // More Simple Sequence
+      let discount = 2.15;
+      total = total - discount;
+    - let message = `A discount was applied to your total.`;
+    + message = `A discount was applied to your total.`;
+    + console.log(message);
+    + message = `The discount is $ {discount}.`;
+    + console.log(message);
+    ```
+
+    Instead of seeing the amounts in the final line on the terminal, we're seeing the variable names.
+    
+    ```ps
+    The discount is $ {discount}.
+    ```
+    
+    That's because we used our placeholders incorrectly. Template strings use a `$` before the placeholder. Let's fix our code.
+
+    ```diff lang="js" title="app.js" ins="${" del="{"
+    - message = `The discount is $ {discount}.`;
+    + message = `The discount is $ ${discount}.`;
+    ```
+
+1. One last potential typo that you will probably make at some point. JavaScript is a **case-sensitive** programming languge, meaning that there's a big difference in upper and lower case. Again, consider this line of code.
+
+    ```js title="app.js"
+    message = `The new total is $ ${Total}`;
+    console.log(message);
+    ```
+
+    You will see the following output.
+
+    ```ps
+    message = `The new total is $ ${Total}`;
+                                    ^
+
+    ReferenceError: Total is not defined
+    ```
+
+    The problem is that we capitalized the variable for the total price. It should be `total` (with a lower-case `t`), because that is how we originally declared the variable earlier in our program. JavaScript reads this and discovers that `Total` has never been declared (or *defined*) as a variable.
+
+    Again, the fix is easy: correct the spelling.
+
+    ```js title="app.js" ins="${total}"
+    message = `The new total is $ ${total}`;
+    console.log(message);
+    ```
+
+</Steps>
+
+
+Writing code in any programming language requires attention to detail. Don't worry if you make a mistake when you follow these tutorials. If something isn't working as expected, take a long, slow look at what you've typed. It might be a simple mistake, but you'll grow more experienced in recognizing (and fixing) these as time goes on.
 
 ----
 
@@ -262,6 +380,16 @@ In this quickstart, we've created code that manipulates and displays simple info
     // Simple Sequence
     quantity = 20;
     message = `\n\tChanging quantity to ${quantity} does not cause previous calculations to be re-evaluated.\n\tTotal is still ${total} and amount is still ${amount}.`;
+    console.log(message);
+
+    // More Simple Sequence
+    let discount = 2.15;
+    total = total - discount;
+    message = `A discount was applied to your total.`;
+    console.log(message);
+    message = `The discount is $ ${discount} and the new total is $ ${total}`;
+    console.log(message);
+    message = `The new total is $ ${total}`;
     console.log(message);
     ```
 
