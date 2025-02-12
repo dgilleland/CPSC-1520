@@ -1,0 +1,160 @@
+---
+title: Flow Control Quickstart - Looping
+description: SUMMARY
+sidebar:
+  label: Quickstart - Looping
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+
+
+<Steps>
+1. Launch Visual Studio Code (*VS Code*). From the menubar, select *File -> Open Folder...* and create an empty folder for this quickstart. You can name the folder anything you want, but if you want a suggestion, call it `JS-Quickstart`.
+1. Open a separate terminal by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd>. Because you did this from within VS Code, the path in the terminal should match the folder you've just opened.
+
+    <Aside title="Windows or Mac?">
+    Are you running Windows or Mac for your operating system? These tutorials will work with both, but the screenshots I give are based on Windows 11. If your terminals look a bit different because you're on a Mac, don't worry - the effect of the code will be the same. 
+    </Aside>
+
+1. Position the terminal and VS Code side-by-side, so that you can observe what happens as you continue this tutorial.
+
+
+
+1. In VS Code, choose *File -> New File...* and name it `app.js`
+
+    ```js title="app.js"
+    // while count up to 10
+    // for count up to 10
+    // count by 5s
+    // many common math problems involve loops
+    // - factorial
+    // - fibonacci seqence
+    // - factors of a whole number
+
+    // Arrays
+    // - Index accessor
+    // for..in
+    // for..of
+    ```
+
+
+    ```js title="app.js"
+    console.log('Running flow-control.js');
+
+    const rollDie = function() {
+        let rnd = Math.random();
+        rnd = rnd * 6;
+        rnd = Math.ceil(rnd);
+        return rnd;
+    }
+
+    // console.log('Testing rollDie(): ', rollDie());
+    const shootDie = function () {
+        let firstDie = rollDie();
+        let secondDie = rollDie();
+        let total = firstDie + secondDie;
+        let message = `You rolled a ${total}`;
+
+        // Determine the winner/loser
+        if(total === 7 || total === 11) {
+            message += ' - You Win!!';
+        } else if(total === 2 || total === 3 || total === 12) {
+            message += ' - you lose 😢';
+        } else {
+            // We're rolling to match the "point"
+            let point = total;
+            let count = 0;
+            message += ' - attempting to match point\n\t';
+            do {
+                message += '.'; // Add a dot for each try
+                count++;
+                firstDie = rollDie();
+                secondDie = rollDie();
+                total = firstDie + secondDie;
+            } while(total !== point && total !== 7);
+            message += `\nAfter ${count} more rolls`;
+            if(total === 7) {
+              message += ' you lost 😭';
+            } else {
+              message += ' you won! 🎉';
+            }
+        }
+        console.log(message);
+    }
+
+    // Play the game
+    // shootDie(); // 
+
+    // ================================
+    // What is looping?
+    const learnLoops = function() {
+        // While statements
+        while(rollDie() !== 6) {
+            // Run when the conditional expression is truthy
+            console.log('Not a 6');
+        }
+        console.log('Finally! A 6');
+
+        // Let's do something a little less random
+        let message = 'Counting to ten: ';
+        let count = 1;
+        while(count <= 10) {
+            message += count + ', ';
+            count++; // count = count + 1
+        }
+        console.log(message);
+        console.log('done with while loop\n\ndemo of for loop');
+
+        message = 'Counting with for statement:\n';
+        for(let counter = 0; counter <= 10; counter++) {
+            // my repeating logic...
+            message += counter + ' | ';
+        }
+        console.log(message);
+    }
+
+    /**
+     * Generates the string of Fibonacci numbers up to a
+     * certain quantity.
+     * @param {number} quantity The quantity of numbers in the sequence
+     * @returns {string} - A string with the Fibonacci sequence
+    */
+    const buildFibonacciSequence = function(quantity) {
+      let message;
+      if(quantity <= 0) {
+        message = 'Invalid quantity - must be greater than zero';
+      } else if(quantity === 1) {
+        message = '1';
+      } else {
+        // Calculate the series
+        let previous = 0;
+        let current = 1;
+        message = '1'; // First in sequence
+        for(let count = 2; count <= quantity; count++) {
+          let next = current + previous;
+          message += `, ${next}`;
+          previous = current;
+          current = next;
+        }
+      }
+
+      return message;
+    }
+
+    learnLoops(); // comment this out after I learn
+    ```
+
+
+    ```js title="app.js"
+    ```
+
+</Steps>

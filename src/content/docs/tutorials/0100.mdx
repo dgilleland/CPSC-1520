@@ -1,0 +1,78 @@
+---
+title: Flow Control Quickstart - If-Else and Switch
+description: SUMMARY
+sidebar:
+  label: Quickstart - Conditionals
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+
+## `if..else` Statements
+
+<Steps>
+1. Launch Visual Studio Code (*VS Code*). From the menubar, select *File -> Open Folder...* and create an empty folder for this quickstart. You can name the folder anything you want, but if you want a suggestion, call it `JS-Quickstart`.
+1. Open a separate terminal by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd>. Because you did this from within VS Code, the path in the terminal should match the folder you've just opened.
+
+    <Aside title="Windows or Mac?">
+    Are you running Windows or Mac for your operating system? These tutorials will work with both, but the screenshots I give are based on Windows 11. If your terminals look a bit different because you're on a Mac, don't worry - the effect of the code will be the same. 
+    </Aside>
+
+1. Position the terminal and VS Code side-by-side, so that you can observe what happens as you continue this tutorial.
+
+
+
+1. In VS Code, choose *File -> New File...* and name it `app.
+
+    ```js title="app.js"
+
+    const describeDataType = function (value) {
+      let result;
+      if (value == undefined || value == null) {
+        result = `The value is ${value}`;
+      } else {
+        result = `The data type is ${value.constructor.name}`;
+      }
+      return result;
+    };
+
+    const getDataType = function (value) {
+      let result;
+      if (value == undefined || value == null) {
+        result = `${value}`; // as a string
+      } else {
+        result = value.constructor.name;
+      }
+      return result;
+    };
+
+
+    const ify = function (expression) {
+      let result;
+      let type = typeof expression;
+      if (type === "boolean") {
+        result = expression;
+      } else if (expression) {
+        result = `truthy`;
+      } else {
+        result = `falsy`;
+      }
+      return result;
+    };
+
+    ```
+
+
+    ```js title="app.js"
+    ```
+
+
+</Steps>
