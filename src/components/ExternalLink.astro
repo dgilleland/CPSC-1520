@@ -1,0 +1,14 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props {
+    target?: string;
+    href: string;
+    text: string;
+}
+
+const { target = "_blank", href, text } = Astro.props;
+---
+
+<a target={target} href={href}>{text}</a>
+
