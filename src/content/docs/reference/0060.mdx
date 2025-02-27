@@ -1,0 +1,67 @@
+---
+title: Arrays in JavaScript
+description: Arrays in JavaScript contain various properties and functions that make it easy to use and manipulate collections of data.
+sidebar:
+  label: JavaScript Arrays
+draft: false
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 66](https://github.com/dgilleland/CPSC-1520/issues/66).*
+</Aside>
+
+An array represents an *ordered collection* of items. Arrays allow developers to work with collections of values as a single item or object. In fact, JavaScript arrays are built upon the base `Object` type and are identified as `object` when checked with the `typeof` keyword.
+
+- TODO: Link to core reference page on MDN for Arrays
+
+## Array Properties
+
+### `.length`
+
+The `.length` property of an array indicates the number of items (elements) in the array.
+
+----
+
+## Array Functions
+
+### Adding to an Array
+
+The `.push()` function is used to add an item to the end of an array.
+
+The `.unshift()` function is used to add an item to the start of an array.
+
+When attempting to insert an item into the middle of the array, there are several approaches you can take.
+
+- Use the `.splice()` function
+- Use the spread operator (`...`) along with `.splice()`
+
+### Removing from an Array
+
+The `.pop()` function is used to remove the last item from an array.
+
+The `.shift()` function is used to remove the first item from an array.
+
+The `.splice()` function is used to remove one or more items from any part of the array.
+
+### Iterating over Arrays
+
+The nature of arrays having their values accessible via an *index* makes it quite easy to loop through an array with a `for` statement. There are other ways to iterate over an array.
+
+- `for..in` can be used to iterate over the *index values* of the array.
+- `for..of` can be used to iterate over the *entries* of the array.
+- `.forEach()` can be used to apply a function to each entry in the array. This is a very versatile function, as it accepts a callback that will receive three values as it iterates over each item: the *entry* (or element) of the array, the *index* of that element, and the complete array itself.
+
+### Searching and Transforming Arrays
+
+The `.find()`, `.findIndex()`, `.findLast()`, and `.findLastIndes()` can be used to retrieve a single element or index position in an array, starting either from the beginning or the end. These functions do not modify the contents of the original array.
+
+The `.filter()` function can be used to retrieve multiple items from an array. The parameter of this function is a callback that acts as a *predicate*. That is, the callback is expected to be a function that returns a `true` or `false` value indicating whether that item should be included in the array returned by `.filter()`. This function does not modify the contents of the original array.
+
+The `.map()` function is used to generate a new array where the elements of the existing array can be "transformed" or used in generating new data. This function does not modify the contents of the original array.
