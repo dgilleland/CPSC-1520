@@ -50,6 +50,22 @@ The `.shift()` function is used to remove the first item from an array.
 
 The `.splice()` function is used to remove one or more items from any part of the array.
 
+Imagine that you have the following array of names:
+
+```js
+let names = ['Stewart Dent', 'Anna Lyst', 'Phobe Nominial', 'Phillip Ossophy', 'Albert Einment'];
+console.table(names);
+```
+
+If you wanted to remove the middle name from the list (`'Phobe Nominal'` at position 2), you could use the `.splice()` array function.
+
+```js ".splice(index, 1)"
+let index = 2;
+// Removes 1 element from the array starting at position 2
+names.splice(index, 1);
+```
+
+
 ### Iterating over Arrays
 
 The nature of arrays having their values accessible via an *index* makes it quite easy to loop through an array with a `for` statement. There are other ways to iterate over an array.
