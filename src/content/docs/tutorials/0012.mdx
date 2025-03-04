@@ -2,7 +2,8 @@
 title: JavaScript Quickstart
 description: Begin your journey with a quick look at core aspects of JavaScript.
 sidebar:
-  label: JavaScript Quickstart
+  label: Intro to JavaScript
+  badge: Quickstart
 draft: false
 ---
 
@@ -19,24 +20,41 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 </Aside>
 
 <Aside type="tip" title="QuickStart Series">
-    This is the first of three tutorials in the [**QuickStart Series**](/CPSC-1520/tutorials/0001/) introducing JavaScript to new developers.
+    This is the first of several tutorials in the [**QuickStart Series**](/CPSC-1520/tutorials/0001/) introducing JavaScript to new developers.
 </Aside>
 
 In this multi-part tutorial, we'll build a short JavaScript file to highlight the following key aspects which undergird how JavaScript works.
 
-- Variables, values and data types
-- Simple math instructions
-- Declaring and calling functions
+- The roles of variables, values and data types
+- Performing simple math calculations and string manipulations
+- Write messages to a console environment
 
-As you go through this tutorial, you may want to pause at points to read the related articles I link to on this site. I'll drop a few links in this tutorial, but for a big picture of why we have and need JavaScript, check out the following and then come back here.
+As you go through this tutorial, you may want to pause at points to read the related articles I link to on this site. I'll drop a few links in this tutorial, but for a big picture of why we have and need JavaScript, check out the following and then return to begin this tutorial.
 
 <LinkButton href="/CPSC-1520/explanations/0010/" icon='open-book'>Why JavaScript - The Big Picture</LinkButton>
+
+<details>
+    <summary>Learning Outcome Guide</summary>
+
+    At the end of this tutorial, you should be able to:
+
+    - Execute JavaScript files with Node in watch mode within a terminal window
+    - Display feedback in the terminal window using `console.log()`
+    - Declare and Initialize varibles
+    - Recognize literal values within a JavaScript file
+    - Construct strings using template strings and placeholders
+    - Perform simple mathematical calculations on numeric values
+    - Distinguish between values and variables
+    - Identify primitive data types using `typeof`
+    - Convert numeric values to strings with a fixed number of digits precision
+    - Identify and correct simple errors when writing JavaScript code
+</details>
 
 ----
 
 ## Up and Running
 
-JavaScript is typically associated with browsers and websites. That's the way it should be. But you may be surprised to learn that JavaScript can be used on its own,  apart from the web. That capability came about largely due to <a target="_blank" href="">**Node**</a> - a standalone JavaScript runtime.
+JavaScript is typically associated with browsers and websites. That's the way it should be. But you may be surprised to learn that JavaScript can be used on its own,  apart from the web. That capability came about largely due to <a target="_blank" href="https://nodejs.org/">**Node**</a> - a standalone JavaScript runtime.
 
 We're going to use that runtime to execute a simple JavaScript file. Within that file, we'll write code and observe the output.
 
@@ -112,9 +130,9 @@ In this part, we'll include some data in our program and make the computer re-sh
     let message;
     ```
 
-    The first line is a [single-line comment][*TODO:link-to-grammar*] in JavaScript. These start with two slashes (`//`) and are useful for making notes for ourselves as developers.
+    The first line is a [single-line comment](/CPSC-1520/reference/0030/) in JavaScript. These start with two slashes (`//`) and are useful for making notes for ourselves as developers.
 
-    The remaining lines create three [variables][*TODO:link-to-variables-values-and-data-types]. The JavaScript keyword `let` is used to create (or *declare*) a variable. Programmers use variables to act as "containers" that can hold information.
+    The remaining lines create three [variables](/CPSC-1520/reference/0020/#variable-declarations). The JavaScript keyword `let` is used to create (or *declare*) a variable. Programmers use variables to act as "containers" that can hold information.
 
     Each of these three lines are **program statements**. A program statement is a *complete instruction* for the computer to carry out.
     
@@ -134,7 +152,7 @@ In this part, we'll include some data in our program and make the computer re-sh
         There are many kinds of **program statements** or instructions we can give the computer. Notice how each one ends with a semicolon, which indicates the end of the statement.
     </Aside>
 
-1. We can do more with the variables that hold our values. Consider the following code which uses a [template string][*TODO:link-to-grammar*] to embed the values of two variables into a line of text. Add these to your existing code.
+1. We can do more with the variables that hold our values. Consider the following code which uses a [template string](/CPSC-1520/reference/0020/#template-strings) to embed the values of two variables into a line of text. Add these to your existing code. Be sure to use a *backtick* - <kbd>\`</kbd> - instead of a single quote - <kbd>'</kbd> - as you type these lines of code.
 
     ```js title="app.js"
     // Template strings and placeholders
@@ -143,6 +161,23 @@ In this part, we'll include some data in our program and make the computer re-sh
     ```
 
     Notice how this assignment assignment statement *replaces* the old value inside the `message` variable. When we log the message to the terminal, its contents are displayed on the screen.
+
+    <Aside title="Literal Values">
+        See how we're including very specific numbers and text messages in our program? These are **hard-coded** or **literal** values that we embed in our program.
+
+        Literal strings are entered inside quotes while literal numbers are entered in plain digits.
+
+        ```js title="app.js" "'My app.js has loaded'" "10" "5.95"
+        console.log('My app.js has loaded');
+        console.log();
+        // Variable declaration vs. initialization
+        let quantity = 10;
+        let price = 5.95;
+        let message;
+        ```
+
+        Such literal values are pretty rare in full-scale computer programs. For now, they're very handy as we introduce you to new programming concepts.
+    </Aside>
 
 1. Let's perform some math. Here's more code to add to the end of our script.
 
@@ -161,8 +196,14 @@ In this part, we'll include some data in our program and make the computer re-sh
     console.log(message);
     ```
 
-    When working with strings, the `+` operator works differently than it does with numbers.
-1. That raises anothing important aspect of JavaScript. We have variables that contain different *kinds* of data. We refer to those "kinds" as **data types**. For example, `message` holds *textual* information while `total` holds *numeric* information.
+    You should see the following new output. You might have expected a value of `59.50` instead of `59.5`. We'll address that shortly.
+
+    ```ps
+    The total amount is $ 59.5
+    ```
+
+    The main thing I want you to see is how the output was created. When working with strings, the `+` operator works differently than it does with numbers. Instead of arithmetic, it *joins* the two items as text to produce a longer string.
+1. That raises an important aspect of JavaScript. We have variables that contain different *kinds* of data. We refer to those "kinds" as **data types**. For example, `message` holds *textual* information while `total` holds *numeric* information.
     
     There's a keyword in JavaScript that can tell us the data type of our variables: `typeof`. Let's use it to discover what data types we currently have in `message` and `total`.
 
@@ -172,11 +213,24 @@ In this part, we'll include some data in our program and make the computer re-sh
     console.log(`message is a ${typeof message}`);
     ```
 
-    The "string" and "number" data types represent **primitive data types** built into JavaScript. This distinction is important because JavaScript uses different *rules* for manipulating different data types (as we saw in the arithmetic operators we've used so far).
+    You should see this output.
 
-1. You might have noticed something about the total that we calculated. The value is `59.5`, as shown in the terminal. But our intention was for this to be a monetary value, and we might have expected `59.50` instead. When numeric values are concatenated onto our strings, the trailing zeros after the decimal point are ignored.
+    ```ps
+    total is a number
+    message is a string
+    ```
 
-    We can fix that by converting our number to a string before we concatenate.
+    The "string" and "number" data types represent **primitive data types** built into JavaScript. This distinction is important because JavaScript uses different *rules* for manipulating different data types (as we saw in the `+` operator we used earlier).
+
+    <Aside type="tip" title="Be careful what you type...">
+        Sometimes the code I give you uses quotes for literal strings while other times I use backticks for template strings.
+
+        If you don't get the output you expected, take a closer look at the code sample - you might have made a simple typo.
+    </Aside>
+
+1. Recall how the calculated `total` was displayed earlier. The value was shown as `59.5` in the terminal. But our intention was for this to be a monetary value, so you might have expected to see `59.50` instead.
+
+    When numeric values are concatenated onto our strings, the trailing zeros after the decimal point are ignored. We can fix that by converting our number to a string before we concatenate.
     
     ```js title="app.js"
     // Type conversions: Numbers to Strings
@@ -218,17 +272,34 @@ If you've tried the code above, you might have occasionally hit an error or two 
 <Aside type="tip" title="Understanding Diff Blocks">
     Along the way, I'll be showing you snippets of code which highlight the *changes* you should make to existing code.
     
-    In those code blocks, the parts that you should remove will be highlighted in red, while the parts that you should add will be highlighted in green. Here's an example from the final step in this tutorial.
+    In those code blocks, the parts that you should remove will be highlighted in red, while the parts that you should add will be highlighted in green. Here's a preview of what that will look like.
 
-    ```diff lang="js" title="app.js" ins="${" del="{"
-    - message = `The discount is $ {discount} and the new total is $ {total}`;
-    + message = `The discount is $ ${discount} and the new total is $ ${total}`;
+    ```diff lang="js" title="app.js" ins="${" del="$ {"
+    - message = `The original price was $ {amount}`;
+    + message = `The original price was ${amount}`;
+      console.log(message);
     ```
 
 </Aside>
 
+We're going to put some deliberate errors in our code to see how JavaScript responds. We'll also *fix* those errors to get the result we actually want.
+
+### Syntax Errors
+
+import towing from '../../../assets/undraw/undraw_towing_0i8l.svg';
+
+<Image src={towing} alt="Syntax Errors" class="float-end ml-3" width="150" />
+
+Sometimes our code just crashes. When that happens, JavaScript will report that it doesn't understand our code.
+
+These are called **syntax errors**. This happens when JavaScript can't "understand" the instruction because our code isn't following the *rules* of the language. (See [JavaScript As A Language](/CPSC-1520/explanations/0020/) for a refresher on the importance of grammar.)
+
+Let's write some broken code to illustrate this. Don't be alarmed - we'll fix the problems we create along the way.
+
 <Steps>
-1. The last tutorial ended with a comment on **simple sequence**. This presents us with an important consideration: In order to *use* a variable in some calculation, we would need to *declare* the variable beforehand.
+1. I made a comment about **simple sequence** in the last edit to our script file. This presents us with an important consideration:
+
+    > In order to *use* a variable in some calculation, we must *declare* the variable beforehand.
 
     To demonstrate this, try adding the following (broken) code to the end of your existing `app.js` file.
 
@@ -247,7 +318,9 @@ If you've tried the code above, you might have occasionally hit an error or two 
     ReferenceError: Cannot access 'discount' before initialization
     ```
 
-    To fix this, we would need to *declare* `discount` and give it a *value* before we attempt to use it in our calculation. Re-order the lines of code to match the following.
+    Our mistake was declaring and initializing `discount` *after* we attempted to use it in our calculation. We also would see this error if we hadn't declared the variable at all.
+    
+    To fix this, we would need to place our initialization statement *before* we attempt to use it in our calculation. Re-order the lines of code to match the following.
 
     ```js title="app.js"
     // More Simple Sequence
@@ -255,58 +328,43 @@ If you've tried the code above, you might have occasionally hit an error or two 
     total = total - discount;
     ```
 
-1. Another important consideration is that we can't *re-declare* an existing variable. Change your code to add in the extra line highlighted in green.
+1. Another important consideration is that we can't *re*-declare an existing variable. Change your code to add the extra lines highlighted in green.
 
     ```diff lang="js" title="app.js"
       // More Simple Sequence
       let discount = 2.15;
       total = total - discount;
-    + let message = `A discount was applied to your total.`;
+    + let message = 'A discount was applied to your total.';
+    + console.log(message);
     ```
 
     Now we get a different error - one that tells us that the `message` variable has already been declared earlier in our code.
 
     ```ps
-    let message = `A discount was applied to your total.`;
+    let message = 'A discount was applied to your total.';
         ^
 
     SyntaxError: Identifier 'message' has already been declared
     ```
 
-1. Other errors might not seem so obvious. Consider this line that reports on the discount we applied above.
+    The fix in this case is to remove the `let` keyword.
 
-    ```diff lang="js" title="app.js"
-      // More Simple Sequence
-      let discount = 2.15;
-      total = total - discount;
-    - let message = `A discount was applied to your total.`;
-    + message = `A discount was applied to your total.`;
-    + console.log(message);
-    + message = `The discount is $ {discount}.`;
-    + console.log(message);
+    ```diff lang="js" title="app.js" del="let "
+    - let message = 'A discount was applied to your total.';
+    + message = 'A discount was applied to your total.';
+      console.log(message);
     ```
 
-    Instead of seeing the amounts in the final line on the terminal, we're seeing the variable names.
-    
-    ```ps
-    The discount is $ {discount}.
-    ```
-    
-    That's because we used our placeholders incorrectly. Template strings use a `$` before the placeholder. Let's fix our code.
+1. Here's another common mistake you might make. JavaScript is a **case-sensitive** programming languge, meaning that there's a *big* difference in upper and lower case characters.
 
-    ```diff lang="js" title="app.js" ins="${" del="{"
-    - message = `The discount is $ {discount}.`;
-    + message = `The discount is $ ${discount}.`;
-    ```
-
-1. One last potential typo that you will probably make at some point. JavaScript is a **case-sensitive** programming languge, meaning that there's a big difference in upper and lower case. Again, consider this line of code.
+    Try adding this line of code.
 
     ```js title="app.js"
     message = `The new total is $ ${Total}`;
     console.log(message);
     ```
 
-    You will see the following output.
+    You will see the following error message.
 
     ```ps
     message = `The new total is $ ${Total}`;
@@ -326,8 +384,83 @@ If you've tried the code above, you might have occasionally hit an error or two 
 
 </Steps>
 
+These kinds of syntax errors are usually easier to spot because JavaScript will report that it couldn't execute our code. As we'll see in the next section, other errors are more subtle and challenging to detect.
 
-Writing code in any programming language requires attention to detail. Don't worry if you make a mistake when you follow these tutorials. If something isn't working as expected, take a long, slow look at what you've typed. It might be a simple mistake, but you'll grow more experienced in recognizing (and fixing) these as time goes on.
+### Logic Errors
+
+import questions from '../../../assets/undraw/undraw_questions_g2px.svg';
+
+<Image src={questions} alt="Types of Errors" class="float-end ml-3" width="150" />
+
+The next errors we'll create are not due to incorrect *grammar* or *syntax*. Instead, they fall under a category know as **logic errors**. In a logic error, our code "runs", but we don't get the results we desired. Usually, this is just a **typographical** error (or *typo*).
+
+<Steps>
+1. Try adding these lines that give details on the discount we applied above.
+
+    ```diff lang="js" title="app.js"
+    + message = 'The discount is $ ${discount}.';
+    + console.log(message);
+    ```
+
+    Instead of seeing the value of `discount` in the final line on the terminal, we're seeing the placeholder.
+    
+    ```ps "${discount}"
+    The discount is $ ${discount}.
+    ```
+
+    Our problem is that we *intended* to use a template string, but we used *single quotes* instead of *backticks* (`` ` ``). Here's the fix.
+
+    ```diff lang="js" title="app.js" "'"
+    - message = 'The discount is $ ${discount}.';
+    + message = `The discount is $ ${discount}.`;
+      console.log(message);
+    ```
+
+1. Let's look at another common typo (again, involving *template strings*). Add the following lines for another message.
+
+    ```diff lang="js" title="app.js"
+    + message = `The original price was $ {amount}`;
+    + console.log(message);
+    ```
+
+    We were careful to use backticks for our template string. But we're again seeing the variable name instead of it's value.
+
+    ```ps
+    The original price was $ {amount}
+    ```
+
+    That's because we used our placeholder incorrectly. Template strings use a `$`  immediately before the curly braces. Let's fix our code.
+
+    ```diff lang="js" title="app.js" ins="${" del="$ {"
+    - message = `The original price was $ {amount}`;
+    + message = `The original price was ${amount}`;
+      console.log(message);
+    ```
+
+    Now we get the following result.
+
+    ```ps
+    The original price was 59.50
+    ```
+
+    That's better, but we also wanted to see the dollar sign (to indicate that we're talking about money). Lets do one last tweak of our code.
+    
+    ```diff lang="js" title="app.js" ins="$ "
+    - message = `The original price was ${amount}`;
+    + message = `The original price was $ ${amount}`;
+      console.log(message);
+    ```
+
+    It's a subtle change, but one that produces a cleaner result. 🎉
+
+    ```ps
+    The original price was $ 59.50
+    ```
+
+</Steps>
+
+
+Writing code in any programming language requires **attention to detail**. Don't worry if you make a mistake when you follow these tutorials. Attention to detail is a *skill* that you can develop over time. If something isn't working as expected, take a long, slow look at what you've typed. It might be a simple typo, but you'll grow more experienced in recognizing (and fixing) these as time goes on.
 
 ----
 
@@ -341,6 +474,10 @@ In this quickstart, we've created code that manipulates and displays simple info
 
 <details>
     <summary>Expand to view the complete code from this tutorial.</summary>
+
+    > **Author TODO:** re-check this complete copy to align with the **edits** I've done above.
+
+    > **Author TODO:** re-grab the `./0012/final-output.png` screenshot to align with the **edits** I've done above.
 
     ```js title="app.js"
     console.log('My app.js has loaded');

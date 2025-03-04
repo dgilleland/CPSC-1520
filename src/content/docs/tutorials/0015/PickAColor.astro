@@ -1,0 +1,13 @@
+---
+
+---
+
+<blockquote>
+    <label>Imagine a color: <input id="imagine-a-color" type="color" value="#ffae63" /><output id="color-choice"></output></label>
+</blockquote>
+
+<script>
+    document.getElementById('imagine-a-color')?.addEventListener('change', (evt) => {
+        document.getElementById('color-choice').innerText = ` You picked ${evt.target.value}`;
+    })
+</script>

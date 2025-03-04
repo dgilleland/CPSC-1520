@@ -1,0 +1,46 @@
+---
+title: Quickstart - Arrays
+description: SUMMARY
+sidebar:
+  label: Arrays
+  badge: Quickstart
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+
+<details>
+    <summary>Learning Outcome Guide</summary>
+
+    At the end of this tutorial, you should be able to:
+
+    - TBD
+</details>
+
+
+
+
+```js
+// The process object
+console.log('NodeJS Version:', process.version);
+console.log('OS Platform:', process.platform, process.arch);
+console.log('Computer name:', process.env.COMPUTERNAME);
+console.log('Username:', process.env.USERNAME);
+console.log('Working directory:', process.cwd());
+// console.table(process.argv);
+
+console.log(typeof process.argv)
+console.log(Array.isArray(process.argv));
+```
+
+```js
+
+```

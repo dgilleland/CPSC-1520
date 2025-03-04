@@ -1,30 +1,345 @@
 ---
-title: Manipulating Information in JavaScript
+title: Arithmetic Operations in JavaScript
 description: SUMMARY
 sidebar:
-  label: Quickstart - Making Progress
+  label: JavaScript Math
+  badge: Quickstart
 draft: false
 ---
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import creditCard from '../../../assets/undraw/undraw_credit-card_t6qm.svg';
+import task from '../../../assets/undraw/undraw_task_x8ko.svg';
+
+
 import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
 <Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
 <Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+*See [issue 63](https://github.com/dgilleland/CPSC-1520/issues/63).*
+</Aside>
+
+In this, our second QuickStart tutorial, we'll take a look at how we can use JavaScript to perform arithmetic calculations. We'll also introduce how we can create our own **functions** that can be useful in various situations.
+
+<details>
+    <summary>Learning Outcome Guide</summary>
+
+    At the end of this tutorial, you should be able to:
+
+    - Use arithmetic operators to perform numeric calculations
+    - Apply functions from the `Math` object for numeric calculations
+    - Describe the situations in which JavaScript rounding errors occur with floating point calculations
+    - Resolve and correct rounding errors
+    - List five functions and two properties in the `Math` object
+        - `hypot()`, `sin()`, `cos()`, `round()`, `floor()`, `ceil()`
+        - `PI`, `E`
+    - Create a re-usable function using *function declaration* syntax
+    - Perform function calls on library functions (`Math` and `console`) as well as developer-defined functions
+    - Distinguish between *declaring* a function and *invoking* a function
+    - Describe the difference between *arguments* and *parameters*
+    - Convert numeric values to strings
+        - `.toFixed()`
+    - Convert strings of digits into numeric values
+        - `parseFloat()` and `parseInt()`
+    - Distinguish between whole numbers and floating point numbers in JavaScript
+</details>
+
+## Basic Math
+
+Calculations are the life-blood of many applications, and every programming language supports a wide range of common calculations. Let's explore with these steps.
+
+<Steps>
+1. Once again, launch VS Code side-by-side with an external terminal. This makes it easy to observe the output as we make changes to our JavaScript file. (See the first tutorial in this QuickStart series if you need a refresher on how to do this.)
+1. Our last file was called `app.js`. Let's create a new script file called **`basic-math.js`**. You can place it in the same folder as the previous file. Again, we'll use Node's `--watch` flag when we run the script in the terminal.
+
+    ```js title="basic-math.js"
+    console.log('My basic-math.js has loaded');
+    ```
+
+    ```ps title="Running from the same folder as basic-math.js"
+    node --watch basic-math.js
+    ```
+
+1. Most math can be done with the built-in operators: `+` for addition, `-` for subtraction, `*` for multiplication, and `/` for division.
+
+    There's also an operator to find the *remainder* of a division operation. It's called the ***modulus*** operator, and the symbol is a percent sign: `%`. Here's how that works.
+
+    ```js title="basic-math.js"
+    let answer = 23 % 10;
+    console.log(`The remainder of 23 divided evenly by 10 is ${answer}.`);
+    ```
+
+    You should see the following output.
+
+    ```ps
+    The remainder of 23 devided evenly by 10 is 3
+    ```
+
+1. We can go a long way with just the basic math operators. Occasionally, however, we need to do complex math. One example is calculating a *square root*. Fortunately, there is a `Math` object in JavaScript that holds several useful functions for these situations.
+
+    Let's use it to find the hypotenuse of a right-angle triangle.
+
+    ```js title="basic-math.js" "Math.sqrt"
+    // Math function for the square root
+    let adjacent = 4;
+    let opposite = 3;
+    let hypotenuse = Math.sqrt(adjacent**2 + opposite**2);
+    message = `My triangle has sides of length ${adjacent}, ${opposite} and ${hypotenuse}.`;
+    console.log(message);
+    ```
+
+1. The Math library can also help us with **rounding errors** that sometimes occur. It might surprise you to discover that sometimes, JavaScript gets basic math wrong! Consider this example.
+
+    ```js title="basic-math.js"
+    // Rounding errors
+    let floating = 0.1 + 0.2; // What's the answer?
+    console.log(`0.1 + 0.2 is ${floating}`);
+    ```
+
+    ```ps
+    0.1 + 0.2 is 0.30000000000000004
+    ```
+
+    Notce the output? JavaScript calculated the answer as `0.30000000000000004`. Don't be too alarmed. These kinds of rounding errors are very rare, and they only occur for certain calculations involving a *fractional* or *decimal* portion to the number.
+    
+    Because all values in the computer are stored in **binary** (base-2) format instead of base 10, JavaScript has limits in how it can handle the precision of fractional portions of a number.
+
+    By the way, you will *never* have rounding errors with *whole* numbers!
+
+    <Aside type="tip" title="Money Matters">
+
+        <Image src={creditCard} alt="Credit Card" width="150" class="float-end ml-3" />
+
+        Did you know that real-world financial applications never use fractional numbers in their calculations?
+
+        Instead, they use a whole number for the monetary value and a *separate* variable (also a whole number) to represent the intended number of digits after the decimal point.
+    </Aside>
+
+1. We can fix rounding errors in a few ways. One approach is to use the `Math.round()` function. The only "gotcha" is that we need some rough idea of how many decimal places are "trustworthy" or accurate.
+
+    In this case, it's only one decimal place, so we'll mutiply `floating` by 10, round the result, and then divide by 10 to get the right answer.
+
+    ```js title="basic-math.js"
+    answer = Math.round(floating * 10) / 10;
+    console.log(`After rounding, the correct answer is ${answer}`);
+    ```
+
+    <Aside title="Challenge">
+      Here are some other calculations that produce rounding errors. Try adapting these into your `basic-math.js` script.
+
+      ```js
+      console.log(0.1 * 3);
+      console.log(4.32 + 4.78);
+      console.log(159 - 194.1193);
+      ```
+    </Aside>
+
+1. There are several functions in the `Math` object. You have ones for trigonometry (`.sin()`, `.cos()`, etc.) and rounding (`.round()`, `.floor()`, `.ceil()`). There are constant values, such as the one for `.PI` (much more precise than the few digits you might have memorized) and the one for *Euler's number* (`.E`).
+
+    <Aside>
+      For a complete listing, see the official docs on the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math">Math object</a>.
+    </Aside>
+
+    We could have even used the built-in function for calculating the hypotenuse: `Math.hypot()`. Here we are re-using our variables with different values.
+
+    ```js title="basic-math.js" "Math.sqrt"
+    // Another triangle
+    adjacent = 5;
+    opposite = 12;
+    hypotenuse = Math.hypot(adjacent, opposite);
+    message = `My other triangle has sides of length ${adjacent}, ${opposite} and ${hypotenuse}.`;
+    console.log(message);
+    ```
+
+    For more whole-number right-angle triangle sides, see <a target="_blank" href="https://hawramani.com/wp-content/uploads/2015/06/20000_right_angled_triangles_sorted_by_smallest_side.txt">this list</a>.
+</Steps>
+
+That last function - `Math.hypot()` - was a bit different than the others. Notice that within the parenthesis, we passed *two* values as a comma-separated list. Many functions exist that can accept more than one piece of information in order to do their job. We'll explore a bit of this in the next part of this tutorial.
+
+## Our Own Functions
+
+Having a library of functions like those in the `Math` object is pretty useful, but eventually you will find yourself wishing you could create your own functions. Let's grant that wish!
+
+<Steps>
+1. Remember that rounding problem we encountered earlier? We fixed it with some calculations and the `Math.round()` function.
+
+    Wouldn't it be nice if we could put all of that in its own function? We could even make it extra useful by letting us specify how many decimals we want to use in our rounding.
+
+    Add this code to your script.
+
+    ```js title="basic-math.js"
+    // Declare our own function
+    function roundToDecimals(num, decimals) {
+        let factor = Math.pow(10, decimals);
+        return Math.round(num * factor) / factor;
+    }
+    ```
+
+    This is a **function declaration**. We are saying, "Hey, I want to make a function called `roundToDecimals`. It will accept two values - `(num, decimals)` - and it will do all the instructions inside the curly braces."
+
+    <Aside type="tip" title="Function Parameters">
+      Here's an important note on *terminology*. Those two varibles - `num` and `decimals` - are referred to as **parameters**. All the *identifiers* or names within the parenthesis of a ***function declaration*** are collectively called ***parameters***. Their sole purpose is to "capture" or "hold" whatever values are sent into the function when it is invoked.
+    </Aside>
+
+    **Declaring** a function is where we decide exactly *what* instructions our function will perform. Once it is declared, we can then **invoke** or "use" the function by passing in some values.
+
+1. First, let's examine another known rounding error calculation.
+
+    ```js title="basic-math.js"
+    // Another rounding error...
+    console.log("Here's another rounding error:");
+    console.log(`4.32 + 4.78 equals ${4.32 + 4.78}`);
+    ```
+
+    Here's the output.
+
+    ```ps
+    4.32 + 4.78 equals 9.100000000000001
+    ```
+
+1. Now, let's use our `roundToDecimals()` function. We know that both of our values goes to two decimal's worth of precision.
+
+    ```js title="basic-math.js"
+    // Use our custom function
+    console.log("Let's fix the calculation:");
+    floating = 4.32 + 4.78;
+    answer = roundToDecimals(floating, 2);
+    console.log(`4.32 + 4.78 equals ${answer}`);
+    ```
+
+    Now our result is more accurate.
+
+    ```ps
+    4.32 + 4.78 equals 9.1
+    ```
+
+    <Aside type="tip" title="Function Arguments">
+      Here's some important terminology. When we *call* or ***invoke*** a function, the values inside the parenthesis of the call are called ***Arguments***. These *argument* values get assigned or copied to the corresponding *parameters* in the function declaration. Thus, the value inside of our `floating` variable is copied to the `num` parameter, and the literal `4` is copied to the `decimals` parameter.
+    </Aside>
+
+1. We don't have to restrict our use of `roundToDecimals()` to situations where there are rounding errors. We can use it for other purposes as well.
+
+    ```js title="basic-math.js"
+    console.log(`PI is ${Math.PI}`);
+    console.log(`I find ${roundToDecimals(Math.PI, 5)} is all I can memorize.`);
+    ```
+
+    You should get the following output.
+
+    ```ps
+    PI is 3.141592653589793
+    I find 3.14159 is all I can memorize.
+    ```
+</Steps>
+
+We'll cover more on functions in our [Re-usable Functions]() tutorial. For now, just be aware that JavaScript let's us create as many functions for as many use cases that we can imagine!
+
+<Aside type="tip">
+  Notice how the math functions needed us to prefix each function call with `Math.`? That's because those special-purpose functions belong to a certain JavaScript object that acts as a "library" dedicated to serving up arithmetic goodness. You can compare that in some ways to how we need to use the `console.` when calling the `log()` function. The `console` obect refers to the terminal window, giving us a way to interact with it as our "output device".
+
+  <Image src={task} alt="We create lots of functions" class="float-end ml-3" width="150" />
+
+  But not all functions need to belong to an object. Some are **global** functions, like the one we created: `roundToDecimals()`. This will become clearer to you as you continue through the tutorials on this site. It turns out that we create functions in JavaScript *a lot*!
+
+  We'll also have a chance to create some of our own simple objects in the next part of this QuickStart series on [*Complex Data*](/CPSC-1520/tutorils/0016/). Stay tuned for those exciting developments!
 </Aside>
 
 
-This is our second QuickStart tutorial where we'll make further progress around manipulating information.
+## Math is for Numbers *(not Strings)*
 
+We've been doing math with numbers. All the operators (`+`, `-`, `*`, `/`, and `%`) are built to perform arithmetic with numeric values. But the plus operator (`+`) works differently with strings - it performs concatenation.
+
+In these steps, we'll explore what happens when we're not paying attention to our data types. Then, we'll be deliberate about converting strings to numbers using `parseInt()` and `parseFloat()`.
 
 <Steps>
-1. ...
-1. I like to make notes about what I'm doing in my code.
+1. Remember the rounding errors we encountered? They're rare, but here's another one: `159 - 194.1193`. This time, we'll solve that using the `.toFixed()` function from the prior tutorial in this series.
 
-    ```js title="app.js"
+    ```js title="basic-math.js"
+    // Another rounding error...
+    floating = 159 - 194.1193; // produces -35.11930000000001
+    answer = floating.toFixed(4); // the expected # digits
+    message = `Subtract 194.1193 from 159: ${answer}`;
+    console.log(message);
     ```
 
+    Subtracting a larger number from a smaller number gives us a negative number. You should see the following output.
 
+    ```ps
+    Subtract 194.1193 from 159: -35.1193
+    ```
+
+1. Now, let's re-add the value we subtracted to see if we get the starting value of `159`.
+
+    ```js title="basic-math.js"
+    let original = answer + 194.1193;
+    message = `Add ${answer} and 194.1193: ${original}`;
+    console.log(message);
+    ```
+
+    **Whoa!** What happened?! Did you get this output?
+
+    ```ps
+    Add -35.1193 and 194.1193: -35.1193194.1193
+    ```
+
+1. We encountered a problem because the `answer` variable was holding a **string** instead of a number. That's because `.toFixed(4)` took the number inside the `floating` variable and created a *string*, which we stored into `answer`.
+
+    To get back to a number, we can use the `parseFloat()` function. Make the following fix to the code.
+    
+    ```diff lang="js" title="basic-math.js" "parseFloat"
+    - let original = answer + 194.1193;
+    + let original = parseFloat(answer) + 194.1193;
+      message = `Add ${answer} and 194.1193: ${original}`;
+      console.log(message);
+    ```
+
+    Now we should see the correct output!
+
+    ```ps
+    Add -35.1193 and 194.1193: 159
+    ```
+
+1. We have two functions for converting strings to numbers: `parseFloat()` and `parseInt()`. The first will convert to a floating-point or decimal value. The second will convert to a whole number. Add the following to your script.
+
+    ```js title="basic-math.js"
+    // Convert a string to a number.
+    console.log('Includes the decimal portion:', parseFloat('3.75'));
+    console.log('Exclude the decimal portion:', parseInt('3.75'));
+    ```
+
+    You should get this output.
+
+    ```ps
+    Includes the decimal portion: 3.75
+    Exclude the decimal portion: 3
+    ```
+
+1. An interesting aspect of converting strings to numbers is that these functions will omit trailing characters that are not digits.
+
+    ```js title="basic-math.js"
+    console.log('About PI:', parseFloat('3.14 is PI')); // Outputs 3.14
+    ```
+
+    But if there are leading characters that aren't digits, then you get `NaN` (*Not a Number*).
+
+    ```js title="basic-math.js"
+    console.log('The price is:', parseFloat('$ 4.97'));
+    ```
+
+1. So, the solution is to pay attention to the **data types** of the values you are working with.
+
+    ```js title="basic-math.js"
+    // Remember how we can convert a number to a string?
+    let total = 10 * 5.95; // quantity times unit price
+    let money = `$ ${total.toFixed(2)}`;
+    console.log('For math, I need numbers: ', total);
+    console.log('I use strings to show as money: ', money);
+    ```
 </Steps>
+
+## Conclusion
+
+In this tutorial, you've briefly gained some working knowledge of how to do math and seen the value of re-usable code (*à la **functions***). You've explored some of the functions available in the `Math` object for complex calculations and have seen how to deal with potential rounding errors when performing floating-point arithmetic. Lastly, you've seen the importance of knowing when you are working with numbers versus strings as well as how to convert string values into their numeric counterparts.
+
+In the next tutorial, we'll take a closer look at functions that allow us to manipulate strings.

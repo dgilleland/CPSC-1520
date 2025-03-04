@@ -1,0 +1,304 @@
+---
+title: String Manipulation
+description: SUMMARY
+sidebar:
+  label: Manipulate Strings
+  badge:
+    text: QuickStart
+    variant: success
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+</Aside>
+
+Strings are one of the key primitive data types in JavaScript. We've seen in prior tutorials how we can convert between numbers and text. Those aren't the only ways we might need to manipulate textual data. In this tutorial, we'll explore some very helpful functions built into JavaScript's string data type.
+
+<details>
+    <summary>Learning Outcome Guide</summary>
+
+    At the end of this tutorial, you should be able to:
+
+    - Determine the number of characters in a string
+    - Identify potential use cases of the following string functions
+      - `.trim()` (and variants)
+      - `.toUpperCase()` and `.toLowerCase()`
+      - `.padStart()` and `.padEnd()`
+      - `.replaceAll()`
+</details>
+
+## Cleaning Text
+
+Where does information come from? We've been putting information directly into our code as *hard-coded values* (and will do so for a while yet), but as soon as we're able to get data entered into our program from outside (e.g.: from the user) we might want to examine or "clean" it up. When we don't know what text to expect, we might want to examine it or transform it some way.
+
+<Steps>
+1.  Launch VS Code side-by-side with an external terminal. (See the first tutorial in this QuickStart series if you need a refresher on how to do this.)
+1. Create a file called `controlling-text.js` in the same folder as the scripts from the earlier tutorials. Run it in the terminal using Node.
+
+    ```js title="controlling-text.js"
+    console.log('Exploring strings in JavaScript');
+    console.log('===============================');
+    console.log();
+    ```
+
+    ```ps
+    node --watch controlling-text.js
+    ```
+
+1. Let's begin with a function that will display the contents of some textual value along with the length of the string. Every string has a property called `.length` that tells us how many characters are in the string.
+
+    ```js title="controlling-text.js"
+    function logText(text) {
+      console.log(`The text '${text}' is ${text.length} characters long.`);
+    }
+    ```
+
+1. Let's call our function with some test data. Notice how our clever use of literal single-quotes in `logText()` helps us to actually see where the string's characters start and end.
+
+    ```js title="controlling-text.js"
+    logText('This is a test');
+    logText(''); // An empty string
+    ```
+
+    You will see the following output.
+
+    ```ps
+    Exploring strings in JavaScript
+    ===============================
+
+    The text 'This is a text' is 14 characters long.
+    The text '' is 0 characters long.
+    ```
+
+1. If we had some text entering our program from the outside (say, from something entered by the end-user of our program), we might be interested in "cleaning up" the input by removing any whitespace surrounding the text. There are three string functions that allow us to do just that: `.trimStart()`, `.trimEnd()`, and `.trim()`. Let's explore those functions.
+
+    ```js title="controlling-text.js"
+    // At some point, a string may have leading or trailing whitespace
+    let input = '   User Input  ';
+    logText(input);
+    logText(input.trimStart());
+    logText(input.trimEnd());
+    logText(input.trim());
+    ```
+
+    <Aside type="tip" title="Function Calls and Order Of Operations">
+    Did you see how our code has two function calls - one nested within the other? Which happens first?
+
+    ```js title="controlling-text.js"
+       logText(input.trimStart());
+    // |       \_ Call first __/|
+    // |_____ Call second ______|
+    ```
+
+    Just as parenthesis in Math helps direct which operations should occur before the others, so does it control the order of the function calls.
+
+    1. Our input variable has the value `'   User Input  '`, so we first call its `.trimStart()` method.
+    1. The value returned from `.trimStart()` is `'User Input  '`, and it is *this* value that gets passed into the `logText` function.
+    </Aside>
+
+    Again, our clever use of quotes in the `logText()` function helps us notice any leading or trailing spaces.
+
+    ```ps
+    The text '   User Input  ' is 15 characters long.
+    The text 'User Input  ' is 12 characters long.
+    The text '   User Input' is 13 characters long.
+    The text 'User Input' is 10 characters long.
+    ```
+
+1. Here's something important. All of the string functions we're exploring in this tutorial will produce a *new* string value **without changing the original variable's value**. Look back at the trimming we did for the `input` variable. Each time we trimmed the variable, it produced a *separate* value that was sent into `logText()`. The `input` variable still has its leading and trailling whitespace.
+
+    ```js title="controlling-text.js"
+    // Let's output it one more time
+    logText(input);
+    ```
+
+1. These trim methods work with more than just spaces. They will remove tabs (`'\t'`) and newline (`'\n'`) characters as well.
+
+    ```js title="controlling-text.js"
+    input = '\n\tEscape Characters\t\t';
+    logText(input);
+    logText(input.trim());
+    logText('\t'); // Tab character
+    logText('\n'); // Newline character
+    ```
+
+    In the terminal, we should see the following.
+
+    ```ps
+    The text '
+            Escape Characters               ' is 21 characters long.
+    The text 'Escape Characters' is 17 characters long.
+    ```
+
+1. How many characters do you think are in the string `'\n\tEscape Characters\t\t'`? Visually, in the console, tabs appear several characters long. In reality, they are only regarded as a single character.
+
+    ```js title="controlling-text.js"
+    logText('\t'); // Tab character
+    logText('\n'); // Newline character
+    ```
+
+    Focusing on the escape characters by themselves, we more readily see that their length are one character each.
+
+    ```ps
+    The text '
+    ' is 1 characters long.
+    ```
+</Steps>
+
+While we can't control the exact text coming into our program from the user, we can do some simple clean up by removing leading and trailing whitespace from the strings. Trust me, that will become very helpful at some point in your programming career.
+
+----
+
+## Formatting Text
+
+There are other ways we can modify our strings. This can be helpful in several ways. One of the more obvious uses is to control *formatting* of our output.
+
+ Likewise, there's a function to change it to lower-case (`.toLowerCase()`). We can 
+
+<Steps>
+1. We're starting a new section in our script file. Let's add a blank line of output along with a heading. To make our heading stand out, we'll transform the text to all upper-case characters (`.toUpperCase()`). Add the following lines to your script file.
+
+    ```js title="controlling-text.js"
+    console.log(); // a blank line
+    let heading = 'Manipulating Text';
+    console.log(heading.toUpperCase());
+    ```
+
+    You should see the heading appear in all upper-case letters.
+
+    ```ps
+    MANIPULATING TEXT
+    ```
+
+1. Imagine that we also wanted to provide some dashes as an "underline" to the heading text we just displayed in the console. There is a function called `padEnd()` that we can use. Let's use it with a humble empty string.
+
+    ```js title="controlling-text.js"
+    let underline = ''.padEnd(heading.length, '-');
+    console.log(underline);
+    ```
+
+    This function does two things:
+
+    1. It ensures that the resulting string is a minimum length. In this case, we want the length to match that of our heading.
+    1. It pads or "fills" the remaining length with a specific character. We chose a dash to underline our heading.
+
+
+    ```ps
+    MANIPULATING TEXT
+    -----------------
+    ```
+
+    Reflect on the fact that we started with an empty string. The reason we did this was to ensure the entire length of our underline matched that of our heading. 
+
+    <Aside type="tip" title="String Functions">
+    Something else you might observe is that all of these string functions can be called on literal strings as well as our string variables.
+    </Aside>
+
+1. Adding extra characters to a string to ensure a minimum length can be helpful in other formating scenarios. Imagine that we wanted to produce a tabular output such as the following.
+
+    ```ps
+    |-----------------|------------|
+    | Regular Dice    | $     4.32 |
+    | Trick Dice      | $     4.78 |
+    |=================|============|
+    | Total           | $     9.10 |
+    |-----------------|------------|
+    ```
+
+    Through the use of `.padEnd()` and `.padStart()` we can ensure the data in our columns will always meet a certain length.
+
+1. Add the following function to your script. We want the text in the first column to be 15 characters wide, while the second column's amount should be eight characters of space. We'll call this function every time we have a row of data to show in our table.
+
+    ```js title="controlling-text.js"
+    console.log(); // a blank line
+    function logLineItem(description, amount) {
+        let colA = description.padEnd(15);
+        let colB = amount.padStart(8);
+        console.log(`| ${colA} | $ ${colB} |`);
+    }
+    ```
+
+    Something's different about our use of `.padEnd()` (and `.padStart()`) from our earlier example. This time, we haven't provided a character to use for filling in the additional space. When that argument is omitted, these functions will use a single space (`' '`) as a default padding character.
+    
+    Before we move on, take another look at the template string. There's some extra characters that increase each columns' width, and we'll address that in our next steps.
+
+1. Now, let's create some variables to build a border. Accounting for the additional hard-coded characters of our template string, the overall width of our columns will be 17 and 12 characters respectively.
+    
+    ```js title="controlling-text.js"
+    let blank = '';
+    let colABorder = blank.padStart(17, '-');
+    let colBBorder = blank.padStart(12, '-');
+    let border = `|${colABorder}|${colBBorder}|`;
+    ```
+
+1. We're almost ready to display our table. First, we need some values to work with. It's time to bring in what we learned about Math in JavaScript.
+
+    ```js title="controlling-text.js"
+    let regularDice = 4.32;
+    let trickDice = 4.78;
+    let total = regularDice + trickDice;
+    ```
+
+    <Aside title="Rounding Values">
+    Recognize those numbers? I've purposely chosen values with rounding errors so that we can practice the use of `.toFixed()`.
+    </Aside>
+
+1. Now we can display our table. Let's start with the top border and our two line items for the dice we're purchasing.
+    
+    ```js title="controlling-text.js"
+    console.log(border);
+    logLineItem('Regular Dice', regularDice.toFixed(2));
+    logLineItem('Trick Dice', trickDice.toFixed(2));
+    ```
+
+1. For the middle border, we'll swap out the dashes and put in equal signs. To do that, we'll leverage another helpful function: `.replaceAll()`
+
+    ```js title="controlling-text.js"
+    console.log(border.replaceAll('-', '='));
+    ```
+
+    The `.replaceAll()` function takes two arguments. The first is the existing string we want removed. The second is the string we want to put in its place.
+
+1. Time to display the total and the bottom border.
+
+    ```js title="controlling-text.js"
+    logLineItem('Total', total.toFixed(2));
+    console.log(border);
+    ```
+
+    If all has gone well, we should see our tabular output
+    
+    ```ps
+    |-----------------|------------|
+    | Regular Dice    | $     4.32 |
+    | Trick Dice      | $     4.78 |
+    |=================|============|
+    | Total           | $     9.10 |
+    |-----------------|------------|
+    ```
+
+1. To wrap up, let's add in a final bit of code for our script. See if you can predict what output this will produce.
+
+    ```js title="controlling-text.js"
+    let ending = 'The End';
+    let length = ending.length;
+    // Reformat
+    console.log(ending.toLowerCase().padStart(length + 4, '\n-- ').padEnd(length + 7, ' --'));
+    ```
+
+    That last line is rather complex (and we wouldn't want to do that in real life). But my goal is to challenge you to think carefully about the *order of operations* in terms of function calls.
+</Steps>
+
+----
+
+## Conclusion
+
+This tutorial completes our look at the two foundational types of data - strings and numbers. Along the way, we examined several string functions that can prove helpful in the future.
+
+Our next tutorial will introduce *complex* data types in JavaScript.

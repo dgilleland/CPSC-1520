@@ -2,7 +2,8 @@
 title: Discovering Complexity in JavaScript
 description: SUMMARY
 sidebar:
-  label: Quickstart - Complex Data
+  label: Complex Data Types
+  badge: Quickstart
 draft: false
 ---
 
@@ -12,15 +13,37 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
 <Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
 <Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
+*See [issue 63](https://github.com/dgilleland/CPSC-1520/issues/63).*
 </Aside>
 
 
-In this, our last QuickStart tutorial, ....
+<details>
+    <summary>Learning Outcome Guide</summary>
+
+    At the end of this tutorial, you should be able to:
+
+    - TBD
+</details>
+
+In this tutorial ....
 
 
 <Steps>
 1. ...
+
+    ```js title="app.js"
+    // Primitive types: string, number, boolean
+    // Complex types: Objects - object literals (the (still popular) OG approach to creating objects)
+    // Dynamic Types - A variable's type is determined by the contents of the variable
+    // Complex types: Date
+    // - Notice how this starts with a capital - that's no mistake. It's a standard for something called Constructor Functions.
+    // Global objects in the runtime environment
+    // - Node's process object - `process.argv`
+    // - Comment on the browser's document obect (next tutorial)
+    ```
+
+    Link to [JavaScript Style Guide](/CPSC-1520/reference/1200/) for coding standards.
+
 
     ```js title="app.js"
     ```
@@ -33,5 +56,9 @@ In this, our last QuickStart tutorial, ....
 ## Conclusion
 
 With this last tutorial in our JavaScript QuickStart series, we've covered some essential ground that will help us as we move forward.
+
+<Aside type="tip">
+We've used Node to run and watch our editing of some simple JavaScript files. Node can also be launched by itself as a stand-alone REPL environment. To learn how to use REPLs for exploring JavaScript, see the [Exploring JavaScript](/CPSC-1520/guides/0010/) guide.
+</Aside>
 
 In the next tutorial, we'll take a very brief look HTML and CSS to discover how the browser uses these files to generate (*render*) a web page. In it, we'll discover the amazing connectoin between the web page and JavaScript - one that's at the heart of how browsers operate.
