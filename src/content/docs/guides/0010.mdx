@@ -8,15 +8,155 @@ draft: false
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import sideBySide from './0010/side-by-side.gif';
 import toy from '../../../assets/undraw/undraw_toy-car_ugyu.svg';
 
-There are several ways to begin exploring JavaScript. You can create simple "sandbox" websites to hold your JavaScript code. Alternatively, if you don't need a web page's DOM, you can run and watch a JavaScript file directly within a terminal using the `node --watch [filename]` command.
+There are several ways to begin exploring JavaScript.
 
-This guide discusses another approach. You can use **REPLs** such as the browser's Developer Tools or the Node REPL within a terminal window.
+You can create simple "sandbox" websites to run your JavaScript code and then print to the Dev Tool's console. Or, if you don't need any DOM elements, you can just create a plain JS file and use `node --watch` to see what happens as you code. Alternatively, if you don't need a web page's DOM, you can run and watch a JavaScript file directly within a terminal using the `node --watch [filename]` command.
+
+There's another approach if you just want to focus on one-off experiments with JavaScript. You can use **REPLs** such as the browser's Developer Tools Console or the Node REPL within a terminal window.
+
+----
+
+## Using `node --watch`
+
+This approach is *really handy* if you want to focus on just JavaScript without the distraction of having to build or use a web page with a fully-available *DOM*. In fact, it's the way I start my *QuickStart* tutorials for **beginner programmers**. Exploring JavaScript without having to think about HTML and CSS is very instructive. I like it because it de-clutters the landscape, keeping things simple.
+
+<Aside title="Did you do the setup?">
+    You'll need to have Node and Visual Studio Code installed on your computer. You should also be able to launch a separate terminal window so that you can see your code and the results side-by-side.
+</Aside>
+
+Use Node to watch your `*.js` script if you want to test-drive working code, particularly when it comes to wrestling with *logic and problem solving*.
+
+<Steps>
+1. Launch Visual Studio Code (*VS Code*). From the menubar, select *File -> Open Folder...* and create an empty folder for this quickstart. You can name the folder anything you want, but if you want a suggestion, call it `JS-Quickstart`.
+1. Open a separate terminal by pressing <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>c</kbd>. Because you did this from within VS Code, the path in the terminal should match the folder you've just opened.
+
+    <Aside title="Windows or Mac?">
+    Are you running Windows or Mac for your operating system? These tutorials will work with both, but the screenshots I give are based on Windows 11. If your terminals look a bit different because you're on a Mac, don't worry - the effect of the code will be the same. 
+    </Aside>
+
+1. Position the terminal and VS Code side-by-side, so that you can observe what happens as you continue this tutorial.
+
+    <Image src={sideBySide} alt="Terminal and VS Code - Side by Side"/>
+
+1. In VS Code, choose *File -> New File...* and name it `app.js`. Save it in the folder you've just created. This is a JavaScript file, as noted by the file extension `.js`.
+1. Type the following code in the file.
+
+    ```js title="app.js"
+    console.log('Hello World!');
+    ```
+
+1. Switch to the terminal, and run the following command. This will run your `app.js` file in Node and re-run it every time we save changes.
+
+    ```ps title="Terminal Window"
+    node --watch app.js
+    ```
+
+    You should see the message "Hello World" in the terminal.
+</Steps>
+
+Do you want to practice the process of using `node --watch`? Expand the following section and type in more code for the `app.js` file.
+
+<details>
+  <summary>More `app.js`</summary>
+
+  ```js title="app.js"
+  // app.js
+  // - [x] Console output
+  console.log('app.js loaded');
+  console.log(); // empty line
+
+  // - [x] The Node process object
+  console.log('NodeJS Version:', process.version);
+  console.log('OS Platform:', process.platform, process.arch);
+  console.log('Computer name:', process.env.COMPUTERNAME);
+  console.log('Username:', process.env.USERNAME);
+  console.log('Working directory:', process.cwd());
+  // console.table(process.argv);
+  console.log();
+
+  // - [x] Variable declaration vs. initialization
+  // - [x] Literal numbers
+  let quantity = 10;
+  let price = 5.95;
+  let message;
+
+  // - [x] Assignment statement
+  // - [x] Literal strings
+  message = 'The following is a series of demos...';
+  console.log(message);
+
+  // - [x] Template strings and placeholders
+  message = `The price is ${price} and the quantity is ${quantity}`;
+  console.log(message);
+
+  // - [x] Data Types
+  console.log(`quantity is a ${typeof quantity}`);
+  console.log(`message is a ${typeof message}`);
+
+  // - [x] Arithmetic operators for numbers
+  let total = quantity * price;
+  // - [x] Arithmetic operators for strings (string concatenation)
+  message = 'The amount is $ ' + total;
+  console.log(message);
+
+  // - [x] Type Conversion
+  //   - [x] number to string
+  let amount = total.toFixed(2);
+  console.log(`The amount is $ ${amount}.`);
+
+  // - [x] Escape characters
+  message = '\n\tSimple Sequence:';
+  console.log(message);
+  // - [x] Simple sequence
+  //          Each line is an instruction
+  //          They are executed in-order
+  quantity = 20;
+  message = `Changing quantity to ${quantity} does not cause previous calculations to re-calculate.\nTotal is still ${total} and amount is still ${amount}.`;
+  console.log(message);
+  console.log();
+
+  // - [x] Math operations
+  let adjacent = 4;
+  let opposite = 3;
+  let hypotenuse = Math.sqrt(adjacent**2 + opposite**2);
+  message = `My triangle has sides of length ${adjacent}, ${opposite} and ${hypotenuse}.`;
+  console.log(message);
+
+  // - [x] Rounding Errors
+  let floating = 0.1 + 0.1 + 0.1; // What's the answer?
+  console.log(`0.1 + 0.1 + 0.1 = ${floating}`);
+  console.log(`I can round with the Math library: floating should be ${Math.round(floating * 10) / 10}`);
+
+  // - [x] Declaring functions
+  function roundToDecimals(num, decimals) {
+      let factor = Math.pow(10, decimals);
+      return Math.round(num * factor) / factor;
+  }
+
+  // -[x] Calling functions
+  let num = 3.14159;
+  let rounded = roundToDecimals(num, 2); // 3.14
+  console.log(`${num} rounded to two decimals: ${rounded}`);
+  console.log(`${Math.PI} rounded to seven decimals: ${roundToDecimals(Math.PI, 7)}`);
+  ```
+
+</details>
+
+{/* 
+## Ad-Hoc Website
+
+- Drop `console.log()` calls into your JavaScript file wherever you need to see what's happening. This is also a favorite technique for **debugging** your code on an ad-hoc basis.
+- Build an ultra-simple website with some DOM element that you can write to using its `.innerText` or `.innerHTML` properties. 
+*/}
+
+----
 
 ## REPLs
 
-The term **REPL** is an acronym for *Read-Eval-Print-Loop*. It refers to an environment where you can write code that gets executed immediately upon pressing <kbd>Enter</kbd>. REPLs are not considered *production environments*. Rather, they are *"sandbox" environments* where developers can explore and play with the language.
+The term **REPL** is an acronym for *Read-Eval-Print-Loop*. It refers to an environment where you can write code that gets executed immediately upon pressing <kbd>Enter</kbd>. REPLs are not considered *production environments*. Rather, they are *"sandbox" environments* where developers can explore and play with the language. REPLs will process *expressions* as well as complete *statements* in JavaScript.
 
 <Image src={toy} alt="REPLs Are Sandboxes for Playing with JavaScript" />
 
