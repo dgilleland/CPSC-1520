@@ -4,7 +4,7 @@ description: SUMMARY
 sidebar:
   label: Complex Data Types
   badge: Quickstart
-draft: true
+draft: false
 ---
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
@@ -16,6 +16,7 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 *See [issue 63](https://github.com/dgilleland/CPSC-1520/issues/63).*
 </Aside>
 
+In this tutorial, we'll take a brief look at what complex data types look like, and we'll discover how they are useful for keeping tightly related data together.
 
 <details>
     <summary>Learning Outcome Guide</summary>
@@ -25,40 +26,316 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
     - TBD
 </details>
 
-In this tutorial ....
+## Primitive vs. Complex Data
+
+Information is truly the central part of why computer programs exist. We've seen that there is a type of information that is *primitive* in nature. Primitive information refers to data that is in its most simple form. Strings and numbers are the foundational examples of such data. Data types for primitive information are built directly into our programming languges, and JavaScript is no exception.
+
+Where computer programs get more useful and interesting is when we start dealing with *complex* information. Complex data tends to have multiple pieces of information that are "bundled together", typically because there is some significant *relationship* between the individual pieces. These data types are not built into the programming language, but our language supports the creation of these data types. In JavaScript, complex data types are based on the built-in **`Object`** data type.
+
+## Object Literals
+
+<Steps>
+1.  Launch VS Code side-by-side with an external terminal. (See the first tutorial in this QuickStart series if you need a refresher on how to do this.)
+1. Create a file called `data-types.js` in the same folder as the scripts from the earlier tutorials.
+
+    ```js title="data-types.js"
+    console.log('Data Complexity in JavaScript');
+    console.log('===============================');
+    console.log();
+    ```
+
+    Run it in the terminal using Node.
+
+    ```ps
+    node --watch data-types.js
+    ```
+
+1. Let's begin with a look at how primitive values can be stored in individual variables. Add the following code to your JavaScript file.
+
+    ```js title="data-types.js"
+    // Primitive types: string, number, boolean
+    let fullName = 'Stewart Dent';
+    console.log(`The value ${fullName} is a ${typeof fullName}.`);
+    let age = 25;
+    console.log(`The value ${age} is a ${typeof age}.`);
+    let employed = true;
+    console.log(`The value ${employed} is a ${typeof employed}.\n`);
+    ```
+
+    Notice we've also added a new data type: **Boolean**. This data type represents two possible values: `true` and `false`. In fact, JavaScript's list of reserved words includes both of these as keywords.
+1. The problem with having these as entirely separate variables is that it doesn't indicate any connection between these items. If the data *is* related, we can group them together as a *set* of values.
+
+    Add in the following code as an example. This creates an **object**, named `person`, with three **properties**.
+
+    ```js title="data-types.js"
+    // Complex types: Objects - object literals (the (still popular) OG approach to creating objects)
+    let person = {
+        name: 'Stewart Dent',
+        age: 25,
+        employed: true
+    };
+    console.log("Here is the data for a person:");
+    console.log(person);
+    ```
+
+    Notice a few things about how we've declared our variable. First of all, we've used *curly braces* (`{}`) to group the items together. Secondly, inside the braces we're declaring *name-value* pairs in this format: `propertyName: value`. Third, notice that we separate each property with a comma (`,`). This way of creating variables/objects uses **Object Literal** syntax.
+
+    The result of displaying the `person` variable to the console is that all of the data *contained* by that object is shown in the terminal.
+
+    ```ps
+    Here is the data for a person:
+    { name: 'Stewart Dent', age: 25, employed: true }
+    ```
+
+1. If we were to examine what data type the `person` variable is, we would see that it's an **object**.
+
+    ```js title="data-types.js"
+    // Remember: A variable's type is determined by the contents of the variable
+    console.log(`My person variable is an ${typeof person}.`);
+    ```
+
+    <Aside title="JavaScript is Extensible">
+      One of the beautiful aspects of JavaScript is that it's an ***extensible*** language. That's just another way of saying that JavaScript is *flexible* in allowing us to create our own objects. There's more to discover when it comes to creating objects. You can read about that at these links.
+
+      AUTHOR TODO: Links to tutorials/explanations on objects
+    </Aside>
+
+1. Because this person's name, age and employment status is bundled as a single object, we can access individual properties using a dot (`.`) between the variable name and the property name. Let's try that with the following code.
+
+    ```js title="data-types.js"
+    console.log(`${person.name} is ${person.age} years old.\n`);
+    ```
+
+    This produces the following output.
+
+    ```ps
+    Stewart Dent is 25 years old.
+    ```
+
+    > **Property accessors** provide access to an object's properties by using the dot notation or the bracket notation.
+    > <cite><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors" target="_blank">MDN Reference</a></cite>
+
+1. The properties on our object are not just something we can read. We can change those values as well. Let's pretend that Stewart has just celebrated his birthday. He's a year older, so we can update his age.
+
+    ```js title="data-types.js"
+    person.age = person.age + 1;
+    console.log(`${person.name} is now ${person.age} years old. Happy Birthday!\n`);
+    ```
+
+</Steps>
+
+**Obect Literal** syntax is the <abbr title="Original Generation">OG</abbr> way of creating objects in JavaScript. In this next part, we'll discover another way of creating objects.
+
+## Date Objects
+
+JavaScript environments, such as Node and the browser, include additional complex data types that we can use when creating object variables. Because they come pre-installed, we create those objects using the `new` keyword along with a call to the object's **constructor function**.
+ 
+An excellent example of this is the **`Date()`** constructor that lets us build an object that contains date and time information.
+
+<Steps>
+1. Add this example to your script. Notice that we're not creating our object using Object Literal syntax. Rather, we're using a *constructor function*.
+
+    ```js title="data-types.js"
+    // Complex types: Date
+    let today = new Date(); // The current date/time
+    console.log(`Today is ${today}`);
+    console.log(`The year is ${today.getFullYear()}`);
+    ```
+
+    The purpose of the `new` keyword is to have the constructor generate a new, distinct object. The purpose of the constructor function itself is to set up the object with "meaningful" information.
+
+    <Aside type="tip" title="Naming Conventions">
+      One of the style conventions in JavaScript is that constructor functions should start with a capital letter (e.g.: `Date` instead of `date`). You'll see that play out with other built-in constructor functions. When we build our own constructor functions, we'll follow the same pattern.
+    </Aside>
+
+1. Of course, depending on when you run this code, your output will change. That's because the `Date()` constructor function will (by default) generate the current date in your local time zone. When I ran this on my computer, I got the following.
+
+    ```ps
+    Today is Sun Mar 09 2025 15:57:33 GMT-0600 (Mountain Daylight Time)
+    The year is 2025
+    ```
+
+    There's a few interesting things to note about our Date object, which we'll examine in the following steps.
+
+1. First, displaying the `today` variable as a whole doesn't show up as some data enclosed in curly braces. That's because this build-in function is specially designed to show its content as a string. However, if we use the `typeof` operator, we can still see that it is indeed an object (not a string).
+
+    ```js title="data-types.js"
+    console.log(`My today variable is an ${typeof today}.`);
+    ```
+
+    <Aside>
+      Why did we see a string when displaying `today` in the console? That's because the `Date()` object has a custom `.toString()` function that outputs the object's data in a more "human friendly" format. Well, maybe not *that* friendly, but it does contain the exact moment in time, right down to the millisecond!
+
+      When we create our own constructor functions in a later tutorial, we'll discover how we can also include a custom `.toString()` that displays our objects information to whatever level of detail we choose.
+    </Aside>
+
+1. A second thing I want to point out is that our date object doesn't just contain information - it contains **functions** that allow us to get specific parts of that information.
+
+    When we called `today.getFullYear()`, we got the Year portion of the date. There are quite a large number of functions on Date objects that allow us to access different parts of the date. Here's just a few.
 
 
+    ```js title="data-types.js"
+    console.log(`This date is ${today.getMonth()} months after January.`);
+    console.log(`The date portion is ${today.toDateString()}.`);
+    console.log(`The time portion is ${today.toTimeString()}.`);
+    console.log(`The complete date/time is ${today.toString()}.`);
+    ```
+
+    Notice in that last example that we explicitly called our object's `.toString()` function. When we earlier displayed just `${today}`, the console made an *implicit* call to the object's `.toString()` (because the goal of `console.log()` is to display textual information).
+
+1. We can also call functions on our date object to change some aspect of the date. For example, we can set the day to the first day of the month.
+
+    ```js title="data-types.js"
+    today.setDate(1);
+    console.log(`Now the date is ${today.toDateString()}.`);
+    ```
+
+    Or, we could set the date to the day before by first getting the current day of the month and subtracting one.
+
+    ```js title="data-types.js"
+    let yesterday = today.getDate() - 1; // should produce a 0
+    today.setDate(yesterday);
+    console.log(`The previous day was ${today.toDateString()}.`);
+    ```
+
+
+    <Aside type="tip">
+      Why do `Date` objects use functions to access or change information about the date? Our earlier `person` object didn't have that.
+
+      The reason is that our `person` object was a *general* object, whereas the built-in `Date()` object is specially crafted to *protect* the date and time details from being assigned corrupt information. Notice that when we changed the day of the month to zero, that caused the date to change to the *last* day of the *previous* month.
+      
+      Our `person` object has no such protections in place. Consider how we can change Stewart's age to something strange.
+
+      ```js title="data-types.js"
+      person.age = 'Something strange';
+      console.log(person); // Now that's not terribly secure!
+      ```
+
+      For now, our object literals are fine as-is, but we should remember that they are subject to uncontrolled changes. That means that we - as the developers - will need to be careful to use them properly. (At least, until we learn how to create **classes** with all of the protection goodness that they provide.)
+    </Aside>
+
+1. We initially set up `today` as the current date. This time, let's make a new object with a specific date in mind. Write the code to create a new variable called `hiredDate`.
+
+    ```js title="data-types.js"
+    let hiredDate = new Date('January 5, 2022');
+    console.log(`Your first day of work will be ${hiredDate.toDateString()}.\n`);
+    ```
+
+    That's not the only way we can create a specific date. But it does highlight the fact that the Date constructor function accepts arguments. For more details, see the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/Date">Date constructor</a> on MDN.
+
+1. Before we finish with dates, let's take that `hiredDate` value and apply it to the `person` object we created earlier.    
+
+    ```js title="data-types.js"
+    // We can dynamically assign this value to our person object.
+    person.hiredOn = hiredDate;
+    console.log(`Here's ${person.name}'s latest information:`);
+    ```
+
+    Notice how JavaScript objects are *dynamic*. This means that we can add any extra information we want to our objects. Try displaying the complete `person` object in the terminal.
+
+    ```js title="data-types.js"
+    console.log(person);
+    ```
+
+1. There are a number of other built-in constructor functions. Here's just one more, to satisfy your curiosity.
+
+    ```js title="data-types.js"
+    let url = new URL("https://github.com/dagilleland/CPSC-1520");
+    console.log(`\nVisit ${url.toString()} for the source code of this website.\n`);
+    console.log(url);
+    ```
+
+    The `URL()` object contains the details of a web address. Displaying the `url` by itself shows the different parts of that address.
+
+    ```ps
+    Visit https://github.com/dagilleland/CPSC-1520 for the source code of this website.
+
+    URL {
+      href: 'https://github.com/dagilleland/CPSC-1520',
+      origin: 'https://github.com',
+      protocol: 'https:',
+      username: '',
+      password: '',
+      host: 'github.com',
+      hostname: 'github.com',
+      port: '',
+      pathname: '/dagilleland/CPSC-1520',
+      search: '',
+      searchParams: URLSearchParams {},
+      hash: ''
+    }
+    ```
+
+</Steps>
+
+Date objects are a fairly versatile data type for representing date and time information. They have been around since the very early days of JavaScript. But they are not without their problems. Fortunately, there's a new object called Temporal which will be available in browsers in the near future.
+
+<LinkCard title='JavaScript Temporal is coming' href='https://developer.mozilla.org/en-US/blog/javascript-temporal-is-coming/' description='Learn about the upcoming Temporal object proposed for browsers.' target="_blank">
+</LinkCard>
+
+{/* 
 <Steps>
 1. ...
 
-    ```js title="app.js"
-    // Primitive types: string, number, boolean
-    // Complex types: Objects - object literals (the (still popular) OG approach to creating objects)
-    // Dynamic Types - A variable's type is determined by the contents of the variable
-    // Complex types: Date
-    // - Notice how this starts with a capital - that's no mistake. It's a standard for something called Constructor Functions.
+    ```js title="data-types.js"
+    ```
+
+
+    ```js title="data-types.js"
     // Global objects in the runtime environment
     // - Node's process object - `process.argv`
     // - Comment on the browser's document obect (next tutorial)
+    // Array Teaser: (link to tutorials/0130/ for more details)
     ```
 
     Link to [JavaScript Style Guide](/CPSC-1520/reference/1200/) for coding standards.
 
 
-    ```js title="app.js"
+    ```js title="data-types.js"
+    console.log("Data Complexity in JavaScript");
+    console.log("===============================");
+    console.log();
+
+
+
+    // Dynamic Types - A variable's type is determined by the contents of the variable
+
+
+
+
+    // - Notice how this starts with a capital - that's no mistake. It's a standard for something called Constructor Functions.
+    // Global objects in the runtime environment
+    // - Node's process object - `process.argv`
+    console.log(process.argv0);
+    console.log(process.cwd());
+    // - Comment on the browser's document obect (next tutorial)
+    // Array Teaser: (link to tutorials/0130/ for more details)
+
+
     ```
 
 
 </Steps>
+ */}
 
 ----
 
 ## Conclusion
 
-With this last tutorial in our JavaScript QuickStart series, we've covered some essential ground that will help us as we move forward.
+With this tutorial, we've covered some essential ground that will help us as we move forward. Everything up to this point has been largely focused on exploring **information**, with a little bit on how we can *manipulate* information. Appreciating how data can exist in various forms - *primitive* and *complex* - it essential because everything we do in JavaScript will revolve around data.
+
+Our next stop is to take a closer look at **functions** and the vital role they play in making our code modular and easier to manage.
+
+import QuoteMe from '../explanations/quote-me.mdx';
+
+<QuoteMe />
+
+{/* 
+Author TODO: Move the following to another tutorial conclusion
 
 <Aside type="tip">
 We've used Node to run and watch our editing of some simple JavaScript files. Node can also be launched by itself as a stand-alone REPL environment. To learn how to use REPLs for exploring JavaScript, see the [Exploring JavaScript](/CPSC-1520/guides/0010/) guide.
 </Aside>
 
-In the next tutorial, we'll take a very brief look HTML and CSS to discover how the browser uses these files to generate (*render*) a web page. In it, we'll discover the amazing connectoin between the web page and JavaScript - one that's at the heart of how browsers operate.
+In the next tutorial, we'll take a very brief look HTML and CSS to discover how the browser uses these files to generate (*render*) a web page. In it, we'll discover the amazing connection between the web page and JavaScript - one that's at the heart of how browsers operate.
+*/}
