@@ -4,46 +4,412 @@ description: SUMMARY
 sidebar:
   label: Functions
   badge: QuickStart
-draft: true
+draft: false
 ---
 
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
-import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
-<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
-<Aside title="Work-In-Progress (WIP)" type="caution">
-*See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
-</Aside>
+{/* *See [issue 63](https://github.com/dgilleland/CPSC-1520/issues/63).* */}
 
+
+In this tutorial, we'll discover various ways to declare functions. Additionally, we'll see how functions are a type of object, meaning that we can pass them in to and out of other functions.
 
 <details>
     <summary>Learning Outcome Guide</summary>
 
     At the end of this tutorial, you should be able to:
 
-    - TBD
+    - Create functions using Function Declaration syntax
+    - Create functions using Function Expressions
+    - Use a function by calling it
+    - Distinguish between **parameters** and **arguments**
+    - Explain the difference between creating a function and calling a function
+    - Describe the effects of "function hoisting"
+    - Supply functions as callbacks to other functions
+    - Build and return a function from within a function
 </details>
 
+For the setup of this tutorial, launch VS Code side-by-side with an external terminal. Create a JavaScript file called `exploring-functions.js` and run it in the terminal (`node --watch exploring-functions.js`).
 
+## Function Declarations vs. Function Expressions
 
 <Steps>
-1. do this....
+1. In an [earlier tutorial](/CPSC-1520/tutorials/0014/) we discovered that we can create our own functions. Let's make another function. Enter the following in your script file.
 
-    ```js title="app.js"
-    // Named Functions
-    // Hoisting
-    // Function Expressions
-    // Arrow syntax
-    // Functions as Objects: Callbacks
-    // Functions as Types
+    ```js title="exploring-functions.js"
+    function displayHeading(text) {
+        console.log(text);
+        console.log(''.padStart(text.length, '='));
+    }
     ```
 
+    This is an example of using the **function declaration** syntax for creating a function. Our `displayHeading` is also referred to as a **named function**, because the name appears as part of the function declaration (that is, between the `function` keyword and the parameter list).
+
+    At this point, nothing appears in our terminal's display. This is because *declaring* a function merely creates the function. To get a function to run, we must ***invoke*** it.
+1. Let's make use of the function by displaying our introductory heading for this tutorial.
+
+    ```js title="exploring-functions.js"
+    displayHeading('Exploring Functions in JavaScript');
+    ```
+
+    As noted in that previous tutorial, this statement is an example of a **function call**. The name of the function is followed by a set of parenthesis which contains the data you are sending into the function. `displayheading` is the function name and the literal text `'Exploring Functions in JavaScript'` is the *argument* supplied to that function. The technical term for running or calling a function is called <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/Functions#invoking_functions">**invoking**</a> the function.
+
+    You should now see the following output.
+
+    ```ps
+    Exploring Functions in JavaScript
+    =================================
+    ```
+
+1. Function declarations are a handy way of creating a re-usable set of instructions. There's something else interesting about functions. Make the following adjustments to your code and see what happens.
+
+    ```diff lang="js" title="exploring-functions.js"
+    + displayHeading('Exploring Functions in JavaScript');
+
+      function displayHeading(text) {
+          console.log(text);
+          console.log(''.padStart(text.length, '='));
+      }
+
+    - displayHeading('Exploring Functions in JavaScript');
+    ```
+
+    When you create functions using the *function declaration* syntax, those functions can be called even before they are declared. This is referred to as "declaration hoisting".
+
+    <Aside title="Two-Pass Execution">
+        You might wonder, "I thought order matters in JavaScript. Why is it that I can call a function before I've declared it?"
+
+        The answer lies in how the JavaScript engine executes our code. JavaScript is an **interpreted language**, meaning that the engine first needs to "read" our code to interpret or understand what our code is "saying". In other words, the engine does an initial pass through our code to "parse" it in preparation for the second pass when it "executes" our instructions. A detailed explanation can be found in the MDN articles on <a target="_blank" href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Lexical_grammar">Lexical grammar</a> and the <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model">JavaScript execution model</a>.
+
+        During the parsing phase, any function declarations that the engine discovers have their names <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Glossary/Hoisting">"hoisted"</a> or added to the beginning of the execution model. This "declaration hoisting" is what makes the function appear available for calling even though the declaration appears *after* the function call.
+    </Aside>
+
+1. Function declarations offer a certain kind of flexibility and clarity to our code in that we can choose to put all our function declarations at the end of our script. This allows the *executable* portion of our code to be at the top, making it easier for us as developers to focus on a "high-level" view of what our code does. If we want to see the details of our function implementations, we can scroll down the page. In the early days of JavaScript, organizing our code in this fashion made it easier for developers reading our code to get the big picture of what the code does without getting bogged down in the nitty-gritty details.
+
+    This approach to organizing our code comes at a cost, however. This cost is one of *vulnerability*, because any named item (variables or functions) can have their contents overridden at any point. Try adding the following two lines of code.
+
+    ```diff lang="js" title="exploring-functions.js"
+      displayHeading('Exploring Functions in JavaScript');
+
+    + displayHeading = 'Where did it go?';
+    + displayHeading('Why does this crash?');
+
+      function displayHeading(text) {
+          console.log(text);
+          console.log(''.padStart(text.length, '='));
+      }
+    ```
+
+    Because we reassigned `displayHeading` to hold a string value, it no longer holds the function implementation. We've effectively "lost" the function, and trying to call it as a function causes our program to crash.
+
+    ```ps
+    Exploring Functions in JavaScript
+    =================================
+    C:\GH\LearningJavaScript\exploring-functions.js:4
+    displayHeading('Why does this crash?');
+    ^
+
+    TypeError: displayHeading is not a function
+    ```
+
+    Go ahead and remove those lines of code.
+
+    ```diff lang="js" title="exploring-functions.js"
+    - displayHeading = 'Where did it go?';
+    - displayHeading('Why does this crash?');
+    ```
+
+1. Fortunately, there's a way to protect our function from being lost. We can use a **constant** along with a <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function">**function expression**</a> instead of a function *declaration*. We'll have to give up the benefit of hoisting, however. Re-write your code as follows.
+
+    ```js title="exploring-functions.js"
+    // Now, our function must appear before any attempt to call it
+    const displayHeading = function (text) {
+        console.log(text);
+        console.log(''.padStart(text.length, '='));
+    }
+
+    displayHeading('Exploring Functions in JavaScript');
+    ```
+
+    The `const` keyword is used in place of the `let` keyword in defining our variable. In the example above, `displayHeading` is now a variable whose value is "fixed" to whatever appears after the assignment operator. This means that `displayHeading` will *always* be a function, and any attempt to turn it into something else will fail.
+
+    ```js
+    displayHeading = 'Can I change this?'
+    ```
+
+    ```ps
+    Exploring Functions in JavaScript
+    =================================
+    D:\GH\dgilleland\WIP\0-99\fast-paced\exploring-functions.js:8
+    displayHeading = 'Can I change this?';
+                ^
+
+    TypeError: Assignment to constant variable.
+    ```
+
+1. Before we conclude this part of the tutorial, let's improve our `displayHeading` function to make it more flexible. Let's add a parameter for the underline character, so that it's not restricted to only using the `=` character for the underline.
+
+    ```js title="exploring-functions.js"
+    // Final version of displayHeading() function
+    const displayHeading = function (text, underline) {
+        console.log(text);
+        console.log("".padStart(text.length, underline));
+    };
+
+    displayHeading("Exploring Functions in JavaScript", '=');
+    ```
+
+    This last change demonstrates another important aspect of functions. We can have as many *parameters* as we want in our functions.
+</Steps>
+
+It might not seem like it, but with this short example of functions we've opened up unlimited windows of opportunity. The humble function in JavaScript is probably the most important contributor to creating large scale applications. This will become even more evident as we explore **functions as objects**.
+
+## Functions as Objects
+
+Whether you use function declarations or function expressions, every single function in JavaScript is an object. This has huge implications, as you shall see.
+
+<Steps>
+1. Let's revisit the `roundToDecimals()` function we created when we were learning [basic math](/CPSC-1520/tutorials/0014/) in JavaScript. We'll write it using a function expression this time. Add this code to your script file.
+
+    ```js title="exploring-functions.js"
+    const roundToDecimals = function (num, decimals) {
+        let factor = Math.pow(10, decimals);
+        let result = Math.round(num * factor) / factor;
+        return result;
+    }
+    ```
+
+    This function also serves as a reminder that functions can have many parameters, but can only return at most *one* single item.
+
+1. What will we see if we use the `typeof` operator with the function name?  Try throwing in the following line.
+
+    ```js title="exploring-functions.js"
+    console.log(`roundToDecimals is a '${typeof roundToDecimals}'.`);
+    ```
+
+    As you can see in the output, `roundToDecimals` is a `'function'`. A function is a specific type of object, but an object nonetheless.
+
+    ```ps
+    roundToDecimals is a 'function'.
+    ```
+
+    In JavaScript, functions are <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function">**first-class objects**</a>. That means we can assign a function declaration to an object (as we saw with *function expression* syntax earlier). Now try adding this line.
+
+    ```js title="exploring-functions.js"
+    console.log('Here is the code:\n', roundToDecimals.toString());
+    ```
+
+    The terminal shows the actual code of the function. We used the identfier `roundToDecimals` like it was a variable name. Calling `.toString()` on any variable returns its value as text.
+
+1. Rounding errors can occur with both addition and multiplication. Let's create a couple of small functions for each operation.
+
+
+    ```js title="exploring-functions.js"
+    const addition = function(first, second) {
+        return first + second;
+    }
+
+    const multiplication = function(first, second) {
+        return first * second;
+    }
+    ```
+
+    So far, so good. Now, let's explore how we can use these in a demonstration of rounding errors.
+
+1. Create the following function called `demoRounding()`.
+
+
+    ```js title="exploring-functions.js" "operation"
+    const demoRounding = function(firstValue, secondValue, operation, precision) {
+        let title = `\nThis is a demo of rounding errors`;
+        displayHeading(title, '-');
+        console.log('JavaScript is susceptible to rounding errors. For example:');
+        let result = operation(firstValue, secondValue);
+        console.log(`Combining ${firstValue} with ${secondValue} produced ${result}`);
+        let correctResult = roundToDecimals(result, precision);
+        console.log(`The actual result should be ${correctResult}.`);
+    }
+    ```
+
+    Notice the third parameter: `operation`. Our `demoRounding()` function is expecting this variable to contain a *function* for its value. Specifically, we're anticipating `operation` will be a function that accepts two arguments and returns a value. In other words, `operation` is a **callback** function.
+
+    Let's call our function by passing in the `addition` function along with the numbers `0.1` and `0.2`.
+
+    ```js title="exploring-functions.js" "addition"
+    demoRounding(0.1, 0.2, addition, 1);
+    ```
+
+    It's important to see that we are supplying `addition` as an *argument* when calling `demoRounding`. The addition function will run when it is invoked from *inside* of `demoRounding()`.
+
+    Here's the result of executing our demo.
+
+    ```ps
+    This is a demo of rounding errors
+    ---------------------------------
+    JavaScript is susceptible to rounding errors. For example:
+    Combining 0.1 with 0.2 produced 0.30000000000000004
+    The actual result should be 0.3.
+    ```
+
+1. Let's try that again. This time we will supply `multiplication` as the callback for `operation`. Add the following line to your existing code.
+
+    ```js title="exploring-functions.js"
+    demoRounding(0.1, 0.2, multiplication, 2);
+    ```
+
+    Here's the rounding error output.
+
+    ```ps
+    This is a demo of rounding errors
+    ---------------------------------
+    JavaScript is susceptible to rounding errors. For example:
+    Combining 0.1 with 0.2 produced 0.020000000000000004
+    The actual result should be 0.02.
+    ```
+
+
+1. We can make a slight improvement to our `demoRounding()` by indicating what operation we are performing. We can do this by discovering the actual name of our callback function. Every function has a property called `.name` that holds the name of the function. (JavaScript needs to know this in order to keep track of where to find that function when it's invoked.)
+
+    ```js title="exploring-functions.js" ins=" with ${operation.name}"
+    const demoRounding = function(firstValue, secondValue, operation, precision) {
+        let title = `\nThis is a demo of rounding errors with ${operation.name}`;
+        displayHeading(title, '-');
+        console.log('JavaScript is susceptible to rounding errors. For example:');
+        let result = operation(firstValue, secondValue);
+        console.log(`Combining ${firstValue} with ${secondValue} produced ${result}`);
+        let correctResult = roundToDecimals(result, precision);
+        console.log(`The actual result should be ${correctResult}.`);
+    }
+    ```
+
+    Now we'll have an output that is far more descriptive.
+
+    ```ps
+    Exploring Functions in JavaScript
+    =================================
+
+    This is a demo of rounding errors with addition
+    ------------------------------------------------
+    JavaScript is susceptible to rounding errors. For example:
+    Combining 0.1 with 0.2 produced 0.30000000000000004
+    The actual result should be 0.3.
+
+    This is a demo of rounding errors with multiplication
+    ------------------------------------------------------
+    JavaScript is susceptible to rounding errors. For example:
+    Combining 0.1 with 0.2 produced 0.020000000000000004
+    The actual result should be 0.02.
+    ```
+
+1. In the prior steps, we passed `addition` and `multiplication` as arguments to `demoRounding`. We can do that because functions are a kind of object. Because of that, a function can also return another function.
+
+    Let's create a function that can output a line of text with a number to prefix the text. In other words, we want to turn this:
+
+    ```ps
+    JavaScript is susceptible to rounding errors. For example:
+    Combining 0.1 with 0.2 produced 0.30000000000000004
+    The actual result should be 0.3.
+    ```
+
+    into this:
+
+    ```ps
+    JavaScript is susceptible to rounding errors. For example:
+    1) Combining 0.1 with 0.2 produced 0.30000000000000004
+    2) The actual result should be 0.3.
+    ```
+
+1. Add the following to your current script. This `buildStepperFunction()` will return a function, as highlighted.
+
+    ```js title="exploring-functions.js" {3-7}
+    const buildStepperFunction = function() {
+        let currentStep = 1;
+        return function(text) {
+            let output = `${currentStep}) ${text}`;
+            currentStep++; // Increment by 1
+            console.log(output);
+        }
+    }
+    ```
+
+1. Next, we'll modify `demoRounding()` to make use of `buildStepperFunction()` and it's returned function.
+
+    ```diff lang="js" title="exploring-functions.js"
+      const demoRounding = function(firstValue, secondValue, operation, precision) {
+    +     const displayStep = buildStepperFunction();
+          let title = `\nThis is a demo of rounding errors with ${operation.name}`;
+          displayHeading(title, '-');
+          console.log('JavaScript is susceptible to rounding errors. For example:');
+          let result = operation(firstValue, secondValue);
+    -     console.log(`Combining ${firstValue} with ${secondValue} produced ${result}`);
+    +     displayStep(`Combining ${firstValue} with ${secondValue} produced ${result}`);
+          let correctResult = roundToDecimals(result, precision);
+    -     console.log(`The actual result should be ${correctResult}.`);
+    +     displayStep(`The actual result should be ${correctResult}.`);
+      }
+    ```
+
+    We now have an output where each demonstration of rounding errors uses its own numbered steps.
+
+    ```ps
+    Exploring Functions in JavaScript
+    =================================
+
+    This is a demo of rounding errors with addition
+    ------------------------------------------------
+    JavaScript is susceptible to rounding errors. For example:
+    1) Combining 0.1 with 0.2 produced 0.30000000000000004
+    2) The actual result should be 0.3.
+
+    This is a demo of rounding errors with multiplication
+    ------------------------------------------------------
+    JavaScript is susceptible to rounding errors. For example:
+    1) Combining 0.1 with 0.2 produced 0.020000000000000004
+    2) The actual result should be 0.02.
+    ```
+
+    `buildStepperFunction()` returns an object. That object happens to be a function.
+</Steps>
+
+
+{/* 
     Link to [JavaScript Style Guide](/CPSC-1520/reference/1200/) for coding standards.
 
 
-    ```js title="app.js"
-    ```
+Author TODO: Consider expanding with these sections
+
+## Tracing The Execution
+
+Our script file is starting to get a bit complex. If you found yourself thinking hard about when each part of the code is running, you might have found it to be a challenge.
+
+### The Call Stack
+
+When we called our `runDemo()` function,
+
+### Closures and Scope
 
 
-</Steps>
+
+## Anonymous Functions, Arrow Functions and Function Names
+
+Did you know that functions have names?
+*/}
+
+
+----
+
+## Conclusion
+
+A computer program is a set of instructions for manipulating information. Computer programs have inputs and outputs. JavaScript functions are like miniature programs. They have inputs (captured by **parameters**) and they have outputs (by using `return` to send back information).
+
+JavaScript functions are powerful because of these reasons:
+
+1. They allow us to **modularize** our code, making it easier to re-use instructions by invoking a function (like we did with `demoRounding()` and `roundToDecimals()`).
+1. They can be used as objects, allowing us to pass them into other functions (as ***callback*** functions) and return them from functions (as shown with `buildStepperFunction()`).
+
+Even with this ability to modularize code with functions, our programs are getting bigger and bigger. This tutorial itself is almost 50 lines of code. In the next QuickStart tutorial, we'll discover how we can separate a single JavaScript file into multiple files. This will help us in managing complexity as our JavaScript programs begin to grow.
+
+import QuoteMe from '../explanations/quote-me.mdx';
+
+<QuoteMe />
