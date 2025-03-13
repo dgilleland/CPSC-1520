@@ -1,8 +1,8 @@
 ---
-title: JavaScript Modules
+title: Understanding Objects
 description: SUMMARY
 sidebar:
-  label: JavaScript Modules
+  label: More Objects
   badge: Quickstart
 draft: true
 ---
@@ -18,7 +18,351 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 </Aside>
 
 
-    ```js title="exploring-functions.js"
+Functions are not just first-class objects. They are the basis upon which objects are created in the first place.
+
+In this tutorial, we will discover more about the different types of variables and objects we work with every day in JavaScript. We'll also explore **constructor functions** and **classes** and how they work with the `new` keyword.
+
+
+<details>
+    <summary>Learning Outcome Guide</summary>
+
+    At the end of this tutorial, you should be able to:
+
+    - TBD
+</details>
+
+For the setup of this tutorial, launch VS Code side-by-side with an external terminal. Create a JavaScript file called `functions-and-objects.js` and run it in the terminal (`node --watch functions-and-objects.js`).
+
+
+## Revisiting Data Types
+
+<Steps>
+1. Do you remember some of the different data types we created? Strings, numbers, booleans, dates, and objects? We even created functions as objects. And we discovered that we can use the `typeof` keyword to discover what type a particular variable happened to be.
+
+    Add the following code to your file. We'll be using this function to discover more about the variables we are working with in our files.
+
+    ```js title="functions-and-objects.js"
+    const describe = function(variable) {
+      console.log(`The value ${variable} is of type ${typeof variable}.`);
+    }
+
+    let someVariable; // we'll be re-assigning different values to this
     ```
 
-In this tutorial, 
+1. Now, let's assign our first value to `someVariable` and describe what it is.
+
+    ```js title="functions-and-objects.js"
+    someVariable = 'Any Text';
+    describe(someVariable);
+    ```
+
+    You should see the following in the terminal. Odds are you were able to predict the output before observing it in the terminal.
+
+    ```ps
+    The value Any Text is of type string.
+    ```
+
+1. Let's add some more code.
+
+    ```js title="functions-and-objects.js"
+    someVariable = 42;
+    describe(someVariable);
+
+    someVariable = true;
+    describe(someVariable);
+    ```
+
+    Now the output of our program looks like this.
+
+    ```ps
+    The value Any Text is a string.
+    The value 42 is a number.
+    The value true is a boolean.
+    ```
+
+1. Let's throw another couple of items in the mix. The first is just an object literal. The second is a reference to our function `describe`.
+
+    ```js title="functions-and-objects.js"
+    someVariable = {}; // An empty object literal
+    describe(someVariable);
+
+    someVariable = describe; // This is getting very Meta...
+    describe(someVariable);
+    ```
+
+    These lines add the following output in our terminal.
+
+    ```ps
+    The value [object Object] is a object.
+    The value function (variable) {
+      console.log(`The value ${variable} is of type ${typeof variable}.`);
+    } is a function.
+    ```
+
+    Each time, the template string that we log to the console takes the placeholder `${variable}` and calls its `.toString()` to get the text representation of whatever value is inside. For any generic object, its default `.toString()` produces `[object Object]`. Make note of that distinction.
+
+    Also note that for any function we create, its `.toString()` will display the *function declaration* with the code implementation.
+
+1. Let's try assigning another function to `someVariable`.
+
+    ```js title="functions-and-objects.js"
+    someVariable = console.log;
+    describe(someVariable);
+    ```
+
+    These lines add the following output in our terminal.
+
+    ```ps
+    The value function () { [native code] } is of type function.
+    ```
+
+    The JavaScript engine is rather protective of what code lays inside of the built-in functions. And that makes sense, at least from a security perspective.
+
+1. Let's try one more value for `someVariable`. This time, we'll create an instance of a date.
+
+    ```js title="functions-and-objects.js"
+    someVariable = new Date('March 5, 2024');
+    describe(someVariable);
+    ```
+
+    The interesting thing to note in the display is what the data type is for our `new Date()`: **`object`**.
+
+    ```ps "object"
+    The value Tue Mar 05 2024 00:00:00 GMT-0700 (Mountain Standard Time) is of type object.
+    ```
+
+1. As we close out this part of the tutorial, let's make a change to the `describe()` function.
+
+    ```diff lang="js" title="functions-and-objects.js" ".constructor.name"
+      const describe = function (variable) {
+        console.log(`The value ${variable} is of type ${typeof variable}.`);
+    +   let className = variable.constructor.name;
+    +   console.log(`The variable is based on the ${className} prototype.\n`)
+      };
+    ```
+
+    Underneath all values - primitive or complex - lays some **prototype** that is used to construct or build the value.
+
+    ```ps "String" "Number" "Boolean" "Object" "Function" "Date"
+    The value Any text is of type string.
+    The variable is based on the String prototype.
+
+    The value 42 is of type number.
+    The variable is based on the Number prototype.
+
+    The value true is of type boolean.
+    The variable is based on the Boolean prototype.
+
+    The value [object Object] is of type object.
+    The variable is based on the Object prototype.
+
+    The value function (variable) {
+      console.log(`The value ${variable} is of type ${typeof variable}.`);
+      let className = variable.constructor.name;
+      console.log(`The variable is based on the ${className} prototype.\n`);
+    } is of type function.
+    The variable is based on the Function prototype.
+
+    The value function () { [native code] } is of type function.
+    The variable is based on the Function prototype.
+
+    The value Tue Mar 05 2024 00:00:00 GMT-0700 (Mountain Standard Time) is of type object.
+    The variable is based on the Date prototype.
+    ```
+</Steps>
+
+Even ordinary variables are, in some fashion, objects. The distinction between primitive and complex types still exists (and you can read more about it <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Data_structures" target="_blank">here</a>). But the key takeaway you should make is that somewhere under the surface is this thing called a **Prototype** that works to define what an object *looks like* (its data-holding properties) and how it *behaves* (its functions or *methods*).
+
+## Constructor Functions
+
+Merriam-Webster defines a "prototype" as *"an original model on which something is patterned"* (<a href="https://www.merriam-webster.com/dictionary/prototype" target="_blank">source</a>). In JavaScript, these prototypes are declared using **Constructor Functions**.
+
+A constructor function is declared like any other function (with *function declaration* or *function expression* syntax). What's different is on the *inside* (the code in the curly braces) and how it's *called* (using the `new` keyword). Let's explore.
+
+<Steps>
+1. Imagine we wanted to create objects that represented *cars* (at least, in the virtual sense). We would start by building a *prototype* using a constructor function.
+
+    ```js title="functions-and-objects.js"
+    const Car = function(vin, color, odometer) {
+        // Coming soon...
+    }
+    ```
+
+    You might notice that we declared our function using a capital `C`. It's common practice to start constructor functions with a capital letter. This is a standard way to help distinguish a constructor function from any other function. We've already seen this in regard to the `Date()` function; `Date()` is a constructor function. (See [naming guidelines](TODO: add reference link).)
+1. The way we use the constructor function is to prefix the call with the `new` keyword. This should look very similar to how we created `Date()` objects earlier. Let's build a car!
+
+    ```js title="functions-and-objects.js" "new"
+    let myFirstCar = new Car('WAUWFAFL9CA035531', 'green', 42);
+    //                        \_/\___/|||\____/
+    //                         |   |  |||  |- Serial Number
+    //                         |   |  |||- Plant
+    //                         |   |  ||- Model Year
+    //                         |   |  |- Check Digit
+    //                         |   |- Vehicle Descriptor Section (VDS)
+    //                         |- World Manufacturer Identifier (WMI)
+    describe(myFirstCar);
+    ```
+
+    Our terminal shows a description of the object. Notice how the name of the constructor function is identified as the object's prototype.
+
+    ```ps "Car"
+    The value [object Object] is of type object.
+    The variable is based on the Car prototype.
+    ```
+
+1. The `describe()` function uses a template string to display the variable. Let's tweak that function to get a better sense of the data in our objects.
+
+    ```diff lang="js" title="functions-and-objects.js"
+      const describe = function (variable) {
+    -   console.log(`The value ${variable} is of type ${typeof variable}.`);
+    +   console.log("The value is:\n", variable);
+        let className = variable.constructor.name;
+    -   console.log(`The variable is based on the ${className} prototype.\n`);
+    +   console.log(`The variable is of type ${typeof variable} and is based on the ${className} prototype.\n`);
+      };
+    ```
+
+    The output is a little better. Now, instead of seeing the variable's value as a `.toString()` representation (which is what happens in template strings), we get to see the actual contents of our object.
+
+    ```ps "Car {}"
+    The value is:
+      Car {}
+    The variable is of type object and is based on the Car prototype.
+    ```
+
+1. The parameters of constructor functions are used to supply data that the object can store in its **properties**. A special keyword is used so that the data is associated with the *instance* of the object. Let's modify our `Car` prototype.
+
+    ```js title="functions-and-objects.js"
+    const Car = function(vin, color, odometer) {
+        this.vin = vin;
+        this.color = color;
+        this.odometerReading = odometer;
+    }
+    ```
+
+    Now we can see how our object has retained the data sent in through the parameter list. By storing those parameter values in `this` object, each one becomes a property of the object. We could, for example, access `myFirstCar.odometerReading` to focus on just the mileage this car has.
+    
+    ```ps "Car {}"
+    The value is:
+      Car { vin: 'WAUWFAFL9CA035531', color: 'green', odometerReading: 42 }
+    The variable is of type object and is based on the Car prototype.
+    ```
+
+    <Aside type="tip" title="What's Up With `this`?">
+      To understand `this`, you need to understand what's `new`.
+      
+      The `new` keyword tells the JavaScript engine to set aside memory for a brand new object. In order to do that, there needs to be some memory location in which to store that object. Remember, the entire expression has to be evaluated *before* the assignment to our variable `myFirstCar`. So the JavaScript engine needs to keep track of the new object somehow, and it uses the `this` keyword for just that purpose.
+
+      For a more visual description of what's going on with `this`, see the [ARTICLE_NAME][TODO: Write this].
+    </Aside>
+
+1. Objects aren't restricted to just properties. We can add **methods** to our objects, giving them newfound capabilities. Let's deck out our car some more.
+
+    ```js title="functions-and-objects.js"
+    const Car = function(vin, color, odometer) {
+        // Properties
+        this.vin = vin;
+        this.color = color;
+        this.odometerReading = odometer;
+
+        // Methods
+        this.drive = function(distance) {
+          this.odometerReading += distance;
+        }
+    }
+    ```
+
+    A **method** is simply another name for a function that is a *member* of some object. Here's what our output looks like.
+
+    ```ps
+    The value is:
+     Car {
+      vin: 'WAUWFAFL9CA035531',
+      color: 'green',
+      odometerReading: 42,
+      drive: [Function (anonymous)]
+    }
+    The variable is of type object and is based on the Car prototype.
+    ```
+
+1. Let's play with the car, and then make another one.
+
+    ```js title="functions-and-objects.js"
+    myFirstCar.drive(75293);
+    console.log(`I sold my first car when it hit ${myFirstCar.odometerReading} km.`);
+    let myDreamCar = new Car('4USCH7333WDWC2JH3', 'silver', 1000);
+    console.log(`I bought my dream car with ${myDreamCar.odometerReading} kliks.`);
+    ```
+
+    What's key to note is that each car is a **separate object** having its own distinct properties. This can be clearly seen in our output.
+
+    ```ps
+    I sold my first car when it hit 75335 km.
+    I bought my dream car with 1000 kliks.
+    ```
+
+</Steps>
+
+Constructor functions are the way we create prototypes in JavaScript. There are several helpful characteristics of how object creation (and *inheritance*) works in JavaScript compared to other languages such as C#. One this is for certain, however. The popularity of other Object Oriented languages like Java and C# have had a definite effect on JavaScript's evolution. This is most evident in the emergence of the `class` keyword in JavaScript.
+
+## Classes
+
+To make JavaScript coding more palatable for developers with backgrounds in other <abbr title="Object-Oriented Programming">OOP</abbr> languages, a new keyword and grammar was added. The `class` was added as an alternate way to describe object prototypes. 
+
+> *"Classes are a template for creating objects. They encapsulate data with code to work on that data. Classes in JS are built on <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Inheritance_and_the_prototype_chain">prototypes</a> but also have some syntax and semantics that are unique to classes."*
+>
+> <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes">Classes</a> on MDN
+
+<Steps>
+1. To define a prototype using classes in JavaScript, use the `class` keyword followed by a set of curly braces.
+
+    ```js
+    const BankAccount = class {
+        constructor (accountNumber, openingBalance) {
+            this.accountNumber = accountNumber;
+            this.balance = openingBalance;
+        }
+    }
+    ```
+
+    The curly braces contain the contents of the class. A special function called the `constructor` is invoked when creating a new object based on the class. `constructor` is a keyword.
+
+1. Using the class to create your object is done exactly the same way you would if the prototype was defined with a constructor function.
+
+    ```js
+    let myAccount = new BankAccount("00202-899-123-4567", 500);
+    describe(myAccount);
+    ```
+
+    The output when we display our object is also the same. Remember, ***class syntax** in JavaScript is simply an alternate way to declare object prototypes*.
+
+    ```ps
+    The value is:
+     BankAccount { accountNumber: '00202-899-123-4567', balance: 500 }
+    The variable is of type object and is based on the BankAccount prototype.
+    ```
+
+1. If we want to define a method in our class, the syntax looks similar to using the constructor. The only difference is that while `constructor` is a keyword, the names we use for our methods can be anything we want. Make the following change to your `BankAccount` class.
+
+    ```js
+    const BankAccount = class {
+        constructor (accountNumber, openingBalance) {
+            this.accountNumber = accountNumber;
+            this.balance = openingBalance;
+        }
+
+        deposit(amount) {
+          this.balance += amount;
+        }
+    }
+    ```
+
+    Notice that there is no use of the `function` keyword when declaring class methods.
+
+
+</Steps>
+
+----
+
+## Conclusion
+
