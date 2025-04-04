@@ -1,0 +1,44 @@
+---
+title: Lab Updates
+description: Guidance on how to synchronize your assignment repository when new updates are provided through GitHub Classroom.
+sidebar:
+  label: Lab updates
+draft: false
+---
+
+import { Aside, Code, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import ghUpdate from './lab-solutions/gh-classroom-update-assignments.png';
+import ghPRMessage from './lab-solutions/gh-classroom-pull-request-sync-message.png';
+import ghPRTab from './lab-solutions/gh-classroom-pull-request-tab.png';
+import ghPR from './lab-solutions/gh-classroom-pull-request.png';
+import ghPRMergeButton from './lab-solutions/gh-classroom-pull-request-merge-button.png';
+import ghPRConfirm from './lab-solutions/gh-classroom-pull-request-confirm-merge.png';
+
+
+If you are doing assignments via GitHub Classroom and your instructor has posted an update to your assignment, follow these instructions to get the update.
+
+<Steps>
+1. Go to your repository on GitHub.
+1. Click the "Pull Requests" tab.
+
+    <Image src={ghPRTab} alt="pull request" />
+
+1. Open the pull request titled "GitHub Classroom: Sync Assignment".
+
+    <Image src={ghPR} alt="pull request" />
+
+1. Check that there are no merge conflicts: If you have the green "Merge" button, then there should be no conflicts.
+
+    <Image src={ghPRMergeButton} alt="pull request" />
+
+    <Aside type="danger" title="Check with your instructor">
+    If you have any merge conflicts, notify your instructor.
+    </Aside>
+
+1. Confirm the merge by clicking the "Confirm" button.
+
+    <Image src={ghPRConfirm} alt="pull request" />
+
+1. On your **local repository** (the copy on your computer) perform a `git pull`.
+</Steps>
