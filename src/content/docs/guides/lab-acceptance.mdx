@@ -1,0 +1,40 @@
+---
+title: Starting Your Lab
+description: How to accept and clone your GitHub Classroom labs onto your own computer.
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import clone from './lab-acceptance/git-clone.png';
+import source from './lab-acceptance/repository-source.png';
+
+When your instructor gives you a GitHub Classroom Assignment, you need to ***clone*** your assignment repository onto your computer to begin the assignment. This is a **one-time act** that you would do for each new assignment. Here are the steps.
+
+<Steps>
+1. Launch Visual Studio Code. Then open the command pallet (<kbd>ctrl</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> *or* <kbd>F1</kbd>) and type `git clone`.
+
+    <Image src={clone} alt="VS Code Command Pallet: git clone" />
+
+1. Either paste in the URL of your repository (e.g.: `https://github.com/CPSC-1520/lab-1-StewDent`) or choose the "Clone from GitHub" option to select your repository.
+
+    <Image src={source} alt="Repository URL/Source" />
+
+1. Choose a location on your computer to store the repository.
+
+    <Aside type="tip" title="Where to put your assignment?">
+        Generally speaking, you want to put your assignment in some folder where you keep all the assignments for your course.
+
+        I recommend storing all your repositories near the *root* of your computer. If you're on Windows, then create a folder at `C:\GH` and add a subfolder for your course (e.g.: `C:\GH\CPSC-1520`). You can put all your CPSC-1520 classroom assignments in that location.
+    </Aside>
+
+    <Aside type="danger" title="Avoid One-Drive Folder Locations">
+        If you're a Windows user, it's important to **avoid** certain places on your computer, such as your *Documents* folder or your *Desktop*. The reason for this is that those locations typically are controlled by *OneDrive*, and that application will probably interfere with your repository's version control.
+
+        You should also avoid putting it on a removable drive. If you're used to thinking, "But I want to use a USB drive in case my computer crashes," then you're missing the whole point of GitHub Classroom Assignments. You should follow a routine of pushing your work to GitHub as you progress through your assignment.
+    </Aside>
+
+1. Visual Studio Code will prompt you if you want to open the newly cloned repository. Choose "Open", and you can begin working on your assignment.
+</Steps>
+
+And that's it! You now can work on your assignment. I recommend doing **frequent commits** and following a [regular routine](/CPSC-1520/reference/1100/) as part of your daily work.
