@@ -1,9 +1,0 @@
----
-interface Props {
-    target?: string;
-    href: string;
-}
-const { target = "_blank", href } = Astro.props;
----
-
-<a target={target} href={href}><slot /></a>

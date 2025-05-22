@@ -1,0 +1,10 @@
+---
+
+---
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+<a href={props.href}></a>
+{ (props.href) ? (
+    <LinkCard title={`Return to ${props.title ?? 'the previous page'}`} href={props.href ?? ''}><slot /></LinkCard>
+) : (<hr />)}

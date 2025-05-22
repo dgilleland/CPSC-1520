@@ -1,0 +1,14 @@
+---
+title:
+href:
+---
+
+
+<pre>{JSON.stringify(props, null, 2)}</pre>
+
+
+import { LinkCard } from '@astrojs/starlight/components';
+
+{ (props.href) ? (
+    <LinkCard title={`Return to ${props.title ?? 'the previous page'}`} href={props.href ?? ''}><slot /></LinkCard>
+) : (<hr />)}
