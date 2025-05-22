@@ -16,7 +16,6 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 </Aside>
 
 
-In this tutorial we will
 
 - [ ] Common file structure
 - [ ] Basic HTML tags
@@ -43,6 +42,60 @@ document.body.style.color = '#'
 
 
 The browser uses the HTML and CSS like a "recipe", one that tells the browser what content is on the site and how it should appear to the user.
+
+```html title="index.html"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HTML, CSS and JS</title> 
+    <style>
+      h1 {
+        color: rebeccapurple;
+      }
+    </style>
+    <script>
+      console.log('Hello Browser Dev Tools!');
+    </script>
+</head>
+<body>
+    <h1>Hello Browser</h1>    
+</body>
+</html>
+```
+
+```html title="index.html"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>HTML, CSS and JS</title> 
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/main.js"></script>
+</head>
+<body>
+    <h1>Hello Browser</h1>    
+</body>
+</html>
+```
+
+```js title="js/main.js"
+console.log('Hello Browser Dev Tools!');
+```
+
+```css title="css/styles.css"
+h1 {
+  color: rebeccapurple;
+}
+```
+
+<FileTree>
+  - css
+    - styles.css
+  - img
+    - sandbox-color.png
+  - js
+    - main.js
+  - index.html
+</FileTree>
 
 
 <Steps>
