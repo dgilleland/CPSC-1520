@@ -309,7 +309,23 @@ A constructor function is declared like any other function (with *function decla
 
 </Steps>
 
-Constructor functions are the way we create prototypes in JavaScript. There are several helpful characteristics of how object creation (and *inheritance*) works in JavaScript compared to other languages such as C#. One thing is for certain, however. The popularity of other Object Oriented languages like Java and C# have had a definite effect on JavaScript's evolution. This is most evident in the emergence of the `class` keyword in JavaScript.
+Constructor functions have been the way we create prototypes since the very early days of JavaScript. They are not without their limitations, however. One such limitation is that constructor functions are indistinguishable from other functions (other than the practice of naming constructor functions with an initial capital letter). This is a problem only in that it's just too easy to *forget* to use the `new` keyword. Consider this example, using our `Car` constructor function.
+
+```js title="oops! Forgot the new keyword"
+let anotherCar = Car('1G1125S39FU147409', 'silver', 12594);
+console.log(anotherCar);
+```
+
+The value of `anotherCar` is `undefined`, and the reason is simply that we forgot to use the `new` keyword. There is nothing special in the syntax of declaring functions that would capture whether or not the `new` keyword is necessary for our situation.
+
+The solution to this particular dilemma, however, already exists: **Classes**
+
+{/* Author TODO: Re-work or abandon this transition...
+
+There are several helpful characteristics of how object creation (and *inheritance*) works in JavaScript compared to other languages such as C#. One thing is for certain, however. The popularity of other Object Oriented languages like Java and C# have had a definite effect on JavaScript's evolution. This is most evident in the emergence of the `class` keyword in JavaScript.
+
+*/}
+
 
 ## Classes
 
@@ -322,7 +338,7 @@ To make JavaScript coding more palatable for developers with backgrounds in othe
 <Steps>
 1. To define a prototype using classes in JavaScript, use the `class` keyword followed by a set of curly braces.
 
-    ```js
+    ```js title="functions-and-objects.js"
     const BankAccount = class {
         constructor (accountNumber, openingBalance) {
             this.accountNumber = accountNumber;
@@ -333,14 +349,30 @@ To make JavaScript coding more palatable for developers with backgrounds in othe
 
     The curly braces contain the contents of the class. A special function called the `constructor` is invoked when creating a new object based on the class. `constructor` is a keyword.
 
+    <Aside type="tip" title="Use Class Expressions and Constants">
+      This `BankAccount` class is declared using a **class expression** syntax. There's also the **class *declaration*** syntax available for us to use.
+
+      ```js
+      // Using Class Declaration syntax
+      class BankAccount {
+        constructor (accountNumber, openingBalance) {
+            this.accountNumber = accountNumber;
+            this.balance = openingBalance;
+        }
+      }
+      ```
+
+      These two options - *expression* syntax vs. *declaration* syntax - exists for defining functions as well as classes. I've opted for **class expression** syntax for the same reason I define functions using *function expressions* and constants: It eliminates the potential for the class name being re-defined as something else. If I used a *class declaration*, the class could be renamed - `BankAccount = 'Savings';`.
+    </Aside>
+
 1. Using the class to create your object is done exactly the same way you would if the prototype was defined with a constructor function.
 
-    ```js
+    ```js title="functions-and-objects.js"
     let myAccount = new BankAccount("00202-899-123-4567", 500);
     describe(myAccount);
     ```
 
-    The output when we display our object is also the same. Remember, ***class syntax** in JavaScript is simply an alternate way to declare object prototypes*.
+    The output when we display our object is also the same. Remember, ***class syntax** in JavaScript is simply a modern alternative way to define object prototypes*.
 
     ```ps
     The value is:
@@ -350,28 +382,60 @@ To make JavaScript coding more palatable for developers with backgrounds in othe
 
 1. If we want to define a method in our class, the syntax looks similar to using the constructor. The only difference is that while `constructor` is a keyword, the names we use for our methods can be anything we want. Make the following change to your `BankAccount` class.
 
-    ```js
-    const BankAccount = class {
-        constructor (accountNumber, openingBalance) {
-            this.accountNumber = accountNumber;
-            this.balance = openingBalance;
-        }
-
-        deposit(amount) {
-          this.balance += amount;
-        }
-    }
+    ```diff lang="js" title="functions-and-objects.js"
+      const BankAccount = class {
+          constructor (accountNumber, openingBalance) {
+              this.accountNumber = accountNumber;
+              this.balance = openingBalance;
+          }
+      
+    +     deposit(amount) {
+    +       this.balance += amount;
+    +     }
+      }
     ```
 
     Notice that there is no use of the `function` keyword when declaring class methods. Instead, you simply declare the method name, the parameter list, and a body for the method.
+1. With this method in place, we can add money to our bank account.
+
+    ```js title="functions-and-objects.js"
+    myAccount.deposit(77.50);
+    console.log(`I made a deposit. My new balance is $ ${myAccount.balance.toFixed(2)}`);
+    ```
+
+    Notice that I used the `.toFixed()` function; that's because the property `balance` is a number, and I want the string output to definitely have two digits for the cents portion. The output would be as follows:
+
+    ```ps
+    I made a deposit. My new balance is $ 577.50
+    ```
+
+1. By using classes as the way to define our prototypes, we also avoid the problem of potentially forgetting the use of the `new` keyword. That's because JavaScript will complain if it's missing. Try adding this code.
+
+    ```js title="functions-and-objects.js"
+    // missing the new keyword
+    let secondAccount = BankAccount("00202-904-273-8923", 500);
+    ```
+
+    You should get the error message "Class constructor BankAccount cannot be invoked without 'new'".
+
+    Remove that code.
+
+    ```diff lang="js" title="functions-and-objects.js"
+    - // missing the new keyword
+    - let secondAccount = BankAccount("00202-904-273-8923", 500);
+    ```
+
 </Steps>
+
+
 
 ----
 
 ## Conclusion
 
-This just touches the surface of designing your own types of objects in JavaScript. Prototypes can be created using constructor functions or classes. In this tutorial, you've established the basics of object design.
+In this tutorial, you've established the basics of object design. This just touches the surface of making your own types of objects in JavaScript. Prototypes can be created using constructor functions or classes, but the modern and preferred way these days is to use classes.
 
 ### Where to go from here?
 
 At this point, you've got enough of a foundation in JavaScript to head out in a number of different directions. You can explore how [flow control statements](/CPSC-1520/tutorials/0001/#flow-control-statements) allow us to perform repetitive tasks and choose between alternate paths of logic. Or, you can take a look at how to set up [JavaScript projects](/CPSC-1520/tutorials/0001/#javascript-projects) to build programs using modules and test-driven development (TDD) best practices. You can even progress to working with [JavaScript in HTML][AUTHOR TODO: Link to future tutorial/overview].
+
