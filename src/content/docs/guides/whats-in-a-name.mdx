@@ -1,0 +1,25 @@
+---
+title: What's in a name?
+description: Choosing between index.js or main.js as your entry point.
+sidebar:
+  hidden: true
+---
+
+{/* This is a rabbit trail I embarked on when thinking of one of the questions a new programmer might ask: What should I call my JavaScript file? */}
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+> "What's in a name? That which we call a rose,<br />By any other name would smell as sweet."
+>
+> *&mdash; "Romeo and Juliet", Act II, Scene II, by William Shakespeare*
+
+*"Should I call my JavaScript file `index.js` or `main.js`?"* In truth, it doesn't really matter. The choice is somewhat arbitrary.
+
+Those who lean towards `main.js` are probably influenced by other programming languages where the entry point of the program is a function called `main`. Those preferring `index.js` are possibly influenced by the fact that web servers typically treat <code>index<em>.html</em></code> as a default page for a website. Or maybe people's preference is just based on which one they've seen first or seen most often.
+
+There are other influences that might prompt you to choose one over the other. A lot of history has grown up around different technologies adopting one or the other as their preferred "standard", so your choices might just be based on when & where you started learning how to program. Dig deep enough and you'll find a lot of lore buried behind the choices. 
+
+Funny enough, if you grew up in the ***CommonJS*** era of JavaScript modules, you would have seen `"main": "index.js",` in your `package.json` file (read the [short story](https://dev.to/rameshpvr/module-vs-main-the-modern-hero-vs-the-vintage-legend-of-packagejson-g5e)). How's that for a blending of two lineages!
+
+So what should you choose? It certainly doesn't matter as you start out. As you fall in love with different parts of the JavaScript ecosystem, you'll probably wind up with your favorite choice.
