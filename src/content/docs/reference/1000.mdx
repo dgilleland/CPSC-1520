@@ -6,7 +6,7 @@ sidebar:
 draft: false
 ---
 
-import { Aside, Badge, Code, FileTree, Icon, LinkButton, Steps } from '@astrojs/starlight/components';
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 import flipped from './1000/working-on-laptop.png';
 
@@ -64,6 +64,20 @@ Here's some other helpful commands with regard to the remote repository connecti
 - `git remote -v` - View all the remote repositories
 - `git remote remove [remoteName]` - Remove a remote entry
 - `git remote add [remoteName] [URL-to-Repository]` - Add a remote repository
+
+
+<Card title="GitHub's GitGuides" icon='github'>
+  Follow the links on certain items to learn more from GitHub's <a href="https://github.com/git-guides" target="_blank">**Git Guides**</a>.
+</Card>
+
+<CardGrid>
+  <LinkCard title="git status" href="https://github.com/git-guides/git-status" target="_blank" description='Always a good starting point!' />
+  <LinkCard title="git clone" href="https://github.com/git-guides/git-clone" target="_blank" description='Before you can begin your work, you need the repo from your instructor' />
+  <LinkCard title="git add" href="https://github.com/git-guides/git-add" target='_blank' description='The first of the two-step process of tracking changes' />
+  <LinkCard title="git commit" href="https://github.com/git-guides/git-commit" target="_blank" description='The second of the two-step process of tracking changes' />
+  <LinkCard title="git pull" href="https://github.com/git-guides/git-pull" target="_blank" description='When you need to grab updates from your remote repo' />
+  <LinkCard title="git push" href="https://github.com/git-guides/git-push" target="_blank" description='When you need to send your local changes to your remote repo' />
+</CardGrid>
 
 ### GitHub CLI
 
