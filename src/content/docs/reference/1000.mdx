@@ -48,6 +48,10 @@ We can use the git version control application directly from the command line. H
 - `git commit -m "Your Message"` - This command will take all of the staged changes and create a snapshot of the current state of your repository. Using commits is how we generate a *commit history* for our repository.
 - `git pull` - Use this command to grab any changes from your remote repository (e.g.: GitHub.com) and pull them down onto your local repository (the one on your computer).
 - `git push` - This command will take whatever commits you have on your computer and push them to the remote repository on GitHub.com.
+- `git log` - This command lists all of the commits, with details. *(Press `q` to quit/exit the log)*[^1]
+- `git shortlog` - This command displays a count of commits along with a list of all the commit messages (primary message only, not details). It's a nice abbreviated history of the log. *(Press `q` to quit/exit the log)*[^1]
+
+[^1]: If you have a long history of commits, the terminal output will pause once the display height is reached, leaving a `:` as a "prompt" waiting for you to press a key to display the next line. You can exit this by pressing `q` (to "quit" displaying the output).
 
 There are a lot of things to learn when it comes to working with git, but these commands are the day-to-day ones that you will do as you work with version control.
 
