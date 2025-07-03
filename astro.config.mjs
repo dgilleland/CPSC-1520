@@ -4,12 +4,13 @@ import starlight from '@astrojs/starlight';
 
 import tailwind from '@astrojs/tailwind';
 
+import svelte from '@astrojs/svelte';
+
 // https://astro.build/config
 export default defineConfig({
     site: 'https://dgilleland.github.io',
     base: '/CPSC-1520',
-    integrations: [
-		starlight({
+    integrations: [starlight({
 			title: 'CPSC-1520-DG',
 			editLink: {
 			  baseUrl: 'https://github.com/dgilleland/CPSC-1520/edit/main/',
@@ -60,10 +61,8 @@ export default defineConfig({
 					collapsed: false,
 				},
 			],
-		}),
-		tailwind({
+		}), tailwind({
 			// Disable the default base styles:
 			applyBaseStyles: false,
-		})
-	],
+		}), svelte()],
 });
