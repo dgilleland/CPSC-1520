@@ -1,0 +1,31 @@
+---
+title: Calendars
+description: SUMMARY
+sidebar:
+  label: Calendars
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+    This is a draft placeholder for calendar demos.
+</Aside>
+
+
+import short from './calendars/short-month.png';
+import normal from './calendars/normal-month.png';
+import long from './calendars/long-month.png';
+
+An excellent exercise is creating a calendar in JavaScript. Apart from the styling, it gives you a chance to practice looping and user-interactions such as changing the month and selecting a date or date range.
+
+## Sizing for Months
+
+One of the interesting aspects of creating a calendar is how you have to account for the number of weeks you will need when rendering the whole month. Most of the time, you need five weeks, but occassionally you will need only four weeks or as many as six weeks, as shown in this comparison.
+
+| Short Month | Normal Month | Long Month |
+|:-----------:|:------------:|:----------:|
+| <Image src={short} alt="Short Month" /> | <Image src={normal} alt="Normal Month" /> | <Image src={long} alt="Long Month" /> |
+

@@ -60,6 +60,10 @@ export default defineConfig({
 					autogenerate: { directory: 'reference' },
 					collapsed: false,
 				},
+            {
+                label: 'Demos',
+                autogenerate: { directory: 'demos' },
+            },
 			],
 		}), tailwind({
 			// Disable the default base styles:
