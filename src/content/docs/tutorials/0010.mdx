@@ -154,15 +154,21 @@ PNPM is a modern alternative to using the `npm` tool. I strongly prefer using `p
 <Steps>
 1. Remember how I said it didn't matter too much about the order of installing these tools? Well, this is an exception. If you haven't installed Node yet, go back to [those steps](#node) and complete the process before you continue installing pnpm.
 1. Go to the <a target="_blank" href="https://pnpm.io/installation">pnpm installation page</a>.
-1. Follow the instructions for your operating system. I've used the Powershell installation script for my Windows computer, but you should note the caution on their site about potential conflicts with Windows Defender.
-
-   <Image src={PnpmDefender} alt="Alert" />
-
-   Following their recommendation, and since you should already have [Node](#node) installed, you can run the following from a terminal window.
+1. Follow the instructions for your operating system. On Windows, you can run the following from a terminal window.
 
    ```ps
    npm install -g pnpm
    ```
+
+   This will install pnpm as a global npm package, meaning you can use `pnpm` directly from your terminal.
+
+   <Aside type="caution" title="Powershell Installation Warning">
+   There is a note on using a Powershell installation script for Windows computers, but you should note the caution on their site about potential conflicts with Windows Defender.
+
+   <Image src={PnpmDefender} alt="Alert" />
+   
+   Following their recommendation, and since you should already have [Node](#node) installed, install via `npm` as noted above.
+   </Aside>
 </Steps>
 
 ### GitHub CLI
