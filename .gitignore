@@ -1,3 +1,8 @@
+# testing files to ignore
+tests/games/__snapshots__
+tests/adhoc.*.spec.ts
+tests/adhoc.*.spec.js
+
 # personal folders to ignore
 [Nn]o[Tt]rack
 [Rr]n[Dd]
@@ -17,7 +22,6 @@ adhoc.svelte
 adhoc.js
 adhoc.ts
 adhoc-*.mdx
-
 
 # other files/folders
 debug.log
