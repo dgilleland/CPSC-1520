@@ -1,0 +1,50 @@
+---
+title: Lab Setup
+description: Guidance on obtaining your labs/assignments from GitHub Classroom and cloning them onto your computer.
+sidebar:
+  label: Lab setup
+draft: false
+---
+
+import { Aside, Code, Steps } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+
+Your instructor may be providing coding labs and assignments via GitHub Classroom. This guide is to help you in accepting and cloning these repositories onto your computer.
+
+<Aside type="tip" title="Continuous Submission">
+Labs and assignments delivered via git repositories (such as through *GitHub*) are designed for ***Continuous Submission***. This means that you can (and *should*) do **frequent commits** of your work in order to *show the progress* you are making on the assignment.
+
+In other words, you can do continous updates to your work until the due date.
+
+And by the way, don't forget to `git push` your work. (You can do this as often as you wish, up to the cutoff/due date.)
+</Aside>
+
+<Steps>
+1. Accept the assignment from the link provided by your instructor.
+1. When you navigate to the repository on GitHub, click the green "Code" button and copy the *HTTPS Web Url* to your clipboard.
+1. Open a terminal window on your computer and navigate to the folder where you keep your labs/assignments for the course.
+
+    Your instructor will have given you guidance on where to put these on your computer. **Follow their instructions!**
+
+1. Type `git clone [paste-from-your-clipboard]` into the terminal. **Note:** You need to paste in your *HTTPS Web Url* that you copied earlier.
+
+    For example, here is a lab that was accepted by <a href="https://github.com/stew-dent" target="_blank">Stewart Dent Jr.</a>.
+
+    ```ps title="Sample cloning command"
+    git clone https://github.com/SchoolCourseOrg/prog-0101-in-class-lab-2-a03-stew-dent
+    ```
+
+1. Now you can begin work on your assignment. Remember to do frequent commits!
+
+    ```ps title="Making git commits"
+    git add .
+    git commit -m "Describe what changes you made"
+    ```
+
+    And don't forget to push!!
+
+    ```ps title="Pushing is how you submit your work"
+    git push
+    ```
+</Steps>
