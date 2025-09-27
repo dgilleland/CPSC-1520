@@ -1,0 +1,126 @@
+---
+title: Client-Side Form Processing
+description: SUMMARY
+sidebar:
+  badge: 
+    text: Lesson
+    variant: success
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+> This is a continuation of the `008/` suite of demos that focus on **Event Handlers** of all sorts, including ***Form `'submit'` events***.
+
+<Aside type="danger" title="Skip `demo-events`">
+    The `demo-events` sample includes the `<dialog>` sample, which is **too close to Lab 3**.
+</Aside>
+
+## Demo Text Manipulation
+
+Quickly do the standard setup in `~/src/008/demo-text-manipulation` by running **`pnpm i`**. Then launch with `pnpm dev`.
+
+<Steps>
+1. Comment on **global variables**:
+
+    Generally, you want to *avoid* global variables, especially if those are being referenced inside of functions. Variables should be **scoped** so that they are accessible within a certain context.
+1. This demo focuses on simple **`'click'` event** listeners for buttons and on **text transformations** (string functions).
+</Steps>
+
+## ✨ Form Processing
+
+Quickly do the standard setup in `~/src/008/form-processing` by running **`pnpm i`**. Then launch with `pnpm dev`.
+
+The **ReadMe.md** has useful commentary that students should review. This demo has *two* forms on the same page: `id='subscribe'` and `id='assorted'`. They have separate event handlers.
+
+### Walk-through
+
+<Steps>
+1. Try the first `subscribe` form. Note the built-in browser validation when using `required`.
+1. Presume "good" input when filling out the form. (Happy Path 😃)
+1. Inside the listener, add `console.log()` for
+
+    - `theForm` (variable name can be whatever we want)
+    - `theForm.elements`
+1. Try the next `assorted` form. Note the absence of any browser validation.
+1. Inside the listener, add `console.log()` for
+
+    - `target` (variable name can be whatever we want)
+    - `theInputs`
+1. Students can ignore the following line from the sample, but it does hint at a ***deeper truth*** about how objects and their properties/methods exist in JavaScript. 🤔
+
+    ```js
+    console['log']("Isn't that cool?!");
+    ```
+</Steps>
+
+### Key Takeaways
+
+<Steps>
+1. Emphasizes the importance of stopping the default behaviour of **form submission** as the *first* thing to do for our client-side processing.
+
+    ```js
+    const handleFormSubmit = function(evt) {
+        evt.preventDefault(); // Do this first!
+    }
+    ```
+
+    The normal course of a *real-world* application would actually send form input to the **back end** (i.e.: the *web server*) for processing. We're doing **client-side** processing for *simplicity* and *demonstration purposes* only.
+1. Accessing input controls should be done through the form's `.elements` collection. The best practice is to **use the `evt.target` to identify the form** and then move forward from that context.
+
+    Why? Because it helps your event handler function to be more **self-contained**.
+1. When the `name` of a user input control has a hypen (e.g.: `first-name`), we use **indexers** instead of property names on the form's `.elements` collection
+1. **Comment:** Key attributes of `<input>`, `<textarea>`, `<select>`, `<output>` are
+    - **`name`** - critical for the whole name/value association when sending data to the back end
+    - **`id`** - important when associating a `<label>` to a user input control via the label's `for` attribute
+1. Illustrates the various types of input controls (`<input type="...">`):
+
+    - Plain text: `text` (default), `email`
+    - Numeric: `number`
+    - `checkbox` and `radio` (and the importance of sharing the `name` attribute value)
+    - Others: `color`, `date`, `time`
+1. Input controls support attributes that provide *limited* validation, such as `required`.
+
+    ✨ We're going to pretend the user gives good input at this stage. Soon, we will cover `if/else` and validation of user input.
+1. Button types:
+
+    - Using `<input>` with type = `'button'`, `'submit'` (the default), or `reset`
+    - Using `<button>`, with the same types as used for an input
+</Steps>
+
+----
+
+## ✨ Freelance Web Development - Quote Estimator 🆕
+
+This form should be filled out by the freelancer after performing the initial interview with the client.
+
+- x hours/weeks at $/hour
+- base starting rate - $1,000
+- y digital assets at $10 each
+- content authoring at $0.25/word for 1000 words (or less)
+- scheduled start date
+- `<output>` elements to hold 
+    - the calculated price
+    - the estimated start date
+
+Principles
+
+- Keep the handler function (event listener) **self-contained**
+    - Leverage `event.target` to get the form, and then the target's `.elements` collection.
+
+----
+
+## Troublshooting
+
+### Open Terminal from Finder in Mac
+
+To open a Terminal window directly from your current Finder location on a Mac, you can use the built-in Services feature or third-party applications.
+
+#### Using Built-in Services
+
+Enable Services: Go to System Preferences > Keyboard > Shortcuts > Services. Enable "New Terminal at Folder" and "New Terminal Tab at Folder".
+
+Open Terminal: Right-click on the folder in Finder. Select Services > New Terminal at Folder.
+
