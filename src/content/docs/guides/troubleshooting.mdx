@@ -1,0 +1,30 @@
+---
+title: Troubleshooting
+description: Assorted troubleshooting tips/solutions for when things go wrong.
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+## Port In Use
+
+This has happened to me a couple of times. When running some node application that launches the browser (in my case, `vitest --ui`), I ran into a problem where the port that the Node application was trying to use was already in use.
+
+```ps
+EACCES: permission denied ::1:51204
+```
+
+I'm running Windows 11, so if I want to see what ports are reserved/in use, I can run the following in the terminal.
+
+```ps
+netsh interface ipv4 show excludedportrange protocol=tcp
+```
+
+Sure enough, port `51204` was in the range of excluded ports. I'm not sure why, but for some reason this happens every blue moon....
+
+The fix is pretty easy. Open a terminal *in Administrator mode* and run the following:
+
+```ps Administrator Mode
+net stop winnat
+net start winnat
+```

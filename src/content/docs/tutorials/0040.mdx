@@ -198,16 +198,35 @@ We still use the `<script>` tag to link external JavaScript files, but we do so 
                                     </li>
     
     ```
+
+1. The `defer` attribute told the browser to delay running the JavaScript until the DOM was loaded and constructed. That's great for stand-alone script files, but we'll soon discover the usefulness of **JavaScript modules**. Change the script tag once more and swap out the `defer` attribute with `type="module"`.
+
+    ```diff lang="html" "defer"
+    <head>
+        <title>HTML and JavaScript</title>
+    -    <script src="./js/main.js" defer></script>
+    +    <script src="./js/main.js" type="module"></script>
+    </head>
+    ```
+
+1. Once again, we see the desired results. While it might not look like much has changed, our `main.js` JavaScript file will now be able to use `import` statements to get ahold of other script files on it's own. meaning we would only need a single `<script>` tag in our HTML file.
+
+    Trust me, you're going to want to use the `type="module"` attribute almost all the time!
 </Steps>
 
 ## Conclusion
 
-You have incorporated JavaScript into your first HTML page. Along the way, you've probably picked up a few ideas about how browsers build the Document Object Model when it load the HTML file. Among the things to note is the importance of keeping HTML, CSS, and JavaScript code in separate files! There are several benefits to doing this, but one of the biggest is that using separate files **reduces the maintenance cost** of your code.
+You have incorporated JavaScript into your first HTML page. Along the way, you've probably picked up a few ideas about how browsers build the Document Object Model when it loads the HTML file. Among the things to note is the importance of keeping HTML, CSS, and JavaScript code in separate files! This is considered a ***best practice***. There are several benefits to doing this, but one of the biggest is that using separate files **reduces the maintenance cost** of your code.
 
-At this point, I would recommend a couple other **Best Practices** for using `<script>` tags.
+At this point, I would conclude with a couple of **Key Reminders** when using `<script>` tags.
 
 <Image src={goodDesign} alt="HTML-CSS-JS" class="float-end ml-3" width="400" />
 
+1. Prefer keeping your JavaScript code in ***external*** `.js` files rather than embedding it directly in your HTML.
 1. It's common practice to **put the `<script>` tag in the `<head>`** portion of our markup.
-1. **Use the `defer` attribute** to ensure that the entire `<body>` is loaded into the DOM before executing any of the JavaScript code.
-1. You can link to only *one* external file in a script tag using its `src` attribute. If you need to bring in more than one JavaScript file, use separate script tags with their `src` attributes linking to the desired files. Just **be careful** about the *order* in which you place those script tags.
+1. **Use the `type="module"` *or* the `defer` attribute** to ensure that the entire `<body>` is loaded into the DOM before executing any of the JavaScript code.
+1. Each `<script>` can link to only *one* external file using its `src` attribute.
+1. Though rarely needed, you can add more `<script>` tags to run separate JavaScript files; simply add them with their `src` attributes linking to the desired files.
+
+
+There are other things to consider when our JavaScript files get bigger, and we'll address those when we cover **JavaScript Modules** in an upcoming tutorial. For the moment, our JavaScript files will be short enough to only need one, and we can just use the `defer` attribute.
