@@ -14,9 +14,132 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
 > This is a continuation of the `008/` suite of demos that focus on **Event Handlers** of all sorts, including ***Form `'submit'` events***.
 
+## Demo Events
+
 <Aside type="danger" title="Skip `demo-events`">
     The `demo-events` sample includes the `<dialog>` sample, which is **too close to Lab 3**.
 </Aside>
+
+### Out-of-the-box
+
+The page has a lot working right out-of-the-box.
+
+<Steps>
+1. Run `pnpm install` in the `~/src/008/demo-events/` folder.
+1. Run the app - `pnpm dev` - to see what it does.
+
+    - Mouse moving **out** of the image will pop up dialog (dismiss it)
+    - Clicking on the heading will reveal a poem.
+    - Clicking on the image will reveal the poem.
+    - Double-clicking on the heading will hide the poem.
+1. Comment on how the code makes things appear/disappear.
+
+    - Each HTMLElement has a `.classList` property with functions to
+        - Add CSS class names: `.add('some-css-class')` *(Line 30)*
+        - Remove CSS class names: `.remove('some-css-class')` *(Line 10)*
+        - Toggle CSS class names: `.toggle('some-css-class')`
+</Steps>
+
+### Move the Code
+
+<Steps>
+1. Change the `<script>` tag to use `type="module"`.
+1. Create another file - `js/eventListeners.js` - and move some of the working code from `main.js`, effectively reducing the code in the "driver" script.
+1. Add a method that will be exported
+
+    ```js title="js/eventListeners.js"
+    const showElementOnClick = function(clickElement, revealElement) {
+        clickElement.addEventListener('click', function() {
+            console.log(`${clickElement.tagName} was clicked...`);
+            // The next line will remove the CSS class `hidden` from the element
+            revealElement.classList.remove('hidden');
+        });
+    }
+
+    export { showImageOnClick }
+    ```
+
+1. Replace the following from the `main.js`
+
+    ```diff lang="js" title="js/main.js"
+      /* Goals:
+          - Show the paragraph with the poem to the user when the user clicks on the image.
+      
+      */
+    + import { showElementOnClick } from './eventListeners';
+    + let desc = document.querySelector('.feature.description');
+    + let featureImage = document.querySelector('img.feature');
+    + let headerEl = document.querySelector('header > h1');
+    + showElementOnClick(featureImage, desc);
+    + showElementOnClick(headerEl, desc);
+    - // 1. Create a function to show the poem
+    - const handleFeatureClick = function() {
+    -     console.log('img.feature was clicked...');
+    -     let desc = document.querySelector('.feature.description');
+    -     // The next line will remove the CSS class `hidden` from the element
+    -     desc.classList.remove('hidden');
+    - }
+    - 
+    - // 2. Cause my function to be called when the user clicks on the image
+    - //    (I use the .addEventListener() on my DOM object to hook up my "response" to the "event")
+    - let featureImage = document.querySelector('img.feature');
+    - featureImage.addEventListener('click', handleFeatureClick);
+    - //                            \_____/  \________________/
+    - //                             |         |- the name of the function I want to run
+    - //                             | the name of the DOM event that I am "listening" for
+    - 
+    - // Let's use the same event handler (handlFeatureClick) for a listener on another element
+    - let headerEl = document.querySelector('header > h1');
+    - headerEl.addEventListener('click', handleFeatureClick);
+    ```
+    
+1. Add another method that will be exported
+
+    ```js title="js/eventListeners.js"
+    const hideElementOnDoubleClick = function(clickElement, hideElement) {
+        clickElement.addEventListener('dblclick', function() {
+            // The next line will add the CSS class `hidden` to the element
+            hideElement.classList.add('hidden');
+        });
+    }
+
+    export { showImageOnClick, hideElementOnDoubleClick }
+    ```
+
+1. Remove the following from the `main.js` and replace it with the call to our new method.
+
+    ```diff lang="js" title="js/main.js"
+    - // 3. Let's use a double-click on the header element to HIDE the description.
+    - //    This time, instead of passing a function by name for the event handler,
+    - //    we'll pass in an anonymous function.
+    - headerEl.addEventListener('dblclick', function () {
+    -     var desc = document.querySelector('.feature.description');
+    -     desc.classList.add('hidden');
+    - })
+    - //    An "anonymous function" is a function without a name.
+    + hideElementOnDoubleClick(headerEl, desc);
+    ```
+
+1. Did you remember to also import `hideElementOnDoubleClick`?
+</Steps>
+
+### Challenge
+
+In the browser's dev tools, let's create a variable to reference the heading. Then, let's toggle the presence of the `'hidden'` class.
+
+```js
+let h1El = document.querySelector('header > h1');
+h1El.classList.toggle('hidden');
+// What just happened??
+h1El.classList.toggle('hidden');
+// Now what happened?
+```
+
+### Study
+
+Review the fact that there are several other events that we can listen to. A lot can happen when people use the mouse on the page!
+
+----
 
 ## Demo Text Manipulation
 
@@ -27,13 +150,25 @@ Quickly do the standard setup in `~/src/008/demo-text-manipulation` by running *
 
     Generally, you want to *avoid* global variables, especially if those are being referenced inside of functions. Variables should be **scoped** so that they are accessible within a certain context.
 1. This demo focuses on simple **`'click'` event** listeners for buttons and on **text transformations** (string functions).
+
+    At this stage, we'll go ahead and keep those "globals", since our focus is more on what we can do *inside* our event handler functions. We're just using simple buttons that the user can click on.
 </Steps>
+
+<Aside type="tip" title="Homework">
+Try to complete each of the `// TODO:` items listed in the `main.js`.
+</Aside>
+
+----
 
 ## ✨ Form Processing
 
 Quickly do the standard setup in `~/src/008/form-processing` by running **`pnpm i`**. Then launch with `pnpm dev`.
 
 The **ReadMe.md** has useful commentary that students should review. This demo has *two* forms on the same page: `id='subscribe'` and `id='assorted'`. They have separate event handlers.
+
+<Aside type="tip" title="Prevent Form Submission">
+✨ It's important to remember to call `.preventDefault()` on a form to stop it from submitting!
+</Aside>
 
 ### Walk-through
 
