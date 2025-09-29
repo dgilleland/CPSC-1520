@@ -45,10 +45,15 @@ The **ReadMe.md** has useful commentary that students should review. This demo h
     - `theForm` (variable name can be whatever we want)
     - `theForm.elements`
 1. Try the next `assorted` form. Note the absence of any browser validation.
-1. Inside the listener, add `console.log()` for
+1. Inside the listener, use `console.log()` for
 
     - `target` (variable name can be whatever we want)
     - `theInputs`
+1. Work together to output aspects of getting input:
+
+    - Date, and using `new Date()`
+    - Checkbox value(s)
+    - Radio button value(s)
 1. Students can ignore the following line from the sample, but it does hint at a ***deeper truth*** about how objects and their properties/methods exist in JavaScript. 🤔
 
     ```js
@@ -107,8 +112,9 @@ This form should be filled out by the freelancer after performing the initial in
 
 Principles
 
-- Keep the handler function (event listener) **self-contained**
+1. Keep the handler function (event listener) **self-contained**
     - Leverage `event.target` to get the form, and then the target's `.elements` collection.
+1. Use **JS Modules**
 
 ----
 
