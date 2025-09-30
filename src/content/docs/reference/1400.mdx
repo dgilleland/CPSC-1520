@@ -1,0 +1,34 @@
+---
+title: Assorted Quick Tips
+description: A set of small tips
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+There are countless other small tips that are nice to know.
+
+## Managing Node Projects
+
+### Removing `node_modules` Folders
+
+As you create more and more Node projects, you will find several `node_modules` folders littering your computer. It's not unusual, especially after months or years of exploratory work or self-learning, to have dozens or even hundreds of `node_modules` folders on your system. That can eat up a *lot* of computer space!
+
+Try using <a href="https://npkill.js.org/" target="_blank">**npkill**</a> to clean up your system. Just open a stand-alone terminal on your computer and run the following.
+
+<Tabs>
+    <TabItem label="npm">
+        ```ps
+        npx npkill
+        ```
+    </TabItem>
+    <TabItem label="pnpm">
+        ```ps
+        pnpm dlx npkill
+        ```
+    </TabItem>
+</Tabs>
+
+For complete usage instructions, see <a href="https://npkill.js.org/" target="_blank">*npkill.js.org*</a>.
+
