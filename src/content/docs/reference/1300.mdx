@@ -1,0 +1,107 @@
+---
+title: JSDoc
+description: Some fundamentals about using JSDoc.
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+## The Basics
+
+> *TBD - Coming when I have the time... (TODO: General structure and TLDR of `@param`, etc.)*
+
+## Documenting Object Parameters
+
+I must say, I don't typically like taking AI-generated information and just dumping it into the things I write. But this was so succinct that it seems reasonable to put it all here. It all started with this prompt:
+
+> If I have a JavaScript function whose parameter is an object deconstruction, what are my options for documenting it with JSDocs? For example, consider this function:
+> 
+> ```js
+> export const getCurrentWeather = ({city, country, callback}) => {
+>   // the implementation is not relevant.
+>   // this function does not return anything
+> }
+> ```
+
+And here's the response (from ChatGPT 5, in Sep 2025, with edited formatting{/*  and [parenthetical inserts] */}):
+
+### ChatGPT 5
+
+Great question — JSDoc has a few idioms for when a function parameter is an object that you destructure right in the signature. Here are your main options:
+
+---
+
+#### 1. Document the parameter as a single object
+
+You can treat the parameter as one object and list its properties with `@param {Type} [options.prop]`.
+
+```js
+/**
+ * Get the current weather.
+ *
+ * @param {Object} options - Options for the request.
+ * @param {string} options.city - The city name.
+ * @param {string} options.country - The country code.
+ * @param {Function} options.callback - Called with the weather data.
+ * @returns {void}
+ */
+export const getCurrentWeather = ({ city, country, callback }) => {
+  // ...
+};
+```
+
+---
+
+#### 2. Use `@typedef` to define a shape and reference it
+
+If the shape is used in multiple places, it’s cleaner to define a reusable type.
+
+```js
+/**
+ * @typedef {Object} WeatherOptions
+ * @property {string} city - The city name.
+ * @property {string} country - The country code.
+ * @property {(data: any) => void} callback - Callback with weather data.
+ */
+
+/**
+ * Get the current weather.
+ *
+ * @param {WeatherOptions} options - The request options.
+ * @returns {void}
+ */
+export const getCurrentWeather = ({ city, country, callback }) => {
+  // ...
+};
+```
+
+---
+
+#### 3. Inline type object directly
+
+If you want compactness, you can write the whole object type inline.
+
+```js
+/**
+ * @param {{city: string, country: string, callback: Function}} options
+ * @returns {void}
+ */
+export const getCurrentWeather = ({ city, country, callback }) => {
+  // ...
+};
+```
+
+---
+
+#### 4. Document destructured params individually (less common)
+
+Some linters or IDEs support `@param {string} city` directly, but this isn’t standard JSDoc. The more portable way is to use `options.city` style.
+
+---
+
+✅ **Best practice**:
+
+* If the function is public API → go with **#2 (`@typedef`)** for clarity and reuse.
+* If it’s a one-off internal helper → **#1 or #3** are perfectly fine.
+
+----
