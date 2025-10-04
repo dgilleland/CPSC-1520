@@ -8,19 +8,44 @@ next:
 
 import { Aside, Badge, Code, FileTree, Icon, Steps } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
+import scuba from '../../../assets/stick_figure_scuba.gif';
 import tbd from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
+<Image src={tbd} alt="Under Construction" class="float-end ml-3 w-40" />
 <Aside title="Work-In-Progress (WIP)" type="caution">
-    *See [issue 42](https://github.com/dgilleland/CPSC-1520/issues/42).*
-
-    <Image src={tbd} alt="Under Construction" />
+    Roadmaps are easier to publish once the blueprints are finalized. What you see here is a **work-in-progress** (WIP) that I *whipped up* (see what I did?) for your enjoyment.
+    
+    Look for this notice to disappear once the plans for this site become clearer in my own mind. (*See [issue 42](https://github.com/dgilleland/CPSC-1520/issues/42).*)
 </Aside>
 
-Discover what you will be learning and where I'm going to take you as you start your journey into JavaScript.
+Discover what you will be learning and where I'm going to take you as you begin your journey into JavaScript.
+
+<Image src={scuba} alt="Scuba Diver - Animated Image" class="rounded-full float-end ml-3" />
+
+<Aside title="Dive In" type="note">
+    Just wanna start coding? Then jump to the [**Quick Start Tutorials**](#quickstart-tutorials) where you can begin learning JavaScript in a hands-on way.
+</Aside>
+
+### Tutorials Et.Al.
+
+import Tutorials from '../tutorials/0000.mdx';
+
+<Tutorials />
+
+But it doesn't stop there. You also need ***How-To Guides*** for the common "general-use" scenarios of using JavaScript.
+
+#### Guides
+
+import HowTo from '../guides/0000.mdx';
+
+<HowTo />
+
+
+----
 
 ## QuickStart Tutorials
 
-Did you know that you can learn JavaScript without knowing any HTML or CSS? You can!
+Did you know that you can learn JavaScript without knowing *any* HTML or CSS? You can!
 
 If that's your situation, then consider looking at the **QuickStart** tutorials. All you need is NodeJS, a terminal, and an editor like Visual Studio Code. See the [System Setup](/CPSC-1520/tutorials/0010/) on how to install these tools.
 
