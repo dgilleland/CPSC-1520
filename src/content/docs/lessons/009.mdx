@@ -1,0 +1,308 @@
+---
+title: If-Else and Form Processing
+description: SUMMARY
+sidebar:
+  badge: 
+    text: Lesson
+    variant: success
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+> This is a continuation of demos that focus on **Event Handlers** for ***Form `'submit'` events***. It expands on handling form data by performing simple validation requiring if/else statements.
+
+## Grok Decisions
+
+Run the stand-alone JavaScript files to explore Decisions in JavaScript.
+
+```ps
+node --watch grok-decisions.mjs
+```
+
+<Aside>
+    Note the file extension: `.mjs`. This is used to tell Node to support ECM `import`/`export` keywords.
+</Aside>
+
+```md
+#### Decisions, Decisions...
+
+- Basic concepts
+  - brief narrative
+  - links to articles (.e.g.: https://dgilleland.github.io/CPSC-1520/explanations/0025/#conditionals)
+
+#### Slow and Easy
+
+- [Steps 0-5](#)
+
+#### Adding Complexity
+
+- Steps 6-9
+```
+
+
+### Discussions
+
+<Steps>
+1. Define the term ***"Flow Control"***.
+1. Discuss the **idea** of if/else decisions in JavaScript, along with the **grammar** of the if/else statement.
+
+    ```js title="grok-decisions.mjs"
+    /* The If-Else statement follows this grammar:
+
+    if(conditionalExpression)
+        statementOrStatementBlock
+    else
+        statementOrStatementBlock
+
+    where the "conditionalExpression" is some expression that will result in a true or false value, and the "statementOrStatementBlock" is either a single instruction/statement or a set of statements inside curly braces (statement block).
+    */
+    ```
+
+1. Define what is meant by a "conditional expression".
+
+    <LinkButton href="/CPSC-1520/explanations/0025/#conditionals">Conditional Expressions</LinkButton>
+
+1. Compare and contrast `true`/`false` with *truthy* and *falsy* concepts.
+1. Have the students write some code to explore the `describeDataType()` and `getDataType()` functions.
+1. List the relational operators.
+
+    ```js title="grok-decisions.mjs"
+    /* Relational Operators
+
+    ==      "is equal to" - equality operator
+    !=      "is not equal to" - equality operator
+    ===     "is equal to" - identity operator
+    !==     "is not equal to" - identity operator
+    >       greater than
+    <       less than
+    >=      greater than or equal to
+    <=      less than or equal to
+    */
+    ```
+
+1. List the logical operators.
+
+    ```js title="grok-decisions.mjs"
+    /* Logical Operators
+
+    !       "NOT" operator (unary)
+    &&      "AND" operator
+    ||      "OR" operator
+    */
+    ```
+
+1. Mixing **Arithmetic** operators with **Relational** operators and **Logical** operators, along with ***operator precedence***.
+</Steps>
+
+### Demos
+
+Have the students participate in the following examples, with discussions.
+
+<Aside title="Sample Data">
+Here's some simple variables/objects that can be used for ad-hoc demos:
+
+```js
+// Step 0) Let's arrange some information
+let total = 12.95, count = 5, itemPrice = 2.59;
+let five = '5';
+let average;
+// NOTE: 2.59 * 3 === 7.77
+
+let radius = 1;
+let circumference, area;
+
+let success = true;
+let isEmployed = false; // Don't worry, you'll get there...
+
+let person = {
+    name: 'Stewart Dent',
+    hasDiploma: true
+}
+
+let job = {
+    position: 'Junior Developer',
+    hired: null
+}
+```
+
+</Aside>
+
+<Steps>
+1. Simple `if` statements
+
+    ```js title="grok-decisions.mjs"
+    // Variables may be re-used in subsequent examples
+    let success = true;
+    let isEmployed = false; // Don't worry, you'll get there...
+
+    // Step 1) A Simple if Statement
+    //          At the heart of our if statement is the conditional expression
+    if(success == true) {
+        console.log('Success! The code inside this "block" will run.');
+        console.log('Read on for more discoveries.\n');
+    }
+
+    if(success) {
+        console.log('The conditional expression in an `if` statement just needs to work out as a boolean VALUE.');
+        console.log('Since `success` is a boolean, there is no need to compare it to `true`.\n');
+    }
+
+    if(isEmployed == true) {
+        console.log('You have a job as a programmer? Then you can fast-track these simple samples...\n');
+    }
+    ```
+
+1. The `else` block.
+
+    ```js title="grok-decisions.mjs"
+    // Step 2) The else Block
+    if(isEmployed) {
+        console.log('Well, it is always good to review the fundamentals!\n');
+    } else {
+        console.log('Don\'t fear! Perseverance is always needed when job hunting!');
+        console.log('By reviewing the fundamentals, you will improve everything that builds on top of them!\n');
+    }
+    ```
+
+1. Truthy or Falsy.
+
+    ```js title="grok-decisions.mjs"
+    // Step 3) Truthy or Falsy
+    let count = 5, five = '5';
+    if(count == five) {
+        // The two values match (kinda)
+        message = `Loosely speaking, ${count} equals ${five}`;
+        console.log(message);
+    }
+
+    if(count === five) {
+        // The two values dont STRICTLY match, because they are different data types.
+        message = 'Nah, I don\'t believe you.\t';
+        console.log(message);
+    } else {
+        message = `BUT, count (${count}) is a ${typeof count} and five (${five}) is a ${typeof five}.\n`;
+        message += 'So, they are not "strictly" equal.\n';
+        console.log(message);
+    }
+    ```
+
+1. Relational Operators. (Paste this into the chat 🚡)
+
+    ```js title="grok-decisions.mjs"
+    // Step 4) Relational Operators
+    console.log('Relational Operators');
+    let result; // We'll set this value using different operators
+    console.log(' -5  -4  -3  -2  -1   0   1   2   3   4   5  ');
+    console.log('__|___|___|___|___|___|___|___|___|___|___|__');
+    ```
+
+    Also explore relational operators with ***strings***.
+
+    ```js title="grok-decisions.mjs"
+    message = `${'greater-than' > 'greater'}`;
+    console.log(message)
+    ```
+
+1. More demos (ad-hoc)
+
+    ```js title="grok-decisions.mjs"
+    // Step 5) Logical Operators
+
+    // Step 6) Flow-Control: Stacking
+
+    // Step 7) Flow-Control: Nesting
+
+    // Step 8) Complex Conditionals
+
+    // Step 9) Function Calls in Conditionals
+    ```
+
+</Steps>
+
+
+## ✨ Freelance Web Development - Quote Estimator 🆕
+
+import Freelance from './009/Freelance-Quote-Estimator.png';
+
+<Image src={Freelance} alt="Freelance Web Design" />
+
+### Talking Points
+
+Principles
+
+1. Keep the handler function (event listener) **self-contained**
+    - Leverage `event.target` to get the form, and then the target's `.elements` collection.
+1. Use **JS Modules**
+1. Demonstrate:
+    - **Form Processing**
+        - `.preventDefault()`
+        - `.elements.inputName` vs. `.elements[kebab-name]`
+        - `.value` of `<input>` and `<select>` elements
+    - **`if`/`else` Statements**
+        - Relational operators
+        - Logical operators
+        - Nesting `if`/`else` vs. complex conditions (e.g.: use of logical operators `&&` and `||` along with parenthesis to control operator precidence)
+    - **Template Strings**
+        - Along with `.innerHTML` of DOM elements
+    - **DOM Properties/Methods**
+        - `.innerHTML`
+        - `.setAttribute(attName, value)`
+        - `.getAttribute(attName)`
+    - ***Helpful Extras***
+        - Number functions:
+            - `.toFixed(digits)` - to specify the number of decimals when converting to a string (fixed-precision)
+        - String functions:
+            - `.trim()` - to get rid of leading/trailing whitespace
+            - `.endsWith(partial)` - returns a `true`/`false` if a string ends with some `partial` string
+
+
+### Walkthrough
+
+The page gathers a lot of information from the user. This information has to be vetted for correctness and then processed.
+
+import Preview from './009/Quote-Estimator.png';
+
+<Image src={Preview} alt="Quote Estimator" />
+
+<Steps>
+1. Run `pnpm install` in the `~/src/008/demo-events/` folder.
+1. Run the app - `pnpm dev` - to see what it does.
+1. Explore the HTML to get a clear understanding of the various Form controls.
+</Steps>
+
+### *Instructor TODO:*
+
+- [ ] **TODO:** Put in `~/sk/009` (complete re-write)
+  - [ ] "Scavange" from 012??
+  - [ ] `node --watch if-else.js`
+  - [ ] `node --watch switch-case.js`
+
+This form should be filled out by the freelancer after performing the initial interview with the client.
+
+- x hours/weeks at $/hour
+- base starting rate - $1,000
+- y digital assets at $10 each
+- content authoring at $0.25/word for 1000 words (or less)
+- scheduled start date
+- `<output>` elements to hold 
+    - the calculated price
+    - the estimated start date
+
+
+----
+
+## Troublshooting
+
+### Open Terminal from Finder in Mac
+
+To open a Terminal window directly from your current Finder location on a Mac, you can use the built-in Services feature or third-party applications.
+
+#### Using Built-in Services
+
+Enable Services: Go to System Preferences > Keyboard > Shortcuts > Services. Enable "New Terminal at Folder" and "New Terminal Tab at Folder".
+
+Open Terminal: Right-click on the folder in Finder. Select Services > New Terminal at Folder.
+
