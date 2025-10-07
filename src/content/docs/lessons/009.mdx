@@ -268,9 +268,65 @@ import Preview from './009/Quote-Estimator.png';
 <Image src={Preview} alt="Quote Estimator" />
 
 <Steps>
-1. Run `pnpm install` in the `~/src/008/demo-events/` folder.
+1. Run `pnpm install` in the `~/src/008/quote-system/` folder.
 1. Run the app - `pnpm dev` - to see what it does.
-1. Explore the HTML to get a clear understanding of the various Form controls.
+1. Explore the HTML to get a clear understanding of the various Form controls. Pay special attention to **input controls** and their associated `name` and `id` attributes.
+1. Explore the JavaScript file to see the starter code. Make note of how the individual **input controls** are being referenced/located in the DOM.
+1. Observe how we are using a single `<output name="breakdown">` to give written feedback to the user. (Other visual cues, such as formatting of input elements, will be given later.)
+1. Choosing a validation approach ("optimistic" vs. "pessimistic"), particularly when facing multiple aspects of validation, is partly a matter of preference and partly a matter of how you want to deal with invalid user input.
+
+    In this situation, we're going to take an "optimistic" approach.
+
+    ```js title="js/main.js"
+            let isValidInput = true; // Optimistic approach
+            let errorSummary = ""; // No problems to report (yet)
+    ```
+
+1. At the end of the validation phase, you need to do a check to see if you should continue processing the form inputs or if you should simply report the problems to the user and re-focus the user's attention on the form inputs.
+
+    ```js title="js/main.js"
+            // Step 1) Decide if I process or report errors
+            if(isValidInput) {
+                // Step 2) Do all the processing of the user inputs
+                // TODO: Create the estimate...
+            } else {
+                // Step 3) Report that the user needs to try again
+                outputControl.value = errorSummary;
+                inputJobDuration.focus(); // re-set focus to the first input
+            }
+    ```
+
+1. **TODO:** Begin Validation...
+
+    ```js title="js/main.js"
+            // Step 0) Validate user input
+            //      - job duration must be greater than zero
+            let jobDuration = parseFloat(inputJobDuration.value);
+            if(isNaN(jobDuration)) {
+                isValidInput = false;
+                errorSummary += "Job duration is required.\n";
+            } else {
+                // Yes, it's a number, BUT
+                if(jobDuration <= 0) {
+                    isValidInput = false;
+                    errorSummary += "Job duration must be greater than zero.\n";
+                }
+            }
+            //      - interval selection must be made (hours vs. weeks)
+            let missingHoursInput = !inputRadioHours.checked;
+            let missingWeeksInput = !inputRadioWeeks.checked;
+            if(missingHoursInput && missingWeeksInput) {
+                isValidInput = false;
+                errorSummary += "You must choose either Hours or Weeks for the duration.\n";
+            }
+            //      - base rate must be $1000 or greater
+            let baseRate = parseFloat(inputBaseRate.value);
+            if(isNaN(baseRate) || baseRate < 1000) {
+                isValidInput = false;
+                errorSummary += "A base rate is required and must be $1000 or higher.\n";
+            }
+    ```
+
 </Steps>
 
 ### *Instructor TODO:*
