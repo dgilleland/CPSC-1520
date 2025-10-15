@@ -220,6 +220,48 @@ total = price * quantity;
 
 ----
 
+### Arithmetic Operators
+
+**Arithmetic Operators** are used to manipulate numeric information mathematically. They are used in [expressions](#expressions) to produce a single value. Most arithmetic operators are **binary** operators, where the operator sits "between" to items (one on the left-hand side, one on the right-hand side). The left-hand and right-hand sides of an operator are called **operands**.
+
+```js "leftHand" "Operator" "rightHand" title="Binary Operators"
+leftHand operator rightHand
+```
+
+The parts of the grammar are the
+
+- `leftHand` - any valid JavaScript expression
+- `operator` - one of the following:
+  - **`+`** Plus
+  - **`-`** Minus
+  - **`*`** Multiply
+  - **`/`** Divide
+  - **`%`** Modulus
+- `rightHand` - any valid JavaScript expression
+
+Expressions can contain complex arithmetic operations, but each operation is *evaluated* (turned into a single value) one at a time. The order of operations follows standard operation precedence in math (multiplication, division and modulus before addition and subtraction). When the precedence of operators are the same, the order of operations is performed from left to right. This order can be overridden using parenthesis. The following is an illustration of the order of operations for a complex arithmetic expression.
+
+```js title="Operator Precedence"
+    (10 + 5 + 12) / 3 + 4.5 * 2
+//  (10 + 5 + 12)                 Parenthesis takes Precedence
+//   10 + 5                       First operation - Addition
+//      ⇩
+//      15  + 12                  Second operation - Addition
+//          ⇩
+//          27    / 3             Third operation - Division
+//                ⇩
+//                9   + 4.5 * 2
+//                      4.5 * 2   Fourth operation - Multiplication
+//                          ⇩
+//                9    +    9     Fifth operation - Addition
+//                     ⇩
+//                     18         Final value
+```
+
+Arithmetic operators are intended for use with numbers. When either operand is not a number, the JavaScript engine will attempt to convert the operand into a number. The only exception is when the plus &mdash; `+` &mdash; operator is used and one or more operands are not numbers; in this case, the `+` operator is used to perform *string concatenation*.
+
+----
+
 ## Flow-Control Statements
 
 Flow-Control Statements are a crucial part of the procedural characteristics within the JavaScript language. They provide the capabilities of ***alternative paths of logic*** (`if-else` and `switch`) and ***repetition*** (`for`, `while` and their variants). They also provide the ability to "jump into" functions through ***function calls***.
