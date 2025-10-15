@@ -1,0 +1,132 @@
+---
+title: Logical Errors
+description: An exploration of common problems with logical errors. One such example includes "faulty" conditional expressions.
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+<Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
+<Aside title="Work-In-Progress (WIP)" type="caution">
+*See [issue ?](https://github.com/dgilleland/CPSC-1520/issues).*
+</Aside>
+
+Fixing logical errors in our code can be the most challenging part, if only because some logical errors are tricky to find (paticularly after our code goes into production).
+
+## "Faulty" Conditionals
+
+One place where logical errors take place is in [*conditional expressions*](/CPSC-1520/reference/0020/#conditional-expressions). This is especially problematic in JavaScript, where conditional expressions can be "truthy" or "falsy". Here are some of the common errors you might make when starting out with JavaScript.
+
+
+### Over-Simplifying Expressions
+
+One common misstep is when you incorrectly "over-simplify" an expression. Consider a situation where you want to verify that a grade falls between zero and one hundred, inclusive. At first, you might think you can just "chain" your relational operators.
+
+```js title="❌ Incorrect Operator Simplification"
+if (0 <= grade <= 100) { // Wrong
+    // ...
+}
+```
+
+The error here is forgetting that *each operation is performed independently*. Thus, in the expression `0 <= grade <= 100`, the computer executes the operations in this order:
+
+```js title="Why It Fails ⁉️"
+// Suppose that the value for grade happens to be 125
+if (0 <= grade <= 100) {
+//  0 <=  125            ⇦ The first comparison
+//     ⇩
+//    true     <= 100
+//                 ⇩
+//                true   ⇦ 100 is considered "truthy"
+//    true     <= true   ⇦ Relational operators are intended for numeric types ❌
+//             ⇩
+//           true        ⇦ Therefore, this expression will
+//                          ALWAYS be true!
+}
+```
+
+The proper way is to *expand* the expression to compare grade to the boundary values (`0` and `100`) separately.
+
+```js title="✅ The Proper Way"
+if (0 <= grade && grade <= 100) { // Correct!
+    // ...
+}
+```
+
+Here's another example of wrongly simplifying a comparison.
+
+> Check to see if `x` is greater than both `y` and `z`
+
+```js title="❌ Incorrectly Simplified"
+if (x > y && z) {
+    // ...
+}
+```
+
+And the correct way is to do the following.
+
+```js title="✅ Individual Comparisons"
+if (x > y && x > z) {
+    // ...
+}
+```
+
+
+### Assignment - NOT Comparison
+
+Another problem that can occur is one where you use the *Assignment Operator* instead of the "Is-Equal-To" operator (`==`). This can be happen by making a simple typo when writing your code.
+
+Accidentally using the assignment operator can lead to **impossible conditions**. Impossible Conditions are ones where it's impossible to get *either* a `true` or a `false` result. Instead, the expression will *always* be true, or it will *always* be false.
+
+In this example, the expression is always `true` because we assigned the value `100` to the `grade`, making the conditional expression "truthy".
+
+```js title="❌ Always True"
+if (grade = 100) {
+    // ...
+}
+```
+
+However, in this example, the expression is always `false`, because the assigned value - `0` - is "falsy".
+
+```js title="❌ Always False"
+if (grade = 0) {
+    // ...
+}
+```
+
+The same kind of problem can occur with strings, as in the following example.
+
+```js title="❌ Always False"
+if (errorMessage = "") {
+    // ...
+}
+```
+
+
+### JavaScript is NOT English
+
+Sometimes the problem with our conditional expression happens when we mistakenly translate the English word "and" into the `&&` operation. Consider this problem statement.
+
+> A grade is invalid when it is less than zero **and** when it is greater than one hundred.
+
+If we take the word "and" literally, we might make this mistake.
+
+```js "&&" title="❌ Always False"
+// Assume grade is 125
+if (grade < 0 && grade > 100) { // Checking for an invalid grade
+  // This code will never run, because the condition is always false
+}
+```
+
+The reason the conditional expression is always false is because the `&&` operator requires both operands to be `true` for the whole expression to be true. The problem is that it's impossible for a single value (`grade`) to be both *less than* zero and *greater than* one hundred **at the same time**!
+
+Here's the correct way to interpret the problem statement.
+
+```js "and" "||" title="✅ The Correct Translation to JavaScript"
+// Assume grade is 125
+// A grade is invalid when it is less than zero and when it is greater than one hundred.
+if (grade < 0 || grade > 100) {
+  // Now we will detect the invalid grade 😃
+}
+```
