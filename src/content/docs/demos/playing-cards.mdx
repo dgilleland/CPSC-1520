@@ -1,0 +1,121 @@
+---
+title: Cards
+description: SUMMARY
+sidebar:
+  label: Playing Cards
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+{/* 1) The outer "scene" that gives perspective */}
+<div class="float-end ml-3 card-scene">
+  {/* 2) The inner flipper that we'll rotate */}
+  <div class="card-inner">
+    {/* 3a) Front face */}
+    <img
+      src="https://deckofcardsapi.com/static/img/7D.png"
+      alt="7 of Diamonds"
+      class="card-face card-side-up"
+    />
+    {/* 3b) Back face */}
+    <img
+      src="https://deckofcardsapi.com/static/img/back.png"
+      alt="Card Back"
+      class="card-face card-side-down"
+    />
+  </div>
+</div>
+
+A fun demo that's also good for learning JavaScript is to model the concepts around **card games**. Not only do we get to design *JavaScript objects* with interesting properties, we also get to create interesting *logic* for manipulating playing cards within a deck.
+
+## The Playing Card
+
+How would you design the idea of a playing card in a standard deck of 52 cards? Begin with pondering the *information* that makes up the concept of a playing card.
+
+A playing card can be one of four **suits**.
+
+- ♠️ Spades
+- ♥️ Hearts
+- ♦️ Diamonds
+- ♣️ Clubs
+
+Next, a playing card has a **value** which can range from 2 to 10 and the *named values* of "Jack", "Queen", "King", and "Ace".
+
+Together, the **suit** and **value** make up the essense of a standard playing card. In JavaScript, we could represent it as an object.
+
+```js
+let card = { suit: 'Diamonds', value: '7' };
+```
+
+### Design Implications
+
+While the idea of a playing card is pretty simple, we can quickly run into a number of *design implications* when we want to use apply the concept to any given program.
+
+First of all is the question of the range of [possible values](#possible-values) for any given playing card. Next might be how we want to [conceptualize those values](#value-concepts). After that, we will probably want to investigate the idea of [collections of cards](#piles) and the most common collection: the [**Deck**](#decks).
+
+### Possible Values
+
+It can be useful to have a couple of sources that represent all the possible *suits* and *values* in a standard deck. Your first thought might be to make these as simple arrays.
+
+```js
+const cardSuits = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
+const cardValues = [ 'Ace', '2', '3', '4', '5', '6', '7',
+                 '8', '9', '10', 'Jack', 'Queen', 'King' ];
+```
+
+Notice how we treat all the values as strings. We're doing that to have a sense of ***type consistency*** between the idea of a "Two" and an "Ace".
+
+A problem with using arrays, however, is that arrays are *mutable* by default. That means we could potentially add or remove items from the array.
+
+```js
+// Bad idea
+suits.push('Feet'); // ??
+// [ 'Spades', 'Hearts', 'Diamonds', 'Clubs', 'Feet' ]
+```
+
+Is there a way to prevent that? Yes, there is! We can use the <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze" target="_blank">`Object.freeze()`</a>. With it, we can make our `suits` and `values` **immutable** (or *unchangeable*).
+
+> *"Freezing an object is the highest integrity level that JavaScript provides."* &ndash; <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze" target="_blank">MDN</a>
+
+```js
+const CARD_SUITS = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
+Object.freeze(CARD_SUITS); // Make suits immutable
+const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7',
+                     '8', '9', '10', 'Jack', 'Queen', 'King' ];
+Object.freeze(CARD_VALUES);
+```
+
+Notice the little adjustment to the names we're using for these *fixed* arrays. We're putting the variable names in all upper-case as a visual 'cue' that these cannot physically be modified.
+
+<Aside type="tip" title="Limitations of Object.Freeze">
+There's a limitation to the `Object.freeze()` method. Freezing is **shallow**. This means that if we apply it to an array of *objects*, each object is unchangable but the *properties* of the object *could* still be changed.
+
+```js
+const parents = [{ name: 'Stewart', born: 1995 }, { name: 'Anna', born: 1997 }];
+Object.freeze(parents);
+parents[0] = { name: 'Herbert', born: 1992 }; // ❌ Won't work
+parents[0].name = 'Herbert'; // ✅ Will work!
+```
+
+You will probably be better off freezing arrays Keep that in mind for whenever you decide to use `Object.freeze()`.
+</Aside>
+
+### Value Concepts
+
+
+## Desks
+
+
+## Piles
+
+
+
+
+```js
+{
+  name: 'Two',
+  symbol: '2',
+  weight: 2
+}
+```

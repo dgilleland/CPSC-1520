@@ -34,6 +34,43 @@
 
 /* Custom Styling */
 
+/* Playing Cards */
+/* 1) Give a 3D perspective */
+.card-scene {
+  @apply w-32 h-44 ;
+  perspective:1000px;
+}
+
+/* 2) This is the thing that actually flips */
+.card-inner {
+  @apply w-full h-full relative
+         transition-transform duration-500;
+  transform-style: preserve-3d;
+}
+
+/* 3) Both faces occupy the same space, hidden when flipped away */
+.card-face {
+  @apply w-full h-full absolute top-0 left-0
+         object-cover !my-0;
+  backface-visibility:hidden 
+}
+
+/* 3a) Front stays “as is” */
+.card-side-up {
+  /* no extra transform */
+}
+
+/* 3b) Back is rotated 180° so it shows when the inner flips */
+.card-side-down {
+  transform: rotateY(180deg);
+}
+
+/* 4) On hover, flip the inner container */
+.card-scene:hover .card-inner {
+  transform: rotateY(180deg);
+}
+
+
 /* kbd { // CREDITS: from https://www.rgagnon.com/jsdetails/js-nice-effect-the-KBD-tag.html
 	margin: 0px 0.1em;
 	padding: 0.1em 0.6em;
