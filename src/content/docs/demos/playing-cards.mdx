@@ -204,7 +204,11 @@ This will become very useful down the road in terms of generating *intellisense*
 
 ```js
 /**
- * @param {Card} card
+ * Describe a playing card.
+ * 
+ * @param {Card} card A playing card object
+ * @param {boolean} valueName Whether or not to use the name or the digit for the value (defaults to `true`)
+ * @param {boolean} emoji Whether or not to use an emoji for the suit (defaults to `false`)
 */
 function nameCard(card, valueName = true, emoji = false) {
   const valueIndex = CARD_VALUES.indexOf(card.value);
