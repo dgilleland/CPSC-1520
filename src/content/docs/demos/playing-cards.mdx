@@ -52,7 +52,11 @@ let card = { suit: 'Diamonds', value: '7' };
 
 While the idea of a playing card is pretty simple, we can quickly run into a number of *design implications* when we want to use apply the concept to any given program.
 
-First of all is the question of the range of [possible values](#possible-values) for any given playing card. Next might be how we want to [conceptualize those values](#value-concepts). After that, we will probably want to investigate the idea of [collections of cards](#piles) and the most common collection: the [**Deck**](#decks).
+First of all is the question of the range of [possible values](#possible-values) for any given playing card. Next might be how we want to [conceptualize those values](#value-concepts). After that, we will probably want to investigate the idea of [collections of cards](#piles) and the most common collection: the [**Deck**](#decks). Once we start working with collections, we might want some way to [identify specific cards](#card-codes) in the deck.
+
+All of these core questions and concerns will, themselves, have implications when we think about how a particular *card game* might be designed, such as **War**, **Go Fish** or **Solitaire**.
+
+In this demo, I want to walk you through some possible ways to address those core concerns and how JavaScript can be an excellent language to model playing cards.
 
 ### Possible Values
 
@@ -61,7 +65,7 @@ It can be useful to have a couple of sources that represent all the possible *su
 ```js
 const cardSuits = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
 const cardValues = [ 'Ace', '2', '3', '4', '5', '6', '7',
-                 '8', '9', '10', 'Jack', 'Queen', 'King' ];
+                     '8', '9', '10', 'Jack', 'Queen', 'King' ];
 ```
 
 Notice how we treat all the values as strings. We're doing that to have a sense of ***type consistency*** between the idea of a "Two" and an "Ace".
@@ -74,16 +78,18 @@ suits.push('Feet'); // ??
 // [ 'Spades', 'Hearts', 'Diamonds', 'Clubs', 'Feet' ]
 ```
 
-Is there a way to prevent that? Yes, there is! We can use the <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze" target="_blank">`Object.freeze()`</a>. With it, we can make our `suits` and `values` **immutable** (or *unchangeable*).
+Is there a way to prevent that? Yes, there is! We can use <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze" target="_blank">**`Object.freeze()`**</a>. With it, we can make our `suits` and `values` **immutable** (or *unchangeable*).
 
 > *"Freezing an object is the highest integrity level that JavaScript provides."* &ndash; <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze" target="_blank">MDN</a>
+
+Here's how we can do this. (For the same of completeness, I've also included the 'Joker' as a possible value, even though it's "special" in the sense that a standard deck comes with only two Jokers and they are never associated with a card suit.)
 
 ```js
 const CARD_SUITS = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
 Object.freeze(CARD_SUITS); // Make suits immutable
-const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7',
-                     '8', '9', '10', 'Jack', 'Queen', 'King' ];
-Object.freeze(CARD_VALUES);
+const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7', '8',
+                      '9', '10', 'Jack', 'Queen', 'King', 'Joker' ];
+Object.freeze(CARD_VALUES); // Make values immutable
 ```
 
 Notice the little adjustment to the names we're using for these *fixed* arrays. We're putting the variable names in all upper-case as a visual 'cue' that these cannot physically be modified.
@@ -101,7 +107,86 @@ parents[0].name = 'Herbert'; // ✅ Will work!
 You will probably be better off freezing arrays Keep that in mind for whenever you decide to use `Object.freeze()`.
 </Aside>
 
+
 ### Value Concepts
+
+{/* 1) The outer "scene" that gives perspective */}
+<div class="float-end ml-3 card-scene">
+  {/* 2) The inner flipper that we'll rotate */}
+  <div class="card-inner">
+    {/* 3a) Front face */}
+    <img
+      src="https://deckofcardsapi.com/static/img/QH.png"
+      alt="Queen of Hearts"
+      class="card-face card-side-up"
+    />
+    {/* 3b) Back face */}
+    <img
+      src="https://deckofcardsapi.com/static/img/back.png"
+      alt="Card Back"
+      class="card-face card-side-down"
+    />
+  </div>
+</div>
+
+With the frozen `CARD_SUITS` and `CARD_VALUES`, we already have a pretty healthy start to our game pieces. If we wanted to, we could start writing the code for a simple game begining with these two variables.
+
+But what if we wanted some *variety* in how we communicate the ideas of *suits* and *values*? For example, we might want to talk about the "2 of Hearts" or the "Two of Hearts". One way uses the digit `2` while the other uses the word `"Two"`. Furthermore, we might interested in using *emojii symbols* for the suits themselves.
+
+Let's expand on our two arrays with two more arrays: `CARD_VALUE_NAMES` and `CARD_SUIT_SYMBOLS`
+
+
+```js
+const CARD_SUITS = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
+const CARD_SUIT_SYMBOLS = [ '♠️', '♥️', '♦️', '♣️' ];
+const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7', '8',
+                      '9', '10', 'Jack', 'Queen', 'King', 'Joker' ];
+const CARD_VALUE_NAMES = [ 'Ace', 'Two', 'Three', 'Four', 'Five',
+                           'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                           'Jack', 'Queen', 'King', 'Joker' ];
+
+// Make these immutable
+Object.freeze(CARD_SUITS);
+Object.freeze(CARD_SUIT_SYMBOLS);
+Object.freeze(CARD_VALUES);
+Object.freeze(CARD_VALUE_NAMES);
+```
+
+Notice the great care I took in building these arrays. Each pair of arrays are set up as ***parallel** arrays*. A Parallel Array (or *corresponding* array) is one where the items in the arrays *correspond* to each other based on their *position* in the array.
+
+Thus, `CARD_VALUES[1]` maps to `CARD_VALUE_NAMES[1]`, allowing me to treat `'2'` and `'Two'` as being conceptually equivalent. Likewise, `CARD_SUITS[2]` and `CARD_SUIT_SYMBOLS[2]` are also talking about the same suit: `♦️` is the symbol for 'Diamonds'.
+
+With these, we can create nice utility functions to generate content for the end-user.
+
+```js
+function nameCard(valueIndex, suitIndex) {
+  return `${CARD_VALUE_NAMES[valueIndex]} of ${CARD_SUITS[suitIndex]}`;
+}
+```
+
+
+What about when we combine a suit and a value to be a specific individual card? What should such an object "look like"? Honestly, it doesn't matter. You can design it in whatever way suits you. (*I've been waiting to deal out that pun!*)
+
+it's possible to construct an individual card object as having a complex representation. 
+
+```
+let cardInSleeve = {
+  suit: '♦️',
+  value: 'Ace',
+  name: 'Ace of Diamonds'
+}
+```
+
+```js
+{
+  name: 'Two',
+  symbol: '2',
+  weight: 2
+}
+```
+
+### Card Codes
+
 
 
 ## Desks
@@ -111,11 +196,3 @@ You will probably be better off freezing arrays Keep that in mind for whenever y
 
 
 
-
-```js
-{
-  name: 'Two',
-  symbol: '2',
-  weight: 2
-}
-```
