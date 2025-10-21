@@ -196,6 +196,34 @@ We'll revise our object designs once we get into creating certain algorithms. As
 
 ### Card Codes
 
+There's an API I want to eventually show you that's all about playing cards. It's called <a href="https://deckofcardsapi.com/" target="_blank">DeckOfCardsAPI.com</a>. It's a free API that you can use to generate decks of cards along with as many associated piles of cards that you might want for your game. In fact, the card images I am using on this site come from DeckOfCardsAPI.com. Some of my design choices for playing cards have been shaped by how they use/represent cards.
+
+<Aside title="Deck Of Cards API">
+    This API by **Chase Roberts** is ***great*** for card games! It's extremely versatile while still keeping a "lean" design. It will remember your deck and piles so that you can come back later and continue using it. It will only discard your deck after two weeks of non-use. Free to use. No API key required.
+
+    <LinkButton href="https://deckofcardsapi.com/" target="_blank" icon="star">Deck Of Cards API</LinkButton>
+
+    ✨ Give <a href="https://github.com/crobertsbmw/deckofcards" target="_blank">his repository on GitHub</a> a star!
+</Aside>
+
+One of the aspects of that API that I like to use is the notion of a ***code*** that uniquely identifies a playing card. In fact, it's probably the one design decision that makes it affordable and possible to store everybody's cards and piles for as long as they do!
+
+Each card can be represented simply by a two-character code that identifies the value and the suit. The first character is the digit or first letter of the card's *value* (with the one exception of the value `10`, which is represented by a `'0'`). The second character is the first letter of the card's *suit* (in upper-case). That's it! It's elegant and clean. All of the other aspects of their JSON responses can be programmatically generated on-the-fly from that two-character code.
+
+Let's add that to our set of value concepts.
+
+```js
+const CARD_CODES = ['AS', '2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '0S', 'JS', 'QS', 'KS', 'AD', '2D', '3D', '4D', '5D', '6D', '7D', '8D', '9D', '0D', 'JD', 'QD', 'KD', 'AC', '2C', '3C', '4C', '5C', '6C', '7C', '8C', '9C', '0C', 'JC', 'QC', 'KC', 'AH', '2H', '3H', '4H', '5H', '6H', '7H', '8H', '9H', '0H', 'JH', 'QH', 'KH'];
+Object.freeze(CARD_CODES);
+```
+
+With this, we can include some simple utility functions to handle mapping card codes to suits and values.
+
+```js
+const isCardCode = (code) => typeof code === string && code.length === 2 && 'A234567890JQK'.includes(code[0]) && 'SHDC'.includes(code[1]);
+// TODO:
+// const suitFromCode = (code) =>
+```
 
 ## Redesigned Playing Card
 
@@ -240,7 +268,13 @@ function nameCard(card, valueName = true, emoji = false) {
 ## Piles
 
 
+----
+
 ## Card Algorithms
+
+### Generating a Card Code
+
+We can programmatically generate a [card code](#card-codes) from the suit and value arrays. It won't be as efficient as a hard-coded array, but it's a great example of using a loop within a loop!
 
 ### Shuffling Cards
 
