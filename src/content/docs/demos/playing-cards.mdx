@@ -82,7 +82,7 @@ Is there a way to prevent that? Yes, there is! We can use <a href="https://devel
 
 > *"Freezing an object is the highest integrity level that JavaScript provides."* &ndash; <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze" target="_blank">MDN</a>
 
-Here's how we can do this. (For the same of completeness, I've also included the 'Joker' as a possible value, even though it's "special" in the sense that a standard deck comes with only two Jokers and they are never associated with a card suit.)
+Here's how we can do this. (For the sake of completeness, I've also included the 'Joker' as a possible value, even though it's "special" in the sense that a standard deck comes with only two Jokers and they are never associated with a card suit.)
 
 ```js
 const CARD_SUITS = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
@@ -92,7 +92,7 @@ const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7', '8',
 Object.freeze(CARD_VALUES); // Make values immutable
 ```
 
-Notice the little adjustment to the names we're using for these *fixed* arrays. We're putting the variable names in all upper-case as a visual 'cue' that these cannot physically be modified.
+Notice the little adjustment to the names we're using for these *fixed* arrays. We're putting the variable names in all upper-case as a visual 'cue' that these cannot physically be modified. That cue can remind us that these are immutable/unchanging.
 
 <Aside type="tip" title="Limitations of Object.Freeze">
 There's a limitation to the `Object.freeze()` method. Freezing is **shallow**. This means that if we apply it to an array of *objects*, each object is unchangable but the *properties* of the object *could* still be changed.
@@ -104,7 +104,7 @@ parents[0] = { name: 'Herbert', born: 1992 }; // ❌ Won't work
 parents[0].name = 'Herbert'; // ✅ Will work!
 ```
 
-You will probably be better off freezing arrays Keep that in mind for whenever you decide to use `Object.freeze()`.
+You will probably be better off freezing arrays when their elements are *primitives*. Keep that in mind for whenever you decide to use `Object.freeze()`.
 </Aside>
 
 
@@ -129,9 +129,9 @@ You will probably be better off freezing arrays Keep that in mind for whenever y
   </div>
 </div>
 
-With the frozen `CARD_SUITS` and `CARD_VALUES`, we already have a pretty healthy start to our game pieces. If we wanted to, we could start writing the code for a simple game begining with these two variables.
+With the frozen `CARD_SUITS` and `CARD_VALUES`, we already have a pretty healthy start to our game pieces. If we wanted to, we could start writing the code for a simple game using just these two variables.
 
-But what if we wanted some *variety* in how we communicate the ideas of *suits* and *values*? For example, we might want to talk about the "2 of Hearts" or the "Two of Hearts". One way uses the digit `2` while the other uses the word `"Two"`. Furthermore, we might interested in using *emojii symbols* for the suits.
+But what if we wanted some *variety* in how we communicate the ideas of *suits* and *values*? For example, we might want to talk about the "2 of Hearts" or the "Two of Hearts". One way uses the digit `2` while the other uses the word `"Two"`. Furthermore, we might be interested in using *emoji symbols* for the suits.
 
 Let's expand on our two arrays with two more arrays: `CARD_VALUE_NAMES` and `CARD_SUIT_SYMBOLS`.
 
@@ -179,15 +179,20 @@ let cardInSleeve = {
 }
 ```
 
-We'll Revisit
+We'll revise our object designs once we get into creating certain algorithms. As long as we've got some common core concepts coded, we can transform and re-map these to whatever shape we want later on.
 
-```js
-{
-  name: 'Two',
-  symbol: '2',
-  weight: 2
-}
-```
+<Aside title="Weighted Values">
+  Here's another possible design that is concerned with assigning some weight to a card for a game of <a href="https://officialgamerules.org/game-rules/rummy/" target="_blank">Rummy</a>.
+
+  ```js
+    {
+      name: 'Jack',
+      symbol: '♦️',
+      weight: 10
+    }
+  ```
+
+</Aside>
 
 ### Card Codes
 
