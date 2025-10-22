@@ -220,7 +220,7 @@ Object.freeze(CARD_CODES);
 With this, we can include some simple utility functions to handle mapping card codes to suits and values and vice-versa.
 
 ```js
-const isCardCode = (code) => typeof code === string && code.length === 2 && 'A234567890JQK'.includes(code[0]) && 'SHDC'.includes(code[1]);
+const isCardCode = (code) => typeof code === 'string' && code.length === 2 && 'A234567890JQK'.includes(code[0]) && 'SHDC'.includes(code[1]);
 
 const suitFromCode = (code) => CARD_SUITS.find(suit => suit.startsWith(code[1]));
 const valueFromCode = (code) => CARD_VALUES.find(value => value.startsWith(code[0] || value.endsWith(code[0])));
@@ -322,14 +322,14 @@ const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7', '8',
 const CARD_VALUE_NAMES = [ 'Ace', 'Two', 'Three', 'Four', 'Five',
                            'Six', 'Seven', 'Eight', 'Nine', 'Ten',
                            'Jack', 'Queen', 'King', 'Joker' ];
-const CARD_CODES = ['AS', '2S', '3S', '4S', '5S', '6S', '7S',
-                    '8S', '9S', '0S', 'JS', 'QS', 'KS',
-                    'AD', '2D', '3D', '4D', '5D', '6D', '7D',
-                    '8D', '9D', '0D', 'JD', 'QD', 'KD',
-                    'AC', '2C', '3C', '4C', '5C', '6C', '7C',
-                    '8C', '9C', '0C', 'JC', 'QC', 'KC',
-                    'AH', '2H', '3H', '4H', '5H', '6H', '7H',
-                    '8H', '9H', '0H', 'JH', 'QH', 'KH'];
+const CARD_CODES = [ 'AS', '2S', '3S', '4S', '5S', '6S', '7S',
+                     '8S', '9S', '0S', 'JS', 'QS', 'KS',
+                     'AD', '2D', '3D', '4D', '5D', '6D', '7D',
+                     '8D', '9D', '0D', 'JD', 'QD', 'KD',
+                     'AC', '2C', '3C', '4C', '5C', '6C', '7C',
+                     '8C', '9C', '0C', 'JC', 'QC', 'KC',
+                     'AH', '2H', '3H', '4H', '5H', '6H', '7H',
+                     '8H', '9H', '0H', 'JH', 'QH', 'KH'];
 
 // Make these immutable
 Object.freeze(CARD_SUITS);
@@ -339,17 +339,22 @@ Object.freeze(CARD_VALUE_NAMES);
 Object.freeze(CARD_CODES);
 
 // Utility functions
-const isCardCode = (code) => typeof code === string &&
+/**
+ * Determine if the string is a valid card code
+ *
+ * @param {string} code - A string to examine
+ * @returns {boolean} `true` if `code` is a valid card code
+ */
+const isCardCode = (code) => typeof code === 'string' &&
                              code.length === 2 &&
                              'A234567890JQK'.includes(code[0]) &&
                              'SHDC'.includes(code[1]);
 
-const suitFromCode = (code) => CARD_SUITS.find(suit => 
+const suitFromCode = (code) => CARD_SUITS.find(suit =>
                                suit.startsWith(code[1]));
-const valueFromCode = (code) => CARD_VALUES.find(value => 
+const valueFromCode = (code) => CARD_VALUES.find(value =>
                                 value.startsWith(code[0] || value.endsWith(code[0])));
-const toCode = 
-      ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]}`;
+const toCode = ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]}`;
 
 /**
  * Build a single playing card from a card code.
@@ -358,7 +363,7 @@ const toCode =
  *
  * @param {string} code - A valid card code
  * @returns {Card | null} A playing card
-*/
+ */
 const buildCard = (code) => {
     let result = null;
     if(isCardCode(code)) {
@@ -376,7 +381,7 @@ const buildCard = (code) => {
  * Build a fresh deck of cards
  *
  * @returns {Deck}
-*/
+ */
 const buildDeck = () => {
     return {
         shuffled: false,
@@ -390,7 +395,7 @@ const buildDeck = () => {
  * @param {Card} card A playing card object
  * @param {boolean} valueName `true` to use the name or the digit for the value (defaults to `true`)
  * @param {boolean} emoji `true` to use an emoji for the suit (defaults to `false`)
-*/
+ */
 function nameCard(card, valueName = true, emoji = false) {
   const valueIndex = CARD_VALUES.indexOf(card.value);
   const suitIndex = CARD_SUITS.indexOf(card.suit);
