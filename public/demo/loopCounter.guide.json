@@ -1,0 +1,19 @@
+{
+  "codeBlock": "/demo/loopCounter.js",
+  "variables": [
+    { "name": "skip", "type": "number", "value": "3" },
+    { "name": "message", "type": "string", "value": "" },
+    { "name": "numbers", "type": "Array", "value": [] },
+    { "name": "index", "type": "number", "value": "" }
+  ],
+  "steps": [
+    { "line": 6, "expect": { "index": "3" } },
+    { "line": 7, "expect": { "numbers": { "length": 1, "current": [ "" ], "expected": ["3"] } }},
+    { "line": 6, "expect": { "index": "6" } },
+    { "line": 7, "expect": { "numbers": { "length": 2, "current": [ "3", "" ], "expected": ["3", "6"] } }},
+    { "line": 6, "expect": { "index": "9" } },
+    { "line": 7, "expect": { "numbers": { "length": 3, "current": [ "3", "6", "" ], "expected": ["3", "6", "9"] } }},
+    { "line": 6, "expect": { "index": "12" } },
+    { "line": 9, "expect": { "message": "Skip by 3: 3, 6, 9" }}
+  ]
+}
