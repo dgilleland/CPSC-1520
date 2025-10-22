@@ -365,16 +365,16 @@ const toCode = ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]
  * @returns {Card | null} A playing card
  */
 const buildCard = (code) => {
-    let result = null;
-    if(isCardCode(code)) {
-        result = {
-            code:x,
-            suit: suitFromCode(x),
-            value: valueFromCode(x)
-        }
+  let result = null;
+  if(isCardCode(code)) {
+    result = {
+      code:x,
+      suit: suitFromCode(x),
+      value: valueFromCode(x)
     }
+  }
 
-    return result;
+  return result;
 }
 
 /**
@@ -383,10 +383,10 @@ const buildCard = (code) => {
  * @returns {Deck}
  */
 const buildDeck = () => {
-    return {
-        shuffled: false,
-        cards: CARD_CODES.map(buildCard)
-    }
+  return {
+    shuffled: false,
+    cards: CARD_CODES.map(buildCard)
+  }
 };
 
 /**
