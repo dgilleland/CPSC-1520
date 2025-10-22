@@ -359,7 +359,7 @@ const toCode = ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]
 /**
  * Build a single playing card from a card code.
  *
- * If the supplied code is not a valid card code, then this function returns null
+ * If the supplied code is not a valid card code, then this function returns null.
  *
  * @param {string} code - A valid card code
  * @returns {Card | null} A playing card
@@ -368,9 +368,9 @@ const buildCard = (code) => {
   let result = null;
   if(isCardCode(code)) {
     result = {
-      code:x,
-      suit: suitFromCode(x),
-      value: valueFromCode(x)
+      code,
+      suit: suitFromCode(code),
+      value: valueFromCode(code)
     }
   }
 
