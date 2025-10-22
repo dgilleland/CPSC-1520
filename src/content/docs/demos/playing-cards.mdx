@@ -217,12 +217,14 @@ const CARD_CODES = ['AS', '2S', '3S', '4S', '5S', '6S', '7S', '8S', '9S', '0S', 
 Object.freeze(CARD_CODES);
 ```
 
-With this, we can include some simple utility functions to handle mapping card codes to suits and values.
+With this, we can include some simple utility functions to handle mapping card codes to suits and values and vice-versa.
 
 ```js
 const isCardCode = (code) => typeof code === string && code.length === 2 && 'A234567890JQK'.includes(code[0]) && 'SHDC'.includes(code[1]);
-// TODO:
-// const suitFromCode = (code) =>
+
+const suitFromCode = (code) => CARD_SUITS.find(suit => suit.startsWith(code[1]));
+const valueFromCode = (code) => CARD_VALUES.find(value => value.startsWith(code[0] || value.endsWith(code[0])));
+const toCode = ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]}`;
 ```
 
 ## Redesigned Playing Card
@@ -233,12 +235,21 @@ Here's my re-design of the Playing Card. Notice how I'm using [JSDoc comments](/
 /** @typedef {{ code: string, value: string, suit: string}} Card */
 ```
 
+You can then use that JSDoc type definition for variables that you can create. For example, a pile of cards can simply be an array of `Card` types.
+
+```js
+/** @type {Card[]} */
+let discardPile = [];
+// ... sometime later ...
+discardPile.push({ code: 'AH', value: 'Ace', suit: 'Hearts' }); // dealt from the bottom....
+```
+
 This will become very useful down the road in terms of generating *intellisense* within VS Code. For example, consider that utility function we created earlier for getting the name of any given card. We can re-write that as follows:
 
 ```js
 /**
  * Describe a playing card.
- * 
+ *
  * @param {Card} card A playing card object
  * @param {boolean} valueName Whether or not to use the name or the digit for the value (defaults to `true`)
  * @param {boolean} emoji Whether or not to use an emoji for the suit (defaults to `false`)
@@ -258,19 +269,149 @@ function nameCard(card, valueName = true, emoji = false) {
 }
 ```
 
+With clear definition for our playing card, we can move on to thinking about collections of cards, such as our **deck**.
+
 ## Decks
 
+Simply put, a deck is just a collection or array of cards. Just about the only extra piece of useful information is knowing whether or not the deck is shuffled. (*Hint: When you open a fresh deck, it's always "unshuffled".*)
 
+```js
+/** @typedef {{shuffled: boolean, cards: Card[]}} Deck */
+```
 
 ### Creating A Fresh Deck
 
+Because we have frozen variables for the range of [possible values](#possible-values), creating a deck is pretty straight forward. Just start with the `CARD_CODES` and a little utility function to generate the `Card` objects.
+
+```js
+const buildDeck = () => ({
+    shuffled: false,
+    cards: CARD_CODES.map(x => ({ code:x , suit: suitFromCode(x), value: valueFromCode(x) }))
+});
+```
+
+We probably could just do a loop within a loop to be a little more efficient, or we could even hard-code all the cards for blazing-fast run-time results. Either way, creating a fresh deck is <a href="https://usdictionary.com/idioms/easy-peasy/" target="_blank">easy peasy</a>.
 
 ## Piles
 
+Closely related to the concept of a deck is the concept of a "pile" of cards. The big difference is that a "pile" is typically *not* an entire deck, and the pile might be created in any number of ways depending on the *purpose* of the pile. Maybe we are creating piles by "dealing" cards to different players; here each "pile" becomes the player's "hand". Or maybe it's a "discard pile" or a "scoring pile". Either way, it's just an array of cards. We can add a simple meta-data item to give the pile meaning: add a `name` to describe its purpose.
+
+```js
+/** @typedef {{name: string, cards: Card[]}} Pile */
+```
+
+## Conclusion
+
+With types, constants and utility functions in hand, we have all the building blocks for any card game. There are a few additional [algorithms](#card-algorithms) commonly used among different card games, of course. But now you have what amounts to a nice bunch of code you can expose as a JavaScript module, ready to import into whatever game you want. Here's the summary code.
+
+```js title="deckOfCards.js"
+// Type definitions
+/** @typedef {{ code: string, value: string, suit: string}} Card */
+/** @typedef {{shuffled: boolean, cards: Card[]}} Deck */
+/** @typedef {{name: string, cards: Card[]}} Pile */
+
+// Hard-coded ranges
+const CARD_SUITS = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
+const CARD_SUIT_SYMBOLS = [ '♠️', '♥️', '♦️', '♣️' ];
+const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7', '8',
+                      '9', '10', 'Jack', 'Queen', 'King', 'Joker' ];
+const CARD_VALUE_NAMES = [ 'Ace', 'Two', 'Three', 'Four', 'Five',
+                           'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+                           'Jack', 'Queen', 'King', 'Joker' ];
+const CARD_CODES = ['AS', '2S', '3S', '4S', '5S', '6S', '7S',
+                    '8S', '9S', '0S', 'JS', 'QS', 'KS',
+                    'AD', '2D', '3D', '4D', '5D', '6D', '7D',
+                    '8D', '9D', '0D', 'JD', 'QD', 'KD',
+                    'AC', '2C', '3C', '4C', '5C', '6C', '7C',
+                    '8C', '9C', '0C', 'JC', 'QC', 'KC',
+                    'AH', '2H', '3H', '4H', '5H', '6H', '7H',
+                    '8H', '9H', '0H', 'JH', 'QH', 'KH'];
+
+// Make these immutable
+Object.freeze(CARD_SUITS);
+Object.freeze(CARD_SUIT_SYMBOLS);
+Object.freeze(CARD_VALUES);
+Object.freeze(CARD_VALUE_NAMES);
+Object.freeze(CARD_CODES);
+
+// Utility functions
+const isCardCode = (code) => typeof code === string && 
+                             code.length === 2 && 
+                             'A234567890JQK'.includes(code[0]) && 
+                             'SHDC'.includes(code[1]);
+
+const suitFromCode = (code) => CARD_SUITS.find(suit => suit.startsWith(code[1]));
+const valueFromCode = (code) => CARD_VALUES.find(value => value.startsWith(code[0] || value.endsWith(code[0])));
+const toCode = ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]}`;
+
+/**
+ * Build a single playing card from a card code.
+ *
+ * If the supplied code is not a valid card code, then this function returns null
+ *
+ * @param {string} code - A valid card code
+ * @returns {Card | null} A playing card
+*/
+const buildCard = (code) => {
+    let result = null;
+    if(isCardCode(code)) {
+        result = {
+            code:x,
+            suit: suitFromCode(x),
+            value: valueFromCode(x)
+        }
+    }
+
+    return result;
+}
+
+/**
+ * Build a fresh deck of cards
+ *
+ * @returns {Deck}
+*/
+const buildDeck = () => {
+    return {
+        shuffled: false,
+        cards: CARD_CODES.map(buildCard)
+    }
+};
+
+/**
+ * Describe a playing card.
+ *
+ * @param {Card} card A playing card object
+ * @param {boolean} valueName `true`` to use the name or the digit for the value (defaults to `true`)
+ * @param {boolean} emoji `true` to use an emoji for the suit (defaults to `false`)
+*/
+function nameCard(card, valueName = true, emoji = false) {
+  const valueIndex = CARD_VALUES.indexOf(card.value);
+  const suitIndex = CARD_SUITS.indexOf(card.suit);
+  let theSuit = CARD_SUITS[suitIndex];
+  if(emoji) {
+    theSuit = CARD_SUIT_SYMBOLS[suitIndex];
+  }
+  let theName = CARD_VALUES[valueIndex];
+  if(valueName) {
+    theName = CARD_VALUE_NAMES[valueIndex];
+  }
+  return `${theName} of ${theSuit}`;
+}
+
+// You can export more items, but these are good ones to start with.
+export {
+  // Primitive ranges
+  CARD_SUITS, CARD_SUIT_SYMBOLS, CARD_VALUES, CARD_VALUE_NAMES,
+  // These are the essentials
+  CARD_CODES, isCardCode, buildCard, buildDeck, nameCard
+}
+```
 
 ----
 
 ## Card Algorithms
+
+What constitutes a useful card algorithm? Probably ones that help you manage decks and piles of cards.
 
 ### Generating a Card Code
 
@@ -278,7 +419,25 @@ We can programmatically generate a [card code](#card-codes) from the suit and va
 
 ### Shuffling Cards
 
+What makes a good shuffling algorithm? Randomness.
+
+> ***TBD***
+
+### Sorting Cards
+
+> ***TBD***
+
 ### Dealing Cards
+
+If you need to deal cards from a deck, there are several ways to achieve this.
+
+> ***TBD***
+
+### Transferring Cards
+
+Moving cards into and out of piles or the deck can be quite useful.
+
+> ***TBD***
 
 ----
 
@@ -335,10 +494,10 @@ function asName(card) {
 
 /**
  * Draws cards from a deck (if any are available).
- * 
+ *
  * This is a mutating function, meaning that it will modify the list of cards in the deck
- * @param {Deck} deck 
- * @param {number} count 
+ * @param {Deck} deck
+ * @param {number} count
  * @returns {Card[]} An array of cards from the deck
  */
 function draw(deck, count) {
