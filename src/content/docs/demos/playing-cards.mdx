@@ -344,12 +344,10 @@ const isCardCode = (code) => typeof code === string &&
                              'A234567890JQK'.includes(code[0]) &&
                              'SHDC'.includes(code[1]);
 
-const suitFromCode = 
-    (code) => CARD_SUITS.find(suit => 
-                              suit.startsWith(code[1]));
-const valueFromCode = 
-    (code) => CARD_VALUES.find(value => 
-                               value.startsWith(code[0] || value.endsWith(code[0])));
+const suitFromCode = (code) => CARD_SUITS.find(suit => 
+                               suit.startsWith(code[1]));
+const valueFromCode = (code) => CARD_VALUES.find(value => 
+                                value.startsWith(code[0] || value.endsWith(code[0])));
 const toCode = 
       ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]}`;
 
