@@ -50,17 +50,17 @@ let card = { suit: 'Diamonds', value: '7' };
 
 ### Design Implications
 
-While the idea of a playing card is pretty simple, we can quickly run into a number of *design implications* when we want to use apply the concept to any given program.
+While the idea of a playing card is pretty simple, we can quickly run into a number of *design implications* when we want to apply the concept to any given program.
 
-First of all is the question of the range of [possible values](#possible-values) for any given playing card. Next might be how we want to [conceptualize those values](#value-concepts). After that, we will probably want to investigate the idea of [collections of cards](#piles) and the most common collection: the [**Deck**](#decks). Once we start working with collections, we might want some way to [identify specific cards](#card-codes) in the deck.
+First of all is the question of the [range of possible values](#possible-values) for any given playing card. Next might be how we want to [conceptualize those values](#value-concepts). After that, we will probably want to investigate the idea of [collections of cards](#piles) and the most common collection: the [**Deck**](#decks). Once we start working with collections, we might want some way to [identify specific cards](#card-codes) in the deck.
 
 All of these core questions and concerns will, themselves, have implications for how a particular *card game* might be designed, such as **War**, **Go Fish** or **Solitaire**.
 
-In this demo, I want to walk you through some possible ways to address those core concerns. You will find that JavaScript can be an excellent language to model playing cards!
+In this demo, I will walk you through some possible ways to address those core concerns. You will find JavaScript to be an excellent language for modeling playing cards!
 
 ### Possible Values
 
-It can be useful to have a couple of sources that represent all the possible *suits* and *values* in a standard deck. Your first thought might be to make these as simple arrays.
+Having a couple of sources that represent all the possible *suits* and *values* in a standard deck can be useful. Your first thought might be to represent these as simple arrays.
 
 ```js
 const cardSuits = [ 'Spades', 'Hearts', 'Diamonds', 'Clubs' ];
@@ -68,7 +68,7 @@ const cardValues = [ 'Ace', '2', '3', '4', '5', '6', '7',
                      '8', '9', '10', 'Jack', 'Queen', 'King' ];
 ```
 
-Notice how we treat all the values as strings. We're doing that to have a sense of ***type consistency*** between the idea of a "Two" and an "Ace".
+> Notice how we treat all the values as strings. We're doing that to have a sense of ***type consistency*** between the idea of a "Two" and an "Ace".
 
 A problem with using arrays, however, is that arrays are *mutable* by default. That means we could potentially add or remove items from the array.
 
@@ -92,7 +92,7 @@ const CARD_VALUES = [ 'Ace', '2', '3', '4', '5', '6', '7', '8',
 Object.freeze(CARD_VALUES); // Make values immutable
 ```
 
-Notice the little adjustment to the names we're using for these *fixed* arrays. We're putting the variable names in all upper-case as a visual 'cue' that these cannot physically be modified. That cue can remind us that these are immutable/unchanging.
+Notice the little adjustment to the names we're using for these *fixed* arrays. We're putting the variable names in all upper-case as a visual 'cue' that these cannot be physically modified. That cue will remind us that these are immutable/unchanging.
 
 <Aside type="tip" title="Limitations of Object.Freeze">
 There's a limitation to the `Object.freeze()` method. Freezing is **shallow**. This means that if we apply it to an array of *objects*, each object is unchangable but the *properties* of the object *could* still be changed.
@@ -101,7 +101,7 @@ There's a limitation to the `Object.freeze()` method. Freezing is **shallow**. T
 const parents = [{ name: 'Stewart', born: 1995 }, { name: 'Anna', born: 1997 }];
 Object.freeze(parents);
 parents[0] = { name: 'Herbert', born: 1992 }; // ❌ Won't work
-parents[0].name = 'Herbert'; // ✅ Will work!
+parents[0].name = 'Herbert'; // ✅ Will work! 😲
 ```
 
 You will probably be better off freezing arrays when their elements are *primitives*. Keep that in mind for whenever you decide to use `Object.freeze()`.
@@ -206,7 +206,7 @@ There's an API I want to eventually show you that's all about playing cards. It'
     ✨ Give <a href="https://github.com/crobertsbmw/deckofcards" target="_blank">his repository on GitHub</a> a star!
 </Aside>
 
-One of the aspects of that API that I like to use is the notion of a ***code*** that uniquely identifies a playing card. In fact, it's probably the one design decision that makes it affordable and possible to store everybody's cards and piles for as long as they do!
+One of the aspects of Chase's API that I like to use is the notion of a ***code*** that uniquely identifies a playing card. In fact, it's probably the one design decision that makes it affordable and possible to store everybody's cards and piles for as long as they do!
 
 Each card can be represented simply by a two-character code that identifies the value and the suit. The first character is the digit or first letter of the card's *value* (with the one exception of the value `10`, which is represented by a `'0'`). The second character is the first letter of the card's *suit* (in upper-case). That's it! It's elegant and clean. All of the other aspects of their JSON responses can be programmatically generated on-the-fly from that two-character code.
 
@@ -269,7 +269,7 @@ function nameCard(card, valueName = true, emoji = false) {
 }
 ```
 
-With clear definition for our playing card, we can move on to thinking about collections of cards, such as our **deck**.
+With a clear definition for our playing card, we can move on to thinking about collections of cards, such as our **deck**.
 
 ## Decks
 
@@ -294,7 +294,9 @@ We probably could just do a loop within a loop to be a little more efficient, or
 
 ## Piles
 
-Closely related to the concept of a deck is the concept of a "pile" of cards. The big difference is that a "pile" is typically *not* an entire deck, and the pile might be created in any number of ways depending on the *purpose* of the pile. Maybe we are creating piles by "dealing" cards to different players; here each "pile" becomes the player's "hand". Or maybe it's a "discard pile" or a "scoring pile". Either way, it's just an array of cards. We can add a simple meta-data item to give the pile meaning: add a `name` to describe its purpose.
+Closely related to the concept of a deck is the concept of a "pile" of cards. The big difference is that a "pile" is typically *not* an entire deck. The pile might be created in any number of ways depending on the *purpose* of the pile. Maybe we are creating piles by "dealing" cards to different players; here each "pile" becomes the player's "hand". Or maybe it's a "discard pile" or a "scoring pile". Either way, it's just an array of cards.
+
+We can add a simple meta-data item to give the pile meaning: add a `name` to describe its purpose.
 
 ```js
 /** @typedef {{name: string, cards: Card[]}} Pile */
@@ -302,7 +304,9 @@ Closely related to the concept of a deck is the concept of a "pile" of cards. Th
 
 ## Conclusion
 
-With types, constants and utility functions in hand, we have all the building blocks for any card game. There are a few additional [algorithms](#card-algorithms) commonly used among different card games, of course. But now you have what amounts to a nice bunch of code you can expose as a JavaScript module, ready to import into whatever game you want. Here's the summary code.
+With types, constants and utility functions in hand, we have all the building blocks for any card game. There are a few additional [algorithms](#card-algorithms) commonly used among different card games, of course. But now you have what amounts to a nice bunch of code you can expose as a **JavaScript module**, ready to import into whatever game you want.
+
+Here's the summary code.
 
 ```js title="deckOfCards.js"
 // Type definitions
@@ -335,14 +339,19 @@ Object.freeze(CARD_VALUE_NAMES);
 Object.freeze(CARD_CODES);
 
 // Utility functions
-const isCardCode = (code) => typeof code === string && 
-                             code.length === 2 && 
-                             'A234567890JQK'.includes(code[0]) && 
+const isCardCode = (code) => typeof code === string &&
+                             code.length === 2 &&
+                             'A234567890JQK'.includes(code[0]) &&
                              'SHDC'.includes(code[1]);
 
-const suitFromCode = (code) => CARD_SUITS.find(suit => suit.startsWith(code[1]));
-const valueFromCode = (code) => CARD_VALUES.find(value => value.startsWith(code[0] || value.endsWith(code[0])));
-const toCode = ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]}`;
+const suitFromCode = 
+    (code) => CARD_SUITS.find(suit => 
+                              suit.startsWith(code[1]));
+const valueFromCode = 
+    (code) => CARD_VALUES.find(value => 
+                               value.startsWith(code[0] || value.endsWith(code[0])));
+const toCode = 
+      ({value, suit}) => `${value[0] === '1' ? '0' : value[0]}${suit[0]}`;
 
 /**
  * Build a single playing card from a card code.
@@ -381,7 +390,7 @@ const buildDeck = () => {
  * Describe a playing card.
  *
  * @param {Card} card A playing card object
- * @param {boolean} valueName `true`` to use the name or the digit for the value (defaults to `true`)
+ * @param {boolean} valueName `true` to use the name or the digit for the value (defaults to `true`)
  * @param {boolean} emoji `true` to use an emoji for the suit (defaults to `false`)
 */
 function nameCard(card, valueName = true, emoji = false) {
