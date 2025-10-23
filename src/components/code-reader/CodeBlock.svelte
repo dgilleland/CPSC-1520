@@ -21,6 +21,7 @@
     align-items: start;
     padding: .125rem .25rem;
     border-radius: .375rem;
+    margin-top: 0;
   }
   .line mark {
     font-variant-numeric: tabular-nums;
@@ -39,11 +40,4 @@
   .line .text { white-space: pre; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 </style>
 
-<pre aria-label="Source code"><code>
-  {#each lines as ln, i}
-    <div class="line" data-line={i + 1}>
-      <mark class:active={i + 1 === activeLine} data-line-number={i + 1}>{i + 1}</mark>
-      <span class="text">{ln}</span>
-    </div>
-  {/each}
-</code></pre>
+<pre aria-label="Source code"><code>{#each lines as ln, i}<div class="line" data-line={i + 1}><mark class:active={i + 1 === activeLine} data-line-number={i + 1}>{i + 1}</mark><span class="text">{ln}</span></div>{/each}</code></pre>

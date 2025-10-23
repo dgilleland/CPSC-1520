@@ -1,5 +1,5 @@
 {
-  "codeBlock": "/demo/loopCounter.js",
+  "codeBlock": "/CPSC-1520/demo/loopCounter.js",
   "variables": [
     { "name": "skip", "type": "number", "value": "3" },
     { "name": "message", "type": "string", "value": "" },

@@ -42,7 +42,7 @@
       varTypes = Object.fromEntries((guide?.variables ?? []).map(v => [v.name, v.type]));
 
       const cRes = await fetch(guide!.codeBlock);
-      if (!cRes.ok) throw new Error(`Failed to load code: ${cRes.status}`);
+      if (!cRes.ok) throw new Error(`Failed to load code: ${cRes.status} - ${guide!.codeBlock}`);
       codeText = await cRes.text();
 
       totalSteps = guide!.steps.length;
