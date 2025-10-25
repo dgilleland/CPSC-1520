@@ -40,6 +40,7 @@ export default defineConfig({
                     },
                     { label: 'Lab Setup', slug: 'about/lab-setup' },
                     { label: 'Lab Updates', slug: 'about/lab-updates' },
+                    { label: 'Dana\'s Docs', slug: 'about/dana-cpsc-1520' },
                     { label: 'Bonus Resources', slug: 'about/bonus' },
                 ],
             },
