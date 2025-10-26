@@ -1,0 +1,28 @@
+---
+title: Browser Dev Tools
+description: A short overview of the Browser Dev Tools
+sidebar:
+  hidden: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+There's always lots to learn about the Dev Tools in your browser. Most browsers (despite their branding differences) use the same underlying engines. They fall into several families:
+
+| Common Family Name | Rendering Engine | Major Browsers |
+|--------------------|--------|----------------|
+| <a href="https://www.chromium.org/Home/" target="_blank">Chromium-Based</a> | <a href="https://www.chromium.org/blink/" target="_blank">Blink</a>  | Google Chrome, Microsoft Edge, Android WebView, Opera, Brave, etc. |
+| Firefox Family     | <a href="https://firefox-source-docs.mozilla.org/overview/gecko.html" target="_blank">Gecko</a>  | Firefox, Tor, LibreWolf, etc.    |
+| Apple Ecosystem    | <a href="https://developer.apple.com/documentation/webkit" target="_blank">WebKit</a> | Safari, GNOME Web                |
+
+
+<Tabs>
+    <TabItem label="Edge Browser">
+        <LinkButton href="https://learn.microsoft.com/en-us/microsoft-edge/devtools/overview" target="_blank" icon="external" variant="secondary">Edge DevTools Overview</LinkButton>
+    </TabItem>
+    <TabItem label="Chrome Browser">
+        <LinkButton href="https://developer.chrome.com/docs/devtools" target="_blank" icon="external" variant="secondary">Chrome DevTools</LinkButton>
+    </TabItem>
+</Tabs>
+
