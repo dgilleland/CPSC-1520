@@ -1,0 +1,103 @@
+---
+// File: src/components/CountdownCircle.ssg.astro
+interface Props {
+  start?: number;   // seconds
+  size?: number;    // px diameter
+  stroke?: number;  // px ring thickness
+  toneClass?: string; // active ring + number color
+  bgClass?: string;   // background ring color
+}
+
+const {
+  start = 10,
+  size = 160,
+  stroke = 12,
+  toneClass = "stroke-emerald-500 text-emerald-700 dark:text-emerald-300",
+  bgClass = "stroke-zinc-200 dark:stroke-zinc-700"
+} = Astro.props;
+
+const r = (size - stroke) / 2;
+const circumference = 2 * Math.PI * r;
+---
+
+<div
+  data-countdown-root
+  class="relative inline-grid place-items-center select-none"
+  style={`width:${size}px;height:${size}px`}
+  data-start={start}
+  aria-label={`Countdown starting at ${start} seconds`}
+  aria-live="polite"
+>
+  <!-- number -->
+  <div class={`pointer-events-none text-4xl font-semibold tabular-nums ${toneClass.split(' ').filter(c=>c.startsWith('text-')).join(' ') || 'text-emerald-700 dark:text-emerald-300'}`}>
+    <span data-num>{start}</span>
+  </div>
+
+  <!-- rings -->
+  <svg class="absolute inset-0 -rotate-90" width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+    <!-- background ring -->
+    <circle
+      cx={size/2} cy={size/2} r={r}
+      class={bgClass}
+      stroke-width={stroke} fill="none" stroke-linecap="round"
+    />
+    <!-- flip horizontally so the wipe is counter-clockwise -->
+    <g transform={`scale(-1,1) translate(-${size},0)`}>
+      <circle
+        data-fg
+        cx={size/2} cy={size/2} r={r}
+        class={`${toneClass} transition-[stroke-dashoffset]`}
+        stroke-width={stroke}
+        fill="none"
+        stroke-linecap="round"
+        style={`stroke-dasharray:${circumference};stroke-dashoffset:0`}
+      />
+    </g>
+  </svg>
+</div>
+
+<!-- Tiny vanilla JS, SSG-safe. Finds and initializes all instances on the page. -->
+<script is:inline>
+(() => {
+  const init = (root) => {
+    if (!root || root.dataset.inited) return;
+    root.dataset.inited = "1";
+
+    const total = Number(root.dataset.start || 10);
+    const numEl = root.querySelector("[data-num]");
+    const fg = /** @type {SVGCircleElement|null} */ (root.querySelector("[data-fg]"));
+    if (!numEl || !fg || !total) return;
+
+    // circumference was baked into stroke-dasharray at build time; read it back
+    const dashArray = fg.style.strokeDasharray || fg.getAttribute("stroke-dasharray") || "";
+    const circ = Number(dashArray.split(",")[0] || dashArray.split(" ")[0] || 0) || (2*Math.PI*Number(fg.getAttribute("r")||0));
+
+    let remaining = total;
+
+    const render = () => {
+      const fraction = Math.max(remaining, 0) / total;
+      fg.style.strokeDashoffset = String((1 - fraction) * circ);
+      numEl.textContent = String(Math.max(remaining, 0));
+    };
+
+    render();
+
+    const tick = () => {
+      remaining -= 1;
+      render();
+      if (remaining <= 0) {
+        clearInterval(timer);
+        root.dispatchEvent(new CustomEvent("countdown:end", { bubbles: true }));
+      }
+    };
+
+    const timer = setInterval(tick, 1000);
+  };
+
+  // Initialize any existing components
+  document.querySelectorAll("[data-countdown-root]").forEach(init);
+
+  // (Optional) If components are injected later, you could observe the DOM:
+  // new MutationObserver(m => m.forEach(rec => rec.addedNodes.forEach(n => n.nodeType===1 && n.matches?.("[data-countdown-root]") && init(n)))).observe(document.documentElement, { childList:true, subtree:true });
+})();
+</script>

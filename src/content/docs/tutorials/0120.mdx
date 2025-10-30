@@ -16,6 +16,25 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 *See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
 </Aside>
 
+import CountdownCircle from '../../../components/astro/CountdownCircle.ssg.astro';
+
+<CountdownCircle start={15} />
+
+<CountdownCircle
+  start={30}
+  size={200}
+  stroke={16}
+  toneClass="stroke-sky-500 text-sky-700 dark:text-sky-300"
+  bgClass="stroke-zinc-300 dark:stroke-zinc-800"
+/>
+
+
+
+
+How would you display a count-down to a user?
+
+Let's make it simple. What if you just wanted to show them each number on a single line in the console, starting with five and going down to zero.
+
 <details>
     <summary>Learning Outcome Guide</summary>
 
