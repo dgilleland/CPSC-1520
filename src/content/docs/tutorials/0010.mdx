@@ -283,7 +283,23 @@ Secondly, the *real* reason you're in Vim or Vi is because you didn't choose "VS
 git config --global core.editor "code --wait"
 ```
 
-The next time you do a `git pull`, any merging messages will open in the VS Code editor and git will wait for you to enter your message and close that tab in your editor before completing the merge. It can be worthwhile to pend a bit of time checking out the various [terminal commands for git](/CPSC-1520/reference/1000/#git), so that you are more comfortable using it from the command line. 
+The next time you do a `git pull`, any merging messages will open in the VS Code editor and git will wait for you to enter your message and close that tab in your editor before completing the merge. It can be worthwhile to pend a bit of time checking out the various [terminal commands for git](/CPSC-1520/reference/1000/#git), so that you are more comfortable using it from the command line.
+
+### Resolving Diverging Branches
+
+This isn't really an installation issue, but it is one that potentially relates to the `git pull` above. If you have local changes in your git history that aren't in the remote AND you have changes in your remote that aren't in your local repository, you may get the message "You have divergent branches ...". Here's a quick way to resolve this (assuming you don't have any *merge conflicts*):
+
+```ps
+git pull --rebase origin main
+```
+
+<Aside type="tip">
+   Do you get an error on `` that says it doesn't know about a "main" branch? Then you might have your remote default branch named "master" (an older name). Run this instead.
+
+   ```ps
+   git pull --rebase origin master
+   ```
+</Aside>
 
 ## Updating Your Tools
 
