@@ -11,6 +11,31 @@ import { Image } from 'astro:assets';
 
 In this tutorial, we'll explore listening to **events** on our web pages. Events can come from several places. For example, events can come from the user in terms of mouse and keyboard events. We'll look specifically at mouse click events that happen on specific parts of our web page.
 
+import BeforeAndAfter from '../../../components/astro/BeforeAndAfter.astro';
+
+<BeforeAndAfter open base="tutorials/0070/" style="--sl-color-border:orange">
+  The goal here is to understand how we can listen for and respond to user interactions on our web pages.
+
+  <div slot="before-intro">
+    Notice how the sample includes clickable items. One of those is a normal hyperlink that goes to the MDN page on event listeners (though, in this preview, MDN is refusing to deliver content, because this preview uses an `<iframe>`).
+  </div>
+  <div slot="before-outro">
+    Some things to note include:
+
+    - The button and hyperlink are nested inside the H1 tag.
+    - Nothing happens yet, even though the JavaScript file is linked in the page.
+  </div>
+  <div slot="after-intro">
+    Try clicking on the items in the completed sample.
+  </div>
+  <div slot="after-outro">
+    Notice how
+
+    - The HTML tag-name of the target is displayed in the output
+    - The link no longer navigates to the MDN page when clicked
+  </div>
+</BeforeAndAfter>
+
 ### Setup
 
 Let's begin with a starter kit to explore creating event handlers. Take a moment to set up all the files and folders. When the page is set up, it should look like this.

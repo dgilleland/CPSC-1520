@@ -1,0 +1,112 @@
+---
+// src/components/BeforeAndAfter.astro
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+interface Props {
+  /** Base path under /public where `before/index.html` and `after/index.html` live. */
+  base: string;
+  /** When present, the <details> will be open by default. */
+  open?: boolean;
+  /** Iframe height in pixels. */
+  height?: number;
+  /** Optional tab labels. */
+  beforeLabel?: string;
+  afterLabel?: string;
+}
+
+const {
+  base,
+  open = false,
+  height = 420,
+  beforeLabel = 'Before',
+  afterLabel = 'After',
+} = Astro.props as Props;
+
+// Respect Astro's configured base path (e.g., '/CPSC-1520/')
+const BASE = (import.meta.env.BASE_URL ?? '/');
+
+function normalizeBase(input: string): string {
+  let t = (input ?? '').trim();
+  // ensure no leading/trailing slashes to make safe joins later
+  if (t.startsWith('/')) t = t.slice(1);
+  if (t.endsWith('/')) t = t.slice(0, -1);
+  return t;
+}
+
+function joinPath(...parts: string[]): string {
+  // Join with single slashes and ensure a single leading slash.
+  const joined = parts
+    .filter(Boolean)
+    .map(p => p.replace(/^\/+|\/+$/g, ''))
+    .join('/');
+  return '/' + joined + (joined.endsWith('index.html') ? '' : '');
+}
+
+const root = normalizeBase(base);
+const beforeSrc = joinPath(BASE, root, 'before', 'index.html');
+const afterSrc  = joinPath(BASE, root, 'after', 'index.html');
+---
+
+<slot />
+
+<details class="ba-details" {...(open ? { open: true } : {})}>
+  <summary>Preview</summary>
+  <div class="ba-wrap">
+    <Tabs>
+      <TabItem label={beforeLabel}>
+        <slot name="before-intro" />
+        <iframe
+          class="ba-frame"
+          src={beforeSrc}
+          title={`${beforeLabel} preview`}
+          loading="lazy"
+          referrerpolicy="no-referrer"
+        />
+        <slot name="before-outro" />
+      </TabItem>
+      <TabItem label={afterLabel}>
+        <slot name="after-intro" />
+        <iframe
+          class="ba-frame"
+          src={afterSrc}
+          title={`${afterLabel} preview`}
+          loading="lazy"
+          referrerpolicy="no-referrer"
+        />
+        <slot name="after-outro" />
+      </TabItem>
+    </Tabs>
+  </div>
+</details>
+
+<style>
+  .ba-details {
+    margin-block: var(--sl-spacing-3); /* matches Starlight rhythm */
+    border: 1px solid var(--sl-color-border);
+    border-radius: var(--sl-border-radius);
+    background: var(--sl-color-bg);
+  }
+  .ba-details > summary {
+    cursor: pointer;
+    padding: var(--sl-spacing-2) var(--sl-spacing-3);
+    font-weight: 600;
+  }
+  .ba-wrap {
+    padding: var(--sl-spacing-3);
+    border-top: 1px solid var(--sl-color-border);
+  }
+  .ba-frame {
+    display: block;
+    width: 100%;
+    height: var(--ba-frame-h, 420px);
+    border: 1px solid var(--sl-color-border);
+    border: 1px solid orange;
+    border-radius: var(--sl-border-radius);
+    background: white;
+  }
+</style>
+
+<!-- Allow height override via inline style variable to avoid CLS -->
+<style is:global>
+  /* Consumers can override via: <BeforeAndAfter style="--ba-frame-h:520px"> */
+</style>
