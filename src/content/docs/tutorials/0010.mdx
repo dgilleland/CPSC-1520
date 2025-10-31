@@ -240,9 +240,15 @@ You might be used to using the <a target="_blank" href="https://marketplace.visu
 
 ## Troubleshooting
 
+### Unknown Program
+
 Depending on the security setup on your computer, you might right into a problem when you check the version of the command-line tool(s) you've just installed. For example, when running `npm --version`, you *might* see the following.
 
 > <code class="text-red-600">File ... cannot be loaded because running scripts is disabled on this system....</code>
+
+Or, if you have installed `pnpm` from some method other than the one listed in [step 3 above](#pnpm), you might get an error like this.
+
+> <code class="text-red-600">pnpm : The term 'pnpm' is not recognized as the name of a cmdlet, function, script file, or operable program....</code>
 
 You might have this problem for other command-line tools as well, so these steps should work for all of the tools installed in this tutorial. If this is happening for you, here's how you fix it (and if you don't have this problem, then skip this section).
 
@@ -262,6 +268,22 @@ You might have this problem for other command-line tools as well, so these steps
 
    You should see information on the installed version of `npm`.
 </Steps>
+
+### Stuck in the VIM/VI Editor?
+
+If you do a `git pull` and find yourself in the vim or vi editor (the default), you might wonder how to exit out of the editor. Try pressing <kbd>Esc</kbd><kbd>Z</kbd><kbd>Z</kbd> (note that these are the capital letters 'Z'). If that doesn't work, then just click the trash can icon (if you're in the VS Code terminal) or just close the external terminal window to abort the command.
+
+Why does this happen? Two reasons.
+
+First, your `git pull` is pulling in commits that fit "before" any local commits you have in your repository, and git wants you to enter a message for the merge it's trying to perform. (`git pull` is the equivalent of a `git fetch` followed by a `git merge`.)
+
+Secondly, the *real* reason you're in Vim or Vi is because you didn't choose "VS Code as Git's default editor" when you [installed the software](#git-for-windowsmac) above. No worries, though. You can reset git to use VS Code as the editor by running the following command in the terminal.
+
+```ps
+git config --global core.editor "code --wait"
+```
+
+The next time you do a `git pull`, any merging messages will open in the VS Code editor and git will wait for you to enter your message and close that tab in your editor before completing the merge. It can be worthwhile to pend a bit of time checking out the various [terminal commands for git](/CPSC-1520/reference/1000/#git), so that you are more comfortable using it from the command line. 
 
 ## Updating Your Tools
 
