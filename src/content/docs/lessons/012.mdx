@@ -425,44 +425,97 @@ Let's play with the fetch calls so that
 1. We get them working!
 1. We better understand the implications of Promises...
 
-First, let's "hijack" our `main.js` to make our API calls for data.
 
-```js title="js/main.js"
-// throw near/at the top of the file
-import { fetchCountryNamesAsync } from './data/fetchCountries';
-const data = fetchCountryNamesAsync();
-console.log(data);
+<Steps>
+1. First, let's stub out a signature for our function to get the country names. We'll use an async/await pattern.
+
+    ```js title="js/data/fetchCountries.js"
+    // A) TODO: Get the cached data
+    //  - Async/Await - A "blocking" approach (leaves you waiting...)
+    export async function fetchCountryNamesAsync() {
+        const response = await fetch(cachedCountries);
+        const parsedJson = await response.json();
+        return parsedJson;
+    }
+    ```
+
+1. Next, let's "hijack" our `main.js` to make our API calls for data. This will allow us to see some results.
+
+    ```js title="js/main.js"
+    // throw near/at the top of the file
+    import { fetchCountryNamesAsync } from './data/fetchCountries';
+    const data = fetchCountryNamesAsync();
+    console.log(data);
 
 
-// Supplied code: Do not edit below this line...
-```
+    // Supplied code: Do not edit below this line...
+    ```
 
-Now, let's just get and return some data.
+1. If we take a quick look at our terminal's output, we will see that what comes back from an `async` call is something called a **Promise**. Promises are the whole idea behind asynchronous programming.
+1. Let's fix things up so that we can actually see the results that came back.
 
-<Aside title="Async/Await - Classic Quick'n'Dirty" type="caution">
+    ```diff lang="js" title="js/main.js"
+    // throw near/at the top of the file
+    import { fetchCountryNamesAsync } from './data/fetchCountries';
+    + // This is an example of what's called a "Top-Level Await"
+    + const data = await fetchCountryNamesAsync();
+    - const data = fetchCountryNamesAsync();
+    console.log(data);
+
+    ```
+
+1. Now that we can see what our raw data is, let's do a bit of mapping to return the data in a way that we get all the country names and their 3-character country code.
+</Steps>
+
+This has been a simple example of what is called "async and await". It's a pattern that you often see in simple demos. BUT, there's a better way, once you understand *Promises*.
+
+<details>
+  <summary>Let me Rant a bit...</summary>
+
     #### Rant
 
-    I've always found the pairing of `async`/`await` a little confusing. They are often put together like they are *supposed* to be used together. But they mean entirely different things.
+    <Aside title="Async/Await - Classic Quick'n'Dirty" type="caution">
 
-    When a function is labeled `async`, then it something we should just be able to "fire-and-forget". Async functions always return a promise! That means, you should be able to call it and (eventually) `.then()` decide what you will do with the response.
+        I've always found the pairing of `async`/`await` a little confusing. They are often put together like they are *supposed* to be used together. But they mean entirely different things.
 
-    But when we `await` an asynchronous function, we're telling the computer, "Pause right here until the promise is resolved." The downside of doing that often means we also need to (or *should*) wrap our awaited call in a `try`/`catch` block.
+        When a function is labeled `async`, then it something we should just be able to "fire-and-forget". Async functions always return a promise! That means, you should be able to call it and (eventually) `.then()` decide what you will do with the response.
 
-    There's another quirk in JavaScript. If you have deeply nested function calls where the deep call turns out to use an `await`, then you have to plop the `async` keyword all the way back up the function call chain. It can make your code a horrible mess! 😡
+        But when we `await` an asynchronous function, we're telling the computer, "Pause right here until the promise is resolved." The downside of doing that often means we also need to (or *should*) wrap our awaited call in a `try`/`catch` block.
 
-    It's really just a by-product of a "Quick-and-Dirty" mentality, which is fine for simple **throw-away** demos. But in the *real* world, going down this path can really put you in a bad place. Remember:
+        There's another quirk in JavaScript. If you have deeply nested function calls where the deep call turns out to use an `await`, then you have to plop the `async` keyword all the way back up the function call chain. It can make your code a horrible mess! 😡
 
-    So, the world of Asynchronous programming is often made *Synchronous* because we keep `await`-ing the results! 🤔
+        It's really just a by-product of a "Quick-and-Dirty" mentality, which is fine for simple **throw-away** demos. But in the *real* world, going down this path can really put you in a bad place. Remember:
 
-    > *The problem with "Quick-and-Dirty" is that after the "quick" is done, the "dirty" remains.*
-    >
-    > <cite>Dan Gilleland</cite>
+        So, the world of Asynchronous programming is often made *Synchronous* because we keep `await`-ing the results! 🤔
 
-    It's also a problem using async/await together because new programmers often A) learn "anti-patterns" in software design and (more importantly) B) they don't learn the real power of asynchronous programming or how to weild it..
+        > *The problem with "Quick-and-Dirty" is that after the "quick" is done, the "dirty" remains.*
+        >
+        > <cite>Dan Gilleland</cite>
 
-    Don't get me wrong. There *is* a place for pairing async and await. Just don't do it everywhere, and be *very cautious* about using it as a "quick fix".
-</Aside>
+        It's also a problem using async/await together because new programmers often A) learn "anti-patterns" in software design and (more importantly) B) they don't learn the real power of asynchronous programming or how to weild it..
 
+        Don't get me wrong. There *is* a place for pairing async and await. Just don't do it everywhere, and be *very cautious* about using it as a "quick fix".
+    </Aside>
+
+</details>
+
+What is the better way to do API (`fetch()`) calls? *Keep using them as **promises*** (which leaves them as asynchronous by default) and ***`.then()`** do something with the result!*
+
+### Unfinished Fetching
+
+
+```js title="js/data/fetchCountries.js"
+
+```
+
+
+```js title="js/data/fetchCountries.js"
+
+```
+
+<Steps>
+1. TODO
+</Steps>
 
 ```js title="js/data/fetchCountries.js"
 // A few extra endpoints....
@@ -481,15 +534,6 @@ fetch(allStatesEndpoint).then(handleResponse).then(data => {
 
 ```
 
-
-```js title="js/data/fetchCountries.js"
-
-```
-
-
-```js title="js/data/fetchCountries.js"
-
-```
 
 <Aside type="note" title="The long journey of Async/Await">
     Asynchronous programming for JavaScript has been a long and tortuous journey. But we're *most* of the way there now.
