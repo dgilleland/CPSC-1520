@@ -1,0 +1,551 @@
+---
+title: Fetch JSON
+description: SUMMARY
+sidebar:
+  badge: 
+    text: Lesson
+    variant: success
+draft: true
+pagefind: false
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+## Notes about Objects, JSON and Functions
+
+It is so critical that you are comfortable with the notion of objects in JavaScript (and *any* programming language). Here are some more quick and important points to keep in mind.
+
+### `about-objects.js`
+
+<Steps>
+1. Open the `about-objects.js` in the `JS-Quickstarts` of starter kit **012**. Run this with `node --watch` and track what code is producing what output in the terminal.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    // Launch by running the following in this folder
+    // node --watch about-objects.js
+    console.log('Loaded about-objects.js script');
+    ```
+
+1. We use objects to represent complex data where the primitive parts of the data are somehow related. Declaring objects with "object literal" syntax is all about **structuring** related data.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    // The simplest way to create an object in JavaScript
+    // is to declare an "object literal" value.
+    // - A comma-separated list of name:value pairs within
+    //   curly braces
+    let student = {
+        firstName: 'Stewart',
+        middleName: 'Andrew',
+        lastName: 'Dent',
+        isEnrolled: true
+    };
+    console.log(student);
+    ```
+
+1. JavaScript objects are **dynamic** in that we can easily add more properties/methods to our objects.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    // In JavaScript, we can add new "properties" or "functions" to our object at any time.
+    student.getInitials = function() {
+        // to reference this object, we use the this keyword
+        // this is like an alias to itself: student object
+        let first = this.firstName[0];
+        let middle = this.middleName[0];
+        let last = this.lastName[0];
+        return `${first}.${middle}.${last}.`;
+    }
+    console.log(student.getInitials());
+    console.log(student);
+    ```
+
+1. **Constructor Functions** are an alternative to using Object Literal syntax for creating functions.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    /**
+     * Person() is a constructor function for creating data about somebody
+     * @param {string} firstName The given name of the person
+     * @param {string} lastName The surname of the person
+     * @param {Date} dateOfBirth The birthdate of the person
+     */
+    const Person = function(firstName, lastName, dateOfBirth) {
+        // Assigning (preserving) the values in this object
+        this.givenName = firstName;
+        this.surname = lastName;
+        this.dob = dateOfBirth;
+        this.greet = function () {
+            console.log(`Hello, my name is ${this.givenName}!`);
+        };
+    }
+    ```
+
+    Here are some things to consider:
+
+    - You are supposed to use the `new` keyword when creating objects with constructor functions.
+    - The object's structure/members are consolidated in one place, preventing potential typographical errors or other inconsistencies with creating several objects with the same structure.
+    - You can protect information through JavaScript features such as closures (not demonstrated here).
+    
+    We will cover more about objects later on.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    // With a constructor function, I can use it to create new
+    // objects as often as I want
+    let friends = [];
+    let person = new Person('Fred', 'Flintstone', new Date('Feb 23, 1995'));
+    friends.push(person);
+    person = new Person('Barney', 'Rubble', new Date('Aug 19, 1995'));
+    friends.push(person);
+    console.log();
+    console.log(friends);
+
+    person = new Person('Wilma', 'Slaghoople', null);
+    console.log(person);
+    friends.push(person);
+    // console.table(friends);
+    ```
+
+1. JSON (JavaScript Object Notation) data in JavaScript is always a **string** data type. We create JSON strings by taking some data and calling `JSON.stringify()`.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    // JSON.stringify() to convert an object into a JSON string
+    let data = JSON.stringify(friends[0], null, 2);
+
+    console.log(data);
+    ```
+
+1. JSON strings can be converted back to objects using `JSON.parse()`.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    // To convert a JSON string back to an object, you use JSON.parse()
+    let objectData = JSON.parse(data);
+    console.log(objectData);
+    ```
+
+1. 🆕 An object is a structure made up of properties. We can **de-structure** objects to get individual propery values.
+
+    ```js title="JS-Quickstart/about-objects.js"
+    // We can deconstruct an object's data,
+    // extracting only what we are interested in.
+    let { givenName, surname} = fred;
+    console.log(givenName, surname);
+    ```
+
+1. Additional Takeaways:
+
+    - JSON strings cannot contain *functions* - they are only for ***data***.
+    - Stringifying data objects with **circular references/dependencies** are problematic, and `JSON.stringify()` will fail.
+</Steps>
+
+
+### `about-passing-objects.js`
+
+
+<Steps>
+1. Create a new file in `JS-Quickstart` and name it `about-passing-objects.js`. Run this in watch mode.
+
+    ```js title="JS-Quickstart/about-passing-objects.js"
+    const primitiveGradeReporting(studentName, age, mark) {
+        console.log(`${student} is ${age} years old and earned a ${mark}%`);
+    }
+    const objectGradeReporting({studentName, age, mark}) {
+        console.log(`${student} is ${age} years old and earned a ${mark}%`);
+    }
+    ```
+
+1. Note a simple problem with using primitive variables as parameters in functions.
+
+    ```js title="JS-Quickstart/about-passing-objects.js"
+    // ... keep code above
+    primitiveGradeReporting('Alice', 21, 86);
+    primitiveGradeReporting('Mark', 85, 22); // Whoops - parameter order problems
+    ```
+
+1. Watch what happens if you wrap the parameters in curly braces!
+
+    ```js title="JS-Quickstart/about-passing-objects.js"
+    // ... keep code above
+    const objectGradeReporting({studentName, age, mark}) {
+        console.log(`${student} is ${age} years old and earned a ${mark}%`);
+    }
+    ```
+
+    This is called **object destructuring**, and it effectively requires the caller to pass in an object rather than individual primitives.
+
+1. You are safe in terms of the order of items, because you must explicitly *name* the properties. This makes any potential data problems easier to spot.
+
+    ```js title="JS-Quickstart/about-passing-objects.js"
+    // ... keep code above
+    objectGradeReporting({ studentName: 'Alice', age: 21, mark: 86});
+    objectGradeReporting({ studentName: 'Mark', mark: 85, age: 22});
+    ```
+
+
+1. You can also just create individual objects with those properties and pass those in. The values will be deconstructed inside the function parameter.
+
+    ```js title="JS-Quickstart/about-passing-objects.js"
+    // ... keep code above
+    let student = { studentName: 'Stew', age: 20, mark: 92 };
+    objectGradeReporting(student);
+    ```
+
+</Steps>
+
+----
+
+## Fetching JSON Data
+
+In this demo, we will be using the browser's [`fetch()`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch) method to get JSON data to support our Address Input form.
+
+## Cascading Inputs/Dropdowns
+
+> Country/State/City Selections
+
+In this example, we will support cascading user inputs for where they live. We will also process the form data and learn about hidden inputs.
+
+1. It all begins with selecting the country. To ensure that an actual country is selected, we will simplify their input with suggested matches for their country name. Along the way, we will see [Inputs and DataLists](#inputs-and-datalists)
+1. Once the country is selected, we can pre-populate the options for known cities in that country.
+1. After that, we will add a drop-down with the states/provinces within that country. (We don't have known data about which state contains the user's town/city; that's just too much world information we would have to track down.)
+1. Finally, we will handle the form's events and related processing.
+1. As time allows, we'll also explore various styling approaches
+
+### Starter Files
+
+<FileTree>
+- cached To illustrate fetching from the same domain
+  - countries.json
+- css Extra demo on Tailwind Styling
+  - main.css
+- js
+  - data Modules focused on getting data
+    - fetchCountries.js
+  - ui Modules focused on user interactions
+    - countryInput.js
+    - formProcessing.js
+  - main.js Driver of the whole app
+- .gitignore Use https://gitignore.io for details
+- index.html
+- package.json
+- ReadMe.md
+- vite.config.js Related to the Tailwind Styling
+</FileTree>
+
+## Extra Imports
+
+```json
+  "dependencies": {
+    "@picocss/pico": "^2.1.1",
+    "@tailwindcss/vite": "^4.1.16",
+    "tailwindcss": "^4.1.16",
+    "world-countries": "^5.1.0"
+  },
+```
+
+## Inputs and DataLists
+
+One of the cool aspects about the `<input>` element is that we can pair it with a `<datalist>` tag that contains `<option>` entries as potential pre-defined input that the user can select from.
+
+> ***TODO:** Read this post on [A Comprehensive Guide to Using the HTML `<datalist>` Element](https://juniordev4life.com/posts/comprehensive-guide-to-using-the-html-datalist-element/)
+
+One of the downsides, however, is that if your `<option>` entries have `value` attributes, it is that *value* which is put into the `<input>` rather than the display text of the `<option>` tag.
+
+The way to get around that involves a combination of JavaScript, events (particularly the [`'input'` event](https://developer.mozilla.org/en-US/docs/Web/API/Element/input_event)), and the use of `<input type="hidden">` elements.
+
+
+----
+
+## The Code
+
+It all starts with understanding the HTML. There are several elements we will identify by their unique id attribute.
+
+```html title="index.html" "id=\"cascading-inputs\"" "id=\"country-code\"" "id=\"country-name\"" "id=\"countries\""  "id=\"known-cities\"" "id=\"state-label\"" "id=\"state-selection\"" "id=\"results\""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cascading Inputs</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <script type="module" src="./js/main.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Country/City/State Selection</h1>
+        <section>
+            <form id="cascading-inputs">
+                <label>
+                    Pick a country
+                    <input type="hidden" id="country-code" name="countryCode" />
+                    <input type="text" id="country-name" name="country" list="countries" autofocus />
+                    <datalist id="countries"></datalist>
+                </label>
+                <label>
+                    Enter your city/village/community`
+                    <input type="text" name="city" list="known-cities" />
+                    <datalist id="known-cities"></datalist>
+                </label>
+                <label id="state-label">
+                    Select the state/province/region
+                    <select id="state-selection" name="state">
+                        <option value="">[select a region]</option>
+                    </select>
+                </label>
+                <button id="submit" type="submit">Submit</button>
+                <button type="reset">Reset Form</button>
+                <button type="button">Clear Results</button>
+            </form>
+        </section>
+        <section>
+            <h2>Results</h2>
+            <pre><code id="results"></code></pre>
+        </section>
+    </main>
+</body>
+</html>
+```
+
+### 🙈 Can You Stand to Look at That?
+
+If the display looks a bit unbearable, how about just grabbing some *Classless CSS* like <a href="" target="_blank">PicoCSS</a> and throwing it in there. We can burn up way too much time trying to just make it "look good" when it's not even working!
+
+<Steps>
+1. Add PicoCSS as a dependency
+
+    ```ps
+    pnpm add @picocss/pico
+    ```
+
+1. Add a line to the main.js (near the top) to apply (`import`) the stylesheet programmatically.
+
+    ```js title="js/main.js"
+    // Pick one only...
+    import '@picocss/pico/css/pico.amber.min.css'; 
+    import '@picocss/pico/css/pico.blue.min.css'; 
+    import '@picocss/pico/css/pico.green.min.css'; 
+    import '@picocss/pico/css/pico.grey.min.css'; 
+    import '@picocss/pico/css/pico.slate.min.css';
+    import '@picocss/pico/css/pico.orange.min.css'; 
+    import '@picocss/pico/css/pico.purple.min.css'; 
+    ```
+
+</Steps>
+
+If you're wondering how I found which CSS file to bring in, I'll mention it at the end of class....
+
+### The `main.js`
+
+```js title="js/main.js"
+import { setupCascadingUserInputs } from './ui/countryInput';
+import { setupFormProcessing } from './ui/formProcessing';
+
+// A) The selection of the country kicks off the other possible
+//    options that the user has for input.
+// The <datalist> element used for the country <option>s
+const countries = document.getElementById('countries');
+
+// The hidden element for the country code
+const countryCode = document.getElementById('country-code');
+// The text input for the user's entry of the country name
+const countryName = document.getElementById('country-name');
+
+// The <datalist> element used for the known cities in the country
+const knownCities = document.getElementById('known-cities');
+
+// The container for the state label + selection
+const stateLabel = document.getElementById('state-label');
+const stateSelection = document.getElementById('state-selection');
+
+setupCascadingUserInputs({ 
+    countryDataList: countries, 
+    countryInput: countryName,
+    hiddenInput: countryCode,
+    cityDataList: knownCities,
+    stateContainer: stateLabel,
+    stateSelect: stateSelection
+});
+
+// B) Handling user input requires that 
+// The <form> where user input is submitted
+const form = document.getElementById('cascading-inputs');
+// The element to hold the results of user input
+const results = document.getElementById('results');
+
+setupFormProcessing({
+    form,
+    output: results
+});
+```
+
+### How to `fetchCountries.js`
+
+We've got a little bit of starter code:
+
+- Constants for the API Endpoints 
+- Utility functions (which we may flesh out in a bit)
+
+```js title="js/data/fetchCountries.js"
+// Exposes the functions that allow fetching of country information
+// API Endpoints
+const cachedCountries = './cached/countries.json';
+const allStatesEndpoint = 'https://countriesnow.space/api/v0.1/countries/states';
+const allCountriesEndpoint = 'https://countriesnow.space/api/v0.1/countries';
+
+
+// Two approaches will be shown here:
+
+// A) TODO: Get the cached data
+//  - Async/Await - A "blocking" approach (leaves you waiting...)
+
+// B) TODO: Get the remote data
+//  - Promise/Then - An "eventually..." approach (.then())
+
+
+// Utility functions - Not Exported
+function handleResponse(resp) {
+    console.log(resp);
+    // TODO: A proper handling of a response would validate for
+    //          - an "ok" status (status code 200)
+    //          - the expected mime type (in this case, "application/json")
+    return resp.json();
+}
+
+function logData(data) {
+    console.log(data);
+    return data; // send it back out, unchanged, for future promises
+}
+
+function handleErr(err) {
+    console.log(err);
+}
+```
+
+### 🍟🍔🍕 Quick'n'Dirty
+
+Let's play with the fetch calls so that
+
+1. We get them working!
+1. We better understand the implications of Promises...
+
+First, let's "hijack" our `main.js` to make our API calls for data.
+
+```js title="js/main.js"
+// throw near/at the top of the file
+import { fetchCountryNamesAsync } from './data/fetchCountries';
+const data = fetchCountryNamesAsync();
+console.log(data);
+
+
+// Supplied code: Do not edit below this line...
+```
+
+Now, let's just get and return some data.
+
+<Aside title="Async/Await - Classic Quick'n'Dirty" type="caution">
+    #### Rant
+
+    I've always found the pairing of `async`/`await` a little confusing. They are often put together like they are *supposed* to be used together. But they mean entirely different things.
+
+    When a function is labeled `async`, then it something we should just be able to "fire-and-forget". Async functions always return a promise! That means, you should be able to call it and (eventually) `.then()` decide what you will do with the response.
+
+    But when we `await` an asynchronous function, we're telling the computer, "Pause right here until the promise is resolved." The downside of doing that often means we also need to (or *should*) wrap our awaited call in a `try`/`catch` block.
+
+    There's another quirk in JavaScript. If you have deeply nested function calls where the deep call turns out to use an `await`, then you have to plop the `async` keyword all the way back up the function call chain. It can make your code a horrible mess! 😡
+
+    It's really just a by-product of a "Quick-and-Dirty" mentality, which is fine for simple **throw-away** demos. But in the *real* world, going down this path can really put you in a bad place. Remember:
+
+    So, the world of Asynchronous programming is often made *Synchronous* because we keep `await`-ing the results! 🤔
+
+    > *The problem with "Quick-and-Dirty" is that after the "quick" is done, the "dirty" remains.*
+    >
+    > <cite>Dan Gilleland</cite>
+
+    It's also a problem using async/await together because new programmers often A) learn "anti-patterns" in software design and (more importantly) B) they don't learn the real power of asynchronous programming or how to weild it..
+
+    Don't get me wrong. There *is* a place for pairing async and await. Just don't do it everywhere, and be *very cautious* about using it as a "quick fix".
+</Aside>
+
+
+```js title="js/data/fetchCountries.js"
+// A few extra endpoints....
+const allCountriesAndCapitalEndpoint = 'https://countriesnow.space/api/v0.1/countries/capital';
+const allCountriesAndGps = 'https://countriesnow.space/api/v0.1/countries/positions';
+
+
+
+fetch(allCountriesEndpoint).then(handleResponse).then(data => {
+    console.log('countriesnow Country + Cities:', data);
+})
+
+fetch(allStatesEndpoint).then(handleResponse).then(data => {
+    console.log('countriesnow States:', data);
+})
+
+```
+
+
+```js title="js/data/fetchCountries.js"
+
+```
+
+
+```js title="js/data/fetchCountries.js"
+
+```
+
+<Aside type="note" title="The long journey of Async/Await">
+    Asynchronous programming for JavaScript has been a long and tortuous journey. But we're *most* of the way there now.
+
+    First, JavaScript has always been (and still is) a *single-process* environment. No threads. No real "asynchronous" programming.
+
+    But, we found ways to "fake" it with `Promise<T>`. Great! But, most programmers take a while to grok asynchronous programming. We're much better with synchronous code. So, we needed a way to "wait" for the async code to finish. (⁉️)
+
+    Hence, the arrival of `async` and `await` - two keywords to denote very explicit and specific things. It just so happens that those two things are *very different* ideas, and we tend to pair them together too much. But, I'm beginning to [rant](#rant) again.
+</Aside>
+
+### Options for `countryInput.js`
+
+```js title="js/ui/countryInput.js"
+export function setupCascadingUserInputs({ 
+    countryDataList, 
+    countryInput,
+    hiddenInput,
+    cityDataList,
+    stateContainer,
+    stateSelect
+}) {
+
+}
+```
+
+```js title="js/ui/countryInput.js"
+
+```
+
+
+```js title="js/ui/countryInput.js"
+
+/**
+ * Processes a Promise<T> where the <T> is the data from the countries.json file.
+ * @param {{name: string, value: string}[]} data These are just some of the properties on the cached countries.json data.
+ */
+function populateCountryOptions(data) {
+    let countries = data.map(country => ({ name: country.name, value: country.alpha3Code }));
+    let datalist = document.getElementById('countries');
+    countries.forEach(dataItem => {
+        datalist.innerHTML += `<option value="${dataItem.value}">${dataItem.name}</option>`;
+    })
+}
+
+```
+
+
+
+
+### Submit and `formProcessing.js`
+
+```js title="js/ui/formProcessing.js"
+export function setupFormProcessing() {
+
+}
+```
+
+
