@@ -2,8 +2,6 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
-import tailwind from '@astrojs/tailwind';
-
 import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
@@ -19,9 +17,9 @@ export default defineConfig({
         // Path to your Tailwind base styles:
         './src/tailwind.css',
         ],
-        social: {
-            github: 'https://github.com/dgilleland/CPSC-1520',
-        },
+        social: [
+            { icon: 'github', label: 'GitHub', href: 'https://github.com/dgilleland/CPSC-1520' }
+        ],
         sidebar: [
             {
                 label: 'About',
@@ -67,8 +65,8 @@ export default defineConfig({
                 autogenerate: { directory: 'demos' },
             },
         ],
-		}), tailwind({
-        // Disable the default base styles:
-        applyBaseStyles: false,
-		}), svelte()],
+		}),
+        svelte()
+    ],
+    vite: { build: { sourcemap: true } },
 });
