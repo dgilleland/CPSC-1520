@@ -1,7 +1,7 @@
 # ⚙️ GitHub Workflows Overview
 
 > **Applies to:** Astro 5 / Starlight 0.36 / Svelte 5 / Tailwind 4 / pnpm 9  
-> **Maintained by:** Dynamic Generation Inc.  
+> **Maintained by:** Dan Gilleland/Dynamic Generation Inc.  
 >  
 > This document summarizes the automated workflows used in this repository.
 
