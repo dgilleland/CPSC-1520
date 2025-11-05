@@ -1,34 +1,59 @@
 name: Deploy to GitHub Pages
 
 on:
-  # Trigger the workflow every time you push to the `main` branch
-  # Using a different branch name? Replace `main` with your branch’s name
-  push:
-    branches: [ main ]
-  # Allows you to run this workflow manually from the Actions tab on GitHub.
+  # Auto-run after CI finishes
+  workflow_run:
+    workflows: ["ci"]        # Must match 'name:' in your ci.yml
+    types: [completed]
+  # Manual deploys from Actions tab
   workflow_dispatch:
 
-# Allow this job to clone the repo and create a page deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
 permissions:
   contents: read
   pages: write
   id-token: write
 
 jobs:
-  build:
+  # Path A: Reuse CI artifact when this workflow is triggered by CI completion
+  use-ci-artifact:
+    if: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository using git
+      - name: Download artifact produced by the triggering CI run
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: dist              # must match the artifact name uploaded by ci.yml
+          path: ./dist
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  # Path B: Manual run builds fresh (no dependency on CI artifacts)
+  manual-build:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
         uses: actions/checkout@v4
+
+      # Build & upload using the Astro official action (handles install + build)
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         # with:
-          # path: . # The root location of your Astro project inside the repository. (optional)
-          # node-version: 20 # The specific version of Node that should be used to build your site. Defaults to 20. (optional)
-          # package-manager: pnpm@latest # The Node package manager that should be used to install dependencies and build your site. Automatically detected based on your lockfile. (optional)
+        #   node-version: 20
+        #   package-manager: pnpm@9
 
+  # Single deploy job consumes whichever path produced the Pages artifact
   deploy:
-    needs: build
+    needs: [use-ci-artifact, manual-build]
+    if: ${{ always() && (needs.use-ci-artifact.result == 'success' || needs.manual-build.result == 'success') }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages

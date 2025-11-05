@@ -1,0 +1,60 @@
+name: ci
+
+on:
+  push:
+    branches: [ main ]   # trunk commits only
+  workflow_dispatch:      # allow manual runs
+
+# Cancel older runs of THIS workflow on the same ref (branch)
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check (Astro)
+        run: pnpm astro check
+
+      - name: Unit tests (Vitest)
+        run: pnpm test -- --run
+
+      # If your deploy workflow also builds, you can disable this step to avoid double builds:
+      # - name: Build
+      #   if: ${{ false }}
+      - name: Build
+        run: pnpm build
+
+      - name: Security audit (moderate+)
+        run: pnpm audit --audit-level=moderate
+
+      # Generic artifact; Pages deploy usually uses upload-pages-artifact separately.
+      - name: Upload build artifact
+        if: ${{ success() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          if-no-files-found: error
