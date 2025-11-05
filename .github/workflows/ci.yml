@@ -3,6 +3,12 @@ name: ci
 on:
   push:
     branches: [ main ]   # trunk commits only
+    paths-ignore:
+      - 'WORKFLOWS.md'
+      - 'MAINTENANCE.md'
+      - 'README.md'
+      - 'docs/**'                # top-level repo-only docs (OK)
+      # DO NOT use '**/docs/**'  # would also ignore src/content/docs/**
   workflow_dispatch:      # allow manual runs
 
 # Cancel older runs of THIS workflow on the same ref (branch)
