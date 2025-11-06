@@ -21,6 +21,7 @@
     "@astrojs/starlight": "^0.36.2",
     "@astrojs/starlight-tailwind": "^4.0.2",
     "@astrojs/svelte": "^7.2.1",
+    "@tailwindcss/vite": "^4.1.16",
     "@vscode/codicons": "^0.0.41",
     "astro": "^5.15.3",
     "sharp": "^0.34.4",
