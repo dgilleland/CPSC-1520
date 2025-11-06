@@ -1,0 +1,47 @@
+---
+title: About Quality Software
+description: What is the foundation of quality in software? How do we measure it? How do we achieve it?
+sidebar:
+  hidden: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+Software Quality is a measure of
+
+- [**Accuracy**](#accuracy) - *Does it do what it's supposed to do?*
+- [**Maintainability**](#maintainability) - *How well can I respond to changing requirements in my software?*
+- [**Efficiency**](#efficiency) - *Is my code well optimized for performance?*
+
+## Accuracy
+
+This one is a show-stopper. If your program doesn't do what it's supposed to do, all the other metrics are not important.
+
+This is all about ***Correctness***. Of course, it's not going to be looked at as an "all-or-nothing" proposal. You may find that *most* of your code works as expected. There may (*probably will*) be bugs. You might even be aware of some of the edge cases or situations where your code isn't working quite right; those should be documented under "Known Bugs" when shipping to production.
+
+But overall, our primary job is to ***make sure the code works*** as intended. And this is not just about "doing it right". It's also about "doing the right thing". **"Doing it right"** is the idea of the parts of our code working the way we think it should work. **"Doing the right thing"** is about making sure we understand the *requirements* &mdash; do we know what our customer/client/employer wants?
+
+### Coding to Specs
+
+Capturing the requirements of our software is always the first step (right after *understanding the problem*, that is).
+
+All of the documented requirements in the world won't amount to much if we don't have a way to *prove* that our code meets the specifications. That's why we we write code that *tests* our production code.
+
+### Automated Testing
+
+Once we can programmatically prove that our software is correct, we need to **automate** it's execution. This is where we ensure our test code is executed as part of **Continuous Integration/Continuous Development** (CI/CD).
+
+
+## Maintainability
+
+
+## Efficiency
+
+
+
+----
+
+## Good Enough!
+
+
