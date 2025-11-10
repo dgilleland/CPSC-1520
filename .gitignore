@@ -10,7 +10,10 @@ tests/adhoc.*.spec.js
 
 lab-solutions.mdx
 **/tutorials/lab-solutions/gh-classroom*.png
+**/lab-*-answer-key.mdx
+**/lab-*-solution.mdx
 [Aa]nswer[Kk]eys
+answer-keys
 
 adhoc.html
 adhoc.css
