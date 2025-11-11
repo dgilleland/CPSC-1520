@@ -1,0 +1,57 @@
+---
+title: Questions and Answers
+description: A loose conglomeration of questions and answers that have come up in my live courses. They briefly cover material across various topics, with links to official resources and helpful articles.
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+What follows is a loose conglomeration of questions and answers that have come up in my live courses. They briefly cover material across various topics, with links to official resources and helpful articles.
+
+{/* AUTHOR TODO: Consider breaking this up into separate documents with sidebar:hidden:true */}
+
+----
+
+## Async/Await and Multithreading
+
+> *"I've heard a couple different things regarding multithreading and JavaScript. I know JavaScript is single threaded but someone told me it uses something similar to multithreading. JS has functions like async await so does it use concurrency? and if so can you somehow make JS multithreaded? (I'm not sure there would be a use case for it just curious)"*
+
+Thanks for your question!
+ 
+JavaScript is single-threaded, but it does support asynchronous programming. The trick to asynchronous support lay in the **JavaScript Engine** providing API functions such as `fetch()` that it can process separately and in the JS Engine's use of the **Event Loop** and the **Callback Queue**. (More <a href="https://www.geeksforgeeks.org/javascript/why-javascript-is-a-single-thread-language-that-can-be-non-blocking/" target="_blank">here</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Execution_model" target="_blank">here</a>.) JavaScript itself is not something where we can achieve multi-threading *directly*. But because it's an *interpreted* language run by an "Engine" that interprets and then executes the script, that engine can bring in *true* multi-threading through its own "base language" (in the case of NodeJS, that language is C++).
+ 
+Probably one of the biggest places where the average JavaScript author can get a bit more control on "multi-threading" is through <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank">**Web Workers**</a>. These were introduced in part as a way for the JavaScript author to purposely "simulate" multi-threaded behaviour. You do this by creating a `new Worker(URI)` where you supply a **URI** (Uniform Resource *Identifier*). Two types of URIs are URLs (Uniform Resource *Locator*) and URNs (Uniform Resource *Name*). You might be interested in <a href="https://auth0.com/blog/url-uri-urn-differences/" target="_blank">**this article on Auth0**</a> on the differences between those ideas.
+ 
+The real-world places where Web Workers become useful are with very long-running processes, such as getting separate browser instances to communicate with each other. Consider the scenario where two people are collaborating live on a Google Docs document. Both are making live edits and can see each other's work as they collaborate. How is this achieved? In large part, the developers have leveraged Web Workers as a "background thread" for communication.
+ 
+Obviously, there's a lot more to say (and learn) about how all this works. But you can be surprised at how much can be achieved just through regular <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank">**Promises in JavaScript**</a>, without the need to reach for things like Web Workers. Promises are, by nature, *asynchronous executions*, and it is typically best to start with reading the MDN article on <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises" target="_blank">**Using Promises**</a>.
+
+----
+
+## Aria Attributes
+
+> *"What are Aria attributes, and why do we use them?"*
+
+**Aria-* ** attributes are important for users with disabilities that affect how they interact with the internet (see <a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA" target="_blank">**MDN docs**</a>). Browsers support various `aria-` attributes in various ways, such as with screen readers. While we don't touch on them much, they can become important when JavaScript makes DOM changes and we need the user to be aware of them. Certainly, in the area of feedback on form inputs, `aria-` attributes can be quite helpful.
+
+----
+
+## Ternary Operators
+
+> *"Why is there a question mark sometimes in the middle of the code? I noticed it yesterday in one of the examples we did, but also in some of the code I've seen before."*
+>
+> ```js
+> console.log(`main toggle is ${target.checked ? 'on' : 'off'}`);
+> ```
+
+That's an example of a **ternary expression**. It uses the <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Conditional_operator" target="_blank">conditional (ternary) operator</a> It's like an if-else, but for generating a value. The JavaScript engine evaluates that command like this:
+
+```js
+//  Template strings use placeholders to "place" a value in a certain spot.
+//  ${} is a placeholder  /¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\
+console.log(`main toggle: ${ target.checked ? 'it is on' : 'it is off'}`);
+//                           \ true|false /   \_ true _/   \_ false _/
+//     if target.checked is      true         'it is on'
+//     if target.checked is      false                     'it is off'
+```
+
