@@ -150,6 +150,18 @@ welcome = `<h1>
 
 Regular strings have to be entirely on the same physical line in JavaScript. If you want to built your string literal using line breaks, use template strings instead.
 
+It's important to note that the placeholder in a template string is, itself, an [expression](#expressions). Thus, you can have any expression to generate a value that will be used in the placeholder. Here's a slightly more complex example of a template string where the expression makes use of a **ternary expression**.
+
+```js
+//  Template strings use placeholders to "place" a value in a certain spot.
+//  ${} is a placeholder  /¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯\
+console.log(`main toggle: ${ target.checked ? 'it is on' : 'it is off'}`);
+//                           \ true|false /   \_ true _/   \_ false _/
+//     if target.checked is      true         'it is on'
+//     if target.checked is      false                     'it is off'
+```
+
+
 ----
 
 ### Expressions
