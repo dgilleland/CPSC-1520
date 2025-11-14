@@ -6,6 +6,26 @@ description: Assorted troubleshooting tips/solutions for when things go wrong.
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 
+## `git push` Failed
+
+Sometimes, when you do a `git push`, you will get an error message that contains <span class="text-red-500">***"failed to push some refs"***</span>. Usually, this is because there have been changes to the *remote* repository (e.g.: on GitHub) that you haven't got on your *local* repository (i.e.: your computer).
+
+```
+error: failed to push some refs to 'https://github.com/example/repo'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+```
+
+The short fix is to do a `git pull`. Better yet, split the `git pull` into its two parts:
+
+- `git fetch origin` - This gets the latest changes from GitHub onto your computer. They are not part of your main branch yet - that's the next step.
+- `git merge origin/<branch-name> -m "Merge upstream commits"` - Typically, your branch name will be `main` (or `master` for older-style repos).
+
+If you just do a `git pull` or if you do a `git merge` without the `-m` flag, you might be prompted for a merge message. Simply enter your message as the first line and then exit the editor. If you're using VS Code as your git editor, that should be easy. If you've left it to the default of the *vim editor*, then you would need to press <kbd>ESC</kbd> + <kbd>:wq</kbd> or press  <kbd>ESC</kbd> + <kbd>Shift</kbd> + <kbd>zz</kbd>.
+
 ## Port In Use
 
 This has happened to me a couple of times. When running some node application that launches the browser (in my case, `vitest --ui`), I ran into a problem where the port that the Node application was trying to use was already in use.
