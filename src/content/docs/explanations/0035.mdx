@@ -1,0 +1,53 @@
+---
+title: What is a Website?
+description: SUMMARY
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+<Aside title="Draft" type="caution">
+    The following is a draft. My objectives are:
+
+    - [ ] Contrast HTML vs. DOM
+    - [ ] Point out what the browser uses to generate web pages
+      - A *Tree* of *Nodes*
+      - Pre-defined *Element* classes (for HTML tags)
+      - A "web page" Context: `document`
+      - A "browser" Context: `window`
+      - An "engine" to
+        - ***parse*** and ***render*** the HTML/CSS
+        - ***execute*** JavaScript
+</Aside>
+
+----
+
+## Contrast and Compare
+
+Beginners can be forgiven for thinking that an HTML file is an actual web page. The truth is, HTML is simply a ***description*** of a web page. The ***actual* web page** is something that is created by the browser.
+
+Compare and contrast what you see in these two tabs.
+
+import html from './0035/index.html?raw';
+
+<Tabs>
+    <TabItem label="Not a Website">
+        The following is **not** a website. Rather, it is the *code* for a website.
+        <Code code={html} lang="html" title="index.html" wrap="true" />
+    </TabItem>
+    <TabItem label="A Website">
+        Browsers will **parse** HTML code and fetch linked resources to generate the *actual* website.
+
+        At this point, your code is much more than HTML. It's a *living document* that the user can interact with.
+        <iframe
+            style="display: block; width: 100%; height: var(--ba-frame-h, 420px); border: 1px solid var(--sl-color-border); border: 1px solid orange; border-radius: var(--sl-border-radius); background: white;"
+            src="/CPSC-1520/previews/explanations/0035/index.html"
+            title="A Career in Software Development"
+            loading="lazy"
+            referrerpolicy="no-referrer"
+        />
+    </TabItem>
+</Tabs>
+
+## What The Browser Does
+
