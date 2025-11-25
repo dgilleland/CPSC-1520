@@ -18,10 +18,25 @@ import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 import short from './calendars/short-month.png';
 import normal from './calendars/normal-month.png';
 import long from './calendars/long-month.png';
+import commitHistory from './calendars/github.com_dgilleland_commit_history.png';
 
 An excellent exercise is creating a calendar in JavaScript. Apart from the styling, it gives you a chance to practice looping and user-interactions such as changing the month and selecting a date or date range.
 
-## Sizing for Months
+## Rendering a Calendar
+
+Calendars are a great example for rendering a tabular layout. First of all, the data is intrinsic to the problem - no need to store or retrieve sample data from some database or JSON endpoint. Just use your language's built-in Date object and you're good to go.
+
+Secondly, you have a variety of options for how you want to render the calendar. You can use the tried-and-true HTML `<table>`, or you can apply a grid-like layout using simple `<div>` elements and CSS styles.
+
+You also have choices for the content: The traditional monthly calendar shows all the days of the week (Sunday through Saturday). An alternative is to display a work-week calendar (Monday through Friday). You don't have to limit yourself to a single month. Full-year calendars as well as two-, three-, or four-month calendars are also popular choices.
+
+Your calendar can just include the dates, or you can add scheduled items on the calendar. Multiple items can fit in a single day, or a single item can span multiple days.
+
+Do you want to try something more avant-garde yet compact? Consider how GitHub denotes a calendar on the user's profile for their commit history.
+
+<Image src={commitHistory} alt="Dan's Commit History, 2025" />
+
+### Sizing for Months
 
 One of the interesting aspects of creating a calendar is how you have to account for the number of weeks you will need when rendering the whole month. Most of the time, you need five weeks, but occassionally you will need only four weeks or as many as six weeks, as shown in this comparison.
 
@@ -29,3 +44,13 @@ One of the interesting aspects of creating a calendar is how you have to account
 |:-----------:|:------------:|:----------:|
 | <Image src={short} alt="Short Month" /> | <Image src={normal} alt="Normal Month" /> | <Image src={long} alt="Long Month" /> |
 
+<Aside title="Good Times">
+It turns out that there are some *excellent* months for testing your calendar layout calculations, and they coincide with when this demo was published!
+
+The months of Nov 2025 through Mar 2026 are just right for testing.
+
+- Feb 2026 has only four weeks, while Nov 2025 has six. All the rest have the standard five week calendars.
+- Dec 2025 starts on a Monday and ends on a Wednesday, making it a good check for calendar days before and after that month.
+- Jan 2026 ends on a Saturday - the perfect ending for the last day on a calendar. Meanwhile, there are some dates from the preceding month that can be included as well.
+- Mar 2026 starts on a Sunday - the perfect beginning for the first day on a calendar. And with 31 days in March, you are left with extra dates to show for the upcoming month.
+</Aside>
