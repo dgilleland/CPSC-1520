@@ -17,6 +17,23 @@ import tagPreview from './1600/tag-preview.png';
     I'm making this a *Public Draft* because I want to remind myself to come back to this in the (hopefully not distant) future. 💫
 </Aside>
 
+- <a href="https://youtu.be/HgNDii20FG4?si=4WDJsfw7zCUxMJ_k" target="_blank">Top 6 HTML Features You’re Not Using (But Should Be)</a> <Icon name="external" class="mb-0 text-orange-500 inline" />
+  - 💫 `inert` attribute! 👀
+  - ✨ A new take on the `<output>` element:
+
+    ```html
+    <form oninput="total.value = (qty.value * price.value).toFixed(2)">
+        <label>Quantity:
+            <input id="qty" type="number" min="1" value="1" />
+        </label>
+        <label>Price:
+            <input id="price" type="number" step="0.01" min="0" value="9.99" />
+        </label>
+        <p>
+            Total: <output id="total" for="qty price"></output> &euro;
+    </form>
+    ```
+
 ## Astro Components for Tags
 
 To simplify and **standardize** discussions of HTML Elements (such as *this page*, which will illustrate HTML Form controls), I want a component that will give me a Tag Summary (or a collection thereof).
