@@ -1,0 +1,188 @@
+---
+title: Debugging In VS Code
+description: SUMMARY
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+- [ ] Break this into several articles/pages
+  - Too long for one single page
+  - The [Walk to Grok](#walk-to-grok) part is better suited as a follow-up for specific tutorials
+  - Needs a stand-alone **introductory** tutorial on Debugging (preferably around the second or third *Quickstart* tutorial)
+
+
+## Setting Up VS Code for Debugging JavaScript
+
+Debugging JavaScript in VS Code depends in part 
+
+<Aside title="Debugging Demos in Student Workbooks" type="tip">
+    If you're aiming to debug a particular demo in your Student Workbook, then you will want to open that demo in a *separate instance* of VS Code. Simply run the following in the terminal at the root of that demo folder.
+    
+    ```ps
+    # Assuming you're in your demo folder. E.g.:
+    # cd ./src/007
+    code -n .
+    ```
+    
+    This way, when you set up the `.vscode/launch.json` as discussed in this guide, you will have a smooteh experience.
+</Aside>
+
+
+<Aside title="Naming the Parts of VS Code">
+    If you're going to get good with Visual Studio Code, then you should learn the *names* of the different parts of the <a href="https://code.visualstudio.com/docs/getstarted/userinterface" target="_blank">user interface</a>.
+
+</Aside>
+
+{/* 
+TODO: Figure out how to use codicon in Astro/Starlight
+- https://github.com/microsoft/vscode-codicons
+- https://microsoft.github.io/vscode-codicons/dist/codicon.html
+*/}
+
+
+<Tabs>
+    <TabItem label="Edge Browser">
+
+    ```json title=".vscode/launch.json"
+    {
+        "configurations": [
+            {
+                "type": "msedge",
+                "name": "http://localhost:5173/",
+                "request": "launch",
+                "url": "http://localhost:5173"
+            }
+        ]
+    }
+    ```
+
+    </TabItem>
+    <TabItem label="Chrome Browser">
+
+    ```json title=".vscode/launch.json"
+    {
+        "configurations": [
+            {
+                "type": "msedge",
+                "name": "http://localhost:5173/",
+                "request": "launch",
+                "url": "http://localhost:5173"
+            }
+        ]
+    }
+    ```
+
+    </TabItem>
+</Tabs>
+
+
+### Option a
+
+<Steps>
+1. Launch your Vite dev server in the VS Code Terminal window: `pnpm dev`
+1. Copy the URL for the server to your clipboard from the terminal (typically `http://localhost:5173`). (The port number might be different if it's already in use.)
+1. Open the command pallet (press <kbd>F1</kbd>) and type `Debug: Open Link`. Press <kbd>Enter</kbd> to run the command. VS Code will prompt you for the URL.
+1. Paste in the URL of your running server. VS Code will then launch your default browser with that URL.
+1. ✨ VS Code should prompt you with a notification that says "Would you like to save a configuration in your launch.json for easy access later?" Click **Yes**.
+    - If you accidentally close the notification, you can re-open it again by clicking on the bell icon for notifications in the lower-right of the status bar or press <kbd>Ctrl</kbd> + <kbd>k</kbd> followed by <kbd>Ctrl</kbd> + <kbd>Shift</kbd> <kbd>N</kbd>.
+    - If no notification appears or you accidentally choose "Never", check the [**troubleshooting**](/CPSC-1520/guides/troubleshooting/) page for help.
+    
+      Alternatively, you can manually create the `.vscode/launch.json` file using the settings below.
+1. 🚀 You should have a `launch.json` file under a `.vscode` folder with the following settings.
+
+    ```json title=".vscode/launch.json"
+    {
+        "configurations": [
+            {
+                "type": "msedge",
+                "name": "http://localhost:5173/",
+                "request": "launch",
+                "url": "http://localhost:5173"
+            }
+        ]
+    }
+    ```
+
+</Steps>
+
+
+### Option B
+
+<Steps>
+1. Click on the "Run and Debug" icon - <i class="codicon debug-alt-small"></i> - in your *Activity Bar". This will open the **Run and Debug view**.
+1. Click the link to "*create a `launch.json` file*". This will open the "Select Debugger" with options such as "Web App (Chrome)" or "Web App (Edge)".
+1. Select your preferred browser (e.g.: "*Web App (Edge)*"). This will open a `launch.json` file in your editor.
+1. The editor should have an intellisense drop-down open for the desired *configurations*. Pick your browser with the "Attach" configuration (e.g.: "Edge: Attache").
+1. Save the `launch.json` file. It should look something like this.
+
+    ```json title="./vscode/launch.json"
+
+    ```
+
+1. By default, the `launch.json` file should appear in a folder named `.vscode` in the *Explorer view*.
+</Steps>
+
+
+----
+
+## Debugging Primer
+
+- [ ] Setting breakpoints
+- [ ] Stepping through code (over, in, out, and resume)
+- [ ] Understanding the call stack
+- [ ] Examining variables
+- [ ] Breaking on events
+- [ ] Breaking on conditional values
+
+----
+
+## Walk-to-Grok
+
+One of the powerful aspects of using a debugger is that we get to see how our code executes in slow motion. If you just want to see *how* your JavaScript code works, setting breakpoints and stepping through your code is a great way to understand what's *really* going on with JavaScript.
+
+### Flow Control - Simple Sequence
+
+
+### Flow Control - Function Calls
+
+- explore the call stack
+- see where we return to from function calls
+
+### Flow Control - Decisions
+
+
+### Flow Control - Looping
+
+### What Just Happened!? Event Listeners
+
+### Flow Control - Function Calls Revisited
+
+Have you ever heard developers talk about "scope" and "life-time" when it comes to variables? The best place we get to see these concepts come alive is with function calls.
+
+### Time to Fetch
+
+Here's a fun way to play with `fetch()` calls. We'll consume an API endpoint that will *purposely* be as slow as we want it to be. This will also allow us to explore the clear distinction between letting `async` calls just be *asynchronous* and the alternate effect of `await`ing `async`.
+
+- [ ] Have a public API that will put a delay in the response when we add a `delay` querystring. For example, `?delay=2000` will tell the server to wait 2000 ms before responding.
+- [ ] Using this API will allow us to step through our code and see when we *actually* `await` and when we just do our own thing while the web server does its own thing.
+
+----
+
+## Finding and Fixing Bugs
+
+The debugger is the go-to tool to use if you want to find out where the bugs are in your code (and how to fix them).
+
+Most of the time, the bugs we introduce in our code are common errors arising from simple logic errors or some basic misunderstanding about what we *really* told the computer to do. We're going to explore some common problems we might encounter in
+
+- Broken Calculations (rounding errors, string calculations/interpolations, type conversions and parsing)
+- Conditional Expressions (affecting if/else and looping)
+- Hung Programs (infinite loops, etc.)
+- Non-Responsive Events (why didn't an event fire?)
+- Swallowing Exceptions (and why that makes us choke)
+
+
+
+
+

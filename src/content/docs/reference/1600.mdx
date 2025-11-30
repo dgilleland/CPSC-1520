@@ -1,0 +1,73 @@
+---
+title: HTML Forms
+description: Want a quick look at HTML form elements? This short reference illustrates all you need to know.
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import collectionSample from './1600/tag-collection-labelled.png';
+import tagPreview from './1600/tag-preview.png';
+
+<Aside title="Public Draft" type="caution">
+    For the moment, this page does **NOT** contain a reference to the HTML Form input controls.
+
+    Rather, I am capturing some ideas for custom components that will help me to standardize the way I reference HTML Elements when covering various topics.
+
+    I'm making this a *Public Draft* because I want to remind myself to come back to this in the (hopefully not distant) future. 💫
+</Aside>
+
+- <a href="https://youtu.be/HgNDii20FG4?si=4WDJsfw7zCUxMJ_k" target="_blank">Top 6 HTML Features You’re Not Using (But Should Be)</a> <Icon name="external" class="mb-0 text-orange-500 inline" />
+  - 💫 `inert` attribute! 👀
+  - ✨ A new take on the `<output>` element:
+
+    ```html
+    <form oninput="total.value = (qty.value * price.value).toFixed(2)">
+        <label>Quantity:
+            <input id="qty" type="number" min="1" value="1" />
+        </label>
+        <label>Price:
+            <input id="price" type="number" step="0.01" min="0" value="9.99" />
+        </label>
+        <p>
+            Total: <output id="total" for="qty price"></output> &euro;
+    </form>
+    ```
+
+## Astro Components for Tags
+
+To simplify and **standardize** discussions of HTML Elements (such as *this page*, which will illustrate HTML Form controls), I want a component that will give me a Tag Summary (or a collection thereof).
+
+- [ ] Two-column layout:
+  - "Preview" - the HTML for the tag, or the `label`
+  - "Example" - An example of what the element will look like
+- [ ] If a label is present, preview the label. Otherwise, preview the HTML tag.
+- [ ] When a label is present, include a "toggle" icon: <Icon name="seti:html" class="mb-0 text-orange-500 " />
+- [ ] Support a `mdn="external"` for `<TagSummary>` that will include a reference to the MDN documentation for the tag.
+  - Hovering over the label will produce a link button <Icon name="external" class="mb-0 text-orange-500 " />
+  - For example, if `tag="input"`, then the link will be for:
+
+    ```html "input"
+    https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/input
+    ```
+
+- [ ] Add an `interceptForm` attribute (for form input elements) which will wrap the tag's "Example" column with a form that isolates and prevents actual form processing from occurring (`preventDefault()`, etc.).
+- [ ] Include a `textNode` attribute if you are showing a tag like `<p>` or `<strong>`, so that some child text can be shown in the preview and example columns. 
+
+### `<TagCollection>` Demo
+
+```jsx
+<TagCollection heading="Basic Inputs" level="2">
+    <TagSummary label="Text" tag="input" type="text" />
+    <TagSummary label="Radio" tag="input" type="radio" />
+    <TagSummary label="Checkbox" tag="input" type="checkbox" />
+    <TagSummary label="Number" tag="input" type="number" />
+    <TagSummary label="Password" tag="input" type="password" />
+    <TagSummary label="Submit" tag="input" type="submit" value="Submit" />
+    <TagSummary label="Button" tag="input" type="button" value="Click me" />
+</TagCollection>
+```
+
+> <Image src={tagPreview} alt="Screenshot of preview from video that inspired this idea" />
+>
+> <Image src={collectionSample} alt="Screen grab codepen codepen.io/fbernack/pen/vEGWZgQ" />

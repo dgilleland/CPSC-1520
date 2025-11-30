@@ -6,6 +6,29 @@ description: Assorted troubleshooting tips/solutions for when things go wrong.
 import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
 import { Image } from 'astro:assets';
 
+## 🔨 Restoring VS Code Notification Popups
+
+If you ever accidentally dismiss a useful popup or warning notification in VS Code and it doesn't come back (perhaps you clicked "Never" or some other button that dismisses it forever), there is a way to get those notifications back. Just create a new blank Profile, and whatever action you previously did that triggered the popup will once again appear.
+
+For example, when VS Code prompts with "Would you like to save a configuration in your launch.json for easy access later?" after running `Debug: Open Link` to set up a debug configuration (see [*Debugging*](/CPSC-1520/explanations/0200/)), there is a "Never" button that tells VS Code to never ask you that again.
+
+<Steps>
+1. Open the Profile Switcher by clicking the bottom-left of the Activity Bar (typically a gear icon) and choose `Profile > Profiles`.
+1. Click the "New Profile" button.
+1. Give the profile a name (perhaps "Reset")
+1. Choose "None" from the "Copy from" drop-down.
+1. Click the "Create" button. The new profile will appear in the list of profiles.
+1. Click the checkmark next to the new profile to make it active.
+</Steps>
+
+Now, when you try that action which prompts the notification, it should appear.
+
+<Aside title="Never click Never" type="caution">
+  Never click a "Never" button, and never check off a "Never ask me again" checkbox. It almost always leads to regret. You should absolutely be sure before you choose "Never", because they will *never ask you again*.
+
+  ... unless you create a new profile. 😉
+</Aside>
+
 ## `git push` Failed
 
 Sometimes, when you do a `git push`, you will get an error message that contains <span class="text-red-500">***"failed to push some refs"***</span>. Usually, this is because there have been changes to the *remote* repository (e.g.: on GitHub) that you haven't got on your *local* repository (i.e.: your computer).
