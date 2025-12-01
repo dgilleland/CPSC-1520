@@ -1,0 +1,163 @@
+---
+title: Bingo
+description: A look at the game BINGO.
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
+
+
+- [ ] Bingo basics
+
+Bingo Cards: Each player receives a Bingo card, typically a 5x5 grid with the letters B-I-N-G-O across the top. Each column corresponds to a specific range of numbers:
+
+- **B**: 1-15
+- **I**: 16-30
+- **N**: 31-45 (with a free space in the center)
+- **G**: 46-60
+- **O**: 61-75
+
+
+## Generating Bingo Cards
+
+The Bingo card will be an HTML table with a `<thead>` for the "BINGO" letters and a `<tbody>` for the rows of numbers.
+
+
+
+
+----
+
+```html title="index.html"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BINGO!</title>
+    <script type="module" src="./js/main.js"></script>
+</head>
+<body class="container">
+    <main id="app"></main>
+</body>
+</html>
+```
+
+```js title="js/main.js"
+import { createBingoCard } from "./bingoCardGenerator";
+import '../css/styles.css';
+
+
+const card = createBingoCard({
+    freeSpace: true,
+    numbers: [
+        { letter: "B", values: [14, 4, 10, 8, 12] },
+        { letter: "I", values: [30, 28, 23, 16, 27] },
+        { letter: "N", values: [41, 35, 43, 39] },
+        { letter: "G", values: [53, 57, 46, 48, 56] },
+        { letter: "O", values: [74, 68, 75, 70, 64] },
+    ]
+});
+```
+
+
+```js title="js/bingoCardGenerator.js"
+/**
+ * Generates a BINGO card from the set of card values and other options.
+ * 
+ * @param {object} options Options for creating a bingo card.
+ * @param {boolean} options.freeSpace Whether a free space item should be used in the middle cell.
+ * @param {{letter: string, values: number[]}[]} options.numbers The numbers for the BINGO columns.
+ * @returns {HTMLTableElement} A `<table>` element with all the contents of the bingo card.
+ */
+export const createBingoCard = function(options) {
+    const card = document.createElement('table');
+    debugger
+    // TODO: Create the bingo card based on the options supplied.
+    return card;
+}
+```
+
+```js title="vite.config.js"
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+  ],
+});
+```
+
+```js title="css/styles.css"
+@import "tailwindcss";
+
+/* Point Tailwind at where your HTML lives */
+@source "../**/*.html";
+
+@layer components {
+  /* Root BINGO table */
+  table[data-bingo-card] {
+    @apply border-collapse mx-auto text-center text-sm;
+  }
+
+  /* Header: B I N G O letters */
+  table[data-bingo-card] thead {
+    th {
+      @apply px-4 py-1 border border-slate-500 font-bold tracking-wide 
+             bg-slate-100 text-base;
+      /* cells stay as wide as their content by default; no width applied */
+      @apply whitespace-nowrap;
+    }
+  }
+
+  /* Body rows: numbers */
+  table[data-bingo-card] tbody {
+    td {
+      @apply px-2 py-1 border border-slate-400 align-middle 
+             whitespace-nowrap select-none;
+    }
+    td.free {
+        @apply px-0 mx-auto font-stretch-condensed text-sm font-bold;
+    }
+    /* Optional: subtle hover so players can “mark” a cell visually */
+    td:hover {
+      @apply bg-yellow-100 cursor-pointer italic;
+    }
+    td.free:hover {
+      @apply bg-orange-100 cursor-pointer;
+    }
+
+    /* Optional: slightly larger text for readability */
+    td[data-value] {
+      @apply font-semibold text-base;
+    }
+  }
+}
+```
+
+```json title="package.json"
+{
+  "name": "bingo",
+  "version": "1.0.0",
+  "description": "A demo of a simple Bingo Card",
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.0",
+  "devDependencies": {
+    "vite": "^7.2.6"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  }
+}
+```
+
+
