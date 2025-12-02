@@ -10,20 +10,95 @@ import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCar
 import { Image } from 'astro:assets';
 import todo from '../../../assets/undraw/undraw_under-construction_c2y1.svg';
 
+import www from '../../../assets/undraw/undraw_adventure_9my9.svg';
+import browsing from '../../../assets/undraw/undraw_browsing_z5g5.svg';
+
 <Image src={todo} alt="Author TODO Items" class="float-end ml-3" width="150" />
 <Aside title="Work-In-Progress (WIP)" type="caution">
 *See [issue 1](https://github.com/dgilleland/CPSC-1520/issues/1).*
 </Aside>
 
+In this tutorial, we'll bring together all the common pieces of a website: HTML, CSS, Images, and (of course) ***JavaScript***. The goal of this tutorial is for you to simply see how the pieces could fit together to become a unified whole. We'll start from scratch and build this in four phases.
+
+## Project Setup
+
+The first phase is planning what files we'll need and where we'll put them. Our folder structure will look like this.
+
 <FileTree>
-- css
-  - styles.css
-- img
-  - sandbox-color.png
-- js
-  - main.js
-- index.html
+  - AllTogether Root of your website
+    - css/ 
+      - styles.css
+    - img/
+      - construction.webp
+      - internet.webp
+      - planning.webp
+    - js/
+      - main.js
+    - **index.html** The "home" page of the site
 </FileTree>
+
+Follow these quick steps to create the text files for the site. We'll just keep them as empty files at this point. We'll put actual content in them at later phases of this tutorial.
+
+<Steps>
+1. Create a folder called `AllTogether` as the place for our website files.
+1. Create an `index.html` at the root of that folder.
+1. Create a `styles.css` under a folder called `css`.
+1. Create a `main.js` under a folder called `js`.
+1. Add a couple of images by saving these under a folder called `img`.
+</Steps>
+
+
+## Whip Up Some HTML
+
+It's time to make some content! Nothing too fancy - just something to appear on the page.
+
+
+{/* I'm assuming you're using VS Code or some editor that supports [Emmet](/CPSC-1520/tutorials/0025/). If not, you can also just copy/paste the code. */}
+
+<Steps>
+1. Open the `index.html` file. We'll begin by adding in the basic framework of our page.
+
+    ```html title="index.html"
+
+    ```
+
+</Steps>
+
+## Adding Some Style and Images
+
+We have some basic content, but you can tell something's missing. Broken images. No sense of style.
+
+Let's fix that!
+
+<Steps>
+1. In 
+1. Right-click on the following images and save them to your `img` folder. Use the names indicated above each image.
+
+    | `construction.webp` | `internet.webp` | `planning.webp` |
+    |:-------------------:|:---------------:|:---------------:|
+    | <Image src={todo} alt="." class="inline-block h-28 w-auto border-2 p-2 rounded-tr-xl rounded-bl-xl border-orange-900" /> | <Image src={www} alt="." class="inline-block h-28 w-auto border-2 p-2 rounded-tr-xl rounded-bl-xl border-orange-900" /> | <Image src={browsing} alt="." class="inline-block h-28 w-auto border-2 p-2 rounded-tr-xl rounded-bl-xl border-orange-900 m-0" /> |
+
+1. Let's give credit where credit is due. These images are from <a href="https://undraw.co" target="_blank">Undraw</a>, a place where I get a lot of the images for my site. Pay them a visit. Become a supporter! 💲
+</Steps>
+
+
+## Spice It Up With JavaScript
+
+<Steps>
+1. In 
+</Steps>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 - [ ] Common file structure
