@@ -24,10 +24,40 @@ Bingo Cards: Each player receives a Bingo card, typically a 5x5 grid with the le
 
 The Bingo card will be an HTML table with a `<thead>` for the "BINGO" letters and a `<tbody>` for the rows of numbers.
 
+### Bingo Card Data
+
+A Bingo card is a set of numbers that fill each column of the card. The columns themselves have a heading (`<th>`) that is one of the letters of the word "BINGO". Representing all of the data on the card can be done with a simple structure:
+
+```js
+const sampleCard = {
+    freeSpace: true,
+    numbers: [
+        { letter: "B", values: [14, 4, 10, 8, 12] },
+        { letter: "I", values: [30, 28, 23, 16, 27] },
+        { letter: "N", values: [41, 35, 43, 39] },
+        { letter: "G", values: [53, 57, 46, 48, 56] },
+        { letter: "O", values: [74, 68, 75, 70, 64] },
+    ]
+}
+```
+
+### Building the HTML
+
+### Preserving Data in the Bingo Card
 
 
+
+We'll find that having some data in the column heading will make it easier to inspect the table to see if it contains a Bingo number that was chosen/called out. We can do that by taking the numbers for the column and put it in a `data-*` attribute as a string using `JSON.stringify()`.
+
+```html
+<th data-col='{"letter":"B","values":[14,4,10,8,12]}'>B</th>
+```
 
 ----
+
+## Appendix
+
+Here are some reference files for the starting point.
 
 ```html title="index.html"
 <!DOCTYPE html>
