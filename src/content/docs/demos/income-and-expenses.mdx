@@ -1,0 +1,31 @@
+---
+title: Income and Expenses
+description: A start-to-finish example of income and expenses.
+sidebar:
+  label: Income/Expenses
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+import wireframe from './income-and-expenses/Income-Expense.png';
+
+<Image src={wireframe} alt="Income/Expense Ledger Wireframe" />
+
+----
+
+## Features
+
+- **Problem Statement** - Short and Sweet
+- **Analysis** - What user interaction should there be?
+- **Project Setup**
+  - `pnpm init` with `vite` and `tailwindcss`
+- **Form Design**
+  - Use an actual `<table>`
+  - Form controls in a `<thead>` and `<output>` in a `<tfoot>`, referencing the form by id.
+  - Entries are added to the `<tbody>`
+  - Use TailwindCSS for styling
+- **TDD**
+  - Vanilla JS + Modules
+  - React Components
