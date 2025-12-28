@@ -5,7 +5,9 @@
   "packageManager": "pnpm@9.9.0",
   "pnpm": {
     "overrides": {
-      "@babel/runtime": "^7.26.10"
+      "@babel/runtime": "^7.26.10",
+      "js-yaml@>=4.0.0 <4.1.1": ">=4.1.1",
+      "mdast-util-to-hast@>=13.0.0 <13.2.1": ">=13.2.1"
     }
   },
   "scripts": {
@@ -18,19 +20,19 @@
     "test:vb": "vitest --reporter=verbose"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.36.2",
+    "@astrojs/starlight": "^0.37.1",
     "@astrojs/starlight-tailwind": "^4.0.2",
-    "@astrojs/svelte": "^7.2.2",
-    "@tailwindcss/vite": "^4.1.17",
-    "@vscode/codicons": "^0.0.42",
-    "astro": "^5.15.8",
+    "@astrojs/svelte": "^7.2.4",
+    "@tailwindcss/vite": "^4.1.18",
+    "@vscode/codicons": "^0.0.44",
+    "astro": "^5.16.6",
     "sharp": "^0.34.5",
-    "svelte": "^5.43.7",
-    "tailwindcss": "^4.1.17",
+    "svelte": "^5.46.1",
+    "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "msw": "^2.12.2",
-    "vitest": "^4.0.9"
+    "msw": "^2.12.7",
+    "vitest": "^4.0.16"
   }
 }
