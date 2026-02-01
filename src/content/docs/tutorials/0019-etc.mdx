@@ -55,7 +55,7 @@ It's important to remember that this **if-else** structure provides **alternate 
 
 ### Part 1 - Your First If/Else
 
-Let's explore the If/Else statement with a few examples. I recommend also running these in debug mode.
+Let's explore the If/Else statement with a few examples. I recommend running these in debug mode [TODO: Link to debug mode for `node --watch`].
 
 <Steps>
 1. To begin, create a file called `grok-decisions.js`. Then run it in the terminal with `node --watch grok-decisions.js`.
@@ -113,9 +113,6 @@ With this simple example, a whole world of possibilities begins to open up for u
 
 ### Conditional Expressions
 
-
-
-
 Conditional expressions are ones that are ultimately evaluated as being equivalent to `true` or `false`. In flow-control statements, they often include the use of relational operators and/or boolean operators. That's because we often want to base our decision on some *comparison* between  pieces of information. But how do we compare things? Through the use of some important ***operators***.
 
 {/* 
@@ -146,19 +143,19 @@ So far, we've built an If statement by comparing two values using the *greater-t
       let bankBalance = 78.23;
     - let preAuthorizationAmount = 100.00;
     + let preAuthorizationAmount = 50.00;
-    + let actualAmount;
+    + let purchaseAmount;
       
       if(bankBalance > preAuthorizationAmount) {
           console.log('Transaction Approved.');
           console.log('Please Remove Card Now and Lift Nozzle');
-    +     actualAmount = 23.98;
+    +     purchaseAmount = 23.98;
       } else {
           console.log('Transaction Declined.');
           console.log('Please Remove Your Card');
-    +     actualAmount = 0;
+    +     purchaseAmount = 0;
       }
       
-    + bankBalance = bankBalance - actualAmount;
+    + bankBalance = bankBalance - purchaseAmount;
     + console.log(`Your new balance is: ${bankBalance}`);
     ```
 
