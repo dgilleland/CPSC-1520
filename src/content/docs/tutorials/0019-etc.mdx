@@ -33,7 +33,7 @@ There are two keywords in this grammar.
 
 Besides the keywords, we have these *placeholder* parts of the grammar.
 
-- The ***`conditionalExpression`*** is simply any *expression* [TODO: link to Statements and Expressions] that can produce a `true` or `false` value.
+- The ***`conditionalExpression`*** is simply any [*expression*](/CPSC-1520/reference/0020/#expressions) that can produce a `true` or `false` value.
   - *By the way, the words `true` and `false` are JavaScript keywords.*
 - A ***`statementOrStatementBlock`*** is either a **single** statement or a **single** statement ***block*** (a block is zero or more statements inside curly braces - `{ }`).
   - A single statement can be on its own line.
@@ -55,7 +55,7 @@ It's important to remember that this **if-else** structure provides **alternate 
 
 ### Part 1 - Your First If/Else
 
-Let's explore the If/Else statement with a few examples. I recommend running these in debug mode [TODO: Link to debug mode for `node --watch`].
+Let's explore the If/Else statement with a simple example.
 
 <Steps>
 1. To begin, create a file called `grok-decisions.js`. Then run it in the terminal with `node --watch grok-decisions.js`.
@@ -109,31 +109,15 @@ Let's explore the If/Else statement with a few examples. I recommend running the
     </Aside>
 </Steps>
 
-With this simple example, a whole world of possibilities begins to open up for us as programmers. You will use [Flow-Control] statements just like these throughout your career.
+With this simple example, a whole world of possibilities begins to open up for us as programmers. But to really grasp the possibilities, we need to add more decisions and explore more conditioal expressions.
 
-### Conditional Expressions
+<Aside title="Conditional Expressions" type="tip">
+[Conditional expressions](/CPSC-1520/reference/0020/#conditional-expressions) are ones that are ultimately evaluated as being equivalent to `true` or `false`. In flow-control statements, they often include the use of relational operators and/or boolean operators. That's because we often want to base our decision on some *comparison* between  pieces of information. But how do we compare things? Through the use of some important ***operators***.
+</Aside>
 
-Conditional expressions are ones that are ultimately evaluated as being equivalent to `true` or `false`. In flow-control statements, they often include the use of relational operators and/or boolean operators. That's because we often want to base our decision on some *comparison* between  pieces of information. But how do we compare things? Through the use of some important ***operators***.
+### Part 2 - Adding More Logic
 
-{/* 
-We begin with a listing of the Relational Operators. */}
-
-### Relational Operators
-
-JavaScript has the following relational operators. These are all binary operators, meaning that there must be some identifier or expression on both sides of the operator
-
-- `==` - "Is equal to"
-- `===` - Strict equality
-- `!=` - "Not equal to"
-- `!==` - Strict inequality
-- `>`- Greater Than
-- `>=` - Greater Than or Equal To
-- `<`- Less Than
-- `<=` - Less Than or Equal To
-
-## Part 2 - Relative Expressions
-
-So far, we've built an If statement by comparing two values using the *greater-than* - `>` - operator. Let's play with a few more if statements.
+So far, we've created two alternate paths of logic by adding a single `if` statement. Let's see what else we can compare, and what that might mean for the total number of logical paths available to our program.
 
 
 <Steps>
@@ -143,42 +127,259 @@ So far, we've built an If statement by comparing two values using the *greater-t
       let bankBalance = 78.23;
     - let preAuthorizationAmount = 100.00;
     + let preAuthorizationAmount = 50.00;
-    + let purchaseAmount;
+    + let actualFuelCost;
       
       if(bankBalance > preAuthorizationAmount) {
           console.log('Transaction Approved.');
           console.log('Please Remove Card Now and Lift Nozzle');
-    +     purchaseAmount = 23.98;
+    +     actualFuelCost = 23.98;
       } else {
           console.log('Transaction Declined.');
           console.log('Please Remove Your Card');
-    +     purchaseAmount = 0;
+    +     actualFuelCost = 0;
       }
+
+    + console.log(`Fuel Purchase:\t$ ${actualFuelCost}`);
+    ```
+
+1. Let's enhance the self-serve gas station experience. Often, there's an option to choose a car wash. Let's weave that into our existing code.
+
+    ```diff lang="js" title="grok-decisions.js"
+      let bankBalance = 78.23;
+      let preAuthorizationAmount = 50.00;
+    + let carWashAmount = 0;
+      let actualFuelCost;
       
-    + bankBalance = bankBalance - purchaseAmount;
-    + console.log(`Your new balance is: ${bankBalance}`);
+    + let includeCarWash = true;
+      
+    + if(includeCarWash == true) {
+    +     carWashAmount = 19.99;
+    + }
+      
+      // remaining code is unchanged...
+    ```
+
+   Because we have given our `carWashAmount` an initial value of `0`, we don't have to have an `else` block on our new IF statement.
+1. Notice how the `if` uses `includeCarWash == true` as the conditional expression. Earlier, `includeCarWash` was given a value of `true`, and therefore it's data type is boolean. Since all that a conditional expression needs is a boolean result, it's redundant to use `includeCarWash == true`. Let's fix that.
+
+    ```diff lang="js" title="grok-decisions.js"
+    - if(includeCarWash == true) {
+    + if(includeCarWash) {
+    +     carWashAmount = 19.99;
+    + }
+    ```
+
+    This is much cleaner. By the way, I was careful in choosing the name `includeCarWash` for our variable, because it reads smoothly for us as humans:
+    
+    > "If we include the car wash...."
+
+1. We'll fill out the rest of this with a receipt of all the charges. We'll also reset the car wash amount if the pre-authorization fails.
+
+    ```diff lang="js" title="grok-decisions.js"
+      if(bankBalance > preAuthorizationAmount) {
+          console.log('Transaction Approved.');
+          console.log('Please Remove Card Now and Lift Nozzle');
+          actualFuelCost = 23.98;
+      } else {
+          console.log('Transaction Declined.');
+          console.log('Please Remove Your Card');
+          actualFuelCost = 0;
+    +     carWashAmount = 0;
+      }
+
+    + // We'll be using these more in some later examples
+    + let total;
+    + let message;
+      
+    + total = carWashAmount + actualFuelCost;
+    + message = `
+    + Fuel Purchase:\t$ ${actualFuelCost}
+    + Car Wash:    +\t$ ${carWashAmount}
+    + Total:       =\t$ ${total}
+    + `;
+    - console.log(`Fuel Purchase:\t$ ${actualFuelCost}`);
+    + console.log(message);
+
+    + bankBalance = bankBalance - total;
+    + console.log(`Your new balance is: $ ${bankBalance}`);
+    ```
+
+1. ⚗️ Try some experimentation. Try editing the values for `includeCarWash` and `preAuthorizationAmount` in various combinations. Because we have two decision statements stacked on top of each other, how many alternating paths of logic are present in the code?
+</Steps>
+
+
+### Part 3 - Relative Expressions
+
+Let's throw in some assorted combinations of the other relational operators with a few more if/else statements.
+
+<Aside title="Exploring Equality" type="tip">
+JavaScript (like many programming languages) has several [relational operators](/CPSC-1520/reference/0020/#relational-operators) (eight in total). When it comes to comparing two items for equality, however, JavaScript offers some interesting variations on the concept.
+
+- `==` - General equality
+- `===` - Strict equality
+- `!=` - General inequality
+- `!==` - Strict inequality
+</Aside>
+
+<Steps>
+1. You can think of `==` as being a "general equality" operator, while `===` is a "strict equality" operator. Strict equality requires the *data types* to also match.
+
+    ```js title="grok-decisions.js"
+    // Can we compare strings and numbers?
+    const five = 5;
+    const digit = '5';
+
+    if(digit == five) {
+      message = `Looks like '${digit}' and ${five} are the same.`
+      console.log(message);
+    } else {
+      console.log('No, we treat them differently.');
+    }
+
+    if(digit === five) {
+      console.log('Yup, still the same');
+    } else {
+      message = `Strictly speaking, '${digit}' (a ${typeof digit}) is not the same as ${five} (which is a ${typeof five})`;
+      console.log(message);
+    }
+    ```
+
+1. The opposite of `==` is `!=`. Likewise, the opposite of `===` is `!==`.
+
+    ```js title="grok-decisions.js"
+    const seven = 7;
+    if(seven != five) {
+      console.log('Of course 7 is not equal to 5');
+    }
+    if(seven !== seven.toString()) {
+      console.log('Strict equality requires the same value AND data type!');
+    }
+    ```
+
+1. We've seen the `>` operator. Our remaining operators are `>=`, `<` and `<=`. Have you thought about what the opposite of `>` is? Examine the following experiment to see if you can figure it out.
+
+    ```js title="grok-decisions.js"
+    if(seven >= 7) {
+        console.log('\nCan you tell me which operator gives the opposite of >=?');
+    }
+
+    if(seven <= 7) {
+        console.log('Can you tell me which operator gives the opposite of <=?\n');
+    }
+    ```
+
+1. There's another little experiment that you can try. See if your ideas around "opposite" relational operators still holds.
+
+    ```js title="grok-decisions.js"
+    let number = 0; // Try different numbers...
+
+    console.log('           0')
+    console.log('<---|---|---|---|---|--->');
+    console.log('     The Number Line');
+
+    if(number < 0) {
+        console.log('Less than 0 |');
+    }
+    if(number > 0) {
+        console.log('           | Greater than 0');
+    }
+    if(number === 0) {
+        console.log('    Exactly | Zero!')
+    }
+    console.log(`The number is: ${number}`);
+    ```
+
+    ⚗️ Do a little more experimentation. Try different values for `number` and observe the results.
+</Steps>
+
+### Part 4 - Logical Decisions
+
+Relational operations are only the beginning. JavaScript also has a few [Logical Operators](https://dgilleland.github.io/CPSC-1520/reference/0020/#boolean-operators) to help us compare boolean values.
+
+<Steps>
+1. We've seen the use of a single boolean inside a conditional expression. But what if we had two boolean values. Consider these variables.
+
+    ```js title="grok-decisions.js"
+    // Use these to hold true/false values
+    let torpedoLoaded, targetSelected;
+
+    // ⚗️ How many combinations of true/false can you do with two boolean variables?
+    torpedoLoaded = true;
+    targetSelected = true;
+    ```
+
+1. Let's add in some comparisons to explore the logical operators.
+
+    ```js title="grok-decisions.js"
+    // Logical OR operator
+    if(torpedoLoaded || targetSelected) {
+      // Logical NOT operator
+      if(!torpedoLoaded) {
+          console.log('... loading the torpedo ...');
+      }
+      if(!targetSelected) {
+          console.log('... aquiring target ...');
+      }
+    }
+
+    // Logical AND operator
+    if(torpedoLoaded && targetSelected) {
+        console.log('Ready to fire torpedo.');
+    }
+    ```
+
+1. ⚗️ Play with the code by trying different `true`/`false` combinations for the two variables. What do you observe?
+</Steps>
+
+### Part 5 - Complex Descisions
+
+We can combine arithmetic, relational and boolean operations to handle complex conditional expressions. When we do that, the natural order of those operations follows this precidence.
+
+1. [Arithmetic operations](/CPSC-1520/reference/0020/#arithmetic-operators) are executed to produce some value.
+2. [Relational operations](/CPSC-1520/reference/0020/#relational-operators) are performed next to compare values and produce some *boolean* value.
+3. [Logical operations](/CPSC-1520/reference/0020/#boolean-operators) are evaluated to produce a `true`/`false` result.
+
+### Part 6 - Truthy/Falsy Conditions
+
+
+### Part 7 - Using Function Calls in Decisions
+
+
+### Exercise
+
+Experiment with additional changes to this tutorial. For example, what would happen if you included a 5% sales tax on the price of the car wash (calculated after price is assigned to the variable)? 
+
+
+{/* 
+1. Fuel prices usually include tax in the final price, but services like a car wash will not. Let's do some more edits to our program.
+
+    ```diff lang="js" title="grok-decisions.js"
+    + const GST = 0.05;
+    + let tax = 0;
+      let total;
+      let message;
+      
+      let includeCarWash = true;
+      
+      if(includeCarWash == true) {
+          purchaseAmount = 19.99;
+    +     tax = purchaseAmount * GST;
+      }
     ```
 
 
-1. Add the following to your.
+    ```diff lang="js" title="grok-decisions.js"
+      total = purchaseAmount + tax;
+      message = `
+      Fuel Purchase:\t$ ${23.98}
+      Car Wash:    +\t$ ${purchaseAmount}
+    + Sales Tax:   +\t$ ${tax}
+    + Total:       =\t$ ${total}
+      `;
+      console.log(message);
+    ```
 
-</Steps>
-
-## Part 3 - Logical Decisions
-
-
-
-## Part 4 - Complex Descisions
-
-We can combine arithmetic, relational and boolean operations in a conditional expressions. When we do that, the natural order of those operations follows this precidence.
-
-1. Arithmetic operations are executed to produce some value.
-2. Relational operations are performed next to compare values and produce some *boolean* value.
-3. Boolean operations/comparisons are evaluated to produce a `true`/`false` result.
-
-## Part 5 - Truthy/Falsy Conditions
-
-
+1. If you check the output, we suddenly see a problem. We've got a rounding error. */}
 
 
 ----
