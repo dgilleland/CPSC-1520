@@ -339,6 +339,51 @@ We can combine arithmetic, relational and boolean operations to handle complex c
 2. [Relational operations](/CPSC-1520/reference/0020/#relational-operators) are performed next to compare values and produce some *boolean* value.
 3. [Logical operations](/CPSC-1520/reference/0020/#boolean-operators) are evaluated to produce a `true`/`false` result.
 
+<Steps>
+1. Did you know that for most post-secondary schools in Canada, you need to be enrolled in more than three courses to be considered a full-time student?
+
+    ```js title="grok-decisions.js"
+    let courseCount = 4;
+    let isEnrolled = false, isFullTimeStudent;
+
+    if(courseCount > 0)
+      isEnrolled = true;
+
+    if(isEnrolled && courseCount >= 3)
+        isFullTimeStudent = true;
+    else
+        isFullTimeStudent = false;
+
+    console.log(`\n${courseCount} courses. Full time? ${isFullTimeStudent}`);
+    ```
+
+    <Aside title="Curly braces? 🤔" type="caution">
+    Wait! Aren't the curly braces missing? Yes they are, but in this case, *that's ok* because we only want to execute a *single statement*.
+
+    New programmers are often encouraged to always use statement blocks (curly braces) with flow-control statements. But technically speaking, you can write write them without the braces, but **only when you have a *single* statement** you want executed.
+    </Aside>
+
+1. Various financing options are available for students, but sometimes full-time students will find themselves eligible for special scholarships. Usually, there are some conditions that might apply...
+
+    ```js title="grok-decisions.js"
+    let netIncomeLastYear = 32_374; // $32,374
+    let currentGpa = 3.8; // 😊
+    let existingBursaries = 0; // 😢
+    let eligibleScholarship = 0;
+
+    // Are you eligible for extra funding?
+    if(isFullTimeStudent && netIncomeLastYear / 2 < $16_198 && currentGpa > 3.5)
+        eligibleScholarship = 2_500;
+    else if(isFullTimeStudent && netIncomeLastYear / 2 < $16_198 && currentGpa > 3.0)
+        eligibleScholarship = 1_500;
+    else if(existingBursaries < netIncomeLastYear / 8.2 && currentGpa > 3.7)
+        eligibleScholarship = 2_000;
+
+    console.log(`You are eligible for $ ${eligibleScholarship} in special funding.\n`);
+    ```
+</Steps>
+
+
 ### Part 6 - Truthy/Falsy Conditions
 
 
