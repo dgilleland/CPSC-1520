@@ -519,6 +519,44 @@ import codeReview from '../../../assets/undraw/undraw_code-review_jdgp.svg';
 
 Experiment with additional changes to this tutorial. For example, what would happen if you included a 5% sales tax on the price of the car wash (calculated after price is assigned to the variable)? Are there any potential "bugs" in your code? How would you find and fix those bugs?
 
+Perhaps you would like to add descriptoins of your data types as you experiment. Consider adding these functions to your script.
+
+```js title="Extra functions for grok-decisions.js"
+const describeDataType = function (value) {
+  let result;
+  if (value == undefined || value == null) {
+    result = `The value is ${value}`;
+  } else {
+    result = `The data type is ${value.constructor.name}`;
+  }
+  return result;
+};
+
+const getDataType = function (value) {
+  let result;
+  if (value == undefined || value == null) {
+    result = `${value}`; // as a string
+  } else {
+    result = value.constructor.name;
+  }
+  return result;
+};
+
+
+const ify = function (expression) {
+  let result;
+  let type = typeof expression;
+  if (type === "boolean") {
+    result = expression;
+  } else if (expression) {
+    result = `truthy`;
+  } else {
+    result = `falsy`;
+  }
+  return result;
+};
+```
+
 
 {/* 
 1. Fuel prices usually include tax in the final price, but services like a car wash will not. Let's do some more edits to our program.
