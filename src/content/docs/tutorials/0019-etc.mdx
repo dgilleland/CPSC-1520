@@ -377,9 +377,9 @@ We can combine arithmetic, relational and boolean operations to handle complex c
     let eligibleScholarship = 0;
 
     // Are you eligible for extra funding?
-    if(isFullTimeStudent && netIncomeLastYear / 2 < $16_198 && currentGpa > 3.5)
+    if(isFullTimeStudent && netIncomeLastYear / 2 < 16_198 && currentGpa >= 3.5)
         eligibleScholarship = 2_500;
-    else if(isFullTimeStudent && netIncomeLastYear / 2 < $16_198 && currentGpa > 3.0)
+    else if(isFullTimeStudent && netIncomeLastYear / 2 < 16_198 && currentGpa > 3.0)
         eligibleScholarship = 1_500;
     else if(existingBursaries < netIncomeLastYear / 8.2 && currentGpa > 3.7)
         eligibleScholarship = 2_000;
@@ -447,11 +447,71 @@ Head over to the following article to discover some of the more common logical e
 
 If you understand what [expressions](/CPSC-1520/reference/0020/#expressions) are, you might have already thought of how you might involve a function call in your conditional expression.
 
-1. 
+<Steps>
+1. Add the following functions at the end of your script file.
+
+    ```js title="grok-decisions.js"
+    // Helper functions for financial assistance
+    function calculateScholarship(isFullTime, currentGpa, income, bursaries) {
+        let eligibleAmount = 0;
+        const isLowIncome = checkIncome(income);
+        const hasLowBursaries = checkBursariesAgainstIncome(bursaries, income);
+        if(isFullTime && isLowIncome && hasSufficentGPA(currentGpa))
+            eligibleAmount = 2_500;
+        else if(isFullTime && isLowIncome && hasMinimumGPA(currentGpa))
+            eligibleAmount = 1_500;
+        else if(hasLowBursaries && hasHighGPA(currentGpa))
+            eligibleAmount = 2_000;
+        return eligibleAmount;
+    }
+
+
+    function checkIncome(netIncome) {
+        const baseLimit = 16_198;
+        // return a boolean value
+        return netIncome / 2 < baseLimit;
+    }
+    function checkBursariesAgainstIncome(bursaries, netIncome) {
+        return bursaries < netIncome / 8.2;
+    }
+    function hasMinimumGPA(gpa) {
+        return gpa > 3.0;
+    }
+    function hasSufficentGPA(gpa) {
+        return gpa >= 3.5;
+    }
+    function hasHighGPA(gpa) {
+        return gpa > 3.7;
+    }
+    ```
+
+
+1. Return to the code where you were checking for potential scholarships and make the following edits.
+
+    ```diff lang="js" title="grok-decisions.js"
+      let netIncomeLastYear = 32_374; // $32,374
+      let currentGpa = 3.8; // 😊
+      let existingBursaries = 0; // 😢
+    - let eligibleScholarship = 0;
+    + let eligibleScholarship = calculateScholarship(isFullTimeStudent, currentGpa, netIncomeLastYear, existingBursaries);
+
+    - // Are you eligible for extra funding?
+    - if(isFullTimeStudent && netIncomeLastYear / 2 < $16_198 && currentGpa >= 3.5)
+    -     eligibleScholarship = 2_500;
+    - else if(isFullTimeStudent && netIncomeLastYear / 2 < $16_198 && currentGpa > 3.0)
+    -     eligibleScholarship = 1_500;
+    - else if(existingBursaries < netIncomeLastYear / 8.2 && currentGpa > 3.7)
+    -     eligibleScholarship = 2_000;
+
+    console.log(`You are eligible for $ ${eligibleScholarship} in special funding.\n`);
+    ```
+
+1. Consider the effect of these changes. Does the use of functions make the decisions easier to read and understand?
+</Steps>
 
 ### Exercise
 
-Experiment with additional changes to this tutorial. For example, what would happen if you included a 5% sales tax on the price of the car wash (calculated after price is assigned to the variable)? 
+Experiment with additional changes to this tutorial. For example, what would happen if you included a 5% sales tax on the price of the car wash (calculated after price is assigned to the variable)? Are there any potential "bugs" in your code? How would you find and fix those bugs?
 
 
 {/* 
