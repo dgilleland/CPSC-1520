@@ -299,7 +299,7 @@ JavaScript (like many programming languages) has several [relational operators](
 
 ### Part 4 - Logical Decisions
 
-Relational operations are only the beginning. JavaScript also has a few [Logical Operators](https://dgilleland.github.io/CPSC-1520/reference/0020/#boolean-operators) to help us compare boolean values.
+Relational operations are only the beginning. JavaScript also has a few [Logical Operators](/CPSC-1520/reference/0020/#boolean-operators) to help us compare boolean values.
 
 <Steps>
 1. We've seen the use of a single boolean inside a conditional expression. But what if we had two boolean values. Consider these variables.
@@ -386,14 +386,68 @@ We can combine arithmetic, relational and boolean operations to handle complex c
 
     console.log(`You are eligible for $ ${eligibleScholarship} in special funding.\n`);
     ```
+
+1. Review the code above carefully. Can you see the order of operations? Part of the job of a developer is to think through whatever possible logic is required to produce the correct solution.
 </Steps>
 
 
 ### Part 6 - Truthy/Falsy Conditions
 
+Hopefully you're already aware that JavaScript is a *dynamically typed* language. That has a bearing on decisions because you don't need a strictly-typed `true` or `false` in a conditional expression. JavaScript supports the notion of ["truthy" and "falsy" values](/CPSC-1520/reference/0020/#truthy-and-falsy-values).
+
+
+<Steps>
+1. Remember the student funding we were exploring? We can test if any scholarships or bursaries are available. A non-zero value would be regarded as "truthy".
+
+    ```js title="grok-decisions.js"
+    if(existingBursaries) {
+      console.log(`You have been granted $ ${existingBursaries} in additional funding.`);
+    }
+
+    if(eligibleScholarship) {
+      console.log(`You are eligible for $ ${eligibleScholarship} in additional scholarships. (Application is required)`);
+    }
+    ```
+
+1. Imagine that somewhere we have gathered information about a student. (We'll just hard-code it for now.) We can simply check if that data exists before we proceed to process that information.
+
+    ```js title="grok-decisions.js"
+    let student;
+
+    // Hard-code for this demo
+    student = {
+      id: 19263874,
+      name: 'Stewart Dent'
+    }
+
+    // Sometime later in our code...
+    if(student) { // IF we have student info...
+      console.log('Your eligibility status has been forwarded to the registrar''s office');
+    } else {
+      console.log('Please log in to preserve your funding assessment.');
+    }
+    ```
+
+1. This could be a good opportunity to experiment with additional truthy/falsy decisions. What further examples can you create on your own?
+</Steps>
+
+<Card icon="random" title="When things go sideways...">
+import buggy from '../../../assets/undraw/undraw_fixing-bugs_13mt.svg';
+
+<Image src={buggy} alt="Fixing Bugs" class="float-start w-40 pr-3" />
+
+If you've made it this far, then you need to consider how we might introduce "bugs" into our code that are revealed only at run-time.
+
+Head over to the following article to discover some of the more common logical errors that can creep into our code.
+
+<LinkButton href="/CPSC-1520/guides/0150/" variant="secondary">Logical Errors</LinkButton>
+</Card>
 
 ### Part 7 - Using Function Calls in Decisions
 
+If you understand what [expressions](/CPSC-1520/reference/0020/#expressions) are, you might have already thought of how you might involve a function call in your conditional expression.
+
+1. 
 
 ### Exercise
 
