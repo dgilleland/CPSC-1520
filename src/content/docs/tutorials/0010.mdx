@@ -186,10 +186,31 @@ The GitHub CLI is a tool that brings some GitHub-specific goodness to working wi
 1. If Visual Studio Code is open, close it and restart (for pretty much the same reasons mentioned for the Windows terminal when we installed git).
 1. Press <kbd>Ctrl</kbd> + <kbd>`</kbd> (the backtick key near the top left of your keyboard). This key combination is used to open and close (*toggle*) the terminal window in VS Code.
 1. Type `gh --version` to ensure that the GitHub CLI is installed and available.
-1. Ensure that you are logged into GitHub.com in your default browser. Then, in the terminal, type `gh auth login` to authenticate the GitHub CLI.
+1. Ensure that you are logged into GitHub.com in your default browser. Then, in the terminal, type `gh auth login` to authenticate the GitHub CLI. Authentication is a one-time step.
    1. Follow the prompts to authenticate.
    1. You can use the `gh auth status` command to view your authentication status when you are done following the prompts.
 </Steps>
+
+import ghAuth from './0010/github.com_login_device_skip_account_picker=true.png';
+
+<Image src={ghAuth} alt="Sample Browser Verification" class="w-40 ml-4 float-end" />
+
+The prompts and appropriate responses when running `gh auth login` will look something like the following:
+
+```ps
+gh auth login
+? Where do you use GitHub? GitHub.com
+? What is your preferred protocol for Git operations on this host? HTTPS
+? Authenticate Git with your GitHub credentials? Yes
+? How would you like to authenticate GitHub CLI? Login with a web browser
+
+! First copy your one-time code: BFAB-E2D0
+Press Enter to open https://github.com/login/device in your browser...
+✓ Authentication complete.
+- gh config set -h github.com git_protocol https
+✓ Configured git protocol
+✓ Logged in as stew-dent
+```
 
 ### VS Code and GitHub Authorization
 
