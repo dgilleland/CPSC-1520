@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -26,12 +27,13 @@ jobs:
       - name: Download artifact produced by the triggering CI run
         uses: dawidd6/action-download-artifact@v19
         with:
+          github_token: ${{ github.token }}
           run_id: ${{ github.event.workflow_run.id }}
           name: dist              # must match the artifact name uploaded by ci.yml
           path: ./dist
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
 
