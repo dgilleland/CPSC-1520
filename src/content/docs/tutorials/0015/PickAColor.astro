@@ -7,7 +7,15 @@
 </blockquote>
 
 <script>
-    document.getElementById('imagine-a-color')?.addEventListener('change', (evt) => {
-        document.getElementById('color-choice').innerText = ` You picked ${evt.target.value}`;
-    })
+    const colorInput = document.getElementById('imagine-a-color');
+    const colorChoice = document.getElementById('color-choice');
+
+    if (colorInput instanceof HTMLInputElement && colorChoice instanceof HTMLOutputElement) {
+        colorInput.addEventListener('change', (evt) => {
+            const target = evt.currentTarget;
+            if (target instanceof HTMLInputElement) {
+                colorChoice.innerText = ` You picked ${target.value}`;
+            }
+        });
+    }
 </script>
