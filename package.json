@@ -20,19 +20,19 @@
     "test:vb": "vitest --reporter=verbose"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.37.1",
-    "@astrojs/starlight-tailwind": "^4.0.2",
-    "@astrojs/svelte": "^7.2.4",
-    "@tailwindcss/vite": "^4.1.18",
-    "@vscode/codicons": "^0.0.44",
-    "astro": "^5.16.6",
+    "@astrojs/starlight": "^0.38.2",
+    "@astrojs/starlight-tailwind": "^5.0.0",
+    "@astrojs/svelte": "^8.0.4",
+    "@tailwindcss/vite": "^4.2.2",
+    "@vscode/codicons": "^0.0.45",
+    "astro": "^6.1.1",
     "sharp": "^0.34.5",
-    "svelte": "^5.46.1",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3"
+    "svelte": "^5.55.1",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^6.0.2"
   },
   "devDependencies": {
-    "msw": "^2.12.7",
-    "vitest": "^4.0.16"
+    "msw": "^2.12.14",
+    "vitest": "^4.1.2"
   }
 }
