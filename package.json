@@ -16,6 +16,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
     "test": "vitest",
     "test:vb": "vitest --reporter=verbose"
   },
@@ -23,6 +24,7 @@
     "@vscode/codicons": "^0.0.45"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.8",
     "@astrojs/starlight": "^0.38.2",
     "@astrojs/starlight-tailwind": "^5.0.0",
     "@astrojs/svelte": "^8.0.4",
@@ -32,7 +34,7 @@
     "sharp": "^0.34.5",
     "svelte": "^5.55.1",
     "tailwindcss": "^4.2.2",
-    "typescript": "^6.0.2",
+    "typescript": "^5.9.3",
     "vitest": "^4.1.2"
   }
 }
