@@ -8,6 +8,8 @@
 
 Built on **Astro v5**.
 
+> Note: This project is currently deployed as a static GitHub Pages site, so these packages are intentionally kept in `devDependencies`: `@astrojs/starlight`, `@astrojs/starlight-tailwind`, `@astrojs/svelte`, `@tailwindcss/vite`, `astro`, `sharp`, `svelte`, `tailwindcss`, and `typescript`. If this project later moves to an SSR-capable host, revisit that dependency split and confirm which of these need to move back into `dependencies`.
+
 ## Starlight Starter Kit: Basics
 
 [![Built with Starlight](https://astro.badg.es/v2/built-with-starlight/tiny.svg)](https://starlight.astro.build)
