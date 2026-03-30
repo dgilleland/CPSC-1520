@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact produced by the triggering CI run
-        uses: dawidd6/action-download-artifact@v3
+        uses: dawidd6/action-download-artifact@v19
         with:
           run_id: ${{ github.event.workflow_run.id }}
           name: dist              # must match the artifact name uploaded by ci.yml
@@ -41,11 +41,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       # Build & upload using the Astro official action (handles install + build)
       - name: Install, build, and upload your site
-        uses: withastro/action@v3
+        uses: withastro/action@v6
         # with:
         #   node-version: 20
         #   package-manager: pnpm@9
