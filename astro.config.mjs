@@ -1,6 +1,8 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -17,8 +19,9 @@ export default defineConfig({
             baseUrl: 'https://github.com/dgilleland/CPSC-1520/edit/main/',
             },
             customCss: [
-            // Path to your Tailwind base styles:
-            './src/tailwind.css',
+                // Path to your Tailwind base styles:
+                './src/tailwind.css',
+                'katex/dist/katex.min.css',
             ],
             social: [
                 { icon: 'github', label: 'GitHub', href: 'https://github.com/dgilleland/CPSC-1520' }
@@ -71,6 +74,10 @@ export default defineConfig({
 		}),
         svelte()
     ],
+    markdown: {
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+    },
     vite: { 
         build: { sourcemap: true },
         plugins: [tailwindcss()]

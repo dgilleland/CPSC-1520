@@ -254,50 +254,9 @@ if (count > 0) {
 
 The idea of a **loop** is to execute one or more lines of code more than once. Whereas a *conditional* statement allows for *alternate paths of logic*, loops allows for ***Repetition*** of logic. Like the `if...else` examples above, the thing that controls the repetition is some *conditional expression* or *decision*.
 
-#### While Statements
+import LoopStatements from './0025/LoopStatements.mdx';
 
-There are many looping statements in JavaScript. The oldest, and most general-purpose, is the `while` statement. As a simplistic example, consider the following code. It outputs the numbers 1 through 10 to the console.
-
-```js title="while Statement"
-let count = 1;
-while (count <= 10) {
-  console.log(`Item ${count}`);
-  count = count + 1;
-}
-```
-
-The conditional expression - `(count <= 10)` - controls the repetition of the code inside the curly braces. As long as that expression results in a true or *truthy* value, the code will repeat. Also note that the value of `count` is modified inside the curly braces. Each time through the loop, its value increases by one, until it ultimately holds the value `11`. At that point, the conditional expression results in a `false`, causing the loop to exit.
-
-#### For Statements
-
-Another popular looping statement is the `for` statement. Look again at the code for the `while` statement. Notice how there are three instructions that control the repetition:
-
-- `let count = 1` - Creates the variable and gives it an *initial value*
-- `count <= 10` - The conditional expression controlling entry to the code in the curly braces
-- `count = count + 1` - Changes the value of the variable tested in the conditional expression
-
-```js title="while Statement" "let count = 1" "count <= 10" "count = count + 1"
-let count = 1;
-while (count <= 10) {
-  console.log(`Item ${count}`);
-  count = count + 1;
-}
-```
-
-The `for` statement brings all three of these instructions into one place, making it easier to see what affects execution of the code in the curly braces.
-
-```js title="for Statement" "let count = 1" "count <= 10" "count = count + 1"
-// An alternative to our while statement
-for (let count = 1; count <= 10; count = count + 1) {
-  console.log(`Item ${count}`);
-}
-```
-
-Looping structures are a powerful way to control the *flow of execution* of our code. These, along with conditional statements, are great candidates for use inside of functions.
-
-<Aside>
-  For more on the various looping statements in JavaScript, see the [Simplified JavaScript Grammar](/CPSC-1520/reference/0020/).
-</Aside>
+<LoopStatements />
 
 ----
 

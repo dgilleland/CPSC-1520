@@ -436,7 +436,7 @@ import buggy from '../../../assets/undraw/undraw_fixing-bugs_13mt.svg';
 
 <Image src={buggy} alt="Fixing Bugs" class="float-start w-40 pr-3" />
 
-If you've made it this far, then you need to consider how we might introduce "bugs" into our code that are revealed only at run-time.
+If you've made it this far, then you need to consider how we might accidentally introduce "bugs" into our code that are revealed only at run-time. These are called *Logical Errors*. Conditional expressions are a common place where these errors occur.
 
 Head over to the following article to discover some of the more common logical errors that can creep into our code.
 
@@ -595,6 +595,233 @@ const ify = function (expression) {
 
 ## `handling-repetition.js`
 
+Up to this point, we've relied on *Simple Sequence* and *Conditionals* (if-else) as the primary means of **flow control**. Those can take us a long way towards writing sophisticated code to handle complex problems, but they miss a whole other characteristic of code execution critical to most software needs: **Handling Repetition**.
+
+<Aside>
+**Flow Control** is all about choosing what parts of our code will (and will not) execute. It's fundamental to all computer programs, and there are fundamentally three ways in which we control how our code will run:
+
+1. Using **Simple Sequence** where one statement occurs after the other (the default way programs run).
+1. Providing **Conditional Statements** where we provide *alternate paths of logic* that are mutually exclusive (as seen in our exploration of if-else statements).
+1. Handling **Repetition** where we allow portions of our code to execute more than once (commonly referred to as *looping*).
+</Aside>
+
+The idea of doing certain steps over and over is a pretty simple one. A common place where we see this is in the area of mathematics.
+
+Remember the idea of factorials? A factorial is where we follow a pattern of multiplying a number by all the numbers that come before it. For example, the factorial of five is
+
+$$
+5! = 5 \times 4 \times 3 \times 2 \times 1 = 120
+$$
+
+This is an ideal example of a problem that requires repetition to produce the solution (particularly if we want to calculate the factorial of any number, not just 5).
+
+Before we jumpt into the code, let's take a quick look at the different ways we are able to handle repetition in JavaScript.
+
+### Types of Loops
+
+Just as with if-else statements, the various types of loops in JavaScript make use of [conditional expressions](/CPSC-1520/reference/0020/#conditional-expressions) to control the flow of execution. There difference, however, is that the alternate paths of logic for the if-else would only run once, while the alternate paths of logic for the loops can run multiple times (based on the truthiness of the conditional expression).
+
+Let's look at a couple of the JavaScript statements where we can perform looping.
+
+import LoopStatements from '../explanations/0025/LoopStatements.mdx';
+
+<LoopStatements />
+
+Let's explore the logic of looping by solving several types of mathematical problems.
+
+### Part 1 - Factorials
+
+In our first example, we'll use the `while` loop to calculate the factorial of a number. The `while` loop is ideal for this problem because we might not know how many times we need to repeat the steps until we reach the number that we're calculating the factorial for.
+
+<Steps>
+1. Create a file called `handling-repetition.js` and run it with `node --watch handling-repetition.js`.
+
+    ```js title="handling-repetition.js"
+    // Calculating Factorials
+    let number = 5; // Some number that we will use for factorials
+    ```
+
+1. Let's think about the logic that we use in performing our calculations. Specifically, we need to think about *which steps are the repeating steps* in the calculation. As we can see, it is the multiplication of the numbers and the fact that our numbers increment (or decrement) by 1 each time.
+
+    $$
+    x! = 1 \times (x + 1) \times (x + 2) \times (x + 3) \cdots 
+    $$
+
+    The steps continue until we reach the number that we want to calculate the factorial for.
+
+1. Let's think about what's controlling the loop: the number of times we need to multiply. We can use a counter for this. Then we can compare that counter to our original number to determine if we need to repeat the process.
+
+    ```diff lang="js" title="handling-repetition.js"
+      // Calculating Factorials
+      let number = 5;
+    + let count = 1;
+    + let answer = 1; // The multiplicative identity (1) is the starting point for our calculation.
+    + while(count <= number) {
+    +   answer = answer * count;
+    +   count = count + 1; // This is the same as count++
+    + }
+    + console.log(`${number}! = ${answer}`); // 5! = 120
+    ```
+</Steps>
+
+Looping is really just that simple. We have a set of steps that are controlled by some condition. What we do in those steps is up to us. We can do any kind of processing we want, and we can even have multiple loops nested inside each other to handle more complex problems.
+
+### Part 2 - Fibonacci Sequence
+
+In our next example - the Fibonacci sequence - we have a different kind of problem. We want to calculate the next number in the sequence based on the previous two numbers. This is a great example of a problem that can be solved with a loop, but it requires us to keep track of more than one value as we loop through the calculations.
+
+This time, we'll use a `for` loop to handle the repetition. The `for` loop is ideal for this problem because we know how many times we want to repeat the steps (the number of terms in the sequence that we want to calculate).
+
+<Steps>
+1. The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones. The sequence starts with 0 and 1, and then continues indefinitely.
+
+    $$
+    F(n) = F(n-1) + F(n-2)
+    $$
+
+    The first few numbers in the Fibonacci sequence are:
+
+    $$
+    0, 1, 1, 2, 3, 5, 8, 13, 21, \ldots
+    $$
+
+1. Add another loop to your `handling-repetition.js` file to calculate the Fibonacci sequence up to a certain number of terms.
+
+    ```diff lang="js" title="handling-repetition.js"
+      // ... previous code for factorials ...
+    + // Calculating Fibonacci Sequence
+    + let terms = 10; // Number of terms to calculate
+    + let a = 0, b = 1, temp;
+    +
+    + console.log(`Fibonacci Sequence up to ${terms} terms:`);
+    + for(let i = 1; i <= terms; i++) {
+    +   console.log(a);
+    +   temp = a;
+    +   a = b;
+    +   b = temp + b;
+    + }
+    ```
+
+</Steps>
+
+### Part 3 - Prime Numbers
+
+We mentioned before that we can have any types of statements in our looping logic. That includes making decisions with if-else statements. Let's see how we can use a loop to find out if a given number is prime.
+
+
+<Steps>
+1. A prime number is a natural number greater than 1 that cannot be formed by multiplying two smaller natural numbers. The first few prime numbers are:
+
+    $$
+    2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, \ldots
+    $$
+
+1.  But how do we determine if a number is prime? The clue is built into the descrption of prime numbers: A prime number is only evenly divisible by 1 and itself.
+
+
+    We can again use our counting loop to go from 2 to the number we're checking. Then, inside the loop, we can use the modulus operator (`%`) and check if the result is 0. If we ever encounter a case where the result is 0, we know the number is not prime.
+    
+1. Add another loop to your `handling-repetition.js` file to calculate prime numbers up to a certain limit.
+
+    ```diff lang="js" title="handling-repetition.js"
+      // ... previous code for factorials and Fibonacci ...
+    + // Determining Prime Numbers
+    + let someNumber = 87; // Is this prime?
+    + let isPrime = true; // Assume it's prime until we find a divisor
+    + for(let count = 2; count < someNumber; count++) {
+    +   if(someNumber % count === 0) {
+    +     isPrime = false;
+    +     break;
+    +   }
+    + }
+    + console.log(`${someNumber} is ${isPrime ? 'prime' : 'not prime'}`);
+    ```
+
+</Steps>
+
+
+### Part 4 - List of Primes
+
+We can take our investigation of prime numbers a step further by generating a list of prime numbers up to a certain limit. This will require us to use **nested loops**: an outer loop to go through the numbers we want to check, and an inner loop to check if each number is prime.
+
+<Steps>
+1. Add another loop to your `handling-repetition.js` file to generate a list of prime numbers up to a certain limit. We'll break this logic down into several steps to make it easier to follow.
+
+    ```diff lang="js" title="handling-repetition.js"
+      // ... previous code for factorials, Fibonacci, and prime checking ...
+    + // Generating a List of Prime Numbers
+    + let limit = 100; // Generate primes up to this number
+    + console.log(`Prime numbers up to ${limit}:`);
+    + 
+    + // This outer loop goes through each number from 2 to the limit
+    + for(let num = 2; num <= limit; num++) {
+    +   let isPrime = true; // Assume the number is prime until we find a divisor
+    + }
+    ```
+
+1. Inside the outer loop, we need another loop to check if the current number (`num`) is prime. This inner loop will go from 2 to `num - 1` and check if `num` is divisible by any of those numbers.
+
+    ```diff lang="js" title="handling-repetition.js"
+      // ... previous code for factorials, Fibonacci, and prime checking ...
+      // Generating a List of Prime Numbers
+      let limit = 100; // Generate primes up to this number
+      console.log(`Prime numbers up to ${limit}:`);
+      
+      // This outer loop goes through each number from 2 to the limit
+      for(let num = 2; num <= limit; num++) {
+        let isPrime = true;
+    + 
+    +   // This inner loop checks if the current number is prime
+    +   for(let count = 2; count < num; count++) {
+    +     if(num % count === 0) {
+    +       isPrime = false;
+    +       break;
+    +     }
+    +   }
+      }
+    ```
+
+1. Finally, after the inner loop, we can check if `isPrime` is still `true`. If it is, we can print the number as a prime number.
+
+    ```diff lang="js" title="handling-repetition.js"
+      // ... previous code for factorials, Fibonacci, and prime checking ...
+      // Generating a List of Prime Numbers
+      let limit = 100; // Generate primes up to this number
+      console.log(`Prime numbers up to ${limit}:`);
+      
+      // This outer loop goes through each number from 2 to the limit
+      for(let num = 2; num <= limit; num++) {
+        let isPrime = true;
+      
+        // This inner loop checks if the current number is prime
+        for(let count = 2; count < num; count++) {
+          if(num % count === 0) {
+            isPrime = false;
+            break;
+          }
+        }
+    +   if(isPrime) {
+    +     console.log('\t', num);
+    +   }
+      }
+    ```
+</Steps>
+
+
+### Practice Your Loops
+
+Our first examples of loops were pretty basic. They were designed to illustrate the concept of repetition and how we can use loops to solve problems. But there are many ways we can improve our code to make it more efficient, more readable, and more maintainable. Practice improving your loops by trying to solve the following problems:
+
+1. For the Factorial example, re-write it to use the `for` loop instead of the `while` loop. Which one do you find easier to read and understand?
+1. For the Fibonacci example, modify it to calculate the Fibonacci sequence up to a certain number (instead of a certain number of terms). This will require you to change the logic of your loop and the way you check for the stopping condition.
+1. For determining if a number is prime, how might you optimize the loop to reduce the number of iterations?
+
+    <details>
+    <summary>*Expand for a hint only after you try it yourself*</summary>
+    Your first optimization could be to only loop up to half of the number you're checking. But you can do even better than that by only looping up to the square root of the number.
+
+    Can you explain why that works? If you can, then you have a good understanding of the properties of prime numbers and how to optimize your code to check for them.
+    </details>
 
 
 ----
