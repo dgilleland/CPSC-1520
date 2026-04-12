@@ -1,0 +1,296 @@
+---
+title: About Arrays in JavaScript
+description: Arrays are everywhere in JavaScript. They are a fundamental data structure that allows us to store and manipulate collections of data. In this tutorial, we'll explore what arrays are, how to create them, and how to use them effectively in our JavaScript programs.
+sidebar:
+  label: About Arrays
+  badge: Quickstart
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+In this tutorial, we'll introduce the concept of **Arrays** in JavaScript. Once you grasp the fundamentals of Arrays, you will have a key understanding of a huge part of how JavaScript works in all sorts of areas, including Objects.
+
+<details>
+    <summary>Learning Outcome Guide</summary>
+
+    At the end of this tutorial, you should be able to:
+
+    - Compare and contrast arrays and objects in JavaScript.
+    - Create arrays using both array literals and the `Array` constructor.
+    - Access and modify array items using indexes.
+    - Understand the relationship between arrays and strings in JavaScript.
+    - Use the `.split()` method to break a string into an array of substrings.
+    - Use array methods such as `.push()` and `.join()`.
+    - Use the `Array.isArray()` function to check if a variable is an array.
+    - Predict the result of accessing an array index that is out of bounds.
+</details>
+
+We'll take our first look at JavaScript Arrays by comparing how they differ from other variables we've seen so far. 
+
+## A Recap of Variables and Data Types
+
+Recall that *variables* are used to store and handle information in our JavaScript programs. The *data type* of any JavaScript variable is determined by the *value* it holds. We've seen the built-in *primitive* data types such as strings, numbers and booleans. We've also taken a look at some complex data types, such as the [`Date` object](CPSC-1520/tutorials/0016/#date-objects) and basic [object literals](CPSC-1520/tutorials/0016/#object-literals).
+
+One of the things to notice about all the variables we've used so far is that they are all *singular* in nature. That is, they can only hold one piece of information at a time. For example, a simple string variable can only hold one string value. If we wanted to store multiple pieces of information, we would need to create multiple variables.
+
+```js title="Browser Names"
+let edgeBrowser = 'Microsoft Edge';
+let chromeBrowser = 'Google Chrome';
+let firefoxBrowser = 'Mozilla Firefox';
+```
+
+This is obviously very limiting. What if I wanted to note other browsers? There are a lot more browsers out there than the ones I've listed so far! Fortunately, JavaScript (like other programming languages) has a way to store and manipulate *collections* of data. This is where **Arrays** come in.
+
+## Array Fundamentals
+
+An array is a special type of object that allows us to store multiple values in a single variable. Here's a quick example using the earlier example of browser names.
+
+```js title="Array of Browser Names"
+let browsers = ['Microsoft Edge', 'Google Chrome', 'Mozilla Firefox'];
+```
+
+The square brackets (`[]`) are used to create an array literal. Inside the brackets, we put a comma-separated list of values that we want to store. In this case, we have three string values representing the names of different web browsers. The result is that we have a single variable called `browsers` that contains all three of those values.
+
+But how would we access individual items in the array? This is done using something called an **index**. An index is a number that represents the position of an item in the array. In JavaScript, array indexes start at 0. So, to access the first item in the `browsers` array, we would use the index `0`.
+
+```js title="Accessing Array Items"
+console.log(browsers[0]); // Output: Microsoft Edge
+console.log(browsers[1]); // Output: Google Chrome
+```
+
+Every array in JavaScript also has a property to tell us how many items are in our array. This is the `.length` property.
+
+```js title="Array Length"
+console.log(browsers.length); // Output: 3
+```
+
+What if we wanted to add another browser to our array? We can do that using the `.push()` method.
+
+```js title="Adding Items to an Array"
+browsers.push('Safari');
+console.log(browsers); // Output: ['Microsoft Edge', 'Google Chrome', 'Mozilla Firefox', 'Safari']
+```
+
+We're not limited to adding new values one-by-one. We can also add multiple values at once.
+
+```js title="Adding Multiple Items to an Array"
+browsers.push('Opera', 'Brave');
+console.log(browsers.length); // Output: 6
+```
+
+JavaScript arrays can contain any type of data, including other arrays and objects. Here are a couple of examples.
+
+```js title="Arrays with Different Data Types"
+let primeNumbers = [2, 3, 5, 7, 11];
+let people = [
+    { name: 'Alice', age: 30 },
+    { name: 'Bob', age: 25 },
+    { name: 'Charlie', age: 35 }
+];
+let mixedArray = ['Hello', 42, true, { name: 'Alice' };
+```
+
+That last one has a particular characteristic unique to JavaScript. Because JavaScript is a dynamically typed language, it allows us to mix different data types in the same array. This can be both a powerful feature and a source of bugs if we're not careful.
+
+
+Arrays open up a whole new world of possibilities for working with data. Our journey into arrays has only just begun.
+
+## Initializing Arrays
+
+There are a couple of different ways to create arrays in JavaScript. The most common way is to use the array literal syntax, which we saw earlier. However, we can also create arrays using the `Array` constructor.
+
+```js title="Creating Arrays with the Array Constructor"
+let browsers = new Array('Microsoft Edge', 'Google Chrome', 'Mozilla Firefox');
+console.log(browsers); // Output: ['Microsoft Edge', 'Google Chrome', 'Mozilla Firefox']
+```
+
+Notice how we're using the `new` keyword here. This is similar to how we create date objects using the `Date` constructor.
+
+We can put as many items as we want inside the parentheses of the `Array` constructor, and it will create an array with those items. The result is the same as using the array literal syntax. What's different about the `Array` constructor is that there's another way we can use it. We can create an array of a *specific length* without providing any initial values.
+
+```js title="Creating Arrays with a Specific Length"
+let emptyArray = new Array(5);
+console.log(emptyArray); // Output: [ <5 empty items> ]
+console.log(emptyArray.length); // Output: 5
+```
+
+When an array has an entry that is "empty" or "uninitialized", it's value is `undefined`. Think of this as being like a "unused placeholder" that we can fill in with something when we happen to need that slot.
+
+The `Array` constructor is not used as often as the array literal syntax, but it's good to know that it exists and how it works. Since the array literal syntax is more concise and easier to read, it's generally preferred by most JavaScript programmers. In fact, most of the time when we know we'll need an array variable, it's initialized as an *empty array*, as in this example.
+
+```js title="Initializing an Empty Array"
+let browsers = [];
+// Some code later on can add items as needed
+```
+
+
+## Arrays and Strings
+
+Strings have a lot in common with array. If you think about it, a string is really just an array of characters. But the relationship goes much deeper than that. It turns out that arrays and strings have certain methods to convert between the two data types. Let's take a look at some examples.
+
+<Steps>
+1. Let's begin with a simple string variable and use the `.split()` method to break it into an array.
+
+    ```js title="Arrays and Strings"
+    let language = "JavaScript";
+    let letters = language.split(''); // Creates an array of individual characters
+    console.log(letters);
+    console.log(`The letters in ${language} are ${letters}`);
+    ```
+
+    By supplying an empty string to `.split()`, we create an array of individual characters. The `.split()` method does not alter the original string; it simply produces a new array of the "parts" of the string.
+    
+    It's worth noting that whenever we put an array variable in a template string placeholder, JavaScript will call `.toString()` on that array, which is why we got the following output.
+
+    ```
+    The letters in JavaScript are J,a,v,a,S,c,r,i,p,t
+    ```
+
+1. The `.split()` method for strings will always produce an array. If we fail to say how we want the string split apart, the method will just return an array with one entry.
+
+    ```js title="Arrays and Strings"
+    console.log('Splitting the string:', languge.split());
+    ```
+
+1. Now that we have an array, let's practice changing the values at various positions in the array.
+
+    ```js title="Arrays and Strings"
+    // Here's a great language to try after you learn the basics of JavaScript
+    letters[0] = 'T';
+    letters[1] = 'y';
+    letters[2] = 'p';
+    letters[3] = 'e';
+    language = letters.join('');
+    console.log(`The letters ${letters} now spell "${language}"`);
+    ```
+
+    Notice that we're using the `.join()` function to assemble the array into a single string. We passed an empty string to the `.join()` function to say we didn't want anything put between the characters.
+
+1. What happens if we don't pass in an argument to the `.join()` function?
+
+    ```js title="Arrays and Strings"
+    console.log(`Compare .join() and .toString()`)
+    console.log(letters.join());
+    console.log(letters.toString());
+    ```
+
+    Notice how using `.join()` without an argument gives us the same result as calling `.toString()`.
+    
+1. One handy use of the `.split()` method is to break a sentence into an array of words. We can do that by passing a space character to the `.split()` method. Try this sample in your script.
+
+    ```js title="Arrays and Strings"
+    let message = "The .split() method of strings is handy";
+    let words = message.split(' '); // Creates an array of words
+    console.log(`The words in "${message}" are ${words}`);
+    console.log('Notice that the spaces are not included in the array of words.', words);
+    console.log(`The length of the message is ${message.length} characters, but it has ${words.length} words.`);
+    ```
+
+1. We mentioned it earlier, but it's worth pointing out again that arrays have a method called `.push()` that lets us add new items to the end of the array. Add the following to your script.
+
+    ```js title="Arrays and Strings"
+    words[1] = '.join()';
+    words[4] = 'arrays';
+    words.push('too!');
+
+    ```
+
+</Steps>
+
+## Arrrays and Objects
+
+JavaScript's use of Arrays is so much a core part that we see its influence on how JavaScript allows us to work with objects. Let's examine a few interesting ways these two data types correlate.
+
+<Steps>
+1. A while ago we learned that the `typeof` operator can be used to check the data type of a variable. Let's try that with both a string and an array.
+
+    ```js title="Arrays and Objects"
+    let message = 'Index accessors for Arrays and Objects';
+    console.log(`The message variable is a ${typeof message}.`);
+    let words = message.split(' ');
+    console.log(`The words variable is an ${typeof words}.`);
+    ```
+
+    Did it surprise you that the `words` variable is an `object`? That's because the `typeof` operator only checks the *fundamental* data type of a variable. JavaScript recognizes only the following fundamental data types: `string`, `number`, `boolean`, `undefined`, `null`, `symbol` and `object`. Arrays are a special *kind* of object, so they are recognized as objects by the `typeof` operator.
+1. Let's compare our results with a `Date` variable. Recall that `new Date()` will create a date object with the current date and time.
+
+    ```js title="Arrays and Objects"
+    let today = new Date();
+    console.log(`The today variable is an ${typeof today}.`);
+    ```
+
+1. You can probably guess what response we'll get if we check out the data type of an object literal. Try this example in your script.
+
+    ```js title="Arrays and Objects"
+    let student = {
+        name: 'Stewart Dent',
+        age: 25,
+        enrolled: true
+    };
+    console.log(`The student variable is an ${typeof student}.`);
+    ```
+
+1. While they are all recognized as objects in JavaScript, there's more to the story than that. In JavaScript, every object is based on some underlying "blueprint" that defines the object's structure and behavior. This blueprint is called a **constructor function**. We can peek behind the scenes of our variables to discover more about the *real* data types of our objects.
+
+    ```js title="Arrays and Objects"
+    console.log(`The constructor for message is ${message.__proto__.constructor.name}.`);
+    console.log(`The constructor for words is ${words.__proto__.constructor.name}.`);
+    console.log(`The constructor for today is ${today.__proto__.constructor.name}.`);
+    console.log(`The constructor for student is ${student.__proto__.constructor.name}.`);
+    ```
+
+1. Generally speaking, looking at the `__proto__` member our variables is not something we should regularly do. In fact, it's often a practice in JavaScript whenever any member name starts with an underscore (`_`), it's a sign that we should not be calling it directly. The `__proto__` starts and ends with *double* underscores. That's JavaScripts way of saying, "Please, just leave this alone."
+1. So, we have a question. Is there a *good* way to tell if a variable is an array? Yes, there is! And it's built into a function called `Array.isArray()`.
+
+    ```js title="Arrays and Objects"
+    console.log('Is message an array?', Array.isArray(message));    // false
+    console.log('Is words an array?', Array.isArray(words));        // true
+    console.log('Is today an array?', Array.isArray(today));        // false
+    console.log('Is student an array?', Array.isArray(student));      // false
+    ```
+
+1. Now here's the piece-de-resistance. Both arrays and objects have a special way to access their individual items. For arrays, we use the square brackets (`[]`) with an index number to access a specific item. For objects, we can use either dot notation or square brackets with the property name to access a specific property.
+
+    ```js title="Arrays and Objects"
+    console.log('An entry in the words array:', words[3]);
+    console.log('An entry in the student object:', student['age']);
+    ```
+
+    Did you catch that? We could have just written `student.age` to access the `age` property. But JavaScript allows us to also use square brackets with the property `'age'` as a string. Why is that? It's because we can create objects with member names that are not valid identifiers on their own. Take this example. 
+
+    ```js title="Arrays and Objects"
+    let weirdObject = {
+        'first name': 'Stewart',
+        'last name': 'Dent'
+    };
+    console.log('An entry in the weirdObject:', weirdObject['first name']);
+    ```
+
+    In this case, it wouldn't work to try to access the `first name` property using dot notation because JavaScript would interpret that as trying to access a property called `first` on an object called `weirdObject`, which doesn't exist. By using square brackets and treating the property name as a string, we can access it without any issues. The term for using square brackets on objects in this fashion is called **bracket notation**. It's also referred to as using an *array indexer*. The term for using dot notation is, well, **dot notation**.
+
+</Steps>
+
+
+
+## Array Indexes and Boundaries
+
+Earlier we saw that we can have undefined entries in an array. If we try to access an index that is out of bounds (i.e., an index that is greater than or equal to the length of the array), we will get `undefined` as well. Try this example in your script.
+
+```js title="Array Indexes and Boundaries"
+let browsers = ['Microsoft Edge', 'Google Chrome', 'Mozilla Firefox'];
+console.log(browsers[3]);   // Output: undefined
+console.log(browsers[-1]);  // Output: undefined
+```
+
+JavaScript is amazingly forgiving when it comes to array boundaries. If we try to access an index that is out of bounds, it simply returns `undefined` instead of throwing an error. This can be both a blessing and a curse. As a JavaScript developer, it's up to *you* to make sure you stay within the bounds of your array. And that's easy to do. Just remember these facts about arrays:
+
+- The `.length` property of an array tells you the count of elements in the array.
+- The first index of an array is always `0`.
+- The last index of an array is always `length - 1`.
+
+
+## Conclusion
+
+There's a lot more than can be said about arrays and objects. In fact, arrays and objects are so fundamental to JavaScript that they deserve their own tutorials. We'll do that later on. The next tutorial I would recommend (if you haven't seen it yet) is the one on [**Functions**](/CPSC-1520/tutorials/0017/).
+
