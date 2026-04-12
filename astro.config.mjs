@@ -16,13 +16,17 @@ export default defineConfig({
         starlight({
             title: 'CPSC-1520-DG',
             editLink: {
-            baseUrl: 'https://github.com/dgilleland/CPSC-1520/edit/main/',
+                baseUrl: 'https://github.com/dgilleland/CPSC-1520/edit/main/',
             },
+            lastUpdated: true,
             customCss: [
                 // Path to your Tailwind base styles:
                 './src/tailwind.css',
                 'katex/dist/katex.min.css',
             ],
+            components: {
+                Footer: './src/components/override/Footer.astro',
+            },
             social: [
                 { icon: 'github', label: 'GitHub', href: 'https://github.com/dgilleland/CPSC-1520' }
             ],
