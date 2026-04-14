@@ -327,6 +327,14 @@ In these steps, we'll explore what happens when we're not paying attention to ou
     console.log('The price is:', parseFloat('$ 4.97'));
     ```
 
+    <Aside type="caution" title="Just because you can doesn't mean you should...">
+      The `parseFloat()` and `parseInt()` functions are pretty forgiving when it comes to converting strings to numbers. As seen above, we *can* convert a string like `'3.14 is PI'` to the number `3.14`. But just because we *can* do that doesn't mean we *should* do that.
+
+      If you are planning on extracting a number from a string that contains non-numeric characters, you're should be very careful about your expectations. If you're just at the start of learning JavScript, it's best to avoid this kind of thing until you have a better understanding of how these functions work and the potential pitfalls.
+
+      But there is one takeaway that you should remember: Always be mindful of the data types you're working with and how functions handle them.
+    </Aside>
+
 1. So, the solution is to pay attention to the **data types** of the values you are working with.
 
     ```js title="basic-math.js"
