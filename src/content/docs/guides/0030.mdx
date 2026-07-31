@@ -135,11 +135,12 @@ html body {
 }
 ```
 
-We use a selector string in JavaScript when calling `.querySelector()` and `.querySelectorAll()`. Selector strings build on three basic kinds of names.
+We use a selector string in JavaScript when calling `.querySelector()` and `.querySelectorAll()`. Selector strings build on four basic kinds of names.
 
 - ***Type* selectors** identify a DOM element by its *tag name*, such as `<h2>`. These selectors use the name of the tag (without the `<` and `>` symbols).
 - ***Class* selectors** identify a DOM element by the name used in the `class` or `className` attribute of the tag. Class selectors are prefixed with a period (`.`) before the name, such as `.active`.
 - ***ID* selectors** identify a DOM element by the name used in the `id` attribute of the tag. ID Selectors are prefixed with a hashtag symbol (`#`) before the name, such as `#intro`.
+- ***Attribute* selectors** identify a DOM element by an attribute on the element, such as the `id` attribute. These selectors wrap the attribute with square brackets.
 
 We can expand on these type names with certain patterns to identify complex paths through the DOM. Here are some examples.
 
@@ -147,7 +148,15 @@ We can expand on these type names with certain patterns to identify complex path
 - `header #tag-line` - Look for an `id='tag-line'` attribute on any element within the `<header>` tag.
 - `nav li:nth-last-child` - Look for last `<li>` tag within a `<nav>` tag.
 - `header > nav li.active` - Look for an `<li>` tag with the class `.active` anywhere under the `<nav>` tag; the `<nav>` tag must be an immediate child (`>`) of the `<header>` tag.
+- `[id]` - Look for a tag with an `id` attribute.
+- `[name$=info]` - Loof for a tag with an `id` attribute whose value ends with `info`. Quoting the value is optional (e.g.: `[alt=About]` is the same as `[alt="about"]`).
 
+Certain wildcard symbols &mdash; `^`, `$`, `*` &mdash; can be used when matching attribute values.
+
+| Match Type | Symbol | CSS Selector Syntax | Meaning |
+| Starts With | `^` | `[attr^="value"] | Attribute value begins with "value" |
+| Starts With | `$` | `[attr$="value"] | Attribute value ends with "value" |
+| Starts With | `*` | `[attr*="value"] | Attribute value contains "value" anywhere |
 
 
 ### `.querySelector()`
