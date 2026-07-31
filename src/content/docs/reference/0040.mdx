@@ -1,0 +1,33 @@
+---
+title: JavaScript Runtime Environments
+description: Quick introduction to the two most common environments where JavaScript runs - the web browser and Node.
+sidebar:
+  label: JavaScript Runtime Environments
+  hidden: true
+draft: true
+---
+
+import { Aside, Badge, Card, CardGrid, Code, FileTree, Icon, LinkButton, LinkCard, Steps, TabItem, Tabs } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+
+There are two common environments where JavaScript runs - the web browser and Node. Each of these environments has its own set of features and capabilities, and they are used for different purposes.
+
+## JavaScript in the Web Browser
+
+Open your browser to any given web page and you are ready to start exploring JavaScript. Modern browsers have a tool that allows you to see what's happening "behind the scenes" of a web page. This tool is called the **Dev Tools**, and it happens to have something called a "console" where you can print out messages and see the results of your JavaScript code. This is a great way to get started with JavaScript, and it's also a powerful tool for debugging your code as you develop it.
+
+Depending on the browser you prefer to use, the Dev Tools may look a little different, but they all have the same basic features. You can open the Dev Tools by right-clicking on a web page and selecting "Inspect" or "Inspect Element" from the context menu. This will open the Dev Tools in a separate window or panel. From there, you can select the "Console" tab to start exploring JavaScript.
+
+import chrome from './0040/dev-tools-chrome.png';
+import edge from './0040/dev-tools-edge.png';
+import firefox from './0040/dev-tools-firefox.png';
+
+
+| Chrome Dev Tools | Edge Dev Tools | Firefox Dev Tools |
+| --- | --- | --- |
+| <Image src={chrome} alt="Chrome Dev Tools" /> | <Image src={edge} alt="Edge Dev Tools" /> | <Image src={firefox} alt="Firefox Dev Tools" /> |
+
+## JavaScript in Node
+
+Node is a runtime environment that allows you to run JavaScript code outside of a web browser. This is useful for a variety of reasons, including the ability to create server-side applications, command-line tools, and even desktop applications. Node has its own set of features and capabilities that are different from those of the web browser. Out-of-the-box, Node lacks one thing that the browser has: the Document Object Model (DOM).
+
