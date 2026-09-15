@@ -598,11 +598,13 @@ const ify = function (expression) {
 Up to this point, we've relied on *Simple Sequence* and *Conditionals* (if-else) as the primary means of **flow control**. Those can take us a long way towards writing sophisticated code to handle complex problems, but they miss a whole other characteristic of code execution critical to most software needs: **Handling Repetition**.
 
 <Aside>
-**Flow Control** is all about choosing what parts of our code will (and will not) execute. It's fundamental to all computer programs, and there are fundamentally three ways in which we control how our code will run:
+**Flow Control** is all about choosing what parts of our code will (and will not) execute. It's fundamental to all computer programs, and there are essentially three ways in which we control how our code will run:
 
 1. Using **Simple Sequence** where one statement occurs after the other (the default way programs run).
 1. Providing **Conditional Statements** where we provide *alternate paths of logic* that are mutually exclusive (as seen in our exploration of if-else statements).
 1. Handling **Repetition** where we allow portions of our code to execute more than once (commonly referred to as *looping*).
+
+Code execution for *simple sequence* and *conditional statements* both flow in the same direction - from top to bottom. But when we introduce *repetition*, we have the ability to jump back up to a previous point in our code and execute that portion again. This is a powerful tool for developers, and it is used in almost every software application in some way.
 </Aside>
 
 The idea of doing certain steps over and over is a pretty simple one. A common place where we see this is in the area of mathematics.
@@ -665,6 +667,13 @@ In our first example, we'll use the `while` loop to calculate the factorial of a
 </Steps>
 
 Looping is really just that simple. We have a set of steps that are controlled by some condition. What we do in those steps is up to us. We can do any kind of processing we want, and we can even have multiple loops nested inside each other to handle more complex problems.
+
+<Aside title="Stepping Through The Code" type="tip">
+When you're working with loops, it's often helpful to use the debugger to step through the code and see how the loop is working. This can help you understand how the loop is controlling the flow of execution and how the variables are changing with each iteration.
+
+Let's re-launch our `handling-repetition.js` file with the debugger. Put a breakpoint on the `while` statement and step through the code to see how the loop is working. Pay particular attention to the values of `count` and `answer` as you step through each iteration of the loop.
+</Aside>
+
 
 ### Part 2 - Fibonacci Sequence
 
@@ -826,7 +835,14 @@ Our first examples of loops were pretty basic. They were designed to illustrate 
 
 ----
 
-## `indexes-and-arrays.js`
+## Expanding on Arrays - `indexes-and-arrays.js`
+
+Looping through arrays
+
+```js title=""
+
+```
+
 
 ----
 
